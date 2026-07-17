@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publications — Mind Guild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fdf6ef; font-family: 'Libre Franklin', sans-serif; color: #2a211c; }
+  a { color: #c2532f; text-decoration: none; }
+  a:hover { color: #a5401f; }
+</style>
+</head>
+<body>
+<div style="min-height:100vh; display:flex; flex-direction:column;">
+  <!-- top nav (matches home 4a) -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 8vw; border-bottom:1px solid #f0e2d4; position:sticky; top:0; background:rgba(253,246,239,.9); backdrop-filter:blur(8px); z-index:5;">
+    <a href="index.html" style="display:flex; align-items:center; gap:11px; color:#2a211c;">
+      <div style="width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#f6a24a,#e8663f 55%,#d94f6c);"></div>
+      <span style="font-weight:800; font-size:18px; letter-spacing:-.01em;">Mind Guild</span>
+    </a>
+    <div style="display:flex; gap:28px; font-size:13px; font-weight:500; color:#6a5f57; font-family:'IBM Plex Mono',monospace;">
+      <a href="index.html" style="color:#6a5f57;">Home</a>
+      <span style="color:#2a211c; border-bottom:2px solid #e0603f; padding-bottom:2px;">Publications</span>
+    </div>
+  </div>
+
+  <!-- header / banner -->
+  <div style="padding:72px 8vw 44px; background:radial-gradient(120% 90% at 50% -20%, rgba(246,162,74,.2), transparent 60%); border-bottom:1px solid #f0e2d4;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:#d15a33; margin-bottom:16px;">Mind Guild · Research output</div>
+    <h1 style="margin:0 0 18px; font-weight:800; font-size:48px; line-height:1.1; letter-spacing:-.03em;">Publications</h1>
+    <p style="margin:0; font-size:18px; line-height:1.65; color:#6a5f57; max-width:680px;">Peer-reviewed papers, preprints, and technical reports from our work turning theories of mind into buildable, falsifiable architectures.</p>
+    <!-- quick-nav filters -->
+    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; font-family:'IBM Plex Mono',monospace; font-size:12px;">
+      <a href="#all" style="padding:8px 16px; border-radius:100px; background:#2a211c; color:#fdf3e9;">All</a>
+      <a href="#y2026" style="padding:8px 16px; border-radius:100px; border:1px solid #e6c9ad; color:#6a5f57;">2026</a>
+      <a href="#y2021" style="padding:8px 16px; border-radius:100px; border:1px solid #e6c9ad; color:#6a5f57;">2021</a>
+    </div>
+  </div>
+
+  <!-- publication list -->
+  <div id="all" style="flex:1; padding:56px 8vw 80px; max-width:1080px; width:100%; align-self:center;">
+
+    <!-- 2026 -->
+    <div id="y2026" style="display:flex; align-items:baseline; gap:16px; margin-bottom:26px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.18em; color:#d15a33;">2026</span>
+      <span style="height:1px; flex:1; background:#efe1d3;"></span>
+    </div>
+
+    <div style="background:#fff; border:1px solid #efe1d3; border-radius:8px; padding:36px; margin-bottom:40px; box-shadow:0 24px 48px -34px rgba(120,70,40,.3);">
+      <div style="display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start;">
+        <div>
+          <div style="display:flex; gap:8px; margin-bottom:14px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:#e0603f; padding:4px 9px; border-radius:4px;">Conference paper</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#6a5f57; border:1px solid #e6c9ad; padding:4px 9px; border-radius:4px;">IEEE</span>
+          </div>
+          <h2 style="margin:0 0 10px; font-weight:800; font-size:24px; line-height:1.25; letter-spacing:-.01em;">From S3Q Theory to Implementation: Towards an Architecture for Machine Qualia</h2>
+          <p style="margin:0 0 4px; font-size:14px; line-height:1.6; color:#3c3129;">Tetiana Grinberg, Katrina Schleisman, Patryk Laurent, Brian Aufderheide, Bogdan Udrea, Luis El Srouji, Doyle Groves, Kevin Schmidt</p>
+          <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#9d8879;">IEEE Conference Paper · 2026</p>
+        </div>
+        <div style="width:96px; height:124px; border-radius:5px; background:repeating-linear-gradient(135deg,#f4e7d8 0 8px,#fbf1e6 8px 16px); border:1px solid #efe1d3; display:flex; align-items:center; justify-content:center; text-align:center;">
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:#c2ad97; padding:6px;">paper thumbnail</span>
+        </div>
+      </div>
+      <p style="margin:20px 0 0; font-size:15px; line-height:1.7; color:#57534b;">We propose a five-layer implementation architecture for the S3Q (Simulated, Situated, Structurally Coherent) theory of consciousness. Rather than introducing novel formalisms, the architecture composes published computational primitives into a single pipeline, mapping each tenet to compatible machinery with defined interfaces, a developmental bootstrap sequence, and falsifiable predictions the conjunction produces that no subset does in isolation.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;">
+        <a href="uploads/IEEE_ConfPaper_MindGuild.pdf" style="padding:9px 16px; border-radius:6px; background:#2a211c; color:#fdf3e9;">PDF ↓</a>
+        <a href="#" style="padding:9px 16px; border-radius:6px; border:1px solid #e6c9ad; color:#6a5f57;">arXiv</a>
+        <a href="#" style="padding:9px 16px; border-radius:6px; border:1px solid #e6c9ad; color:#6a5f57;">BibTeX</a>
+        <a href="#" style="padding:9px 16px; border-radius:6px; border:1px solid #e6c9ad; color:#6a5f57;">Cite</a>
+      </div>
+    </div>
+
+    <!-- 2021 -->
+    <div id="y2021" style="display:flex; align-items:baseline; gap:16px; margin-bottom:26px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.18em; color:#d15a33;">2021</span>
+      <span style="height:1px; flex:1; background:#efe1d3;"></span>
+    </div>
+
+    <div style="background:#fff; border:1px solid #efe1d3; border-radius:8px; padding:36px; box-shadow:0 24px 48px -34px rgba(120,70,40,.3);">
+      <div style="display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start;">
+        <div>
+          <div style="display:flex; gap:8px; margin-bottom:14px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:#c98a3f; padding:4px 9px; border-radius:4px;">Foundational theory</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#6a5f57; border:1px solid #e6c9ad; padding:4px 9px; border-radius:4px;">Preprint</span>
+          </div>
+          <h2 style="margin:0 0 10px; font-weight:800; font-size:24px; line-height:1.25; letter-spacing:-.01em;">What Is It Like to Be a Bot: Simulated, Situated, Structurally Coherent Qualia (S3Q) Theory of Consciousness</h2>
+          <p style="margin:0 0 4px; font-size:14px; line-height:1.6; color:#3c3129;">Kevin Schmidt et al.</p>
+          <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#9d8879;">arXiv:2103.12638 · 2021</p>
+        </div>
+        <div style="width:96px; height:124px; border-radius:5px; background:repeating-linear-gradient(135deg,#f4e7d8 0 8px,#fbf1e6 8px 16px); border:1px solid #efe1d3; display:flex; align-items:center; justify-content:center; text-align:center;">
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; color:#c2ad97; padding:6px;">paper thumbnail</span>
+        </div>
+      </div>
+      <p style="margin:20px 0 0; font-size:15px; line-height:1.7; color:#57534b;">The theoretical foundation the implementation architecture builds on. S3Q identifies three jointly necessary conditions for qualia — grounded sensorimotor situatedness, internal simulation via a world model, and structural coherence between predictions and observations — defining what consciousness requires at the functional level.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;">
+        <a href="https://arxiv.org/abs/2103.12638" style="padding:9px 16px; border-radius:6px; background:#2a211c; color:#fdf3e9;">arXiv ↗</a>
+        <a href="#" style="padding:9px 16px; border-radius:6px; border:1px solid #e6c9ad; color:#6a5f57;">BibTeX</a>
+        <a href="#" style="padding:9px 16px; border-radius:6px; border:1px solid #e6c9ad; color:#6a5f57;">Cite</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- footer (matches home 4a) -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:30px 8vw; background:#2a211c; color:#d8c6b8; font-size:13px;">
+    <span style="font-weight:800; font-size:16px; color:#fdf3e9;">Mind Guild</span>
+    <span style="font-family:'IBM Plex Mono',monospace; color:#ffffff;">© 2026 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afc2c6c1cb81c8dac6c3cbefdcd6c2cdc6c0c4c6c1cadbc6ccdc81ccc0c2">[email&#160;protected]</a></span>
+  </div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
