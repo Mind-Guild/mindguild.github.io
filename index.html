@@ -12,21 +12,26 @@
   body { margin: 0; background: #fdf6ef; font-family: 'Libre Franklin', sans-serif; color: #2a211c; }
   a { color: #c2532f; text-decoration: none; }
   a:hover { color: #a5401f; }
+  @media (max-width: 700px) {
+    .site-nav { align-items:flex-start !important; flex-direction:column; gap:14px; padding:18px 6vw !important; }
+    .site-links { width:100%; flex-wrap:wrap; justify-content:space-between; gap:14px !important; font-size:11px !important; }
+  }
 </style>
 </head>
 <body>
 <div style="min-height:100vh; display:flex; flex-direction:column;">
-  <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 8vw; border-bottom:1px solid #f0e2d4;">
+  <div class="site-nav" style="display:flex; align-items:center; justify-content:space-between; padding:20px 8vw; border-bottom:1px solid #f0e2d4;">
     <div style="display:flex; align-items:center; gap:11px;"><div style="width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#f6a24a,#e8663f 55%,#d94f6c);"></div><span style="font-weight:800; font-size:18px; letter-spacing:-.01em;">Mind Guild</span></div>
-    <div style="display:flex; gap:28px; font-size:13px; font-weight:500; color:#6a5f57; font-family:'IBM Plex Mono',monospace;">
+    <div class="site-links" style="display:flex; gap:28px; font-size:13px; font-weight:500; color:#6a5f57; font-family:'IBM Plex Mono',monospace;">
       <a href="publications.html" style="color:#6a5f57;">Publications</a>
       <a href="artwork.html" style="color:#6a5f57;">Artwork</a>
+      <a href="collective.html" style="color:#6a5f57;">Collective</a>
     </div>
   </div>
   <div style="flex:1;">
     <div style="padding:88px 8vw 76px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:26px; background:radial-gradient(120% 80% at 50% -10%, rgba(246,162,74,.18), transparent 60%);">
       <h1 style="margin:0; font-weight:400; font-size:46px; line-height:1.18; letter-spacing:-.025em; max-width:920px; text-wrap:pretty; color:#221c17;">Transforming consciousness from a <span style="font-weight:800;">philosophical problem</span> into an <span style="font-weight:800;">engineering discipline</span></h1>
-      <div style="display:flex; gap:14px; margin-top:6px;"><a href="publications.html" style="background:#2a211c; color:#fdf3e9; font-size:14px; font-weight:700; padding:13px 24px; border-radius:100px;">Read the paper</a></div>
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:6px;"><a href="publications.html" style="background:#2a211c; color:#fdf3e9; font-size:14px; font-weight:700; padding:13px 24px; border-radius:100px;">Read the paper</a><a href="collective.html" style="border:1px solid #2a211c; color:#2a211c; font-size:14px; font-weight:700; padding:12px 24px; border-radius:100px;">Meet the Collective</a></div>
     </div>
     <div style="padding:8px 8vw 60px; border-bottom:1px solid #f0e2d4;">
       <div style="max-width:760px; display:flex; flex-direction:column; gap:16px;">
