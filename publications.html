@@ -12,20 +12,25 @@
   body { margin: 0; background: #fdf6ef; font-family: 'Libre Franklin', sans-serif; color: #2a211c; }
   a { color: #c2532f; text-decoration: none; }
   a:hover { color: #a5401f; }
+  @media (max-width: 700px) {
+    .site-nav { align-items:flex-start !important; flex-direction:column; gap:14px; padding:18px 6vw !important; }
+    .site-links { width:100%; flex-wrap:wrap; justify-content:space-between; gap:14px !important; font-size:11px !important; }
+  }
 </style>
 </head>
 <body>
 <div style="min-height:100vh; display:flex; flex-direction:column;">
   <!-- top nav (matches home 4a) -->
-  <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 8vw; border-bottom:1px solid #f0e2d4; position:sticky; top:0; background:rgba(253,246,239,.9); backdrop-filter:blur(8px); z-index:5;">
+  <div class="site-nav" style="display:flex; align-items:center; justify-content:space-between; padding:20px 8vw; border-bottom:1px solid #f0e2d4; position:sticky; top:0; background:rgba(253,246,239,.9); backdrop-filter:blur(8px); z-index:5;">
     <a href="index.html" style="display:flex; align-items:center; gap:11px; color:#2a211c;">
       <div style="width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#f6a24a,#e8663f 55%,#d94f6c);"></div>
       <span style="font-weight:800; font-size:18px; letter-spacing:-.01em;">Mind Guild</span>
     </a>
-    <div style="display:flex; gap:28px; font-size:13px; font-weight:500; color:#6a5f57; font-family:'IBM Plex Mono',monospace;">
+    <div class="site-links" style="display:flex; gap:28px; font-size:13px; font-weight:500; color:#6a5f57; font-family:'IBM Plex Mono',monospace;">
       <a href="index.html" style="color:#6a5f57;">Home</a>
       <span style="color:#2a211c; border-bottom:2px solid #e0603f; padding-bottom:2px;">Publications</span>
       <a href="artwork.html" style="color:#6a5f57;">Artwork</a>
+      <a href="collective.html" style="color:#6a5f57;">Collective</a>
     </div>
   </div>
 
