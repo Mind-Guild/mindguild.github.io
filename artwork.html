@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Artwork and essays from the Mind Guild Collective, exploring consciousness through science, philosophy, and visual culture.">
+<title>Artwork &amp; Essays — Mind Guild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fdf6ef;
+    --ink: #2a211c;
+    --muted: #6a5f57;
+    --line: #ead7c4;
+    --orange: #d15a33;
+    --gold: #f2bd62;
+    --night: #07121f;
+    --night-soft: #0b1a2b;
+    --blue: #8fc3ff;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Libre Franklin', sans-serif;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 20px 8vw;
+    border-bottom: 1px solid rgba(234, 215, 196, .9);
+    background: rgba(253, 246, 239, .94);
+    backdrop-filter: blur(10px);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  .brand-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f6a24a, #e8663f 55%, #d94f6c);
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .nav-links .active {
+    color: var(--ink);
+    border-bottom: 2px solid #e0603f;
+    padding-bottom: 2px;
+  }
+
+  .hero {
+    padding: 84px 8vw 54px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(80% 90% at 90% 10%, rgba(246, 162, 74, .18), transparent 60%),
+      radial-gradient(70% 80% at 5% 0%, rgba(118, 174, 243, .12), transparent 58%);
+  }
+  .hero-inner {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+  }
+  .eyebrow {
+    margin-bottom: 18px;
+    color: var(--orange);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+  h1 {
+    max-width: 980px;
+    margin: 0;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    letter-spacing: -.045em;
+    line-height: 1.02;
+  }
+  .deck {
+    max-width: 760px;
+    margin: 24px 0 0;
+    color: var(--muted);
+    font-size: 19px;
+    line-height: 1.65;
+  }
+
+  .gallery {
+    padding: 64px 8vw 84px;
+  }
+  .gallery-inner {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+  }
+  .art-card {
+    overflow: hidden;
+    border: 1px solid rgba(242, 189, 98, .55);
+    border-radius: 18px;
+    background: linear-gradient(145deg, var(--night), var(--night-soft));
+    box-shadow: 0 36px 80px -50px rgba(26, 45, 69, .85);
+  }
+  .art-image-link {
+    display: block;
+    padding: 14px;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(71, 125, 189, .16), transparent 34%),
+      #050d17;
+  }
+  .art-image {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(242, 189, 98, .25);
+    border-radius: 10px;
+  }
+  .art-meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: end;
+    padding: 30px 34px 34px;
+    color: #f8f1e8;
+  }
+  .art-kicker {
+    margin-bottom: 10px;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .art-title {
+    margin: 0;
+    font-size: clamp(26px, 4vw, 40px);
+    line-height: 1.16;
+    letter-spacing: -.025em;
+  }
+  .art-copy {
+    max-width: 740px;
+    margin: 14px 0 0;
+    color: #b9c8d8;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .art-credit {
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    line-height: 1.65;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .essay {
+    margin-top: 56px;
+    padding-top: 50px;
+    border-top: 1px solid var(--line);
+  }
+  .essay-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 24px;
+  }
+  .essay h2 {
+    margin: 0;
+    font-size: clamp(30px, 4vw, 46px);
+    letter-spacing: -.03em;
+  }
+  .essay-intro {
+    max-width: 700px;
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid var(--ink);
+    border-radius: 100px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .button.primary {
+    background: var(--ink);
+    color: #fff8f1;
+  }
+  .pdf-shell {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 30px 70px -55px rgba(64, 38, 18, .55);
+  }
+  .pdf-frame {
+    display: block;
+    width: 100%;
+    height: min(86vh, 980px);
+    min-height: 680px;
+    border: 0;
+  }
+  .pdf-fallback {
+    padding: 40px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 30px 8vw;
+    background: var(--ink);
+    color: #d8c6b8;
+    font-size: 13px;
+  }
+  footer strong { color: #fdf3e9; font-size: 16px; }
+  footer span:last-child { font-family: 'IBM Plex Mono', monospace; }
+
+  @media (max-width: 760px) {
+    .nav { align-items: flex-start; padding: 18px 6vw; }
+    .brand { font-size: 16px; }
+    .nav-links { gap: 14px; font-size: 11px; }
+    .hero { padding: 60px 6vw 42px; }
+    .gallery { padding: 42px 6vw 60px; }
+    .art-image-link { padding: 7px; }
+    .art-meta { grid-template-columns: 1fr; padding: 24px; }
+    .art-credit { text-align: left; white-space: normal; }
+    .essay-head { align-items: flex-start; flex-direction: column; }
+    .actions { justify-content: flex-start; }
+    .pdf-frame { min-height: 560px; }
+    footer { align-items: flex-start; flex-direction: column; padding: 28px 6vw; }
+  }
+
+  @media (max-width: 500px) {
+    .nav { flex-direction: column; gap: 14px; }
+    .nav-links { width: 100%; justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Mind Guild</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="publications.html">Publications</a>
+      <span class="active" aria-current="page">Artwork</span>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Artwork &amp; Essays · 2026</div>
+      <h1>Where consciousness meets visual culture.</h1>
+      <p class="deck">The Mind Guild explores difficult ideas through scientific argument, philosophical reflection, and art that makes subjective experience tangible.</p>
+    </div>
+  </header>
+
+  <main class="gallery">
+    <div class="gallery-inner">
+      <article class="art-card">
+        <a class="art-image-link" href="artwork/consciousness-energy-attention-experience.png" target="_blank" rel="noopener" aria-label="Open the full-size visual summary">
+          <img class="art-image" src="artwork/consciousness-energy-attention-experience.png" alt="Visual summary titled Consciousness: Energy, Attention and Experience, featuring a luminous brain, four scientific takeaways, Rembrandt's The Night Watch, and Anish Kapoor's Internal Object in Three Parts.">
+        </a>
+        <div class="art-meta">
+          <div>
+            <div class="art-kicker">Visual essay · Consciousness studies</div>
+            <h2 class="art-title">Consciousness: Energy, Attention &amp; Experience</h2>
+            <p class="art-copy">From unconscious processing and the gateway of attention to the recurrent energy of conscious experience, this visual brings a Mind Guild discussion into dialogue with neuroscience, Rembrandt, and Anish Kapoor.</p>
+          </div>
+          <div class="art-credit">The Mind Guild Collective<br>2026</div>
+        </div>
+      </article>
+
+      <section class="essay" aria-labelledby="essay-title">
+        <div class="essay-head">
+          <div>
+            <div class="eyebrow">Accompanying blog</div>
+            <h2 id="essay-title">Read the complete essay</h2>
+            <p class="essay-intro">A three-page exploration of attention, conscious access, qualia, art, and the possibility that consciousness is organized recurrent energy in the brain.</p>
+          </div>
+          <div class="actions">
+            <a class="button primary" href="artwork/consciousness-energy-attention-experience.pdf" target="_blank" rel="noopener">Open PDF</a>
+            <a class="button" href="artwork/consciousness-energy-attention-experience.pdf" download>Download</a>
+          </div>
+        </div>
+        <div class="pdf-shell">
+          <object class="pdf-frame" data="artwork/consciousness-energy-attention-experience.pdf#view=FitH" type="application/pdf">
+            <p class="pdf-fallback">Your browser cannot display the embedded PDF. <a href="artwork/consciousness-energy-attention-experience.pdf">Open the essay in a new tab.</a></p>
+          </object>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Mind Guild</strong>
+    <span>© 2026 · The Mind Guild Collective</span>
+  </footer>
+</body>
+</html>
