@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Research-grounded interactive tools from the Mind Guild Collective, including the Memory Palace and PAO Trainer for Speed Cards practice.">
+<meta name="description" content="Research-grounded interactive tools from the Mind Guild Collective, including the Memory Palace and PAO Trainer and the Basal Ganglia Attention Gate Lab.">
 <title>Products — Mind Guild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +20,9 @@
     --night-soft: #102237;
     --blue: #8fc3ff;
     --gold: #f2bd62;
+    --green: #65d0a2;
+    --red: #ff806f;
+    --violet: #b8a1ff;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -103,9 +106,7 @@
     font-size: 18px;
     line-height: 1.7;
   }
-  .products {
-    padding: 60px 8vw 86px;
-  }
+  .products { padding: 60px 8vw 86px; }
   .product-card {
     display: grid;
     grid-template-columns: minmax(0, .92fr) minmax(440px, 1.08fr);
@@ -115,6 +116,11 @@
     color: #f8f1e8;
     background: linear-gradient(145deg, var(--night), var(--night-soft));
     box-shadow: 0 38px 86px -52px rgba(26, 45, 69, .9);
+  }
+  .product-card + .product-card { margin-top: 28px; }
+  .product-card.gate-card {
+    border-color: rgba(143,195,255,.42);
+    background: linear-gradient(145deg, #091625, #152b40);
   }
   .product-copy {
     display: flex;
@@ -131,6 +137,7 @@
     letter-spacing: .16em;
     text-transform: uppercase;
   }
+  .gate-card .product-kicker { color: var(--blue); }
   .product-copy h2 {
     margin: 0;
     font-size: clamp(34px, 4.8vw, 56px);
@@ -167,6 +174,10 @@
     color: var(--night);
     background: var(--gold);
   }
+  .gate-card .button.primary {
+    border-color: var(--blue);
+    background: var(--blue);
+  }
   .button:hover { transform: translateY(-1px); }
   .product-visual {
     position: relative;
@@ -182,9 +193,14 @@
       radial-gradient(circle at 78% 18%, rgba(242,189,98,.18), transparent 34%);
     background-size: 24px 24px, 24px 24px, auto;
   }
-  .trainer-preview {
-    width: min(520px, 100%);
+  .gate-card .product-visual {
+    background:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+      radial-gradient(circle at 60% 46%, rgba(143,195,255,.14), transparent 38%);
+    background-size: 24px 24px, 24px 24px, auto;
   }
+  .trainer-preview, .gate-preview { width: min(520px, 100%); }
   .preview-head {
     display: flex;
     align-items: flex-end;
@@ -247,10 +263,7 @@
     font-size: 10px;
     letter-spacing: .12em;
   }
-  .pao-line span {
-    color: #dcecff;
-    font-size: 13px;
-  }
+  .pao-line span { color: #dcecff; font-size: 13px; }
   .loci {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -280,6 +293,64 @@
     font-size: 11px;
     font-weight: 600;
   }
+  .mini-circuit {
+    position: relative;
+    height: 360px;
+    margin: 8px 0 18px;
+  }
+  .mini-node {
+    position: absolute;
+    display: grid;
+    min-width: 116px;
+    min-height: 58px;
+    place-items: center;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 13px;
+    color: #eff7ff;
+    background: #183451;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-align: center;
+  }
+  .mini-node.cortex { top: 0; left: calc(50% - 58px); }
+  .mini-node.go { top: 112px; left: 5%; background: #244d45; }
+  .mini-node.nogo { top: 112px; right: 5%; background: #4c3039; }
+  .mini-node.output { bottom: 54px; left: calc(50% - 58px); background: #512d31; }
+  .mini-node.thalamus { bottom: -12px; left: 5%; background: #29465c; }
+  .mini-node.stn { bottom: -12px; right: 5%; background: #263e5d; }
+  .mini-line {
+    position: absolute;
+    height: 4px;
+    border-radius: 100px;
+    transform-origin: left center;
+  }
+  .mini-line.blue { background: var(--blue); }
+  .mini-line.red { background: var(--red); }
+  .mini-line.gold { background: var(--gold); }
+  .mini-line.l1 { top: 78px; left: 47%; width: 132px; transform: rotate(139deg); }
+  .mini-line.l2 { top: 78px; left: 53%; width: 132px; transform: rotate(41deg); }
+  .mini-line.l3 { top: 178px; left: 25%; width: 205px; transform: rotate(39deg); }
+  .mini-line.l4 { top: 178px; right: 24%; width: 205px; transform: rotate(141deg); transform-origin: right center; }
+  .mini-line.l5 { bottom: 83px; left: 41%; width: 87px; transform: rotate(145deg); }
+  .gate-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px 16px;
+    border: 1px solid rgba(143,195,255,.25);
+    border-radius: 11px;
+    background: rgba(255,255,255,.045);
+  }
+  .gate-result span {
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+  }
+  .gate-result strong { color: white; font-size: 13px; }
   .feature-heading {
     display: flex;
     align-items: center;
@@ -357,6 +428,9 @@
     .playing-card.two { left: calc(50% - 52px); }
     .cards { height: 157px; }
     .loci { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mini-node { min-width: 96px; font-size: 9px; }
+    .mini-node.cortex, .mini-node.output { left: calc(50% - 48px); }
+    .mini-line.l1, .mini-line.l2 { width: 104px; }
   }
 </style>
 </head>
@@ -380,7 +454,7 @@
     <div class="hero-inner">
       <div class="eyebrow">Products · Mind Guild</div>
       <h1>Tools for building and testing minds.</h1>
-      <p class="deck">Research becomes useful when people can interact with it. Mind Guild products turn ideas about memory, representation, and consciousness into tools for practice and exploration.</p>
+      <p class="deck">Research becomes useful when people can interact with it. Mind Guild products turn ideas about memory, representation, and neural computation into tools for practice and exploration.</p>
     </div>
   </header>
 
@@ -421,30 +495,67 @@
         </a>
       </article>
 
+      <article class="product-card gate-card" aria-labelledby="attention-gate-title">
+        <div class="product-copy">
+          <div class="product-kicker">New demo · Computational neuroscience</div>
+          <h2 id="attention-gate-title">Basal Ganglia Attention Gate Lab</h2>
+          <p>Move between an Allen Atlas–aligned anatomy map and O’Reilly-style circuit logic. Manipulate salience, learned Go/NoGo values, dopamine, conflict, and threshold to see which candidate gains access to attention or working-memory updating.</p>
+          <div class="actions">
+            <a class="button primary" href="basal-ganglia.html">Launch interactive lab</a>
+            <a class="button" href="https://compcogneuro.org/basal-ganglia" target="_blank" rel="noopener">Read the model</a>
+          </div>
+        </div>
+        <a class="product-visual" href="basal-ganglia.html" aria-label="Launch the Basal Ganglia Attention Gate Lab">
+          <div class="gate-preview" aria-hidden="true">
+            <div class="preview-head">
+              <span class="preview-label">Attention selection · Live gate</span>
+              <span class="preview-timer">Go &gt; NoGo</span>
+            </div>
+            <div class="mini-circuit">
+              <span class="mini-line blue l1"></span>
+              <span class="mini-line blue l2"></span>
+              <span class="mini-line red l3"></span>
+              <span class="mini-line red l4"></span>
+              <span class="mini-line blue l5"></span>
+              <div class="mini-node cortex">Cortex / PFC</div>
+              <div class="mini-node go">Striatum D1<br>Direct · Go</div>
+              <div class="mini-node nogo">Striatum D2<br>Indirect · NoGo</div>
+              <div class="mini-node output">GPi / SNr<br>Tonic gate</div>
+              <div class="mini-node thalamus">Thalamus<br>Released</div>
+              <div class="mini-node stn">STN<br>Conflict hold</div>
+            </div>
+            <div class="gate-result">
+              <span>Gate result</span>
+              <strong>Task target selected</strong>
+            </div>
+          </div>
+        </a>
+      </article>
+
       <div class="feature-heading">
-        <div class="eyebrow">Built for deliberate practice</div>
+        <div class="eyebrow">Inside the Attention Gate Lab</div>
         <span aria-hidden="true"></span>
       </div>
-      <section class="features" aria-label="Trainer capabilities">
+      <section class="features" aria-label="Basal ganglia demo capabilities">
         <div class="feature">
           <span class="feature-number">01</span>
-          <h3>Flexible decks</h3>
-          <p>Train with randomized 12, 24, 36, 51, or 52-card sessions.</p>
+          <h3>Atlas-aligned anatomy</h3>
+          <p>Locate caudoputamen, pallidal regions, STN, substantia nigra, and thalamus in an original coronal schematic.</p>
         </div>
         <div class="feature">
           <span class="feature-number">02</span>
-          <h3>Your system</h3>
-          <p>Edit all 52 PAO mappings and build an ordered palace of up to 18 loci.</p>
+          <h3>Trace each pathway</h3>
+          <p>Isolate direct Go, indirect NoGo, hyperdirect hold, and dopaminergic modulation.</p>
         </div>
         <div class="feature">
           <span class="feature-number">03</span>
-          <h3>Timed encoding</h3>
-          <p>Choose guided cues or independent recall, then review the route in reverse.</p>
+          <h3>Run counterfactuals</h3>
+          <p>Test rewarded targets, distractor capture, high conflict, and a dopamine dip.</p>
         </div>
         <div class="feature">
           <span class="feature-number">04</span>
-          <h3>Exact feedback</h3>
-          <p>Score full-sequence recall and turn missed cards into a focused PAO drill.</p>
+          <h3>Inspect the abstraction</h3>
+          <p>See the model equation, boundaries, biological signs, and structure-by-structure explanations.</p>
         </div>
       </section>
     </div>
