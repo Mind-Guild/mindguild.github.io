@@ -114,6 +114,155 @@
     width: min(1180px, 100%);
     margin: 0 auto;
   }
+  .demo-card {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(440px, 1.1fr);
+    overflow: hidden;
+    margin-bottom: 56px;
+    border: 1px solid rgba(242, 189, 98, .6);
+    border-radius: 18px;
+    background: linear-gradient(145deg, var(--night), var(--night-soft));
+    color: #f8f1e8;
+    box-shadow: 0 36px 80px -50px rgba(26, 45, 69, .85);
+  }
+  .demo-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(30px, 5vw, 54px);
+  }
+  .demo-copy h2 {
+    margin: 0;
+    font-size: clamp(32px, 4.6vw, 54px);
+    letter-spacing: -.04em;
+    line-height: 1.03;
+  }
+  .demo-copy p {
+    margin: 18px 0 0;
+    color: #b9c8d8;
+    font-size: 15px;
+    line-height: 1.72;
+  }
+  .demo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .button.gold {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--night);
+  }
+  .button.light {
+    border-color: rgba(255, 255, 255, .38);
+    color: #fff8f1;
+  }
+  .demo-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 430px;
+    padding: 38px;
+    border-left: 1px solid rgba(255, 255, 255, .1);
+    background:
+      linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px),
+      radial-gradient(circle at 80% 16%, rgba(242, 189, 98, .18), transparent 32%);
+    background-size: 24px 24px, 24px 24px, auto;
+  }
+  .mini-palace {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: min(460px, 100%);
+  }
+  .mini-palace::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    right: 25%;
+    bottom: 25%;
+    left: 25%;
+    border-right: 1px dashed rgba(143, 195, 255, .42);
+    border-bottom: 1px dashed rgba(143, 195, 255, .42);
+  }
+  .mini-locus {
+    position: relative;
+    z-index: 1;
+    min-height: 120px;
+    padding: 18px;
+    border: 1px solid rgba(143, 195, 255, .24);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .045);
+  }
+  .mini-locus:first-child {
+    border-color: var(--gold);
+    background: rgba(242, 189, 98, .08);
+  }
+  .mini-number {
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+  }
+  .mini-icon {
+    display: block;
+    margin-top: 13px;
+    font-size: 26px;
+  }
+  .mini-name {
+    display: block;
+    margin-top: 8px;
+    color: #dcecff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .mini-prompt {
+    position: absolute;
+    right: 38px;
+    bottom: 23px;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .memory-paper {
+    margin-bottom: 56px;
+    padding: 34px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .4);
+  }
+  .memory-paper-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 30px;
+    align-items: end;
+    margin-bottom: 24px;
+  }
+  .memory-paper h2 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: -.035em;
+  }
+  .memory-paper p {
+    max-width: 760px;
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.68;
+  }
+  .section-label {
+    margin: 0 0 20px;
+    color: var(--orange);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
   .art-card {
     overflow: hidden;
     border: 1px solid rgba(242, 189, 98, .55);
@@ -260,6 +409,10 @@
     .art-image-link { padding: 7px; }
     .art-meta { grid-template-columns: 1fr; padding: 24px; }
     .art-credit { text-align: left; white-space: normal; }
+    .demo-card { grid-template-columns: 1fr; }
+    .demo-visual { min-height: 360px; border-top: 1px solid rgba(255, 255, 255, .1); border-left: 0; }
+    .memory-paper { padding: 24px; }
+    .memory-paper-head { grid-template-columns: 1fr; }
     .essay-head { align-items: flex-start; flex-direction: column; }
     .actions { justify-content: flex-start; }
     .pdf-frame { min-height: 560px; }
@@ -291,12 +444,53 @@
     <div class="hero-inner">
       <div class="eyebrow">Artwork &amp; Essays · 2026</div>
       <h1>Where consciousness meets visual culture.</h1>
-      <p class="deck">The Mind Guild explores difficult ideas through scientific argument, philosophical reflection, and art that makes subjective experience tangible.</p>
+      <p class="deck">The Mind Guild explores difficult ideas through interactive research demonstrations, scientific argument, philosophical reflection, and art that makes subjective experience tangible.</p>
     </div>
   </header>
 
   <main class="gallery">
     <div class="gallery-inner">
+      <article class="demo-card">
+        <div class="demo-copy">
+          <div class="art-kicker">Interactive research demo · Memory &amp; consciousness</div>
+          <h2>Explore the Memory Palace</h2>
+          <p>Turn 12 cards into four impossible scenes, place them along a fixed route, walk backward for review, and reconstruct the sequence. Along the way, see how the Method of Loci illuminates Mind Guild research on complementary memory systems and S3Q consciousness.</p>
+          <div class="demo-actions">
+            <a class="button gold" href="memory-palace.html">Enter the palace</a>
+            <a class="button light" href="artwork/representational-tenets-memory-athletics.pdf" target="_blank" rel="noopener">Read the paper</a>
+          </div>
+        </div>
+        <a class="demo-visual" href="memory-palace.html" aria-label="Open the interactive Memory Palace demonstration">
+          <div class="mini-palace" aria-hidden="true">
+            <div class="mini-locus"><span class="mini-number">01</span><span class="mini-icon">🚪</span><span class="mini-name">Threshold</span></div>
+            <div class="mini-locus"><span class="mini-number">02</span><span class="mini-icon">🖼️</span><span class="mini-name">Gallery</span></div>
+            <div class="mini-locus"><span class="mini-number">03</span><span class="mini-icon">📚</span><span class="mini-name">Library</span></div>
+            <div class="mini-locus"><span class="mini-number">04</span><span class="mini-icon">🔭</span><span class="mini-name">Observatory</span></div>
+          </div>
+          <span class="mini-prompt">Begin at locus 01 →</span>
+        </a>
+      </article>
+
+      <section class="memory-paper" aria-labelledby="memory-paper-title">
+        <div class="memory-paper-head">
+          <div>
+            <div class="eyebrow">Source paper · Full text</div>
+            <h2 id="memory-paper-title">Representational Tenets for Memory Athletics</h2>
+            <p>Kevin Schmidt and colleagues combine a champion memory athlete’s first-person account with the Simulated, Situated, and Structurally Coherent Qualia (S3Q) framework, then propose testable hypotheses about expertise, imagery, distinctiveness, and conscious representation.</p>
+          </div>
+          <div class="actions">
+            <a class="button primary" href="artwork/representational-tenets-memory-athletics.pdf" target="_blank" rel="noopener">Open PDF</a>
+            <a class="button" href="artwork/representational-tenets-memory-athletics.pdf" download>Download</a>
+          </div>
+        </div>
+        <div class="pdf-shell">
+          <object class="pdf-frame" data="artwork/representational-tenets-memory-athletics.pdf#view=FitH" type="application/pdf">
+            <p class="pdf-fallback">Your browser cannot display the embedded PDF. <a href="artwork/representational-tenets-memory-athletics.pdf">Open the paper in a new tab.</a></p>
+          </object>
+        </div>
+      </section>
+
+      <div class="section-label">Visual essay</div>
       <article class="art-card">
         <a class="art-image-link" href="artwork/consciousness-energy-attention-experience.png" target="_blank" rel="noopener" aria-label="Open the full-size visual summary">
           <img class="art-image" src="artwork/consciousness-energy-attention-experience.png" alt="Visual summary titled Consciousness: Energy, Attention and Experience, featuring a luminous brain, four scientific takeaways, Rembrandt's The Night Watch, and Anish Kapoor's Internal Object in Three Parts.">
