@@ -280,61 +280,6 @@
     font-size: 11px;
     font-weight: 600;
   }
-  .research-paper {
-    margin-top: 54px;
-    padding: 34px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: rgba(255,255,255,.48);
-  }
-  .research-paper-head {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 30px;
-    align-items: end;
-    margin-bottom: 24px;
-  }
-  .research-paper h2 {
-    margin: 10px 0 0;
-    font-size: clamp(28px, 4vw, 42px);
-    letter-spacing: -.035em;
-  }
-  .research-paper p {
-    max-width: 760px;
-    margin: 12px 0 0;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.68;
-  }
-  .research-paper .actions { margin-top: 0; }
-  .research-paper .button {
-    border-color: var(--ink);
-    color: var(--ink);
-  }
-  .research-paper .button.primary {
-    border-color: var(--ink);
-    color: #fff8f1;
-    background: var(--ink);
-  }
-  .pdf-shell {
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 30px 70px -55px rgba(64,38,18,.55);
-  }
-  .pdf-frame {
-    display: block;
-    width: 100%;
-    height: min(86vh, 980px);
-    min-height: 680px;
-    border: 0;
-  }
-  .pdf-fallback {
-    padding: 40px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
   .feature-heading {
     display: flex;
     align-items: center;
@@ -400,10 +345,6 @@
     .products { padding: 42px 6vw 64px; }
     .product-copy { padding: 30px; }
     .product-visual { min-height: 410px; padding: 30px 22px; }
-    .research-paper { padding: 24px; }
-    .research-paper-head { grid-template-columns: 1fr; }
-    .research-paper .actions { margin-top: 4px; }
-    .pdf-frame { min-height: 560px; }
     footer { align-items: flex-start; flex-direction: column; gap: 10px; padding: 28px 6vw; }
   }
   @media (max-width: 520px) {
@@ -452,7 +393,7 @@
           <p>Build a palace route and your own Person–Action–Object vocabulary, then encode randomized Speed Cards decks. Practice with optional cues or timed pacing, review backward, reconstruct the exact sequence, and drill the mappings you miss.</p>
           <div class="actions">
             <a class="button primary" href="memory-palace.html">Launch trainer</a>
-            <a class="button" href="#research-foundation">Read the research</a>
+            <a class="button" href="publications.html#representational-tenets">Read the research</a>
           </div>
         </div>
         <a class="product-visual" href="memory-palace.html" aria-label="Launch the Memory Palace and PAO Trainer">
@@ -479,25 +420,6 @@
           </div>
         </a>
       </article>
-
-      <section class="research-paper" id="research-foundation" aria-labelledby="research-paper-title">
-        <div class="research-paper-head">
-          <div>
-            <div class="eyebrow">Research foundation · arXiv:2303.11944</div>
-            <h2 id="research-paper-title">Representational Tenets for Memory Athletics</h2>
-            <p>Kevin Schmidt and colleagues combine a champion memory athlete’s first-person account with the Simulated, Situated, and Structurally Coherent Qualia (S3Q) framework, then propose testable hypotheses about expertise, imagery, distinctiveness, and conscious representation. This paper provides the research foundation for the Memory Palace &amp; PAO Trainer above.</p>
-          </div>
-          <div class="actions">
-            <a class="button primary" href="artwork/representational-tenets-memory-athletics.pdf" target="_blank" rel="noopener">Open PDF</a>
-            <a class="button" href="artwork/representational-tenets-memory-athletics.pdf" download>Download</a>
-          </div>
-        </div>
-        <div class="pdf-shell">
-          <object class="pdf-frame" data="artwork/representational-tenets-memory-athletics.pdf#view=FitH" type="application/pdf">
-            <p class="pdf-fallback">Your browser cannot display the embedded PDF. <a href="artwork/representational-tenets-memory-athletics.pdf">Open the paper in a new tab.</a></p>
-          </object>
-        </div>
-      </section>
 
       <div class="feature-heading">
         <div class="eyebrow">Built for deliberate practice</div>
