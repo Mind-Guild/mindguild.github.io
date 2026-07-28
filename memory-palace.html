@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="An interactive Mind Guild demonstration of the Method of Loci, PAO encoding, complementary memory systems, and the S3Q theory of consciousness.">
-<title>Memory Palace Lab — Mind Guild</title>
+<meta name="description" content="Train Speed Cards with a customizable Person–Action–Object mapping, ordered memory-palace loci, randomized decks, timed encoding, reverse review, exact recall scoring, and PAO drills.">
+<title>Memory Palace Trainer — Mind Guild</title>
 <style>:root {
   color-scheme: light dark;
   background-color: transparent !important;
@@ -114,7 +114,7 @@ html > body {
   margin: 0;
   padding: 0;
   color: var(--foreground);
-  background: #fdf6ef !important;
+  background: transparent !important;
   font-family: var(--font-sans);
   font-size: var(--font-size-normal);
   font-weight: var(--font-weight-normal);
@@ -821,717 +821,661 @@ svg {
 </style>
 </head>
 <body>
-<div id="mpal">
+<div id="mpt">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Franklin:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Franklin:wght@400;500&display=swap');
 
-    #mpal {
-      --paper: #fdf6ef;
-      --paper-deep: #f4e6d8;
-      --ink: #2a211c;
-      --muted: #75685f;
-      --line: #ead7c4;
-      --orange: #d15a33;
-      --orange-bright: #ef744e;
-      --gold: #f2bd62;
-      --night: #07121f;
-      --night-soft: #0b1a2b;
-      --night-lift: #10243b;
-      --blue: #8fc3ff;
-      --mint: #8bd7c5;
+    #mpt {
+      --page: color-mix(in srgb, var(--background) 94%, var(--viz-series-3) 6%);
+      --page-soft: color-mix(in srgb, var(--background) 97%, var(--viz-series-1) 3%);
+      --instrument: color-mix(in srgb, var(--foreground) 92%, var(--background) 8%);
+      --instrument-text: var(--background);
+      --instrument-muted: color-mix(in srgb, var(--background) 64%, var(--foreground) 36%);
+      --warm: var(--viz-series-3);
+      --cool: var(--viz-series-1);
       min-height: 100vh;
       margin: 0;
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--page);
+      color: var(--foreground);
       font-family: 'Libre Franklin', sans-serif;
     }
 
-    #mpal * { box-sizing: border-box; }
-    #mpal [hidden] { display: none !important; }
-    #mpal a { color: inherit; text-decoration: none; }
-    #mpal button { font: inherit; }
+    #mpt * { box-sizing: border-box; }
+    #mpt [hidden] { display: none !important; }
+    #mpt a { color: inherit; text-decoration: none; }
+    #mpt button, #mpt input, #mpt select, #mpt textarea { font: inherit; }
 
-    #mpal .mg-nav {
+    #mpt .site-nav {
       position: sticky;
       top: 0;
       z-index: 30;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 28px;
-      padding: 18px 8vw;
-      border-bottom: 1px solid rgba(234, 215, 196, .9);
-      background: rgba(253, 246, 239, .94);
+      gap: 1.5rem;
+      padding: 1rem 8vw;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--page) 92%, transparent);
       backdrop-filter: blur(10px);
     }
 
-    #mpal .brand {
+    #mpt .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    #mpal .brand-mark {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f6a24a, #e8663f 55%, #d94f6c);
-      box-shadow: 0 0 0 5px rgba(225, 96, 63, .08);
-    }
-
-    #mpal .nav-links {
-      display: flex;
-      gap: 26px;
-      color: var(--muted);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
+      gap: .7rem;
       font-weight: 500;
     }
 
-    #mpal .nav-links .active {
-      color: var(--ink);
-      border-bottom: 2px solid var(--orange);
-      padding-bottom: 2px;
-    }
-
-    #mpal .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 76px 8vw 66px;
-      border-bottom: 1px solid var(--line);
-      background:
-        radial-gradient(64% 120% at 94% -20%, rgba(242, 189, 98, .27), transparent 67%),
-        radial-gradient(60% 100% at 0% 20%, rgba(143, 195, 255, .16), transparent 65%),
-        var(--paper);
-    }
-
-    #mpal .hero::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      bottom: -145px;
-      width: 430px;
-      height: 430px;
-      border: 1px solid rgba(209, 90, 51, .15);
+    #mpt .brand-mark {
+      width: 1.65rem;
+      height: 1.65rem;
       border-radius: 50%;
-      box-shadow:
-        0 0 0 42px rgba(209, 90, 51, .035),
-        0 0 0 96px rgba(143, 195, 255, .035);
-      pointer-events: none;
+      background: linear-gradient(135deg, var(--warm), var(--viz-series-4));
     }
 
-    #mpal .hero-inner,
-    #mpal .content-inner {
+    #mpt .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      color: var(--muted-foreground);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #mpt .nav-links a { white-space: nowrap; }
+    #mpt .nav-links .active {
+      color: var(--foreground);
+      border-bottom: 2px solid var(--warm);
+    }
+
+    #mpt .hero {
+      padding: 4.75rem 8vw 4rem;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(60% 110% at 92% -10%, color-mix(in srgb, var(--warm) 18%, transparent), transparent 70%),
+        radial-gradient(50% 90% at 0% 20%, color-mix(in srgb, var(--cool) 12%, transparent), transparent 66%);
+    }
+
+    #mpt .hero-inner,
+    #mpt .page-inner {
       width: min(1180px, 100%);
       margin: 0 auto;
     }
 
-    #mpal .eyebrow {
-      margin-bottom: 16px;
-      color: var(--orange);
+    #mpt .eyebrow,
+    #mpt .section-label,
+    #mpt .metric-label {
+      color: var(--muted-foreground);
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-    }
-
-    #mpal h1 {
-      max-width: 900px;
-      margin: 0;
-      font-size: clamp(43px, 6.5vw, 78px);
-      font-weight: 800;
-      letter-spacing: -.055em;
-      line-height: .98;
-    }
-
-    #mpal .hero-copy {
-      max-width: 750px;
-      margin: 24px 0 0;
-      color: var(--muted);
-      font-size: clamp(17px, 2vw, 20px);
-      line-height: 1.65;
-    }
-
-    #mpal .hero-actions,
-    #mpal .lab-actions,
-    #mpal .paper-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    #mpal .hero-actions { margin-top: 30px; }
-
-    #mpal .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 11px 19px;
-      border: 1px solid var(--ink);
-      border-radius: 100px;
-      background: transparent;
-      color: var(--ink);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-    }
-
-    #mpal .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 9px 20px -14px rgba(42, 33, 28, .8);
-    }
-
-    #mpal .button.primary {
-      border-color: var(--ink);
-      background: var(--ink);
-      color: #fff8f1;
-    }
-
-    #mpal .button.light {
-      border-color: rgba(255, 255, 255, .34);
-      color: #f7f2eb;
-    }
-
-    #mpal .button.gold {
-      border-color: var(--gold);
-      background: var(--gold);
-      color: var(--night);
-    }
-
-    #mpal .button[hidden] { display: none; }
-
-    #mpal .content {
-      padding: 62px 8vw 84px;
-    }
-
-    #mpal .lab-shell {
-      overflow: hidden;
-      border: 1px solid rgba(242, 189, 98, .42);
-      border-radius: 22px;
-      background: linear-gradient(145deg, var(--night), var(--night-soft));
-      color: #f8f1e8;
-      box-shadow: 0 38px 90px -52px rgba(7, 18, 31, .9);
-    }
-
-    #mpal .phase-rail {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      border-bottom: 1px solid rgba(255, 255, 255, .1);
-      background: rgba(3, 11, 20, .46);
-    }
-
-    #mpal .phase {
-      position: relative;
-      padding: 15px 18px;
-      color: #778a9e;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    #mpal .phase + .phase { border-left: 1px solid rgba(255, 255, 255, .08); }
-    #mpal .phase.current { color: var(--gold); background: rgba(242, 189, 98, .07); }
-    #mpal .phase.done { color: var(--mint); }
-    #mpal .phase.current::after {
-      content: "";
-      position: absolute;
-      right: 22%;
-      bottom: 0;
-      left: 22%;
-      height: 2px;
-      background: var(--gold);
-    }
-
-    #mpal .lab-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(290px, .72fr);
-      min-height: 680px;
-    }
-
-    #mpal .palace-side {
-      padding: 34px;
-      border-right: 1px solid rgba(255, 255, 255, .1);
-    }
-
-    #mpal .lab-label,
-    #mpal .lens-label {
-      color: var(--blue);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .17em;
-      text-transform: uppercase;
-    }
-
-    #mpal .palace-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 22px;
-      margin-bottom: 24px;
-    }
-
-    #mpal .palace-head h2 {
-      margin: 7px 0 0;
-      font-size: clamp(25px, 3.3vw, 38px);
-      letter-spacing: -.035em;
-    }
-
-    #mpal .route-direction {
-      color: #8397ac;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      line-height: 1.55;
-      text-align: right;
-    }
-
-    #mpal .route-map {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    #mpal .route-map::before {
-      content: "";
-      position: absolute;
-      z-index: 0;
-      top: 25%;
-      right: 25%;
-      bottom: 25%;
-      left: 25%;
-      border-right: 1px dashed rgba(143, 195, 255, .34);
-      border-bottom: 1px dashed rgba(143, 195, 255, .34);
-      pointer-events: none;
-    }
-
-    #mpal .locus-button {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 13px;
-      align-items: center;
-      width: 100%;
-      min-height: 102px;
-      padding: 18px;
-      border: 1px solid rgba(143, 195, 255, .18);
-      border-radius: 13px;
-      background: rgba(255, 255, 255, .035);
-      color: #f8f1e8;
-      text-align: left;
-      cursor: pointer;
-      transition: border .2s ease, background .2s ease, transform .2s ease;
-    }
-
-    #mpal .locus-button:hover { transform: translateY(-2px); border-color: rgba(143, 195, 255, .42); }
-    #mpal .locus-button.active {
-      border-color: var(--gold);
-      background:
-        radial-gradient(circle at 100% 0%, rgba(242, 189, 98, .17), transparent 50%),
-        rgba(242, 189, 98, .07);
-      box-shadow: 0 18px 38px -28px rgba(242, 189, 98, .8);
-    }
-    #mpal .locus-button.encoded:not(.active) { border-color: rgba(139, 215, 197, .34); }
-    #mpal .locus-button.recalled { border-color: rgba(139, 215, 197, .72); }
-
-    #mpal .locus-number {
-      display: grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      border: 1px solid rgba(255, 255, 255, .17);
-      border-radius: 50%;
-      color: var(--gold);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-    }
-
-    #mpal .locus-title { display: block; font-size: 15px; font-weight: 700; }
-    #mpal .locus-detail {
-      display: block;
-      margin-top: 4px;
-      color: #8296aa;
-      font-size: 11px;
-      line-height: 1.45;
-    }
-
-    #mpal .locus-icon { font-size: 23px; filter: saturate(.8); }
-
-    #mpal .scene-stage {
-      margin-top: 18px;
-      padding: 24px;
-      border: 1px solid rgba(255, 255, 255, .1);
-      border-radius: 15px;
-      background:
-        radial-gradient(circle at 88% 10%, rgba(143, 195, 255, .1), transparent 28%),
-        rgba(255, 255, 255, .035);
-    }
-
-    #mpal .stage-kicker {
-      color: var(--mint);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    #mpal .stage-title {
-      margin: 8px 0 0;
-      font-size: clamp(21px, 2.5vw, 29px);
-      letter-spacing: -.025em;
-    }
-
-    #mpal .stage-copy {
-      max-width: 720px;
-      margin: 10px 0 0;
-      color: #aebed0;
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    #mpal .card-strip {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 9px;
-      margin-top: 18px;
-    }
-
-    #mpal .pa-slot {
-      min-height: 84px;
-      padding: 13px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      border-radius: 10px;
-      background: #f9f2e9;
-      color: var(--ink);
-    }
-
-    #mpal .pa-role {
-      color: var(--orange);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 600;
       letter-spacing: .12em;
       text-transform: uppercase;
     }
 
-    #mpal .pa-card {
-      float: right;
-      color: #17243a;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 13px;
-      font-weight: 600;
+    #mpt .eyebrow { margin-bottom: 1rem; color: var(--warm); }
+    #mpt h1 {
+      max-width: 940px;
+      margin: 0;
+      font-weight: 500;
+      letter-spacing: -.05em;
     }
 
-    #mpal .pa-value {
-      display: block;
-      clear: both;
-      padding-top: 9px;
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.3;
+    #mpt .hero-copy {
+      max-width: 780px;
+      margin: 1.35rem 0 0;
+      color: var(--muted-foreground);
     }
 
-    #mpal .scene-result {
+    #mpt .hero-actions,
+    #mpt .action-row,
+    #mpt .tab-row,
+    #mpt .session-actions,
+    #mpt .setup-actions,
+    #mpt .drill-actions {
       display: flex;
-      gap: 14px;
+      flex-wrap: wrap;
       align-items: center;
-      margin-top: 12px;
-      padding: 14px 16px;
-      border-left: 2px solid var(--gold);
-      background: rgba(242, 189, 98, .07);
+      gap: .65rem;
     }
 
-    #mpal .scene-emoji {
-      min-width: 54px;
-      font-size: 26px;
-      letter-spacing: -.2em;
+    #mpt .hero-actions { margin-top: 1.6rem; }
+    #mpt .page { padding: 3rem 8vw 5rem; }
+
+    #mpt .tab-row {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    #mpal .scene-line { font-size: 14px; font-weight: 600; line-height: 1.45; }
-    #mpal .scene-cue {
-      margin-top: 3px;
-      color: #91a5b9;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    #mpal .lab-actions {
-      align-items: center;
-      margin-top: 18px;
-    }
-
-    #mpal .status-note {
-      min-height: 20px;
-      color: #92a7ba;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      line-height: 1.5;
-    }
-
-    #mpal .choice-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 9px;
-      margin-top: 17px;
-    }
-
-    #mpal .choice {
-      padding: 13px 11px;
-      border: 1px solid rgba(143, 195, 255, .24);
-      border-radius: 10px;
-      background: rgba(143, 195, 255, .05);
-      color: #eff6ff;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      line-height: 1.6;
-      cursor: pointer;
-    }
-
-    #mpal .choice:hover { border-color: var(--blue); background: rgba(143, 195, 255, .1); }
-    #mpal .choice.correct { border-color: var(--mint); background: rgba(139, 215, 197, .12); }
-    #mpal .choice.incorrect { border-color: var(--orange-bright); background: rgba(239, 116, 78, .12); }
-    #mpal .choice:disabled { cursor: default; opacity: .75; }
-
-    #mpal .research-side {
+    #mpt .trainer-topline {
       display: flex;
-      flex-direction: column;
-      padding: 34px 28px;
-      background:
-        linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .018) 1px, transparent 1px);
-      background-size: 22px 22px;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    #mpal .research-side h3 {
-      margin: 8px 0 0;
-      font-size: 24px;
+    #mpt .trainer-topline h2,
+    #mpt .view-heading h2,
+    #mpt .setup-block h3 {
+      margin: 0;
+      font-weight: 500;
       letter-spacing: -.03em;
     }
 
-    #mpal .lens-copy {
-      margin: 12px 0 0;
-      color: #aebed0;
-      font-size: 13px;
-      line-height: 1.7;
+    #mpt .trainer-topline p,
+    #mpt .view-heading p,
+    #mpt .setup-block p {
+      max-width: 720px;
+      margin: .55rem 0 0;
+      color: var(--muted-foreground);
     }
 
-    #mpal .systems {
+    #mpt .local-note {
+      max-width: 260px;
+      color: var(--muted-foreground);
+      text-align: right;
+    }
+
+    #mpt .setup-grid {
       display: grid;
-      gap: 9px;
-      margin-top: 24px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.35rem;
     }
 
-    #mpal .system-card {
-      padding: 14px;
-      border: 1px solid rgba(255, 255, 255, .1);
-      border-radius: 10px;
-      background: rgba(7, 18, 31, .72);
+    #mpt .field-stack {
+      display: grid;
+      gap: .45rem;
+      align-content: start;
     }
 
-    #mpal .system-name {
+    #mpt .field-hint { color: var(--muted-foreground); }
+
+    #mpt .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .8rem;
+      margin: 1.25rem 0;
+    }
+
+    #mpt .viz-stat-value {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #mpt .speed-launch {
+      padding: 1.35rem;
+    }
+
+    #mpt .readiness {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      color: var(--gold);
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    #mpt .readiness-copy { color: var(--muted-foreground); }
+    #mpt .readiness-copy strong { display: block; color: var(--foreground); }
+
+    #mpt .session-frame {
+      overflow: hidden;
+      background: var(--instrument);
+      color: var(--instrument-text);
+    }
+
+    #mpt .session-header {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid color-mix(in srgb, var(--background) 16%, transparent);
+    }
+
+    #mpt .session-metric {
+      padding: 1rem 1.2rem;
+    }
+
+    #mpt .session-metric + .session-metric {
+      border-left: 1px solid color-mix(in srgb, var(--background) 12%, transparent);
+    }
+
+    #mpt .metric-label { color: var(--instrument-muted); }
+    #mpt .metric-value {
+      display: block;
+      margin-top: .3rem;
+      color: var(--instrument-text);
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
     }
 
-    #mpal .system-card p {
-      margin: 7px 0 0;
-      color: #8fa3b7;
-      font-size: 11px;
-      line-height: 1.55;
+    #mpt .progress-track,
+    #mpt .pace-track {
+      width: 100%;
+      overflow: hidden;
+      background: color-mix(in srgb, var(--background) 10%, transparent);
     }
 
-    #mpal .pulse {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 0 5px rgba(242, 189, 98, .08);
+    #mpt .progress-track { height: .25rem; }
+    #mpt .pace-track { height: .2rem; margin-top: .8rem; }
+    #mpt .progress-fill,
+    #mpt .pace-fill {
+      height: 100%;
+      width: 0;
+      background: var(--warm);
+      transition: width .16s linear;
     }
 
-    #mpal .tenets {
-      display: grid;
-      gap: 8px;
-      margin-top: auto;
-      padding-top: 26px;
+    #mpt .session-body { padding: clamp(1.25rem, 4vw, 3rem); }
+
+    #mpt .locus-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      color: var(--instrument-muted);
+      font-family: 'IBM Plex Mono', monospace;
     }
 
-    #mpal .tenet {
-      display: grid;
-      grid-template-columns: 30px 1fr;
-      gap: 11px;
-      align-items: start;
-      padding: 11px;
-      border: 1px solid rgba(255, 255, 255, .08);
-      border-radius: 9px;
-      color: #8397aa;
-      transition: color .2s ease, border .2s ease, background .2s ease;
+    #mpt .locus-name { color: var(--instrument-text); }
+
+    #mpt .card-stage {
+      display: flex;
+      justify-content: center;
+      gap: clamp(.6rem, 2vw, 1.2rem);
+      min-height: 220px;
+      padding: 1.5rem 0;
     }
 
-    #mpal .tenet.active {
-      border-color: rgba(143, 195, 255, .44);
-      background: rgba(143, 195, 255, .07);
-      color: #dcecff;
-    }
-
-    #mpal .tenet-letter {
+    #mpt .playing-card {
+      position: relative;
       display: grid;
       place-items: center;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(143, 195, 255, .08);
-      color: var(--blue);
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 600;
+      width: clamp(112px, 17vw, 172px);
+      aspect-ratio: 2.5 / 3.5;
+      border: 1px solid color-mix(in srgb, var(--foreground) 16%, transparent);
+      border-radius: .75rem;
+      background: var(--background);
+      color: var(--foreground);
+      box-shadow: 0 1.4rem 2.6rem color-mix(in srgb, var(--foreground) 28%, transparent);
     }
 
-    #mpal .tenet strong { display: block; font-size: 12px; }
-    #mpal .tenet span:last-child { display: block; margin-top: 3px; font-size: 10px; line-height: 1.45; }
-
-    #mpal .score-card {
-      margin-top: 17px;
-      padding: 16px;
-      border: 1px solid rgba(139, 215, 197, .32);
-      border-radius: 10px;
-      background: rgba(139, 215, 197, .07);
-    }
-
-    #mpal .score-big {
-      color: var(--mint);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 30px;
-      font-weight: 600;
-    }
-
-    #mpal .score-copy { margin-top: 4px; color: #9fb6b1; font-size: 11px; line-height: 1.55; }
-
-    #mpal .explain-grid {
+    #mpt .playing-card.is-red { color: var(--red); }
+    #mpt .card-corner {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 52px;
-    }
-
-    #mpal .explain-card {
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, .36);
-    }
-
-    #mpal .explain-number {
-      color: var(--orange);
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      letter-spacing: .13em;
-      text-transform: uppercase;
+      text-align: center;
     }
 
-    #mpal .explain-card h3 { margin: 9px 0 0; font-size: 20px; letter-spacing: -.025em; }
-    #mpal .explain-card p { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.68; }
+    #mpt .card-center {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(2rem, 5vw, 4.25rem);
+    }
 
-    #mpal .paper-band {
+    #mpt .role-label {
+      position: absolute;
+      right: .55rem;
+      bottom: .55rem;
+      padding: .18rem .35rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--accent-foreground);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #mpt .mapping-cue {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 38px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .75rem;
+      margin: 0 auto 1.25rem;
+      max-width: 760px;
+    }
+
+    #mpt .mapping-part {
+      padding: .85rem 1rem;
+      border-top: 1px solid color-mix(in srgb, var(--background) 20%, transparent);
+    }
+
+    #mpt .mapping-part span {
+      display: block;
+      color: var(--instrument-muted);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #mpt .mapping-part strong {
+      display: block;
+      margin-top: .35rem;
+      color: var(--instrument-text);
+      font-weight: 500;
+    }
+
+    #mpt .scene-sentence {
+      max-width: 760px;
+      margin: 0 auto 1.25rem;
+      color: var(--instrument-muted);
+      text-align: center;
+    }
+
+    #mpt .session-actions { justify-content: center; }
+    #mpt .keyboard-hint {
+      margin-top: 1rem;
+      color: var(--instrument-muted);
+      text-align: center;
+    }
+
+    #mpt .route-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(42px, 1fr));
+      gap: .35rem;
+      margin-top: 1.3rem;
+    }
+
+    #mpt .route-step {
+      min-height: 2.25rem;
+      border: 1px solid color-mix(in srgb, var(--background) 14%, transparent);
+      border-radius: .4rem;
+      background: color-mix(in srgb, var(--background) 5%, transparent);
+      color: var(--instrument-muted);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #mpt .route-step.is-current {
+      border-color: var(--warm);
+      color: var(--instrument-text);
+      background: color-mix(in srgb, var(--warm) 18%, transparent);
+    }
+
+    #mpt .route-step.is-done {
+      color: var(--instrument-text);
+      background: color-mix(in srgb, var(--cool) 15%, transparent);
+    }
+
+    #mpt .review-center {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    #mpt .review-center h3 {
+      margin: .5rem 0;
+      color: var(--instrument-text);
+      font-weight: 500;
+    }
+
+    #mpt .review-center p { color: var(--instrument-muted); }
+
+    #mpt .recall-layout {
+      display: grid;
+      grid-template-columns: minmax(230px, .38fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    #mpt .recall-prompt {
+      padding-right: 1.5rem;
+      border-right: 1px solid color-mix(in srgb, var(--background) 12%, transparent);
+    }
+
+    #mpt .recall-prompt h3 {
+      margin: .5rem 0;
+      color: var(--instrument-text);
+      font-weight: 500;
+    }
+
+    #mpt .recall-prompt p { color: var(--instrument-muted); }
+
+    #mpt .recall-slot {
+      display: inline-flex;
+      margin-top: .75rem;
+      padding: .35rem .55rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--warm) 18%, transparent);
+      color: var(--instrument-text);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #mpt .recall-sequence {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      max-height: 146px;
+      margin-top: 1rem;
+      overflow-y: auto;
+    }
+
+    #mpt .sequence-token,
+    #mpt .result-token {
+      display: inline-grid;
+      place-items: center;
+      min-width: 2.7rem;
+      padding: .38rem;
+      border: 1px solid color-mix(in srgb, var(--background) 18%, transparent);
+      border-radius: .35rem;
+      color: var(--instrument-text);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    #mpt .sequence-token.is-red { color: color-mix(in srgb, var(--red) 78%, var(--background) 22%); }
+
+    #mpt .card-picker {
+      display: grid;
+      gap: .8rem;
+    }
+
+    #mpt .suit-row {
+      display: grid;
+      grid-template-columns: repeat(13, minmax(0, 1fr));
+      gap: .3rem;
+    }
+
+    #mpt .pick-card {
+      min-height: 2.7rem;
+      padding: .3rem;
+      border: 1px solid color-mix(in srgb, var(--background) 18%, transparent);
+      border-radius: .35rem;
+      background: color-mix(in srgb, var(--background) 7%, transparent);
+      color: var(--instrument-text);
+      font-family: 'IBM Plex Mono', monospace;
+      cursor: pointer;
+    }
+
+    #mpt .pick-card.is-red { color: color-mix(in srgb, var(--red) 78%, var(--background) 22%); }
+    #mpt .pick-card:hover { border-color: var(--warm); }
+    #mpt .pick-card:disabled { opacity: .25; cursor: default; }
+
+    #mpt .result-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .8rem;
+      margin: 1.25rem 0;
+    }
+
+    #mpt .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: .5rem;
+      margin: 1.2rem 0;
+    }
+
+    #mpt .result-token {
+      min-height: 4rem;
+      align-content: center;
+      text-align: center;
+    }
+
+    #mpt .result-token.is-correct {
+      border-color: var(--green);
+      background: color-mix(in srgb, var(--green) 12%, transparent);
+    }
+
+    #mpt .result-token.is-wrong {
+      border-color: var(--red);
+      background: color-mix(in srgb, var(--red) 10%, transparent);
+    }
+
+    #mpt .result-token small {
+      display: block;
+      margin-top: .25rem;
+      color: var(--instrument-muted);
+    }
+
+    #mpt .drill-shell {
+      display: grid;
+      grid-template-columns: minmax(260px, .72fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    #mpt .drill-controls { padding: 1.25rem; }
+    #mpt .drill-stage {
+      display: grid;
+      place-items: center;
+      min-height: 520px;
+      padding: 2rem;
+      background: var(--instrument);
+      color: var(--instrument-text);
+    }
+
+    #mpt .drill-content {
+      display: grid;
+      justify-items: center;
+      width: 100%;
+      max-width: 620px;
+      text-align: center;
+    }
+
+    #mpt .drill-content .playing-card { width: 150px; }
+    #mpt .drill-prompt { margin: 1.25rem 0 .75rem; color: var(--instrument-muted); }
+    #mpt .drill-answer {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .65rem;
+      width: 100%;
+      margin: 1rem 0;
+    }
+
+    #mpt .drill-answer div {
+      padding: .8rem;
+      border-top: 1px solid color-mix(in srgb, var(--background) 18%, transparent);
+    }
+
+    #mpt .drill-answer span { display: block; color: var(--instrument-muted); }
+    #mpt .drill-answer strong { display: block; margin-top: .3rem; font-weight: 500; }
+
+    #mpt .view-heading { margin-bottom: 1.35rem; }
+    #mpt .setup-block { margin-top: 1.5rem; padding: 1.35rem; }
+    #mpt .setup-block:first-of-type { margin-top: 0; }
+
+    #mpt .loci-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+
+    #mpt .locus-input-row {
+      display: grid;
+      grid-template-columns: 2.2rem minmax(0, 1fr);
+      gap: .55rem;
       align-items: center;
-      margin-top: 54px;
-      padding: 34px;
-      border-radius: 16px;
-      background:
-        radial-gradient(circle at 100% 0%, rgba(242, 189, 98, .18), transparent 38%),
-        var(--ink);
-      color: #fff7ef;
     }
 
-    #mpal .paper-band h2 { margin: 0; font-size: clamp(25px, 3vw, 36px); letter-spacing: -.03em; }
-    #mpal .paper-band p { max-width: 730px; margin: 11px 0 0; color: #cbbcb0; font-size: 13px; line-height: 1.65; }
-    #mpal .paper-actions { justify-content: flex-end; }
-
-    #mpal .scope-note {
-      margin: 22px 0 0;
-      color: #8b7c72;
-      font-size: 11px;
-      line-height: 1.6;
+    #mpt .locus-input-row span {
+      color: var(--muted-foreground);
+      font-family: 'IBM Plex Mono', monospace;
+      text-align: right;
     }
 
-    #mpal footer {
+    #mpt .mapping-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    #mpt .mapping-toolbar .field-stack { min-width: 180px; }
+    #mpt .mapping-card-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 500;
+    }
+    #mpt .mapping-card-label.is-red { color: var(--red); }
+
+    #mpt .mapping-table input { min-width: 150px; }
+    #mpt .setup-status { color: var(--muted-foreground); }
+
+    #mpt .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    #mpt .method-step { padding-right: 1rem; }
+    #mpt .method-step strong { display: block; font-weight: 500; }
+    #mpt .method-step p { margin: .45rem 0 0; color: var(--muted-foreground); }
+    #mpt .paper-link { margin-top: 1.5rem; color: var(--muted-foreground); }
+    #mpt .paper-link a { color: var(--foreground); text-decoration: underline; }
+
+    #mpt footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      padding: 30px 8vw;
-      background: var(--ink);
-      color: #d8c6b8;
-      font-size: 13px;
+      gap: 1.5rem;
+      padding: 1.75rem 8vw;
+      border-top: 1px solid var(--border);
+      background: var(--page-soft);
+      color: var(--muted-foreground);
     }
 
-    #mpal footer strong { color: #fdf3e9; font-size: 16px; }
-    #mpal footer span:last-child { font-family: 'IBM Plex Mono', monospace; }
-
-    #mpal :focus-visible {
-      outline: 3px solid var(--blue);
-      outline-offset: 3px;
-    }
+    #mpt footer strong { color: var(--foreground); font-weight: 500; }
+    #mpt footer span:last-child { font-family: 'IBM Plex Mono', monospace; }
 
     @media (prefers-reduced-motion: reduce) {
-      #mpal *, #mpal *::before, #mpal *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
+      #mpt *, #mpt *::before, #mpt *::after { transition: none !important; scroll-behavior: auto !important; }
     }
 
-    @media (max-width: 940px) {
-      #mpal .lab-grid { grid-template-columns: 1fr; }
-      #mpal .palace-side { border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, .1); }
-      #mpal .tenets { margin-top: 22px; }
-      #mpal .explain-grid { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      #mpt .trainer-topline { align-items: flex-start; flex-direction: column; }
+      #mpt .local-note { max-width: none; text-align: left; }
+      #mpt .setup-grid,
+      #mpt .stat-row,
+      #mpt .result-summary,
+      #mpt .method-grid { grid-template-columns: 1fr; }
+      #mpt .recall-layout,
+      #mpt .drill-shell { grid-template-columns: 1fr; }
+      #mpt .recall-prompt { padding-right: 0; padding-bottom: 1rem; border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--background) 12%, transparent); }
+      #mpt .suit-row { grid-template-columns: repeat(7, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 740px) {
-      #mpal .mg-nav { align-items: flex-start; padding: 16px 5vw; }
-      #mpal .nav-links { gap: 14px; font-size: 10px; }
-      #mpal .hero { padding: 55px 6vw 48px; }
-      #mpal .content { padding: 38px 4vw 58px; }
-      #mpal .phase { overflow: hidden; padding: 13px 5px; font-size: 8px; letter-spacing: .02em; }
-      #mpal .palace-side, #mpal .research-side { padding: 24px 18px; }
-      #mpal .palace-head { align-items: flex-start; flex-direction: column; }
-      #mpal .route-direction { text-align: left; }
-      #mpal .card-strip, #mpal .choice-list { grid-template-columns: 1fr; }
-      #mpal .paper-band { grid-template-columns: 1fr; padding: 26px; }
-      #mpal .paper-actions { justify-content: flex-start; }
+    @media (max-width: 720px) {
+      #mpt .site-nav { align-items: flex-start; padding: .9rem 5vw; }
+      #mpt .nav-links { gap: .85rem; overflow-x: auto; width: 100%; padding-bottom: .2rem; }
+      #mpt .hero { padding: 3.25rem 6vw 3rem; }
+      #mpt .page { padding: 2rem 4vw 3.5rem; }
+      #mpt .session-header { grid-template-columns: repeat(2, 1fr); }
+      #mpt .session-metric:nth-child(3) { border-left: 0; border-top: 1px solid color-mix(in srgb, var(--background) 12%, transparent); }
+      #mpt .session-metric:nth-child(4) { border-top: 1px solid color-mix(in srgb, var(--background) 12%, transparent); }
+      #mpt .mapping-cue,
+      #mpt .drill-answer { grid-template-columns: 1fr; }
+      #mpt .loci-grid { grid-template-columns: 1fr; }
+      #mpt .readiness { align-items: flex-start; flex-direction: column; }
     }
 
     @media (max-width: 540px) {
-      #mpal .mg-nav { flex-direction: column; gap: 13px; }
-      #mpal .nav-links { width: 100%; overflow-x: auto; padding-bottom: 4px; }
-      #mpal .route-map { grid-template-columns: 1fr; }
-      #mpal .route-map::before { display: none; }
-      #mpal footer { align-items: flex-start; flex-direction: column; padding: 28px 6vw; }
+      #mpt .site-nav { flex-direction: column; gap: .75rem; }
+      #mpt .card-stage { min-height: 170px; }
+      #mpt .playing-card { width: min(29vw, 116px); }
+      #mpt .suit-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      #mpt footer { align-items: flex-start; flex-direction: column; padding: 1.6rem 6vw; }
     }
   </style>
 
-  <nav class="mg-nav" aria-label="Primary navigation">
+  <nav class="site-nav" aria-label="Primary navigation">
     <a class="brand" href="index.html">
       <span class="brand-mark" aria-hidden="true"></span>
       <span>Mind Guild</span>
@@ -1547,157 +1491,292 @@ svg {
 
   <header class="hero">
     <div class="hero-inner">
-      <div class="eyebrow">Interactive research demo · Memory athletics</div>
-      <h1>Walk a thought.<br>Make it memorable.</h1>
-      <p class="hero-copy">Explore how a memory athlete turns cards into impossible scenes, places them along a familiar route, and reconstructs the sequence—revealing how practiced structure and flexible conscious imagery work together.</p>
+      <div class="eyebrow">Memory athletics · Training console</div>
+      <h1>Build the palace. Train the mapping. Race the deck.</h1>
+      <p class="hero-copy">Practice Speed Cards with your own Person–Action–Object vocabulary and ordered loci. Generate randomized decks, encode in triples, review backward, reconstruct every card, and track progress over time.</p>
       <div class="hero-actions">
-        <a class="button primary" href="#memory-lab">Enter the palace</a>
-        <a class="button" href="artwork/representational-tenets-memory-athletics.pdf" target="_blank" rel="noopener">Read the paper</a>
+        <a class="btn btn-primary" href="#trainer">Start training</a>
+        <a class="btn" href="artwork/representational-tenets-memory-athletics.pdf" target="_blank" rel="noopener">Read the research</a>
       </div>
     </div>
   </header>
 
-  <main class="content">
-    <div class="content-inner">
-      <section id="memory-lab" class="lab-shell" aria-labelledby="lab-title">
-        <div class="phase-rail" aria-label="Experience progress">
-          <div class="phase current" data-phase="orient">1 · Orient</div>
-          <div class="phase" data-phase="encode">2 · Encode</div>
-          <div class="phase" data-phase="review">3 · Review</div>
-          <div class="phase" data-phase="recall">4 · Recall</div>
-          <div class="phase" data-phase="complete">5 · Reflect</div>
+  <main class="page">
+    <div class="page-inner">
+      <section id="trainer" aria-labelledby="trainer-title">
+        <div class="trainer-topline">
+          <div>
+            <div class="section-label">Your training space</div>
+            <h2 id="trainer-title">Memory Palace Trainer</h2>
+            <p>Use a shortened deck while learning, then scale to the full 52-card Speed Cards discipline.</p>
+          </div>
+          <div class="local-note">Your PAO map, loci, and session history stay in this browser.</div>
         </div>
 
-        <div class="lab-grid">
-          <div class="palace-side">
-            <div class="palace-head">
-              <div>
-                <div class="lab-label">The four-locus palace</div>
-                <h2 id="lab-title">A stable route for new scenes</h2>
-              </div>
-              <div class="route-direction" id="route-direction">ENCODE → 01 · 02 · 03 · 04<br>REVIEW ← 04 · 03 · 02 · 01</div>
+        <div class="tab-row" role="group" aria-label="Training mode">
+          <button class="btn btn-primary" type="button" data-view-button="speed" aria-pressed="true">Speed Cards</button>
+          <button class="btn" type="button" data-view-button="drill" aria-pressed="false">PAO Drill</button>
+          <button class="btn" type="button" data-view-button="setup" aria-pressed="false">Palace &amp; PAO Setup</button>
+        </div>
+
+        <section data-view="speed">
+          <div id="speed-setup" class="speed-launch">
+            <div class="view-heading">
+              <h2>Configure a practice deck</h2>
+              <p>Every session shuffles a fresh deck. Assisted mode shows your mapping while you encode; independent mode makes you retrieve it.</p>
             </div>
 
-            <ol class="route-map" id="route-map">
-              <li>
-                <button class="locus-button active" type="button" data-locus="0" aria-label="Explore locus 1, the Threshold">
-                  <span class="locus-number">01</span>
-                  <span><span class="locus-title">The Threshold</span><span class="locus-detail">Brass door · cool stone</span></span>
-                  <span class="locus-icon" aria-hidden="true">🚪</span>
-                </button>
-              </li>
-              <li>
-                <button class="locus-button" type="button" data-locus="1" aria-label="Explore locus 2, the Gallery">
-                  <span class="locus-number">02</span>
-                  <span><span class="locus-title">The Gallery</span><span class="locus-detail">Long wall · gilt frames</span></span>
-                  <span class="locus-icon" aria-hidden="true">🖼️</span>
-                </button>
-              </li>
-              <li>
-                <button class="locus-button" type="button" data-locus="2" aria-label="Explore locus 3, the Library">
-                  <span class="locus-number">03</span>
-                  <span><span class="locus-title">The Library</span><span class="locus-detail">Tall shelves · rolling ladder</span></span>
-                  <span class="locus-icon" aria-hidden="true">📚</span>
-                </button>
-              </li>
-              <li>
-                <button class="locus-button" type="button" data-locus="3" aria-label="Explore locus 4, the Observatory">
-                  <span class="locus-number">04</span>
-                  <span><span class="locus-title">The Observatory</span><span class="locus-detail">Copper dome · open sky</span></span>
-                  <span class="locus-icon" aria-hidden="true">🔭</span>
-                </button>
-              </li>
-            </ol>
+            <div class="setup-grid">
+              <label class="field-stack">
+                <span class="form-label">Deck size</span>
+                <select class="form-select" id="deck-size">
+                  <option value="12">12 cards · 4 loci</option>
+                  <option value="24">24 cards · 8 loci</option>
+                  <option value="36">36 cards · 12 loci</option>
+                  <option value="51">51 cards · 17 loci</option>
+                  <option value="52">52 cards · 18 loci</option>
+                </select>
+                <span class="field-hint">Start short; scale after accuracy stabilizes.</span>
+              </label>
 
-            <div class="scene-stage" aria-live="polite">
-              <div class="stage-kicker" id="stage-kicker">Orient · Locus 01</div>
-              <h3 class="stage-title" id="stage-title">Learn the route before adding information.</h3>
-              <p class="stage-copy" id="stage-copy">A memory palace begins with a familiar place and a fixed sequence of distinct locations. Explore all four loci, then begin a shortened PAO card exercise.</p>
+              <label class="field-stack">
+                <span class="form-label">Mapping cues</span>
+                <select class="form-select" id="cue-mode">
+                  <option value="assisted">Assisted · show PAO</option>
+                  <option value="independent">Independent · cards only</option>
+                </select>
+                <span class="field-hint">Reveals are counted as assists.</span>
+              </label>
 
-              <div class="card-strip" id="card-strip" hidden></div>
-              <div class="scene-result" id="scene-result" hidden>
-                <div class="scene-emoji" id="scene-emoji" aria-hidden="true"></div>
-                <div>
-                  <div class="scene-line" id="scene-line"></div>
-                  <div class="scene-cue" id="scene-cue"></div>
-                </div>
+              <label class="field-stack">
+                <span class="form-label">Encoding pace</span>
+                <select class="form-select" id="pace">
+                  <option value="0">Self-paced</option>
+                  <option value="15">15 seconds per locus</option>
+                  <option value="10">10 seconds per locus</option>
+                  <option value="5">5 seconds per locus</option>
+                  <option value="3">3 seconds per locus</option>
+                </select>
+                <span class="field-hint">Timed scenes advance automatically.</span>
+              </label>
+            </div>
+
+            <div class="stat-row">
+              <div class="card viz-stat">
+                <span class="text-muted">Last session</span>
+                <span class="viz-stat-value" id="last-session">—</span>
               </div>
-              <div class="choice-list" id="choice-list" hidden aria-label="Recall choices"></div>
-              <div class="score-card" id="score-card" hidden></div>
-
-              <div class="lab-actions">
-                <button class="button gold" id="primary-action" type="button">Begin encoding</button>
-                <button class="button light" id="reset-action" type="button">Reset</button>
-                <span class="status-note" id="status-note">Tip: click any room to preview its sensory landmark.</span>
+              <div class="card viz-stat">
+                <span class="text-muted">Perfect best</span>
+                <span class="viz-stat-value" id="personal-best">—</span>
               </div>
+              <div class="card viz-stat">
+                <span class="text-muted">Setup ready</span>
+                <span class="viz-stat-value" id="setup-ready">0 / 52</span>
+              </div>
+            </div>
+
+            <div class="readiness">
+              <div class="readiness-copy">
+                <strong id="launch-title">Four PAO scenes</strong>
+                <span id="launch-detail">Uses loci 1–4 from your saved palace.</span>
+              </div>
+              <button class="btn btn-primary" id="start-speed" type="button">Shuffle &amp; start encoding</button>
             </div>
           </div>
 
-          <aside class="research-side" aria-labelledby="lens-title">
-            <div class="lens-label">Research lens · Current phase</div>
-            <h3 id="lens-title">Practice builds a retrieval structure</h3>
-            <p class="lens-copy" id="lens-copy">The route is learned in advance. With repetition, moving from one locus to the next can become rapid and automatic, leaving attention available for the new scenes.</p>
-
-            <div class="systems">
-              <div class="system-card">
-                <div class="system-name">Practiced structure <span class="pulse" aria-hidden="true"></span></div>
-                <p>Reusable route and card-to-PAO mappings; fast, efficient, and comparatively inflexible.</p>
+          <div id="speed-session" class="session-frame" hidden>
+            <div class="session-header" aria-label="Session status">
+              <div class="session-metric"><span class="metric-label">Phase</span><span class="metric-value" id="session-phase">Encode</span></div>
+              <div class="session-metric"><span class="metric-label">Time</span><span class="metric-value" id="session-time">00:00.0</span></div>
+              <div class="session-metric"><span class="metric-label">Progress</span><span class="metric-value" id="session-progress">1 / 4</span></div>
+              <div class="session-metric"><span class="metric-label">Assists</span><span class="metric-value" id="session-assists">0</span></div>
+            </div>
+            <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="session-progress-fill"></div></div>
+            <div class="session-body">
+              <div class="locus-line">
+                <span id="scene-position">Scene 1</span>
+                <span class="locus-name" id="active-locus">01 · The Threshold</span>
               </div>
-              <div class="system-card">
-                <div class="system-name">Flexible binding <span class="pulse" aria-hidden="true"></span></div>
-                <p>One-shot placement of a novel composite scene at a specific location.</p>
+              <div class="card-stage" id="encoding-cards" aria-label="Current cards"></div>
+              <div class="mapping-cue" id="encoding-mapping" hidden></div>
+              <div class="scene-sentence" id="encoding-scene" hidden></div>
+              <div class="pace-track" id="pace-track" hidden aria-hidden="true"><div class="pace-fill" id="pace-fill"></div></div>
+              <div class="session-actions">
+                <button class="btn btn-primary" id="encode-next" type="button">Place scene &amp; next</button>
+                <button class="btn" id="reveal-encoding" type="button">Reveal PAO</button>
+                <button class="btn btn-ghost" id="pause-session" type="button">Pause</button>
+                <button class="btn btn-ghost" id="end-session" type="button">End session</button>
+              </div>
+              <div class="keyboard-hint">Space or Enter · next scene &nbsp; P · pause</div>
+              <div class="route-strip" id="encode-route" aria-label="Palace route progress"></div>
+            </div>
+          </div>
+
+          <div id="review-screen" class="session-frame" hidden>
+            <div class="session-header">
+              <div class="session-metric"><span class="metric-label">Phase</span><span class="metric-value">Reverse review</span></div>
+              <div class="session-metric"><span class="metric-label">Encoding time</span><span class="metric-value" id="review-time">—</span></div>
+              <div class="session-metric"><span class="metric-label">Locus</span><span class="metric-value" id="review-progress">—</span></div>
+              <div class="session-metric"><span class="metric-label">Assists</span><span class="metric-value" id="review-assists">0</span></div>
+            </div>
+            <div class="session-body">
+              <div class="review-center">
+                <div class="section-label">Walk backward</div>
+                <h3 id="review-locus">The Observatory</h3>
+                <p id="review-instruction">Mentally reconstruct the scene at this locus before moving backward.</p>
+                <div class="card-stage" id="review-cards" hidden></div>
+                <div class="scene-sentence" id="review-scene" hidden></div>
+              </div>
+              <div class="session-actions">
+                <button class="btn btn-primary" id="review-next" type="button">Previous locus</button>
+                <button class="btn" id="review-reveal" type="button">Reveal scene</button>
+                <button class="btn btn-ghost" id="skip-review" type="button">Skip to recall</button>
+              </div>
+              <div class="route-strip" id="review-route" aria-label="Reverse review route"></div>
+            </div>
+          </div>
+
+          <div id="recall-screen" class="session-frame" hidden>
+            <div class="session-header">
+              <div class="session-metric"><span class="metric-label">Phase</span><span class="metric-value">Recall</span></div>
+              <div class="session-metric"><span class="metric-label">Encoding time</span><span class="metric-value" id="recall-time">—</span></div>
+              <div class="session-metric"><span class="metric-label">Cards entered</span><span class="metric-value" id="recall-progress">0 / 12</span></div>
+              <div class="session-metric"><span class="metric-label">Current locus</span><span class="metric-value" id="recall-locus-number">01</span></div>
+            </div>
+            <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="recall-progress-fill"></div></div>
+            <div class="session-body recall-layout">
+              <div class="recall-prompt">
+                <div class="section-label">Reconstruct the deck</div>
+                <h3 id="recall-locus">The Threshold</h3>
+                <p id="recall-instruction">Retrieve the person card from this locus.</p>
+                <span class="recall-slot" id="recall-slot">Person · position 1</span>
+                <div class="recall-sequence" id="recall-sequence" aria-label="Recalled card sequence"></div>
+                <div class="action-row">
+                  <button class="btn" id="undo-recall" type="button" disabled>Undo last</button>
+                  <button class="btn btn-primary" id="score-recall" type="button" hidden>Score recall</button>
+                </div>
+              </div>
+              <div class="card-picker" id="card-picker" aria-label="Choose the next card"></div>
+            </div>
+          </div>
+
+          <div id="results-screen" class="session-frame" hidden>
+            <div class="session-body">
+              <div class="view-heading">
+                <div class="section-label">Session complete</div>
+                <h2 id="result-heading">Recall scored</h2>
+                <p id="result-copy">Review the positions below. Green cards were reconstructed exactly; red cards show the expected card and your response.</p>
+              </div>
+              <div class="result-summary">
+                <div class="card viz-stat"><span class="text-muted">Accuracy</span><span class="viz-stat-value" id="result-accuracy">—</span></div>
+                <div class="card viz-stat"><span class="text-muted">Encoding time</span><span class="viz-stat-value" id="result-time">—</span></div>
+                <div class="card viz-stat"><span class="text-muted">Rate</span><span class="viz-stat-value" id="result-rate">—</span></div>
+              </div>
+              <div class="result-grid" id="result-grid" aria-label="Recall results by position"></div>
+              <div class="action-row">
+                <button class="btn btn-primary" id="new-deck" type="button">Train another deck</button>
+                <button class="btn" id="drill-misses" type="button">Drill missed mappings</button>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div class="tenets" aria-label="S3Q qualities">
-              <div class="tenet active" data-tenet="simulated">
-                <span class="tenet-letter">S</span>
-                <span><strong>Simulated</strong><span>An internally generated sensory world.</span></span>
+        <section data-view="drill" hidden>
+          <div class="view-heading">
+            <h2>PAO retrieval drill</h2>
+            <p>See a card, retrieve its mapping from memory, then reveal and self-rate. “Again” returns the card to the near-term queue.</p>
+          </div>
+          <div class="drill-shell">
+            <div class="drill-controls">
+              <label class="field-stack">
+                <span class="form-label">Retrieval target</span>
+                <select class="form-select" id="drill-role">
+                  <option value="all">Person + action + object</option>
+                  <option value="person">Person only</option>
+                  <option value="action">Action only</option>
+                  <option value="object">Object only</option>
+                </select>
+              </label>
+              <div class="stat-row">
+                <div class="card viz-stat"><span class="text-muted">Trials</span><span class="viz-stat-value" id="drill-trials">0</span></div>
+                <div class="card viz-stat"><span class="text-muted">Got it</span><span class="viz-stat-value" id="drill-correct">0</span></div>
+                <div class="card viz-stat"><span class="text-muted">Avg. reveal</span><span class="viz-stat-value" id="drill-average">—</span></div>
               </div>
-              <div class="tenet" data-tenet="situated">
-                <span class="tenet-letter">S</span>
-                <span><strong>Situated</strong><span>Content anchored to a place and moment.</span></span>
-              </div>
-              <div class="tenet" data-tenet="coherent">
-                <span class="tenet-letter">S</span>
-                <span><strong>Structurally coherent</strong><span>A stable, distinctive, useful organization.</span></span>
+              <p class="field-hint" id="drill-pool-note">Drilling all 52 cards.</p>
+              <button class="btn" id="reset-drill-pool" type="button" hidden>Return to all cards</button>
+            </div>
+            <div class="drill-stage">
+              <div class="drill-content">
+                <div id="drill-card" aria-label="PAO drill card"></div>
+                <p class="drill-prompt" id="drill-prompt">Retrieve the person, action, and object.</p>
+                <div class="drill-answer" id="drill-answer" hidden></div>
+                <div class="drill-actions">
+                  <button class="btn btn-primary" id="reveal-drill" type="button">Reveal mapping</button>
+                  <button class="btn" id="drill-again" type="button" hidden>Again</button>
+                  <button class="btn btn-primary" id="drill-got-it" type="button" hidden>Got it</button>
+                </div>
               </div>
             </div>
-          </aside>
-        </div>
+          </div>
+        </section>
+
+        <section data-view="setup" hidden>
+          <div class="view-heading">
+            <h2>Your palace and PAO vocabulary</h2>
+            <p>Personal, distinctive mappings become fast through repetition. Edit the starter set or import your own; all changes remain on this device.</p>
+          </div>
+
+          <section class="setup-block card" aria-labelledby="palace-setup-title">
+            <h3 id="palace-setup-title">Ordered palace loci</h3>
+            <p>Use locations you know well and can traverse without hesitation. Eighteen loci support a full 52-card deck.</p>
+            <div class="loci-grid" id="loci-grid"></div>
+            <div class="setup-actions">
+              <button class="btn" id="reset-loci" type="button">Restore starter palace</button>
+            </div>
+          </section>
+
+          <section class="setup-block card" aria-labelledby="mapping-setup-title">
+            <h3 id="mapping-setup-title">Card-to-PAO mapping</h3>
+            <p>Each card needs a unique, rapidly retrieved person, action, and object. The starter set includes the paper’s C-3PO / playing / pizza example.</p>
+            <div class="mapping-toolbar">
+              <label class="field-stack">
+                <span class="form-label">Show suit</span>
+                <select class="form-select" id="mapping-suit">
+                  <option value="♠">Spades</option>
+                  <option value="♥">Hearts</option>
+                  <option value="♣">Clubs</option>
+                  <option value="♦">Diamonds</option>
+                  <option value="all">All cards</option>
+                </select>
+              </label>
+              <div class="setup-actions">
+                <button class="btn" id="export-mapping" type="button">Export CSV</button>
+                <label class="btn" for="import-mapping">Import CSV</label>
+                <input class="sr-only" id="import-mapping" type="file" accept=".csv,text/csv">
+                <button class="btn" id="reset-mapping" type="button">Restore starter mapping</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-sm mapping-table">
+                <thead><tr><th>Card</th><th>Person</th><th>Action</th><th>Object</th></tr></thead>
+                <tbody id="mapping-body"></tbody>
+              </table>
+            </div>
+            <div class="readiness">
+              <div class="setup-status" id="setup-status" aria-live="polite">Changes save automatically.</div>
+              <button class="btn btn-primary" id="save-setup" type="button">Save setup</button>
+            </div>
+          </section>
+        </section>
       </section>
 
-      <section class="explain-grid" aria-label="How the demonstration maps to the paper">
-        <article class="explain-card">
-          <div class="explain-number">01 · Compress</div>
-          <h3>Three cards become one scene</h3>
-          <p>In a PAO system, the first card supplies a person, the second an action, and the third an object. A 52-card deck can therefore become 17 composite scenes, plus one remaining card.</p>
-        </article>
-        <article class="explain-card">
-          <div class="explain-number">02 · Locate</div>
-          <h3>Order lives in the route</h3>
-          <p>Each distinctive scene is bound to the next locus in a well-rehearsed palace. Traversing those locations provides an ordered set of retrieval cues.</p>
-        </article>
-        <article class="explain-card">
-          <div class="explain-number">03 · Reconstruct</div>
-          <h3>Imagery becomes cards again</h3>
-          <p>During recall, the athlete revisits the palace, retrieves each scene, and reverses the PAO mapping. The paper uses this interaction to examine complementary conscious and nonconscious learning systems.</p>
-        </article>
+      <section class="method-grid" aria-label="Training loop">
+        <div class="method-step"><strong>1 · Compile the mapping</strong><p>Drill each card until the person, action, and object arrive without verbal translation.</p></div>
+        <div class="method-step"><strong>2 · Bind one scene per locus</strong><p>Combine each three-card PAO and place the distinctive scene along a stable route.</p></div>
+        <div class="method-step"><strong>3 · Reconstruct and measure</strong><p>Walk the palace, reverse the mapping, score exact order, and repeat the misses.</p></div>
       </section>
-
-      <section class="paper-band" aria-labelledby="paper-title">
-        <div>
-          <div class="eyebrow">Source paper</div>
-          <h2 id="paper-title">Representational Tenets for Memory Athletics</h2>
-          <p>Kevin Schmidt and colleagues connect a champion memory athlete’s first-person account with the Simulated, Situated, and Structurally Coherent Qualia (S3Q) framework, then propose testable hypotheses about expertise, distinctiveness, modality, and flexible conscious representation.</p>
-        </div>
-        <div class="paper-actions">
-          <a class="button gold" href="artwork/representational-tenets-memory-athletics.pdf" target="_blank" rel="noopener">Open paper</a>
-          <a class="button light" href="artwork/representational-tenets-memory-athletics.pdf" download>Download PDF</a>
-        </div>
-      </section>
-
-      <p class="scope-note">This learning demo uses 12 cards and four loci to make the method explorable. It is not a cognitive test or a literal model of neural activity. Neural mechanisms and performance predictions are presented in the paper as hypotheses for future experimentation.</p>
+      <p class="paper-link">Research basis: <a href="artwork/representational-tenets-memory-athletics.pdf" target="_blank" rel="noopener">Representational Tenets for Memory Athletics</a>. Training results are for personal practice, not a validated cognitive assessment.</p>
     </div>
   </main>
 
@@ -1708,366 +1787,826 @@ svg {
 
   <script>
     (() => {
-      const scenes = [
-        {
-          locus: "The Threshold",
-          cardValues: ["A♠", "7♥", "3♣"],
-          roles: ["Person", "Action", "Object"],
-          values: ["Astronaut", "Juggling", "Telescope"],
-          emoji: "🧑‍🚀🤹🔭",
-          line: "An astronaut juggles a telescope in the doorway.",
-          cue: "The telescope knocks against the brass door and rings like a bell.",
-          landmark: "Brass door, cool stone, the first step inside.",
-          choices: [
-            ["A♠", "7♥", "3♣"],
-            ["A♠", "4♠", "8♠"],
-            ["K♦", "7♥", "3♣"]
-          ]
-        },
-        {
-          locus: "The Gallery",
-          cardValues: ["K♦", "4♠", "9♥"],
-          roles: ["Person", "Action", "Object"],
-          values: ["Chef", "Painting", "Volcano"],
-          emoji: "👨‍🍳🎨🌋",
-          line: "A chef paints a volcano across the gallery wall.",
-          cue: "Molten tomato sauce drips over every gilt frame.",
-          landmark: "Long wall, gilt frames, a turn to the left.",
-          choices: [
-            ["Q♣", "4♠", "9♥"],
-            ["K♦", "4♠", "9♥"],
-            ["K♦", "2♦", "6♦"]
-          ]
-        },
-        {
-          locus: "The Library",
-          cardValues: ["Q♣", "2♦", "8♠"],
-          roles: ["Person", "Action", "Object"],
-          values: ["Detective", "Surfing", "Moon"],
-          emoji: "🕵️🏄🌙",
-          line: "A detective surfs the moon between the shelves.",
-          cue: "A silver wake sends books floating into the air.",
-          landmark: "Tall shelves, paper scent, a rolling ladder.",
-          choices: [
-            ["Q♣", "J♣", "8♠"],
-            ["5♥", "2♦", "9♥"],
-            ["Q♣", "2♦", "8♠"]
-          ]
-        },
-        {
-          locus: "The Observatory",
-          cardValues: ["5♥", "J♣", "6♦"],
-          roles: ["Person", "Action", "Object"],
-          values: ["Violinist", "Inflating", "Lighthouse"],
-          emoji: "🎻🎈🗼",
-          line: "A violinist inflates a lighthouse beneath the dome.",
-          cue: "Each violin note makes the lighthouse stretch toward the stars.",
-          landmark: "Copper dome, cold rail, the open night sky.",
-          choices: [
-            ["5♥", "J♣", "6♦"],
-            ["5♥", "7♥", "6♦"],
-            ["A♠", "J♣", "3♣"]
-          ]
-        }
+      const root = document.getElementById("mpt");
+      if (!root) return;
+
+      const RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+      const SUITS = ["♠", "♥", "♣", "♦"];
+      const CARDS = SUITS.flatMap((suit) => RANKS.map((rank) => rank + suit));
+      const ROLES = ["Person", "Action", "Object"];
+      const STORAGE_KEY = "mindGuild.memoryTrainer.v2";
+
+      const DEFAULT_LOCI = [
+        "The Threshold", "The Gallery", "The Library", "The Observatory",
+        "The Kitchen Hearth", "The Grand Stair", "The Map Room", "The Conservatory",
+        "The Workshop", "The Courtyard Fountain", "The Music Room", "The Clock Hall",
+        "The Rooftop", "The Stone Bridge", "The Garden Gate", "The Old Oak",
+        "The Pond", "The Summit Cairn"
       ];
 
-      const lens = {
-        orient: {
-          title: "Practice builds a retrieval structure",
-          copy: "The route is learned in advance. With repetition, moving from one locus to the next can become rapid and automatic, leaving attention available for the new scenes.",
-          tenet: "coherent"
-        },
-        encode: {
-          title: "One-shot binding adds the new event",
-          copy: "A practiced PAO vocabulary compresses three cards into one composite image. Conscious imagery then binds that novel scene to the active locus.",
-          tenet: "situated"
-        },
-        review: {
-          title: "A route preserves sequential context",
-          copy: "The athlete in the paper reports a crucial reverse review—from the most recent locus back to the first—before recall. The fixed path keeps event order available.",
-          tenet: "coherent"
-        },
-        recall: {
-          title: "A place becomes a retrieval cue",
-          copy: "Re-entering a locus can prompt pattern completion: recover the scene, separate person, action, and object, then reverse each practiced mapping into a card.",
-          tenet: "simulated"
-        },
-        complete: {
-          title: "Expert performance joins two systems",
-          copy: "The paper argues that rapid, practiced representations and flexible one-shot conscious binding operate together. S3Q describes the resulting experience as simulated, situated, and structurally coherent.",
-          tenet: "all"
+      const STARTER = [
+        ["A♠","Astronaut","launching","rocket"],
+        ["2♠","Sherlock Holmes","deducing","magnifying glass"],
+        ["3♠","Wonder Woman","deflecting","shield"],
+        ["4♠","Indiana Jones","whipping","golden idol"],
+        ["5♠","Serena Williams","serving","tennis racket"],
+        ["6♠","Albert Einstein","scribbling","chalkboard"],
+        ["7♠","Katniss Everdeen","firing","mockingjay pin"],
+        ["8♠","Bruce Lee","roundhouse kicking","nunchaku"],
+        ["9♠","Dolly Parton","strumming","rhinestone guitar"],
+        ["10♠","Nikola Tesla","electrifying","Tesla coil"],
+        ["J♠","James Bond","aiming","martini glass"],
+        ["Q♠","Queen Elizabeth II","waving","crown"],
+        ["K♠","King Arthur","drawing","Excalibur"],
+        ["A♥","Amelia Earhart","flying","airplane"],
+        ["2♥","Beyoncé","belting","spotlight"],
+        ["3♥","Charlie Chaplin","twirling","bowler hat"],
+        ["4♥","David Bowie","moonwalking","star suit"],
+        ["5♥","Ellen Ripley","opening","airlock"],
+        ["6♥","Frida Kahlo","painting","self-portrait"],
+        ["7♥","Diane","eating","pizza"],
+        ["8♥","Harriet Tubman","guiding","lantern"],
+        ["9♥","Isaac Newton","calculating","prism"],
+        ["10♥","Julia Child","whisking","copper pot"],
+        ["J♥","Keanu Reeves","dodging","red pill"],
+        ["Q♥","Lady Gaga","strutting","disco ball"],
+        ["K♥","Muhammad Ali","boxing","boxing glove"],
+        ["A♣","Marie Curie","mixing","test tube"],
+        ["2♣","Nelson Mandela","raising","freedom flag"],
+        ["3♣","C-3PO","dancing","robot"],
+        ["4♣","Pablo Picasso","sculpting","paint palette"],
+        ["5♣","Eric Clapton","playing","guitar"],
+        ["6♣","Robin Hood","splitting","longbow"],
+        ["7♣","Simone Biles","vaulting","balance beam"],
+        ["8♣","Tina Turner","shaking","fringe dress"],
+        ["9♣","Usain Bolt","sprinting","stopwatch"],
+        ["10♣","Vincent van Gogh","brushing","sunflower"],
+        ["J♣","Willy Wonka","stirring","chocolate river"],
+        ["Q♣","Xena","throwing","chakram"],
+        ["K♣","Yoda","levitating","walking stick"],
+        ["A♦","Ada Lovelace","coding","analytical engine"],
+        ["2♦","Bob Ross","dabbing","easel"],
+        ["3♦","David Attenborough","narrating","camera"],
+        ["4♦","Elvis Presley","hip shaking","blue suede shoe"],
+        ["5♦","Freddie Mercury","conducting","stadium microphone"],
+        ["6♦","Gandalf","casting","wizard staff"],
+        ["7♦","Hedy Lamarr","tuning","radio tube"],
+        ["8♦","Iron Man","blasting","arc reactor"],
+        ["9♦","Jane Goodall","observing","binoculars"],
+        ["10♦","Kobe Bryant","dribbling","basketball"],
+        ["J♦","Lara Croft","raiding","climbing axe"],
+        ["Q♦","Mario","jumping","red mushroom"],
+        ["K♦","Gordon Ramsay","flambéing","frying pan"]
+      ].map(([card, person, action, object]) => ({ card, person, action, object }));
+
+      const $ = (selector) => root.querySelector(selector);
+      const $$ = (selector) => [...root.querySelectorAll(selector)];
+
+      function cloneStarter() {
+        return STARTER.map((item) => ({ ...item }));
+      }
+
+      function loadProfile() {
+        const fallback = { loci: [...DEFAULT_LOCI], mapping: cloneStarter(), history: [] };
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+          if (!saved || !Array.isArray(saved.mapping) || !Array.isArray(saved.loci)) return fallback;
+          const savedMap = new Map(saved.mapping.map((item) => [item.card, item]));
+          return {
+            loci: DEFAULT_LOCI.map((name, index) => String(saved.loci[index] || name)),
+            mapping: STARTER.map((item) => ({ ...item, ...(savedMap.get(item.card) || {}) })),
+            history: Array.isArray(saved.history) ? saved.history.slice(0, 30) : []
+          };
+        } catch (error) {
+          return fallback;
         }
-      };
-
-      const phaseOrder = ["orient", "encode", "review", "recall", "complete"];
-      let state = {};
-
-      const phaseEls = [...document.querySelectorAll("#mpal .phase")];
-      const locusButtons = [...document.querySelectorAll("#mpal .locus-button")];
-      const stageKicker = document.getElementById("stage-kicker");
-      const stageTitle = document.getElementById("stage-title");
-      const stageCopy = document.getElementById("stage-copy");
-      const cardStrip = document.getElementById("card-strip");
-      const sceneResult = document.getElementById("scene-result");
-      const sceneEmoji = document.getElementById("scene-emoji");
-      const sceneLine = document.getElementById("scene-line");
-      const sceneCue = document.getElementById("scene-cue");
-      const choiceList = document.getElementById("choice-list");
-      const scoreCard = document.getElementById("score-card");
-      const primaryAction = document.getElementById("primary-action");
-      const resetAction = document.getElementById("reset-action");
-      const statusNote = document.getElementById("status-note");
-      const lensTitle = document.getElementById("lens-title");
-      const lensCopy = document.getElementById("lens-copy");
-      const tenets = [...document.querySelectorAll("#mpal .tenet")];
-
-      function reset() {
-        state = {
-          phase: "orient",
-          index: 0,
-          encoded: [],
-          reviewed: [],
-          recalled: [],
-          score: 0,
-          answered: false
-        };
-        render();
       }
 
-      function setPhase(phase) {
-        state.phase = phase;
-        state.answered = false;
-        render();
+      let profile = loadProfile();
+      let session = null;
+      let clockHandle = null;
+      let paceHandle = null;
+      let mappingSaveHandle = null;
+      let lastMisses = [];
+      let drillPool = [...CARDS];
+      let drillPriority = [];
+      let drill = { current: null, revealed: false, startedAt: 0, trials: 0, correct: 0, totalRevealMs: 0 };
+
+      function persistProfile() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+          return true;
+        } catch (error) {
+          return false;
+        }
       }
 
-      function renderPhaseRail() {
-        const current = phaseOrder.indexOf(state.phase);
-        phaseEls.forEach((el, index) => {
-          el.classList.toggle("current", index === current);
-          el.classList.toggle("done", index < current);
-        });
+      function mappingFor(card) {
+        return profile.mapping.find((item) => item.card === card) || { card, person: "", action: "", object: "" };
       }
 
-      function renderLoci() {
-        locusButtons.forEach((button, index) => {
-          const active = index === state.index;
-          button.classList.toggle("active", active);
-          button.classList.toggle("encoded", state.encoded.includes(index));
-          button.classList.toggle("recalled", state.recalled.includes(index));
+      function isRed(card) {
+        return card.endsWith("♥") || card.endsWith("♦");
+      }
+
+      function cardMarkup(card, role = "") {
+        const rank = card.slice(0, -1);
+        const suit = card.slice(-1);
+        return `
+          <div class="playing-card${isRed(card) ? " is-red" : ""}">
+            <span class="card-corner"><span>${rank}</span><span>${suit}</span></span>
+            <span class="card-center">${suit}</span>
+            ${role ? `<span class="role-label">${role}</span>` : ""}
+          </div>
+        `;
+      }
+
+      function formatTime(ms) {
+        const safe = Math.max(0, ms || 0);
+        const minutes = Math.floor(safe / 60000);
+        const seconds = Math.floor((safe % 60000) / 1000);
+        const tenths = Math.floor((safe % 1000) / 100);
+        return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}.${tenths}`;
+      }
+
+      function randomIndex(max) {
+        if (max <= 1) return 0;
+        if (window.crypto && window.crypto.getRandomValues) {
+          const bucket = new Uint32Array(1);
+          window.crypto.getRandomValues(bucket);
+          return bucket[0] % max;
+        }
+        return Math.floor(Math.random() * max);
+      }
+
+      function shuffled(items) {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+          const j = randomIndex(i + 1);
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function groupDeck(deck) {
+        const groups = [];
+        for (let i = 0; i < deck.length; i += 3) groups.push(deck.slice(i, i + 3));
+        return groups;
+      }
+
+      function completeMappings() {
+        return profile.mapping.filter((item) => item.person.trim() && item.action.trim() && item.object.trim()).length;
+      }
+
+      function setView(viewName) {
+        $$("[data-view]").forEach((panel) => { panel.hidden = panel.dataset.view !== viewName; });
+        $$("[data-view-button]").forEach((button) => {
+          const active = button.dataset.viewButton === viewName;
           button.setAttribute("aria-pressed", String(active));
+          button.classList.toggle("btn-primary", active);
+        });
+        if (viewName === "setup") {
+          renderLoci();
+          renderMappingTable();
+        }
+        if (viewName === "drill" && !drill.current) nextDrillCard();
+      }
+
+      function updateLaunchSummary() {
+        const size = Number($("#deck-size").value);
+        const loci = Math.ceil(size / 3);
+        $("#launch-title").textContent = size === 52 ? "17 PAO scenes + 1 leftover card" : `${loci} PAO scenes`;
+        $("#launch-detail").textContent = `Uses loci 1–${loci} from your saved palace.`;
+        const relevant = profile.history.filter((entry) => entry.deckSize === size);
+        const last = relevant[0];
+        const best = relevant.filter((entry) => entry.accuracy === 100).sort((a, b) => a.encodingMs - b.encodingMs)[0];
+        $("#last-session").textContent = last ? `${last.accuracy}% · ${formatTime(last.encodingMs)}` : "—";
+        $("#personal-best").textContent = best ? formatTime(best.encodingMs) : "—";
+        $("#setup-ready").textContent = `${completeMappings()} / 52`;
+      }
+
+      function showSpeedScreen(screenId) {
+        ["speed-setup", "speed-session", "review-screen", "recall-screen", "results-screen"].forEach((id) => {
+          $(`#${id}`).hidden = id !== screenId;
         });
       }
 
-      function renderLens() {
-        const item = lens[state.phase];
-        lensTitle.textContent = item.title;
-        lensCopy.textContent = item.copy;
-        tenets.forEach((tenet) => {
-          tenet.classList.toggle("active", item.tenet === "all" || tenet.dataset.tenet === item.tenet);
-        });
+      function elapsedEncodingMs() {
+        if (!session) return 0;
+        const endpoint = session.pausedAt || Date.now();
+        return endpoint - session.startedAt - session.pausedTotal;
       }
 
-      function renderCards(scene) {
-        cardStrip.innerHTML = scene.roles.map((role, index) => `
-          <div class="pa-slot">
-            <span class="pa-role">${role}</span>
-            <span class="pa-card">${scene.cardValues[index]}</span>
-            <span class="pa-value">${scene.values[index]}</span>
+      function cancelPace() {
+        if (paceHandle) clearInterval(paceHandle);
+        paceHandle = null;
+      }
+
+      function cancelClock() {
+        if (clockHandle) clearInterval(clockHandle);
+        clockHandle = null;
+      }
+
+      function startClock() {
+        cancelClock();
+        clockHandle = setInterval(() => {
+          if (session && session.phase === "encode") $("#session-time").textContent = formatTime(elapsedEncodingMs());
+        }, 100);
+      }
+
+      function startSpeedSession() {
+        const deckSize = Number($("#deck-size").value);
+        const deck = shuffled(CARDS).slice(0, deckSize);
+        session = {
+          phase: "encode",
+          deckSize,
+          deck,
+          groups: groupDeck(deck),
+          groupIndex: 0,
+          cueMode: $("#cue-mode").value,
+          paceSeconds: Number($("#pace").value),
+          startedAt: Date.now(),
+          pausedAt: null,
+          pausedTotal: 0,
+          paceRemaining: 0,
+          encodingMs: 0,
+          assists: 0,
+          revealedGroups: new Set(),
+          reviewIndex: 0,
+          reviewRevealed: new Set(),
+          recalled: []
+        };
+        showSpeedScreen("speed-session");
+        startClock();
+        renderEncoding();
+      }
+
+      function renderRoute(target, currentIndex, direction = "forward") {
+        if (!session) return;
+        target.innerHTML = session.groups.map((group, index) => {
+          const done = direction === "forward" ? index < currentIndex : index > currentIndex;
+          const current = index === currentIndex;
+          return `<span class="route-step${done ? " is-done" : ""}${current ? " is-current" : ""}" aria-label="${index + 1}, ${escapeHtml(profile.loci[index])}">${String(index + 1).padStart(2, "0")}</span>`;
+        }).join("");
+      }
+
+      function renderMappingCue(group, container) {
+        if (group.length === 1) {
+          container.innerHTML = `<div class="mapping-part"><span>Leftover card</span><strong>Hold directly or deduce by elimination</strong></div>`;
+          return;
+        }
+        container.innerHTML = group.map((card, index) => {
+          const mapping = mappingFor(card);
+          const field = ["person", "action", "object"][index];
+          return `<div class="mapping-part"><span>${ROLES[index]} · ${card}</span><strong>${escapeHtml(mapping[field] || "Not set")}</strong></div>`;
+        }).join("");
+      }
+
+      function sceneSentence(group) {
+        if (group.length < 3) return "Keep the final card separate from the PAO scenes.";
+        const person = mappingFor(group[0]).person || "someone";
+        const action = mappingFor(group[1]).action || "doing something";
+        const object = mappingFor(group[2]).object || "an object";
+        return `${person} ${action} ${object} at ${profile.loci[session.groupIndex]}.`;
+      }
+
+      function schedulePace(reset = true) {
+        cancelPace();
+        if (!session || session.paceSeconds === 0 || session.pausedAt) {
+          $("#pace-track").hidden = true;
+          return;
+        }
+        $("#pace-track").hidden = false;
+        const total = session.paceSeconds * 1000;
+        if (reset || !session.paceRemaining) session.paceRemaining = total;
+        session.paceDeadline = Date.now() + session.paceRemaining;
+        const tick = () => {
+          const remaining = Math.max(0, session.paceDeadline - Date.now());
+          session.paceRemaining = remaining;
+          $("#pace-fill").style.width = `${(remaining / total) * 100}%`;
+          if (remaining <= 0) {
+            cancelPace();
+            advanceEncoding();
+          }
+        };
+        tick();
+        paceHandle = setInterval(tick, 100);
+      }
+
+      function renderEncoding() {
+        if (!session || session.phase !== "encode") return;
+        const group = session.groups[session.groupIndex];
+        const leftover = group.length === 1;
+        $("#session-phase").textContent = session.pausedAt ? "Paused" : "Encode";
+        $("#session-time").textContent = formatTime(elapsedEncodingMs());
+        $("#session-progress").textContent = `${session.groupIndex + 1} / ${session.groups.length}`;
+        $("#session-assists").textContent = String(session.assists);
+        $("#session-progress-fill").style.width = `${((session.groupIndex + 1) / session.groups.length) * 100}%`;
+        $("#scene-position").textContent = leftover ? "Leftover card" : `Scene ${session.groupIndex + 1}`;
+        $("#active-locus").textContent = `${String(session.groupIndex + 1).padStart(2, "0")} · ${profile.loci[session.groupIndex]}`;
+        $("#encoding-cards").innerHTML = group.map((card, index) => cardMarkup(card, leftover ? "Last" : ROLES[index])).join("");
+        renderMappingCue(group, $("#encoding-mapping"));
+        $("#encoding-scene").textContent = sceneSentence(group);
+        const showCue = session.cueMode === "assisted" || session.revealedGroups.has(session.groupIndex);
+        $("#encoding-mapping").hidden = !showCue;
+        $("#encoding-scene").hidden = !showCue;
+        $("#reveal-encoding").hidden = session.cueMode === "assisted" || showCue || leftover;
+        $("#encode-next").textContent = session.groupIndex === session.groups.length - 1 ? "Finish encoding" : "Place scene & next";
+        $("#encode-next").disabled = Boolean(session.pausedAt);
+        $("#reveal-encoding").disabled = Boolean(session.pausedAt);
+        $("#pause-session").textContent = session.pausedAt ? "Resume" : "Pause";
+        renderRoute($("#encode-route"), session.groupIndex, "forward");
+        schedulePace(true);
+      }
+
+      function revealEncoding() {
+        if (!session || session.pausedAt || session.revealedGroups.has(session.groupIndex)) return;
+        session.revealedGroups.add(session.groupIndex);
+        session.assists += 1;
+        $("#session-assists").textContent = String(session.assists);
+        $("#encoding-mapping").hidden = false;
+        $("#encoding-scene").hidden = false;
+        $("#reveal-encoding").hidden = true;
+      }
+
+      function advanceEncoding() {
+        if (!session || session.phase !== "encode" || session.pausedAt) return;
+        cancelPace();
+        session.paceRemaining = 0;
+        if (session.groupIndex < session.groups.length - 1) {
+          session.groupIndex += 1;
+          renderEncoding();
+        } else {
+          session.encodingMs = elapsedEncodingMs();
+          session.phase = "review";
+          session.reviewIndex = session.groups.length - 1;
+          cancelClock();
+          showSpeedScreen("review-screen");
+          renderReview();
+        }
+      }
+
+      function togglePause() {
+        if (!session || session.phase !== "encode") return;
+        if (session.pausedAt) {
+          session.pausedTotal += Date.now() - session.pausedAt;
+          session.pausedAt = null;
+          $("#encode-next").disabled = false;
+          $("#reveal-encoding").disabled = false;
+          $("#pause-session").textContent = "Pause";
+          $("#session-phase").textContent = "Encode";
+          schedulePace(false);
+        } else {
+          session.pausedAt = Date.now();
+          if (session.paceDeadline) session.paceRemaining = Math.max(0, session.paceDeadline - Date.now());
+          cancelPace();
+          $("#encode-next").disabled = true;
+          $("#reveal-encoding").disabled = true;
+          $("#pause-session").textContent = "Resume";
+          $("#session-phase").textContent = "Paused";
+        }
+      }
+
+      function endSession() {
+        if (!session) return;
+        cancelClock();
+        cancelPace();
+        session = null;
+        showSpeedScreen("speed-setup");
+        updateLaunchSummary();
+      }
+
+      function renderReview() {
+        if (!session || session.phase !== "review") return;
+        const index = session.reviewIndex;
+        const group = session.groups[index];
+        $("#review-time").textContent = formatTime(session.encodingMs);
+        $("#review-progress").textContent = `${index + 1} / ${session.groups.length}`;
+        $("#review-assists").textContent = String(session.reviewRevealed.size);
+        $("#review-locus").textContent = `${String(index + 1).padStart(2, "0")} · ${profile.loci[index]}`;
+        $("#review-instruction").textContent = group.length === 1
+          ? "Check the leftover card, then continue backward into the PAO scenes."
+          : "Mentally reconstruct the person, action, and object at this locus before moving backward.";
+        $("#review-cards").innerHTML = group.map((card, roleIndex) => cardMarkup(card, group.length === 1 ? "Last" : ROLES[roleIndex])).join("");
+        const savedGroupIndex = session.groupIndex;
+        session.groupIndex = index;
+        $("#review-scene").textContent = sceneSentence(group);
+        session.groupIndex = savedGroupIndex;
+        const revealed = session.reviewRevealed.has(index);
+        $("#review-cards").hidden = !revealed;
+        $("#review-scene").hidden = !revealed;
+        $("#review-reveal").hidden = revealed;
+        $("#review-next").textContent = index === 0 ? "Start recall" : "Previous locus";
+        renderRoute($("#review-route"), index, "reverse");
+      }
+
+      function revealReview() {
+        if (!session || session.phase !== "review") return;
+        session.reviewRevealed.add(session.reviewIndex);
+        renderReview();
+      }
+
+      function advanceReview() {
+        if (!session || session.phase !== "review") return;
+        if (session.reviewIndex > 0) {
+          session.reviewIndex -= 1;
+          renderReview();
+        } else {
+          startRecall();
+        }
+      }
+
+      function startRecall() {
+        if (!session) return;
+        session.phase = "recall";
+        session.recalled = [];
+        showSpeedScreen("recall-screen");
+        renderRecall();
+      }
+
+      function recallContext(position) {
+        const groupIndex = Math.floor(position / 3);
+        const roleIndex = position % 3;
+        const leftover = position === 51 && session.deckSize === 52;
+        return {
+          groupIndex,
+          locus: profile.loci[groupIndex],
+          role: leftover ? "Leftover card" : ROLES[roleIndex],
+          roleIndex
+        };
+      }
+
+      function renderCardPicker() {
+        const used = new Set(session.recalled);
+        $("#card-picker").innerHTML = SUITS.map((suit) => `
+          <div class="suit-row" aria-label="${suit} suit">
+            ${RANKS.map((rank) => {
+              const card = rank + suit;
+              return `<button class="pick-card${isRed(card) ? " is-red" : ""}" type="button" data-pick-card="${card}" ${used.has(card) ? "disabled" : ""}>${card}</button>`;
+            }).join("")}
           </div>
         `).join("");
       }
 
-      function showScene(scene) {
-        sceneEmoji.textContent = scene.emoji;
-        sceneLine.textContent = scene.line;
-        sceneCue.textContent = scene.cue;
-        sceneResult.hidden = false;
-      }
-
-      function hideDynamic() {
-        cardStrip.hidden = true;
-        sceneResult.hidden = true;
-        choiceList.hidden = true;
-        scoreCard.hidden = true;
-        primaryAction.hidden = false;
-      }
-
-      function renderOrient() {
-        const scene = scenes[state.index];
-        stageKicker.textContent = `Orient · Locus ${String(state.index + 1).padStart(2, "0")}`;
-        stageTitle.textContent = scene.locus;
-        stageCopy.textContent = scene.landmark;
-        statusNote.textContent = "Tip: click any room to preview its sensory landmark.";
-        primaryAction.textContent = "Begin encoding";
-      }
-
-      function renderEncode() {
-        const scene = scenes[state.index];
-        stageKicker.textContent = `Encode · Triple ${state.index + 1} of ${scenes.length}`;
-        stageTitle.textContent = `Build one scene at ${scene.locus}.`;
-        stageCopy.textContent = "Read the cards left to right: take the person from card one, the action from card two, and the object from card three.";
-        renderCards(scene);
-        cardStrip.hidden = false;
-        showScene(scene);
-        primaryAction.textContent = state.index === scenes.length - 1 ? "Place final scene" : "Place scene & continue";
-        statusNote.textContent = `${state.encoded.length} of ${scenes.length} scenes placed. Distinctive imagery reduces interference.`;
-      }
-
-      function renderReview() {
-        const scene = scenes[state.index];
-        stageKicker.textContent = `Reverse review · Locus ${String(state.index + 1).padStart(2, "0")}`;
-        stageTitle.textContent = `Revisit ${scene.locus}.`;
-        stageCopy.textContent = "Walk backward through the route, holding only the current scene in focus. This mirrors the athlete’s reported review strategy in the paper.";
-        showScene(scene);
-        primaryAction.textContent = state.index === 0 ? "Finish review" : "Step backward";
-        statusNote.textContent = `Reverse path: ${state.index + 1} → ${Math.max(1, state.index)}.`;
-      }
-
       function renderRecall() {
-        const scene = scenes[state.index];
-        stageKicker.textContent = `Recall · Locus ${state.index + 1} of ${scenes.length}`;
-        stageTitle.textContent = `What did you place at ${scene.locus}?`;
-        stageCopy.textContent = state.answered
-          ? "The composite scene can now be separated back into person, action, and object—and each element reversed into its card."
-          : "Use the room as your cue. Select the three-card sequence that generated its scene.";
-        choiceList.innerHTML = scene.choices.map((choice, choiceIndex) => `
-          <button class="choice" type="button" data-choice="${choiceIndex}" ${state.answered ? "disabled" : ""}>
-            ${choice.map((card, index) => `<span>${["P", "A", "O"][index]} · ${card}</span>`).join("<br>")}
-          </button>
-        `).join("");
-        choiceList.hidden = false;
-        primaryAction.hidden = !state.answered;
-        primaryAction.textContent = state.index === scenes.length - 1 ? "See research lens" : "Next locus";
-        statusNote.textContent = state.answered ? state.feedback : `Score: ${state.score} · ${state.index} completed`;
+        if (!session || session.phase !== "recall") return;
+        const count = session.recalled.length;
+        const complete = count === session.deckSize;
+        $("#recall-time").textContent = formatTime(session.encodingMs);
+        $("#recall-progress").textContent = `${count} / ${session.deckSize}`;
+        $("#recall-progress-fill").style.width = `${(count / session.deckSize) * 100}%`;
+        $("#undo-recall").disabled = count === 0;
+        $("#score-recall").hidden = !complete;
+        $("#card-picker").hidden = complete;
+        $("#recall-sequence").innerHTML = session.recalled.map((card) => `<span class="sequence-token${isRed(card) ? " is-red" : ""}">${card}</span>`).join("");
 
-        if (state.answered) {
-          const choiceButtons = [...choiceList.querySelectorAll(".choice")];
-          choiceButtons[state.correctChoice].classList.add("correct");
-          if (!state.wasCorrect) choiceButtons[state.selectedChoice].classList.add("incorrect");
-          showScene(scene);
-          renderCards(scene);
-          cardStrip.hidden = false;
+        if (complete) {
+          $("#recall-locus-number").textContent = "Done";
+          $("#recall-locus").textContent = "Deck reconstructed";
+          $("#recall-instruction").textContent = "All positions are filled. Score your sequence against the shuffled deck.";
+          $("#recall-slot").textContent = `${session.deckSize} cards entered`;
+        } else {
+          const context = recallContext(count);
+          $("#recall-locus-number").textContent = String(context.groupIndex + 1).padStart(2, "0");
+          $("#recall-locus").textContent = context.locus;
+          $("#recall-instruction").textContent = context.role === "Leftover card"
+            ? "Enter the final card you held or deduced."
+            : `Retrieve the ${context.role.toLowerCase()} card from this locus.`;
+          $("#recall-slot").textContent = `${context.role} · position ${count + 1}`;
+          renderCardPicker();
         }
       }
 
-      function renderComplete() {
-        const scene = scenes[state.index];
-        stageKicker.textContent = "Reflect · Explore any locus";
-        stageTitle.textContent = "The palace is now a cueable structure.";
-        stageCopy.textContent = "Click any locus to revisit its scene. Your route stayed stable while the bound content changed—the central interaction this demonstration is designed to make tangible.";
-        showScene(scene);
-        renderCards(scene);
-        cardStrip.hidden = false;
-        scoreCard.innerHTML = `
-          <div class="score-big">${state.score} / ${scenes.length}</div>
-          <div class="score-copy">Recognition score for this shortened demonstration. Memory athletes train much larger, individualized PAO vocabularies and routes.</div>
-        `;
-        scoreCard.hidden = false;
-        primaryAction.textContent = "Walk again";
-        statusNote.textContent = "Explore the rooms, restart, or continue into the source paper below.";
+      function chooseRecallCard(card) {
+        if (!session || session.phase !== "recall" || session.recalled.includes(card) || session.recalled.length >= session.deckSize) return;
+        session.recalled.push(card);
+        renderRecall();
       }
 
-      function render() {
-        hideDynamic();
-        renderPhaseRail();
-        renderLoci();
-        renderLens();
-
-        if (state.phase === "orient") renderOrient();
-        if (state.phase === "encode") renderEncode();
-        if (state.phase === "review") renderReview();
-        if (state.phase === "recall") renderRecall();
-        if (state.phase === "complete") renderComplete();
+      function undoRecall() {
+        if (!session || session.phase !== "recall" || session.recalled.length === 0) return;
+        session.recalled.pop();
+        renderRecall();
       }
 
-      function advance() {
-        if (state.phase === "orient") {
-          state.index = 0;
-          setPhase("encode");
-          return;
-        }
-
-        if (state.phase === "encode") {
-          if (!state.encoded.includes(state.index)) state.encoded.push(state.index);
-          if (state.index < scenes.length - 1) {
-            state.index += 1;
-            render();
-          } else {
-            state.index = scenes.length - 1;
-            setPhase("review");
-          }
-          return;
-        }
-
-        if (state.phase === "review") {
-          if (!state.reviewed.includes(state.index)) state.reviewed.push(state.index);
-          if (state.index > 0) {
-            state.index -= 1;
-            render();
-          } else {
-            state.index = 0;
-            setPhase("recall");
-          }
-          return;
-        }
-
-        if (state.phase === "recall") {
-          if (!state.answered) return;
-          if (!state.recalled.includes(state.index)) state.recalled.push(state.index);
-          if (state.index < scenes.length - 1) {
-            state.index += 1;
-            state.answered = false;
-            render();
-          } else {
-            state.index = 0;
-            setPhase("complete");
-          }
-          return;
-        }
-
-        if (state.phase === "complete") reset();
-      }
-
-      function answerRecall(choiceIndex) {
-        if (state.phase !== "recall" || state.answered) return;
-        const scene = scenes[state.index];
-        const correctChoice = scene.choices.findIndex((choice) =>
-          choice.every((card, index) => card === scene.cardValues[index])
-        );
-        const wasCorrect = choiceIndex === correctChoice;
-        state.answered = true;
-        state.selectedChoice = choiceIndex;
-        state.correctChoice = correctChoice;
-        state.wasCorrect = wasCorrect;
-        state.feedback = wasCorrect
-          ? "Correct—the locus cued the original composite."
-          : "Not quite. The original scene and mapping are now revealed.";
-        if (wasCorrect) state.score += 1;
-        render();
-      }
-
-      locusButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const index = Number(button.dataset.locus);
-          if (state.phase === "orient" || state.phase === "complete") {
-            state.index = index;
-            render();
-          } else if (index !== state.index) {
-            statusNote.textContent = state.phase === "review"
-              ? "Keep the reverse route: move one locus backward at a time."
-              : "Stay with the active locus—the exercise controls the sequence.";
-          }
+      function scoreRecall() {
+        if (!session || session.phase !== "recall" || session.recalled.length !== session.deckSize) return;
+        const errors = [];
+        let correct = 0;
+        session.deck.forEach((card, index) => {
+          if (session.recalled[index] === card) correct += 1;
+          else errors.push({ index, expected: card, actual: session.recalled[index] });
         });
+        const accuracy = Math.round((correct / session.deckSize) * 100);
+        const rate = session.deckSize / Math.max(.1, session.encodingMs / 1000);
+        lastMisses = [...new Set(errors.map((error) => error.expected))];
+        profile.history.unshift({
+          date: new Date().toISOString(),
+          deckSize: session.deckSize,
+          accuracy,
+          encodingMs: session.encodingMs,
+          assists: session.assists + session.reviewRevealed.size
+        });
+        profile.history = profile.history.slice(0, 30);
+        persistProfile();
+
+        $("#result-heading").textContent = accuracy === 100 ? "Perfect reconstruction" : `${correct} of ${session.deckSize} positions correct`;
+        $("#result-accuracy").textContent = `${accuracy}%`;
+        $("#result-time").textContent = formatTime(session.encodingMs);
+        $("#result-rate").textContent = `${rate.toFixed(2)} cards / sec`;
+        $("#drill-misses").hidden = lastMisses.length === 0;
+        $("#result-grid").innerHTML = session.deck.map((expected, index) => {
+          const actual = session.recalled[index];
+          const ok = expected === actual;
+          return `
+            <div class="result-token ${ok ? "is-correct" : "is-wrong"}">
+              <span>${expected}</span>
+              <small>${ok ? `#${index + 1}` : `You: ${actual}`}</small>
+            </div>
+          `;
+        }).join("");
+        session.phase = "results";
+        showSpeedScreen("results-screen");
+      }
+
+      function newDeck() {
+        session = null;
+        showSpeedScreen("speed-setup");
+        updateLaunchSummary();
+      }
+
+      function renderLoci() {
+        $("#loci-grid").innerHTML = profile.loci.map((locus, index) => `
+          <label class="locus-input-row">
+            <span>${String(index + 1).padStart(2, "0")}</span>
+            <input class="form-control" type="text" value="${escapeHtml(locus)}" data-locus-input="${index}" aria-label="Locus ${index + 1}">
+          </label>
+        `).join("");
+      }
+
+      function renderMappingTable() {
+        const suit = $("#mapping-suit").value;
+        const rows = suit === "all" ? profile.mapping : profile.mapping.filter((item) => item.card.endsWith(suit));
+        $("#mapping-body").innerHTML = rows.map((item) => `
+          <tr>
+            <td class="mapping-card-label${isRed(item.card) ? " is-red" : ""}">${item.card}</td>
+            <td><input class="form-control" type="text" value="${escapeHtml(item.person)}" data-map-card="${item.card}" data-map-field="person" aria-label="${item.card} person"></td>
+            <td><input class="form-control" type="text" value="${escapeHtml(item.action)}" data-map-card="${item.card}" data-map-field="action" aria-label="${item.card} action"></td>
+            <td><input class="form-control" type="text" value="${escapeHtml(item.object)}" data-map-card="${item.card}" data-map-field="object" aria-label="${item.card} object"></td>
+          </tr>
+        `).join("");
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function scheduleProfileSave(message = "Changes saved in this browser.") {
+        if (mappingSaveHandle) clearTimeout(mappingSaveHandle);
+        mappingSaveHandle = setTimeout(() => {
+          const ok = persistProfile();
+          $("#setup-status").textContent = ok ? message : "Unable to save in this browser.";
+          updateLaunchSummary();
+        }, 250);
+      }
+
+      function updateMapping(card, field, value) {
+        const item = profile.mapping.find((entry) => entry.card === card);
+        if (!item || !["person", "action", "object"].includes(field)) return;
+        item[field] = value;
+        scheduleProfileSave();
+      }
+
+      function resetLoci() {
+        if (!window.confirm("Restore the 18 starter loci? Your current palace route will be replaced.")) return;
+        profile.loci = [...DEFAULT_LOCI];
+        persistProfile();
+        renderLoci();
+        $("#setup-status").textContent = "Starter palace restored.";
+      }
+
+      function resetMapping() {
+        if (!window.confirm("Restore the starter PAO mapping? Your current mapping will be replaced.")) return;
+        profile.mapping = cloneStarter();
+        persistProfile();
+        renderMappingTable();
+        updateLaunchSummary();
+        $("#setup-status").textContent = "Starter PAO mapping restored.";
+      }
+
+      function csvEscape(value) {
+        return `"${String(value).replaceAll('"', '""')}"`;
+      }
+
+      function exportMapping() {
+        const rows = ["card,person,action,object", ...profile.mapping.map((item) =>
+          [item.card, item.person, item.action, item.object].map(csvEscape).join(",")
+        )];
+        const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "mind-guild-pao-mapping.csv";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function parseCsvLine(line) {
+        const fields = [];
+        let current = "";
+        let quoted = false;
+        for (let i = 0; i < line.length; i += 1) {
+          const char = line[i];
+          if (char === '"' && quoted && line[i + 1] === '"') {
+            current += '"';
+            i += 1;
+          } else if (char === '"') {
+            quoted = !quoted;
+          } else if (char === "," && !quoted) {
+            fields.push(current.trim());
+            current = "";
+          } else {
+            current += char;
+          }
+        }
+        fields.push(current.trim());
+        return fields;
+      }
+
+      function importMappingFile(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const lines = String(reader.result || "").split(/\r?\n/).filter((line) => line.trim());
+          let updated = 0;
+          lines.forEach((line, index) => {
+            const [card, person, action, object] = parseCsvLine(line);
+            if (index === 0 && card.toLowerCase() === "card") return;
+            const item = profile.mapping.find((entry) => entry.card === card);
+            if (!item) return;
+            item.person = person || "";
+            item.action = action || "";
+            item.object = object || "";
+            updated += 1;
+          });
+          persistProfile();
+          renderMappingTable();
+          updateLaunchSummary();
+          $("#setup-status").textContent = updated ? `Imported ${updated} card mappings.` : "No recognized card rows were found.";
+          $("#import-mapping").value = "";
+        };
+        reader.readAsText(file);
+      }
+
+      function nextDrillCard() {
+        const pool = drillPool.length ? drillPool : CARDS;
+        let next = null;
+        if (drillPriority.length && randomIndex(10) < 6) next = drillPriority.shift();
+        if (!next) {
+          do {
+            next = pool[randomIndex(pool.length)];
+          } while (pool.length > 1 && next === drill.current);
+        }
+        drill.current = next;
+        drill.revealed = false;
+        drill.startedAt = performance.now();
+        $("#drill-card").innerHTML = cardMarkup(next);
+        $("#drill-answer").hidden = true;
+        $("#reveal-drill").hidden = false;
+        $("#drill-again").hidden = true;
+        $("#drill-got-it").hidden = true;
+        const role = $("#drill-role").value;
+        $("#drill-prompt").textContent = role === "all"
+          ? "Retrieve the person, action, and object."
+          : `Retrieve the ${role}.`;
+      }
+
+      function revealDrill() {
+        if (!drill.current || drill.revealed) return;
+        drill.revealed = true;
+        drill.trials += 1;
+        drill.totalRevealMs += performance.now() - drill.startedAt;
+        const mapping = mappingFor(drill.current);
+        const role = $("#drill-role").value;
+        const fields = role === "all" ? ["person", "action", "object"] : [role];
+        $("#drill-answer").innerHTML = fields.map((field) => `
+          <div><span>${field[0].toUpperCase() + field.slice(1)}</span><strong>${escapeHtml(mapping[field] || "Not set")}</strong></div>
+        `).join("");
+        $("#drill-answer").hidden = false;
+        $("#reveal-drill").hidden = true;
+        $("#drill-again").hidden = false;
+        $("#drill-got-it").hidden = false;
+        updateDrillStats();
+      }
+
+      function rateDrill(gotIt) {
+        if (!drill.current || !drill.revealed) return;
+        if (gotIt) drill.correct += 1;
+        else drillPriority.push(drill.current, drill.current);
+        updateDrillStats();
+        nextDrillCard();
+      }
+
+      function updateDrillStats() {
+        $("#drill-trials").textContent = String(drill.trials);
+        $("#drill-correct").textContent = String(drill.correct);
+        $("#drill-average").textContent = drill.trials ? `${(drill.totalRevealMs / drill.trials / 1000).toFixed(1)} s` : "—";
+      }
+
+      function drillMisses() {
+        if (!lastMisses.length) return;
+        drillPool = [...lastMisses];
+        drillPriority = [];
+        drill = { current: null, revealed: false, startedAt: 0, trials: 0, correct: 0, totalRevealMs: 0 };
+        $("#drill-pool-note").textContent = `Drilling ${drillPool.length} missed card${drillPool.length === 1 ? "" : "s"} from your last recall.`;
+        $("#reset-drill-pool").hidden = false;
+        updateDrillStats();
+        setView("drill");
+        nextDrillCard();
+      }
+
+      function resetDrillPool() {
+        drillPool = [...CARDS];
+        drillPriority = [];
+        drill = { current: null, revealed: false, startedAt: 0, trials: 0, correct: 0, totalRevealMs: 0 };
+        $("#drill-pool-note").textContent = "Drilling all 52 cards.";
+        $("#reset-drill-pool").hidden = true;
+        updateDrillStats();
+        nextDrillCard();
+      }
+
+      $$("[data-view-button]").forEach((button) => button.addEventListener("click", () => setView(button.dataset.viewButton)));
+      $("#deck-size").addEventListener("change", updateLaunchSummary);
+      $("#start-speed").addEventListener("click", startSpeedSession);
+      $("#encode-next").addEventListener("click", advanceEncoding);
+      $("#reveal-encoding").addEventListener("click", revealEncoding);
+      $("#pause-session").addEventListener("click", togglePause);
+      $("#end-session").addEventListener("click", endSession);
+      $("#review-next").addEventListener("click", advanceReview);
+      $("#review-reveal").addEventListener("click", revealReview);
+      $("#skip-review").addEventListener("click", startRecall);
+      $("#undo-recall").addEventListener("click", undoRecall);
+      $("#score-recall").addEventListener("click", scoreRecall);
+      $("#new-deck").addEventListener("click", newDeck);
+      $("#drill-misses").addEventListener("click", drillMisses);
+      $("#reveal-drill").addEventListener("click", revealDrill);
+      $("#drill-again").addEventListener("click", () => rateDrill(false));
+      $("#drill-got-it").addEventListener("click", () => rateDrill(true));
+      $("#drill-role").addEventListener("change", nextDrillCard);
+      $("#reset-drill-pool").addEventListener("click", resetDrillPool);
+      $("#mapping-suit").addEventListener("change", renderMappingTable);
+      $("#reset-loci").addEventListener("click", resetLoci);
+      $("#reset-mapping").addEventListener("click", resetMapping);
+      $("#export-mapping").addEventListener("click", exportMapping);
+      $("#import-mapping").addEventListener("change", (event) => importMappingFile(event.target.files[0]));
+      $("#save-setup").addEventListener("click", () => {
+        const ok = persistProfile();
+        $("#setup-status").textContent = ok ? "Palace and PAO mapping saved." : "Unable to save in this browser.";
+        updateLaunchSummary();
       });
 
-      choiceList.addEventListener("click", (event) => {
-        const button = event.target.closest(".choice");
-        if (button) answerRecall(Number(button.dataset.choice));
+      $("#loci-grid").addEventListener("input", (event) => {
+        const input = event.target.closest("[data-locus-input]");
+        if (!input) return;
+        profile.loci[Number(input.dataset.locusInput)] = input.value;
+        scheduleProfileSave();
       });
 
-      primaryAction.addEventListener("click", advance);
-      resetAction.addEventListener("click", reset);
-      reset();
+      $("#mapping-body").addEventListener("input", (event) => {
+        const input = event.target.closest("[data-map-card]");
+        if (!input) return;
+        updateMapping(input.dataset.mapCard, input.dataset.mapField, input.value);
+      });
+
+      $("#card-picker").addEventListener("click", (event) => {
+        const button = event.target.closest("[data-pick-card]");
+        if (button) chooseRecallCard(button.dataset.pickCard);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!session || session.phase !== "encode") return;
+        const tag = event.target.tagName;
+        if (["INPUT", "SELECT", "TEXTAREA", "BUTTON"].includes(tag)) return;
+        if (event.key === " " || event.key === "Enter") {
+          event.preventDefault();
+          advanceEncoding();
+        } else if (event.key.toLowerCase() === "p") {
+          event.preventDefault();
+          togglePause();
+        }
+      });
+
+      renderLoci();
+      renderMappingTable();
+      updateLaunchSummary();
+      updateDrillStats();
+      nextDrillCard();
     })();
   </script>
 </div>
