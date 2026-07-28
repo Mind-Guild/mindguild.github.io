@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An interactive, research-grounded exploration of how basal ganglia circuits gate competing candidates for attention and working-memory updating.">
+<title>Basal Ganglia Attention Gate Lab — Mind Guild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fdf6ef;
+    --paper-deep: #f4e7d8;
+    --cream: #fffaf5;
+    --ink: #2a211c;
+    --muted: #6a5f57;
+    --faint: #8b7c70;
+    --line: #ead8c7;
+    --orange: #d15a33;
+    --orange-dark: #9d3d20;
+    --night: #08121e;
+    --night-soft: #102237;
+    --blue: #8fc3ff;
+    --gold: #f2bd62;
+    --green: #65d0a2;
+    --red: #ff806f;
+    --violet: #b8a1ff;
+    --white: #fffaf5;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: "Libre Franklin", sans-serif;
+  }
+  button, input { font: inherit; }
+  a { color: inherit; text-decoration: none; }
+  .skip-link {
+    position: fixed;
+    z-index: 100;
+    top: 10px;
+    left: 10px;
+    padding: 10px 14px;
+    border-radius: 7px;
+    color: var(--night);
+    background: var(--gold);
+    transform: translateY(-150%);
+  }
+  .skip-link:focus { transform: translateY(0); }
+  .nav {
+    position: sticky;
+    z-index: 20;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 8vw;
+    border-bottom: 1px solid rgba(234, 216, 199, .88);
+    background: rgba(253, 246, 239, .94);
+    backdrop-filter: blur(10px);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 18px;
+    font-weight: 800;
+  }
+  .brand-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f6a24a, #e8663f 55%, #d94f6c);
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    color: var(--muted);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links .active {
+    padding-bottom: 3px;
+    border-bottom: 2px solid var(--orange);
+    color: var(--ink);
+  }
+  .hero {
+    padding: 76px 8vw 60px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(80% 120% at 78% 0%, rgba(246, 162, 74, .22), transparent 60%),
+      var(--paper);
+  }
+  .hero-inner, .lab-inner, .explain-inner {
+    width: min(1240px, 100%);
+    margin: 0 auto;
+  }
+  .eyebrow {
+    color: var(--orange);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+  }
+  h1 {
+    max-width: 1040px;
+    margin: 17px 0 20px;
+    font-size: clamp(44px, 7.2vw, 80px);
+    letter-spacing: -.055em;
+    line-height: .98;
+  }
+  h1 span { color: var(--orange); }
+  .hero-copy {
+    max-width: 790px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.72;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 29px;
+  }
+  .button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink);
+    background: rgba(255,255,255,.48);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .button.primary {
+    border-color: var(--orange);
+    color: white;
+    background: var(--orange);
+  }
+  .button:hover { transform: translateY(-1px); }
+  .source-note {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 18px 8vw;
+    color: var(--faint);
+    background: var(--paper-deep);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .source-note strong { color: var(--ink); }
+  .source-note a {
+    color: var(--orange-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .lab {
+    padding: 64px 8vw 82px;
+    color: #f8f1e8;
+    background: var(--night);
+  }
+  .lab-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, .55fr);
+    gap: 50px;
+    align-items: end;
+    margin-bottom: 30px;
+  }
+  .lab .eyebrow { color: var(--gold); }
+  .lab h2 {
+    margin: 14px 0 0;
+    font-size: clamp(34px, 5vw, 56px);
+    letter-spacing: -.045em;
+    line-height: 1.02;
+  }
+  .lab-intro {
+    margin: 0;
+    color: #b9c8d8;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .preset-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .preset {
+    padding: 9px 13px;
+    border: 1px solid rgba(143, 195, 255, .25);
+    border-radius: 100px;
+    color: #dcecff;
+    background: rgba(255,255,255,.035);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .preset:hover, .preset.active {
+    border-color: var(--gold);
+    color: var(--night);
+    background: var(--gold);
+  }
+  .workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(340px, .7fr);
+    gap: 18px;
+    align-items: start;
+  }
+  .diagram-panel, .control-panel, .candidate, .global-controls, .readout {
+    border: 1px solid rgba(143,195,255,.17);
+    border-radius: 16px;
+    background: rgba(255,255,255,.035);
+  }
+  .diagram-panel { overflow: hidden; }
+  .panel-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(143,195,255,.14);
+  }
+  .panel-label {
+    color: var(--blue);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+  }
+  .segmented {
+    display: inline-flex;
+    padding: 3px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 100px;
+    background: rgba(0,0,0,.16);
+  }
+  .segmented button {
+    padding: 7px 11px;
+    border: 0;
+    border-radius: 100px;
+    color: #9fb2c6;
+    background: transparent;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .segmented button[aria-pressed="true"] {
+    color: var(--night);
+    background: var(--blue);
+  }
+  .diagram-stage {
+    position: relative;
+    min-height: 570px;
+    background:
+      linear-gradient(rgba(255,255,255,.023) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.023) 1px, transparent 1px),
+      radial-gradient(circle at 56% 48%, rgba(143,195,255,.075), transparent 42%);
+    background-size: 24px 24px, 24px 24px, auto;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 570px;
+  }
+  .view-group { transition: opacity .25s ease; }
+  .view-group[hidden] { display: none; }
+  .edge {
+    fill: none;
+    stroke-linecap: round;
+    stroke-width: 5;
+    opacity: .22;
+    transition: opacity .25s ease, stroke-width .25s ease, filter .25s ease;
+  }
+  .edge.excite { stroke: var(--blue); }
+  .edge.inhibit { stroke: var(--red); }
+  .edge.modulate {
+    stroke: var(--gold);
+    stroke-dasharray: 8 10;
+  }
+  .edge.active {
+    opacity: .95;
+    stroke-width: 8;
+    filter: drop-shadow(0 0 6px currentColor);
+    stroke-dasharray: 12 10;
+    animation: flow 1s linear infinite;
+  }
+  .edge.dim { opacity: .07; }
+  @keyframes flow { to { stroke-dashoffset: -22; } }
+  .node {
+    cursor: pointer;
+    outline: none;
+  }
+  .node rect, .node ellipse, .node path.region {
+    stroke: rgba(255,255,255,.29);
+    stroke-width: 2;
+    transition: stroke .2s ease, filter .2s ease, transform .2s ease;
+  }
+  .node:hover rect, .node:focus rect,
+  .node:hover ellipse, .node:focus ellipse,
+  .node:hover path.region, .node:focus path.region {
+    stroke: var(--gold);
+    filter: drop-shadow(0 0 7px rgba(242,189,98,.45));
+  }
+  .node text {
+    fill: #f8f1e8;
+    font-family: "Libre Franklin", sans-serif;
+    pointer-events: none;
+  }
+  .node .abbr {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .node .name { fill: #afc2d4; font-size: 11px; }
+  .sign {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .brain-outline {
+    fill: rgba(255,255,255,.025);
+    stroke: #7e95aa;
+    stroke-width: 3;
+  }
+  .brain-midline {
+    fill: none;
+    stroke: rgba(255,255,255,.14);
+    stroke-dasharray: 5 7;
+    stroke-width: 2;
+  }
+  .atlas-label {
+    fill: #dcecff;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    pointer-events: none;
+  }
+  .atlas-leader {
+    fill: none;
+    stroke: rgba(220,236,255,.45);
+    stroke-width: 1.5;
+  }
+  .trace-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 14px 18px;
+    border-top: 1px solid rgba(143,195,255,.14);
+  }
+  .trace-button {
+    padding: 7px 10px;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 7px;
+    color: #b9c8d8;
+    background: transparent;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .trace-button.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(242,189,98,.08);
+  }
+  .node-detail {
+    display: grid;
+    grid-template-columns: 140px minmax(0,1fr);
+    gap: 18px;
+    min-height: 132px;
+    padding: 18px;
+    border-top: 1px solid rgba(143,195,255,.14);
+    background: rgba(0,0,0,.13);
+  }
+  .node-detail h3 {
+    margin: 5px 0 0;
+    color: var(--gold);
+    font-size: 17px;
+  }
+  .node-detail p {
+    margin: 0;
+    color: #c4d2df;
+    font-size: 13px;
+    line-height: 1.68;
+  }
+  .control-panel {
+    display: grid;
+    gap: 14px;
+    padding: 16px;
+  }
+  .control-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .control-title h3 { margin: 0; font-size: 18px; }
+  .control-title span {
+    color: #8298ac;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+  }
+  .candidate { padding: 14px; }
+  .candidate.selected {
+    border-color: var(--gold);
+    background: rgba(242,189,98,.075);
+    box-shadow: 0 0 0 1px rgba(242,189,98,.09);
+  }
+  .candidate-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .candidate-name {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .candidate-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+  .candidate:nth-of-type(3) .candidate-dot { background: var(--violet); }
+  .candidate:nth-of-type(4) .candidate-dot { background: var(--green); }
+  .gate-state {
+    padding: 4px 7px;
+    border-radius: 100px;
+    color: #9fb2c6;
+    background: rgba(255,255,255,.05);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+  }
+  .candidate.selected .gate-state {
+    color: var(--night);
+    background: var(--gold);
+  }
+  .slider-row {
+    display: grid;
+    grid-template-columns: 82px minmax(90px,1fr) 28px;
+    gap: 9px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .slider-row label {
+    color: #afc2d4;
+    font-size: 10px;
+  }
+  .slider-row output {
+    color: #e7f1fa;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    text-align: right;
+  }
+  input[type="range"] {
+    width: 100%;
+    height: 4px;
+    accent-color: var(--blue);
+    cursor: pointer;
+  }
+  .signal-readout {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .signal {
+    padding: 8px;
+    border-radius: 7px;
+    background: rgba(0,0,0,.17);
+  }
+  .signal span {
+    display: block;
+    color: #7f94a7;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8px;
+    text-transform: uppercase;
+  }
+  .signal strong {
+    display: block;
+    margin-top: 4px;
+    color: #eaf4fc;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+  }
+  .global-controls { padding: 14px; }
+  .global-controls h4 {
+    margin: 0 0 10px;
+    color: var(--gold);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .readout {
+    padding: 16px;
+    border-color: rgba(242,189,98,.28);
+    background: linear-gradient(135deg, rgba(242,189,98,.08), rgba(143,195,255,.035));
+  }
+  .winner-label {
+    color: var(--gold);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .winner {
+    margin: 7px 0 5px;
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+  }
+  .winner-copy {
+    margin: 0;
+    color: #b9c8d8;
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .explain {
+    padding: 76px 8vw 86px;
+  }
+  .explain-head {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(300px,.55fr);
+    gap: 50px;
+    align-items: end;
+    margin-bottom: 32px;
+  }
+  .explain h2 {
+    margin: 14px 0 0;
+    font-size: clamp(34px, 5vw, 56px);
+    letter-spacing: -.045em;
+    line-height: 1.04;
+  }
+  .explain-head p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255,255,255,.36);
+  }
+  .principle {
+    padding: 26px;
+    border-right: 1px solid var(--line);
+  }
+  .principle:last-child { border-right: 0; }
+  .principle-number {
+    color: var(--orange);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+  }
+  .principle h3 {
+    margin: 15px 0 9px;
+    font-size: 17px;
+  }
+  .principle p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .model-note {
+    display: grid;
+    grid-template-columns: 160px minmax(0,1fr);
+    gap: 26px;
+    margin-top: 22px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: var(--paper-deep);
+  }
+  .model-note strong {
+    color: var(--orange-dark);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  .model-note p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 30px 8vw;
+    color: #b9c8d8;
+    background: #0e171f;
+    font-size: 13px;
+  }
+  footer strong { color: white; font-size: 16px; }
+  footer span:last-child { font-family: "IBM Plex Mono", monospace; }
+  footer a { color: white; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 1060px) {
+    .workspace { grid-template-columns: 1fr; }
+    .control-panel { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .control-title, .global-controls, .readout { grid-column: 1 / -1; }
+    .principles { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .principle:nth-child(2) { border-right: 0; }
+    .principle:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 780px) {
+    .nav { align-items: flex-start; flex-direction: column; gap: 14px; padding: 18px 6vw; }
+    .nav-links { width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 12px 17px; }
+    .hero { padding: 58px 6vw 46px; }
+    .source-note { padding-left: 6vw; padding-right: 6vw; }
+    .lab, .explain { padding-left: 6vw; padding-right: 6vw; }
+    .lab-head, .explain-head { grid-template-columns: 1fr; gap: 20px; }
+    .diagram-stage, svg { min-height: 470px; }
+    .node-detail { grid-template-columns: 1fr; gap: 8px; }
+    .model-note { grid-template-columns: 1fr; gap: 9px; }
+  }
+  @media (max-width: 590px) {
+    .control-panel { grid-template-columns: 1fr; }
+    .control-title, .global-controls, .readout { grid-column: auto; }
+    .principles { grid-template-columns: 1fr; }
+    .principle, .principle:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
+    .principle:last-child { border-bottom: 0; }
+    .panel-top { align-items: flex-start; flex-direction: column; }
+    .diagram-stage, svg { min-height: 390px; }
+    .trace-bar { padding: 12px; }
+    footer { align-items: flex-start; flex-direction: column; padding: 28px 6vw; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .edge.active { animation: none; }
+    .button { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html" aria-label="Mind Guild home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Mind Guild</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="publications.html">Publications</a>
+      <a class="active" href="products.html" aria-current="page">Products</a>
+      <a href="artwork.html">Artwork</a>
+      <a href="videos.html">Videos</a>
+      <a href="collective.html">Collective</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Interactive computational neuroscience</div>
+        <h1>Basal Ganglia <span>Attention Gate Lab</span></h1>
+        <p class="hero-copy">Explore how parallel basal-ganglia pathways can facilitate one candidate for attention or working-memory updating, suppress competitors, and pause selection when conflict is high.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#lab">Run the gate</a>
+          <a class="button" href="products.html">Back to products</a>
+        </div>
+      </div>
+    </header>
+
+    <aside class="source-note" aria-label="Scientific sources and model scope">
+      <strong>Grounding.</strong> Anatomy is an original schematic keyed to the adult mouse coronal reference view supplied in the
+      <a href="https://atlas.brain-map.org/atlas?atlas=265297125&amp;structure=4276&amp;rw=t#atlas=265297125&amp;structure=4276&amp;rw=t&amp;resolution=79.51&amp;x=36608.21814903846&amp;y=46448.5858232547&amp;plate=112282859&amp;zoom=-6" target="_blank" rel="noopener">Allen Brain Atlas</a>.
+      Circuit logic follows the
+      <a href="https://compcogneuro.org/basal-ganglia" target="_blank" rel="noopener">O’Reilly Computational Cognitive Neuroscience basal-ganglia chapter</a>.
+      This educational model is not a reproduction of an atlas plate or a quantitative neural simulation.
+    </aside>
+
+    <section class="lab" id="lab" aria-labelledby="lab-title">
+      <div class="lab-inner">
+        <div class="lab-head">
+          <div>
+            <div class="eyebrow">Select · suppress · hold</div>
+            <h2 id="lab-title">Compete for the gate.</h2>
+          </div>
+          <p class="lab-intro">Start with a preset or change the inputs. The lab computes illustrative Go, NoGo, and net gate signals for three candidates, then opens only the strongest gate above threshold.</p>
+        </div>
+
+        <div class="preset-bar" role="group" aria-label="Simulation presets">
+          <button class="preset active" type="button" data-preset="focus">Rewarded target</button>
+          <button class="preset" type="button" data-preset="capture">Distractor capture</button>
+          <button class="preset" type="button" data-preset="stop">High-conflict hold</button>
+          <button class="preset" type="button" data-preset="dip">Dopamine dip</button>
+        </div>
+
+        <div class="workspace">
+          <section class="diagram-panel" aria-labelledby="diagram-title">
+            <div class="panel-top">
+              <span class="panel-label" id="diagram-title">Interactive diagram</span>
+              <div class="segmented" role="group" aria-label="Diagram view">
+                <button type="button" data-view="circuit" aria-pressed="true">Circuit</button>
+                <button type="button" data-view="atlas" aria-pressed="false">Atlas map</button>
+              </div>
+            </div>
+
+            <div class="diagram-stage">
+              <svg viewBox="0 0 900 640" role="img" aria-labelledby="svg-title svg-desc">
+                <title id="svg-title">Basal ganglia attention gating diagram</title>
+                <desc id="svg-desc">An interactive circuit and atlas-aligned schematic showing cortex, striatum, globus pallidus, subthalamic nucleus, substantia nigra, thalamus, and their gating pathways.</desc>
+                <defs>
+                  <marker id="arrow-blue" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L8,3 z" fill="#8fc3ff"></path>
+                  </marker>
+                  <marker id="arrow-gold" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,6 L8,3 z" fill="#f2bd62"></path>
+                  </marker>
+                  <marker id="block-red" markerWidth="8" markerHeight="12" refX="4" refY="6" orient="auto" markerUnits="strokeWidth">
+                    <path d="M4,0 L4,12" stroke="#ff806f" stroke-width="3"></path>
+                  </marker>
+                </defs>
+
+                <g class="view-group" id="circuit-view">
+                  <path class="edge excite cortical go-path" data-path="direct" d="M450 101 C350 128 283 161 249 206" marker-end="url(#arrow-blue)"></path>
+                  <path class="edge excite cortical nogo-path" data-path="indirect" d="M450 101 C520 128 593 165 633 207" marker-end="url(#arrow-blue)"></path>
+                  <path class="edge excite hyper-path" data-path="hyper" d="M500 103 C585 130 728 236 731 356" marker-end="url(#arrow-blue)"></path>
+                  <path class="edge inhibit go-path" data-path="direct" d="M249 285 C289 376 374 405 441 439" marker-end="url(#block-red)"></path>
+                  <path class="edge inhibit nogo-path" data-path="indirect" d="M635 285 C622 327 602 359 568 389" marker-end="url(#block-red)"></path>
+                  <path class="edge inhibit nogo-path" data-path="indirect" d="M535 438 C506 437 493 438 474 439" marker-end="url(#block-red)"></path>
+                  <path class="edge excite hyper-path" data-path="hyper" d="M694 418 C635 435 581 444 493 446" marker-end="url(#arrow-blue)"></path>
+                  <path class="edge inhibit output-path" data-path="output" d="M429 494 C402 522 370 539 336 552" marker-end="url(#block-red)"></path>
+                  <path class="edge excite output-path" data-path="output" d="M297 539 C266 457 293 338 372 129" marker-end="url(#arrow-blue)"></path>
+                  <path class="edge modulate mod-path" data-path="modulate" d="M444 324 C381 317 317 289 269 262" marker-end="url(#arrow-gold)"></path>
+                  <path class="edge modulate mod-path" data-path="modulate" d="M471 324 C526 314 582 287 613 260" marker-end="url(#arrow-gold)"></path>
+
+                  <g class="node" tabindex="0" role="button" aria-label="Cortex and prefrontal cortex" data-node="cortex">
+                    <rect x="324" y="35" width="252" height="72" rx="20" fill="#183451"></rect>
+                    <text x="450" y="65" text-anchor="middle" class="abbr">Cortex / PFC</text>
+                    <text x="450" y="86" text-anchor="middle" class="name">candidate contents + goals</text>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Direct pathway striatum D1 Go neurons" data-node="go">
+                    <rect x="159" y="207" width="180" height="80" rx="18" fill="#244d45"></rect>
+                    <text x="249" y="239" text-anchor="middle" class="abbr">Striatum D1</text>
+                    <text x="249" y="263" text-anchor="middle" class="name">direct · Go</text>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Indirect pathway striatum D2 NoGo neurons" data-node="nogo">
+                    <rect x="545" y="207" width="180" height="80" rx="18" fill="#4c3039"></rect>
+                    <text x="635" y="239" text-anchor="middle" class="abbr">Striatum D2</text>
+                    <text x="635" y="263" text-anchor="middle" class="name">indirect · NoGo</text>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Substantia nigra pars compacta dopamine neurons" data-node="snc">
+                    <ellipse cx="455" cy="324" rx="82" ry="42" fill="#574720"></ellipse>
+                    <text x="455" y="320" text-anchor="middle" class="abbr">SNc</text>
+                    <text x="455" y="340" text-anchor="middle" class="name">dopamine</text>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="External globus pallidus" data-node="gpe">
+                    <rect x="535" y="389" width="122" height="62" rx="16" fill="#3d3553"></rect>
+                    <text x="596" y="417" text-anchor="middle" class="abbr">GPe</text>
+                    <text x="596" y="436" text-anchor="middle" class="name">tonic inhibit</text>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Subthalamic nucleus" data-node="stn">
+                    <ellipse cx="731" cy="391" rx="72" ry="39" fill="#263e5d"></ellipse>
+                    <text x="731" y="389" text-anchor="middle" class="abbr">STN</text>
+                    <text x="731" y="409" text-anchor="middle" class="name">global hold</text>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Internal globus pallidus and substantia nigra pars reticulata output" data-node="gpi">
+                    <rect x="366" y="414" width="134" height="82" rx="18" fill="#512d31"></rect>
+                    <text x="433" y="445" text-anchor="middle" class="abbr">GPi / SNr</text>
+                    <text x="433" y="467" text-anchor="middle" class="name">tonic gate output</text>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Thalamus" data-node="thalamus">
+                    <ellipse cx="286" cy="563" rx="78" ry="42" fill="#29465c"></ellipse>
+                    <text x="286" y="560" text-anchor="middle" class="abbr">Thalamus</text>
+                    <text x="286" y="581" text-anchor="middle" class="name">relay if released</text>
+                  </g>
+
+                  <text x="303" y="166" class="sign" fill="#8fc3ff">+</text>
+                  <text x="584" y="166" class="sign" fill="#8fc3ff">+</text>
+                  <text x="657" y="239" class="sign" fill="#8fc3ff">+</text>
+                  <text x="332" y="385" class="sign" fill="#ff806f">−</text>
+                  <text x="621" y="346" class="sign" fill="#ff806f">−</text>
+                  <text x="505" y="426" class="sign" fill="#ff806f">−</text>
+                  <text x="591" y="440" class="sign" fill="#8fc3ff">+</text>
+                  <text x="374" y="530" class="sign" fill="#ff806f">−</text>
+                </g>
+
+                <g class="view-group" id="atlas-view" hidden>
+                  <path class="brain-outline" d="M450 72 C302 61 151 137 110 275 C70 411 168 551 315 576 C366 585 412 570 450 542 C488 570 534 585 585 576 C732 551 830 411 790 275 C749 137 598 61 450 72 Z"></path>
+                  <path class="brain-midline" d="M450 78 C432 168 434 257 450 343 C466 424 464 489 450 541"></path>
+                  <path class="brain-midline" d="M450 122 C375 107 271 135 213 209"></path>
+                  <path class="brain-midline" d="M450 122 C525 107 629 135 687 209"></path>
+
+                  <g class="node" tabindex="0" role="button" aria-label="Caudoputamen, the major striatal input region in the adult mouse atlas" data-node="striatum">
+                    <path class="region" d="M232 216 C272 164 355 165 387 220 C408 256 390 321 337 349 C286 375 221 344 207 293 C199 263 211 239 232 216 Z" fill="#2e604f"></path>
+                    <path class="region" d="M668 216 C628 164 545 165 513 220 C492 256 510 321 563 349 C614 375 679 344 693 293 C701 263 689 239 668 216 Z" fill="#2e604f"></path>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Globus pallidus external region" data-node="gpe">
+                    <ellipse cx="377" cy="376" rx="48" ry="25" fill="#4b4262"></ellipse>
+                    <ellipse cx="523" cy="376" rx="48" ry="25" fill="#4b4262"></ellipse>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Globus pallidus internal region" data-node="gpi">
+                    <ellipse cx="421" cy="403" rx="31" ry="20" fill="#703b42"></ellipse>
+                    <ellipse cx="479" cy="403" rx="31" ry="20" fill="#703b42"></ellipse>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Thalamus" data-node="thalamus">
+                    <path class="region" d="M388 275 C418 250 482 250 512 275 C541 300 532 348 500 368 C474 384 426 384 400 368 C368 348 359 300 388 275 Z" fill="#315a73"></path>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Subthalamic nucleus" data-node="stn">
+                    <ellipse cx="388" cy="444" rx="34" ry="15" fill="#33537b"></ellipse>
+                    <ellipse cx="512" cy="444" rx="34" ry="15" fill="#33537b"></ellipse>
+                  </g>
+                  <g class="node" tabindex="0" role="button" aria-label="Substantia nigra" data-node="snc">
+                    <path class="region" d="M344 480 C374 464 415 467 437 486 C413 511 369 516 338 499 Z" fill="#725d2a"></path>
+                    <path class="region" d="M556 480 C526 464 485 467 463 486 C487 511 531 516 562 499 Z" fill="#725d2a"></path>
+                  </g>
+
+                  <path class="atlas-leader" d="M265 205 L150 157 L88 157"></path>
+                  <text x="88" y="149" class="atlas-label">Caudoputamen</text>
+                  <text x="88" y="166" class="atlas-label" opacity=".64">striatal input</text>
+                  <path class="atlas-leader" d="M368 378 L213 411 L126 411"></path>
+                  <text x="126" y="402" class="atlas-label">GPe</text>
+                  <path class="atlas-leader" d="M413 404 L255 456 L165 456"></path>
+                  <text x="165" y="447" class="atlas-label">GPi</text>
+                  <path class="atlas-leader" d="M509 288 L665 229 L786 229"></path>
+                  <text x="674" y="220" class="atlas-label">Thalamus</text>
+                  <path class="atlas-leader" d="M520 443 L661 430 L775 430"></path>
+                  <text x="679" y="421" class="atlas-label">STN</text>
+                  <path class="atlas-leader" d="M530 491 L663 514 L777 514"></path>
+                  <text x="679" y="505" class="atlas-label">SNc / SNr</text>
+                  <text x="450" y="610" text-anchor="middle" class="atlas-label" opacity=".62">original coronal orientation schematic · not to scale</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="trace-bar" role="group" aria-label="Pathway trace">
+              <button class="trace-button active" type="button" data-trace="auto">Live gate</button>
+              <button class="trace-button" type="button" data-trace="direct">Direct · Go</button>
+              <button class="trace-button" type="button" data-trace="indirect">Indirect · NoGo</button>
+              <button class="trace-button" type="button" data-trace="hyper">Hyperdirect · Hold</button>
+              <button class="trace-button" type="button" data-trace="modulate">Dopamine</button>
+            </div>
+
+            <div class="node-detail" aria-live="polite">
+              <div>
+                <div class="panel-label">Selected structure</div>
+                <h3 id="node-name">GPi / SNr</h3>
+              </div>
+              <p id="node-copy">Basal-ganglia output neurons fire tonically, keeping the thalamic or superior-colliculus gate closed. Direct-pathway inhibition pauses this output and releases a selected channel; indirect and hyperdirect activity strengthen the brake.</p>
+            </div>
+          </section>
+
+          <section class="control-panel" aria-labelledby="controls-title">
+            <div class="control-title">
+              <h3 id="controls-title">Attention candidates</h3>
+              <span>illustrative units · 0–100</span>
+            </div>
+
+            <article class="candidate" data-candidate="target">
+              <div class="candidate-head">
+                <div class="candidate-name"><span class="candidate-dot"></span>Task target</div>
+                <span class="gate-state">closed</span>
+              </div>
+              <div class="slider-row">
+                <label for="target-salience">Salience</label>
+                <input id="target-salience" type="range" min="0" max="100" value="80">
+                <output for="target-salience">80</output>
+              </div>
+              <div class="slider-row">
+                <label for="target-go">Learned Go</label>
+                <input id="target-go" type="range" min="0" max="100" value="85">
+                <output for="target-go">85</output>
+              </div>
+              <div class="slider-row">
+                <label for="target-nogo">Learned NoGo</label>
+                <input id="target-nogo" type="range" min="0" max="100" value="20">
+                <output for="target-nogo">20</output>
+              </div>
+              <div class="signal-readout">
+                <div class="signal"><span>Go</span><strong data-signal="go">0</strong></div>
+                <div class="signal"><span>NoGo</span><strong data-signal="nogo">0</strong></div>
+                <div class="signal"><span>Net gate</span><strong data-signal="net">0</strong></div>
+              </div>
+            </article>
+
+            <article class="candidate" data-candidate="distractor">
+              <div class="candidate-head">
+                <div class="candidate-name"><span class="candidate-dot"></span>Bright distractor</div>
+                <span class="gate-state">closed</span>
+              </div>
+              <div class="slider-row">
+                <label for="distractor-salience">Salience</label>
+                <input id="distractor-salience" type="range" min="0" max="100" value="95">
+                <output for="distractor-salience">95</output>
+              </div>
+              <div class="slider-row">
+                <label for="distractor-go">Learned Go</label>
+                <input id="distractor-go" type="range" min="0" max="100" value="30">
+                <output for="distractor-go">30</output>
+              </div>
+              <div class="slider-row">
+                <label for="distractor-nogo">Learned NoGo</label>
+                <input id="distractor-nogo" type="range" min="0" max="100" value="70">
+                <output for="distractor-nogo">70</output>
+              </div>
+              <div class="signal-readout">
+                <div class="signal"><span>Go</span><strong data-signal="go">0</strong></div>
+                <div class="signal"><span>NoGo</span><strong data-signal="nogo">0</strong></div>
+                <div class="signal"><span>Net gate</span><strong data-signal="net">0</strong></div>
+              </div>
+            </article>
+
+            <article class="candidate" data-candidate="memory">
+              <div class="candidate-head">
+                <div class="candidate-name"><span class="candidate-dot"></span>Working-memory rule</div>
+                <span class="gate-state">closed</span>
+              </div>
+              <div class="slider-row">
+                <label for="memory-salience">Salience</label>
+                <input id="memory-salience" type="range" min="0" max="100" value="55">
+                <output for="memory-salience">55</output>
+              </div>
+              <div class="slider-row">
+                <label for="memory-go">Learned Go</label>
+                <input id="memory-go" type="range" min="0" max="100" value="60">
+                <output for="memory-go">60</output>
+              </div>
+              <div class="slider-row">
+                <label for="memory-nogo">Learned NoGo</label>
+                <input id="memory-nogo" type="range" min="0" max="100" value="40">
+                <output for="memory-nogo">40</output>
+              </div>
+              <div class="signal-readout">
+                <div class="signal"><span>Go</span><strong data-signal="go">0</strong></div>
+                <div class="signal"><span>NoGo</span><strong data-signal="nogo">0</strong></div>
+                <div class="signal"><span>Net gate</span><strong data-signal="net">0</strong></div>
+              </div>
+            </article>
+
+            <div class="global-controls">
+              <h4>Global state</h4>
+              <div class="slider-row">
+                <label for="dopamine">Dopamine</label>
+                <input id="dopamine" type="range" min="0" max="100" value="65">
+                <output for="dopamine">65</output>
+              </div>
+              <div class="slider-row">
+                <label for="conflict">Conflict</label>
+                <input id="conflict" type="range" min="0" max="100" value="25">
+                <output for="conflict">25</output>
+              </div>
+              <div class="slider-row">
+                <label for="threshold">Threshold</label>
+                <input id="threshold" type="range" min="0" max="70" value="42">
+                <output for="threshold">42</output>
+              </div>
+            </div>
+
+            <div class="readout" aria-live="polite">
+              <div class="winner-label">Gate result</div>
+              <div class="winner" id="winner">Task target selected</div>
+              <p class="winner-copy" id="winner-copy">The direct pathway releases the strongest channel while competing candidates remain suppressed.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="explain" aria-labelledby="explain-title">
+      <div class="explain-inner">
+        <div class="explain-head">
+          <div>
+            <div class="eyebrow">What the demo claims</div>
+            <h2 id="explain-title">The gate controls access, not content.</h2>
+          </div>
+          <p>In O’Reilly’s account, the basal ganglia do not specify the detailed content of a thought, eye movement, or working-memory update. They modulate which thalamocortical channel is allowed to complete.</p>
+        </div>
+        <div class="principles">
+          <article class="principle">
+            <span class="principle-number">01 · Parallel loops</span>
+            <h3>Cognitive actions count</h3>
+            <p>Selection extends beyond movement to oculomotor orienting, action plans, strategies, and working-memory updating.</p>
+          </article>
+          <article class="principle">
+            <span class="principle-number">02 · Disinhibition</span>
+            <h3>Go releases a channel</h3>
+            <p>The direct pathway inhibits tonic GPi/SNr output, disinhibiting a thalamic or superior-colliculus channel already receiving cortical drive.</p>
+          </article>
+          <article class="principle">
+            <span class="principle-number">03 · Competition</span>
+            <h3>NoGo protects focus</h3>
+            <p>The indirect pathway raises inhibition for competing channels, reducing interference from salient but task-inappropriate candidates.</p>
+          </article>
+          <article class="principle">
+            <span class="principle-number">04 · Learning</span>
+            <h3>Dopamine changes policy</h3>
+            <p>Bursts and dips alter D1/D2 pathway activity and plasticity, reinforcing successful selections and avoidance of costly ones.</p>
+          </article>
+        </div>
+        <aside class="model-note" aria-label="Model boundary">
+          <strong>Model boundary</strong>
+          <p>The displayed equation is a deliberately inspectable teaching abstraction: <em>Net gate = direct Go − 0.55 × indirect NoGo − 0.35 × hyperdirect conflict brake</em>. The weights are not fitted biological parameters. A rigorous implementation would model channel-specific populations, timing, learning, recurrence, and task data.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Mind Guild</strong>
+    <span>© 2026 · <a href="mailto:mind.guild@symbiokinetics.com">mind.guild@symbiokinetics.com</a></span>
+  </footer>
+
+<script>
+  const nodeInfo = {
+    cortex: {
+      name: "Cortex / prefrontal cortex",
+      copy: "Cortical populations represent the candidate content: a sensory target, action plan, strategy, or working-memory update. Basal-ganglia output modulates whether a selected thalamocortical loop can complete; it does not supply the detailed content."
+    },
+    striatum: {
+      name: "Striatum / caudoputamen",
+      copy: "The major basal-ganglia input region. In the adult mouse atlas, caudate and putamen are grouped as caudoputamen. Cortical excitation converges on direct-pathway D1 and indirect-pathway D2 medium spiny neurons."
+    },
+    go: {
+      name: "Direct pathway · D1 Go",
+      copy: "Active direct-pathway striatal neurons inhibit GPi/SNr output. Because that output normally inhibits thalamus or superior colliculus, the double inhibition disinhibits—and therefore opens—the selected channel."
+    },
+    nogo: {
+      name: "Indirect pathway · D2 NoGo",
+      copy: "Indirect-pathway activity inhibits GPe. This releases GPi/SNr from GPe inhibition, strengthening GPi/SNr suppression of the corresponding thalamic channel and helping keep a competing candidate out."
+    },
+    gpe: {
+      name: "Globus pallidus external · GPe",
+      copy: "GPe neurons are tonically active and inhibit downstream basal-ganglia targets. In the simplified indirect pathway, striatal NoGo activity inhibits GPe, thereby disinhibiting GPi/SNr and closing the candidate’s gate."
+    },
+    gpi: {
+      name: "GPi / substantia nigra pars reticulata",
+      copy: "Basal-ganglia output neurons fire tonically, keeping the thalamic or superior-colliculus gate closed. Direct-pathway inhibition pauses this output and releases a selected channel; indirect and hyperdirect activity strengthen the brake."
+    },
+    stn: {
+      name: "Subthalamic nucleus · STN",
+      copy: "The hyperdirect pathway lets frontal cortex rapidly excite basal-ganglia output. In this lab it acts as a global, conflict-sensitive hold signal that raises the brake before a difficult selection."
+    },
+    thalamus: {
+      name: "Thalamus / superior colliculus relay",
+      copy: "Disinhibition makes a relay available; it does not force it to fire. The selected channel still requires excitatory cortical input. In oculomotor loops, superior colliculus can occupy the corresponding output role."
+    },
+    snc: {
+      name: "Substantia nigra pars compacta · SNc",
+      copy: "Phasic dopamine modulates striatal D1 and D2 populations and their plasticity. Bursts favor active Go units; dips reduce Go support and release NoGo units, helping reinforcement history reshape later selections."
+    }
+  };
+
+  const presets = {
+    focus: {
+      dopamine: 65, conflict: 25, threshold: 42,
+      target: [80, 85, 20], distractor: [95, 30, 70], memory: [55, 60, 40]
+    },
+    capture: {
+      dopamine: 76, conflict: 15, threshold: 38,
+      target: [68, 62, 35], distractor: [98, 84, 22], memory: [52, 58, 43]
+    },
+    stop: {
+      dopamine: 42, conflict: 96, threshold: 60,
+      target: [86, 87, 18], distractor: [92, 66, 44], memory: [64, 72, 32]
+    },
+    dip: {
+      dopamine: 14, conflict: 35, threshold: 40,
+      target: [82, 82, 42], distractor: [91, 49, 65], memory: [63, 69, 52]
+    }
+  };
+
+  let traceMode = "auto";
+  const candidateNames = {
+    target: "Task target",
+    distractor: "Bright distractor",
+    memory: "Working-memory rule"
+  };
+
+  function setOutput(input) {
+    const output = document.querySelector(`output[for="${input.id}"]`);
+    if (output) output.textContent = input.value;
+  }
+
+  function value(id) {
+    return Number(document.getElementById(id).value);
+  }
+
+  function signals(key) {
+    const salience = value(`${key}-salience`);
+    const learnedGo = value(`${key}-go`);
+    const learnedNoGo = value(`${key}-nogo`);
+    const dopamine = value("dopamine");
+    const conflict = value("conflict");
+    const direct = Math.max(0, Math.min(100, .45 * salience + .55 * learnedGo + .28 * (dopamine - 50)));
+    const indirect = Math.max(0, Math.min(100, .62 * learnedNoGo + .30 * (50 - dopamine)));
+    const hyper = .72 * conflict;
+    const net = direct - .55 * indirect - .35 * hyper;
+    return { direct, indirect, hyper, net };
+  }
+
+  function updatePaths(winner, results) {
+    const all = [...document.querySelectorAll("#circuit-view .edge")];
+    all.forEach(path => path.classList.remove("active", "dim"));
+    if (traceMode !== "auto") {
+      all.forEach(path => {
+        if (path.dataset.path === traceMode) path.classList.add("active");
+        else path.classList.add("dim");
+      });
+      return;
+    }
+
+    const conflict = value("conflict");
+    const dopamine = value("dopamine");
+    all.forEach(path => {
+      const kind = path.dataset.path;
+      if (kind === "modulate" && (dopamine > 68 || dopamine < 32)) path.classList.add("active");
+      else if (kind === "hyper" && conflict >= 65) path.classList.add("active");
+      else if (winner && (kind === "direct" || kind === "output")) path.classList.add("active");
+      else if (!winner && (kind === "indirect" || kind === "hyper")) path.classList.add("active");
+      else path.classList.add("dim");
+    });
+  }
+
+  function update() {
+    document.querySelectorAll('input[type="range"]').forEach(setOutput);
+    const threshold = value("threshold");
+    const keys = ["target", "distractor", "memory"];
+    const results = Object.fromEntries(keys.map(key => [key, signals(key)]));
+    const ranked = keys.slice().sort((a, b) => results[b].net - results[a].net);
+    const winnerKey = results[ranked[0]].net >= threshold ? ranked[0] : null;
+
+    keys.forEach(key => {
+      const card = document.querySelector(`[data-candidate="${key}"]`);
+      const result = results[key];
+      card.classList.toggle("selected", key === winnerKey);
+      card.querySelector(".gate-state").textContent = key === winnerKey ? "open" : "closed";
+      card.querySelector('[data-signal="go"]').textContent = Math.round(result.direct);
+      card.querySelector('[data-signal="nogo"]').textContent = Math.round(result.indirect);
+      card.querySelector('[data-signal="net"]').textContent = Math.round(result.net);
+    });
+
+    const winner = document.getElementById("winner");
+    const copy = document.getElementById("winner-copy");
+    if (winnerKey) {
+      winner.textContent = `${candidateNames[winnerKey]} selected`;
+      copy.textContent = "The strongest channel crosses threshold: direct-pathway release opens its gate while competitors remain suppressed.";
+    } else {
+      winner.textContent = "No gate opens";
+      copy.textContent = value("conflict") >= 65
+        ? "High conflict recruits the hyperdirect brake, holding all candidate channels below threshold."
+        : "No candidate’s net gate signal is strong enough to overcome the current threshold.";
+    }
+    updatePaths(winnerKey, results);
+  }
+
+  function applyPreset(name) {
+    const preset = presets[name];
+    ["dopamine", "conflict", "threshold"].forEach(key => {
+      document.getElementById(key).value = preset[key];
+    });
+    ["target", "distractor", "memory"].forEach(key => {
+      ["salience", "go", "nogo"].forEach((metric, index) => {
+        document.getElementById(`${key}-${metric}`).value = preset[key][index];
+      });
+    });
+    document.querySelectorAll(".preset").forEach(button => {
+      button.classList.toggle("active", button.dataset.preset === name);
+    });
+    update();
+  }
+
+  document.querySelectorAll('input[type="range"]').forEach(input => {
+    input.addEventListener("input", () => {
+      document.querySelectorAll(".preset").forEach(button => button.classList.remove("active"));
+      update();
+    });
+  });
+
+  document.querySelectorAll(".preset").forEach(button => {
+    button.addEventListener("click", () => applyPreset(button.dataset.preset));
+  });
+
+  document.querySelectorAll("[data-view]").forEach(button => {
+    button.addEventListener("click", () => {
+      const view = button.dataset.view;
+      document.getElementById("circuit-view").hidden = view !== "circuit";
+      document.getElementById("atlas-view").hidden = view !== "atlas";
+      document.querySelector(".trace-bar").style.display = view === "circuit" ? "flex" : "none";
+      document.querySelectorAll("[data-view]").forEach(item => {
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+    });
+  });
+
+  document.querySelectorAll(".trace-button").forEach(button => {
+    button.addEventListener("click", () => {
+      traceMode = button.dataset.trace;
+      document.querySelectorAll(".trace-button").forEach(item => item.classList.toggle("active", item === button));
+      update();
+    });
+  });
+
+  function selectNode(node) {
+    const info = nodeInfo[node.dataset.node];
+    if (!info) return;
+    document.getElementById("node-name").textContent = info.name;
+    document.getElementById("node-copy").textContent = info.copy;
+  }
+
+  document.querySelectorAll(".node").forEach(node => {
+    node.addEventListener("click", () => selectNode(node));
+    node.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectNode(node);
+      }
+    });
+  });
+
+  update();
+</script>
+</body>
+</html>
