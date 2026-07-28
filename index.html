@@ -1,53 +1,783 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mind Guild</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  * { box-sizing: border-box; }
-  body { margin: 0; background: #fdf6ef; font-family: 'Libre Franklin', sans-serif; color: #2a211c; }
-  a { color: #c2532f; text-decoration: none; }
-  a:hover { color: #a5401f; }
-  @media (max-width: 700px) {
-    .site-nav { align-items:flex-start !important; flex-direction:column; gap:14px; padding:18px 6vw !important; }
-    .site-links { width:100%; flex-wrap:wrap; justify-content:space-between; gap:14px !important; font-size:11px !important; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mind Guild turns theories of consciousness into inspectable AI architectures, reproducible implementations, and falsifiable experiments.">
+  <meta name="theme-color" content="#fdf6ef">
+  <title>Mind Guild — Engineering theories of mind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fdf6ef;
+      --paper-deep: #f7ebdf;
+      --cream: #fffaf5;
+      --ink: #2a211c;
+      --ink-soft: #453830;
+      --muted: #6a5f57;
+      --faint: #9d8879;
+      --line: #ead7c4;
+      --orange: #d15a33;
+      --orange-dark: #a5401f;
+      --gold: #f2bd62;
+      --rose: #d94f6c;
+      --green: #48705d;
+      --night: #14202a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Libre Franklin", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(209, 90, 51, .35);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 20px 8vw;
+      border-bottom: 1px solid rgba(234, 215, 196, .92);
+      background: rgba(253, 246, 239, .94);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 0 0 auto;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+    }
+
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f6a24a, #e8663f 55%, var(--rose));
+      box-shadow: 0 0 0 5px rgba(232, 102, 63, .08);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 28px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      border-bottom-color: rgba(209, 90, 51, .55);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 96px 8vw 82px;
+      text-align: center;
+      background:
+        radial-gradient(70% 90% at 50% -20%, rgba(246, 162, 74, .25), transparent 64%),
+        radial-gradient(35% 55% at 92% 8%, rgba(217, 79, 108, .08), transparent 70%);
+    }
+
+    .hero-inner {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 1000px;
+      margin: 24px auto 0;
+      color: #221c17;
+      font-size: clamp(43px, 6vw, 76px);
+      font-weight: 400;
+      letter-spacing: -.045em;
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+
+    h1 strong { font-weight: 800; }
+
+    .hero-copy {
+      max-width: 800px;
+      margin: 30px auto 0;
+      color: var(--ink-soft);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border: 1px solid var(--ink);
+      border-radius: 100px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .18s ease, background .18s ease, color .18s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button.primary {
+      background: var(--ink);
+      color: #fff8f0;
+    }
+
+    .button.primary:hover { background: #120f0c; }
+
+    .button.ghost {
+      border-color: var(--line);
+      background: rgba(255, 250, 245, .65);
+    }
+
+    .button.ghost:hover { background: white; }
+
+    .vision {
+      padding: 58px 8vw 64px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 245, .55);
+    }
+
+    .vision-inner {
+      display: grid;
+      grid-template-columns: minmax(140px, .38fr) minmax(0, 1.62fr);
+      gap: 48px;
+      width: min(1080px, 100%);
+      margin: 0 auto;
+    }
+
+    .vision p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 2.2vw, 23px);
+      line-height: 1.65;
+      text-wrap: pretty;
+    }
+
+    .attribution {
+      display: block;
+      margin-top: 18px;
+      color: var(--faint);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+
+    .section {
+      padding: 88px 8vw 96px;
+    }
+
+    .section-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      gap: 56px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+
+    h2 {
+      max-width: 760px;
+      margin: 16px 0 0;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      text-wrap: balance;
+    }
+
+    .section-intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--cream);
+      box-shadow: 0 28px 70px -55px rgba(87, 50, 30, .55);
+    }
+
+    .dashboard-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 30px;
+      border-right: 1px solid var(--line);
+    }
+
+    .dashboard-card:last-child { border-right: 0; }
+
+    .card-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .card-number {
+      color: var(--faint);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .12em;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border: 1px solid rgba(72, 112, 93, .26);
+      border-radius: 100px;
+      background: rgba(72, 112, 93, .07);
+      color: var(--green);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      content: "";
+    }
+
+    .dashboard-card h3 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.22;
+      letter-spacing: -.025em;
+    }
+
+    .card-copy {
+      margin: 13px 0 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .layer-stack,
+    .build-list,
+    .test-list {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 26px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .layer {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .layer span:first-child {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .layer strong,
+    .build-list strong,
+    .test-list strong {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .layer small {
+      display: block;
+      margin-top: 2px;
+      color: var(--faint);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .build-list li,
+    .test-list li {
+      position: relative;
+      padding: 12px 12px 12px 34px;
+      border-radius: 8px;
+      background: var(--paper-deep);
+    }
+
+    .build-list li::before,
+    .test-list li::before {
+      position: absolute;
+      top: 13px;
+      left: 13px;
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 700;
+      content: "→";
+    }
+
+    .test-list li::before { content: "×"; }
+
+    .build-list span,
+    .test-list span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      margin-top: auto;
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .card-link:hover { color: var(--ink); }
+
+    .horizon {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      margin-top: 22px;
+      padding: 22px 24px;
+      border: 1px solid rgba(242, 189, 98, .42);
+      border-radius: 12px;
+      background: linear-gradient(100deg, rgba(242, 189, 98, .12), rgba(217, 79, 108, .04));
+    }
+
+    .horizon-label {
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .horizon p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .actions-section {
+      border-top: 1px solid var(--line);
+      background: var(--night);
+      color: #f8f1e8;
+    }
+
+    .actions-section .eyebrow { color: var(--gold); }
+
+    .actions-section h2 { color: white; }
+
+    .actions-section .section-intro { color: #b9c8d8; }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .action-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 290px;
+      padding: 28px;
+      border: 1px solid rgba(242, 189, 98, .22);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .action-kicker {
+      color: var(--gold);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .action-card h3 {
+      margin: 20px 0 0;
+      color: white;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    .action-card p {
+      margin: 13px 0 26px;
+      color: #b9c8d8;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .action-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: auto;
+    }
+
+    .action-links a {
+      color: #f8f1e8;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .action-links a::after {
+      margin-left: 7px;
+      color: var(--gold);
+      content: "→";
+    }
+
+    .action-links a:hover { color: var(--gold); }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px 8vw;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      background: #0e171f;
+      color: #b9c8d8;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: white;
+      font-size: 16px;
+    }
+
+    footer span:last-child {
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    footer a { color: #f8f1e8; }
+    footer a:hover { color: var(--gold); }
+
+    @media (max-width: 1040px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .dashboard-card {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .dashboard-card:last-child { border-bottom: 0; }
+      .layer-stack { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .layer {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px 6vw;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px 18px;
+        font-size: 11px;
+      }
+
+      .hero { padding: 72px 6vw 62px; }
+      .vision, .section { padding-left: 6vw; padding-right: 6vw; }
+
+      .vision-inner,
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .action-grid { grid-template-columns: 1fr; }
+      .action-card { min-height: 0; }
+    }
+
+    @media (max-width: 650px) {
+      h1 { font-size: clamp(39px, 12vw, 56px); }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .button { width: 100%; }
+      .section { padding-top: 68px; padding-bottom: 72px; }
+      .section-heading { margin-bottom: 32px; }
+      .dashboard-card { padding: 24px; }
+      .layer-stack { grid-template-columns: 1fr; }
+      .layer { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
+      .horizon { grid-template-columns: 1fr; gap: 10px; }
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 28px 6vw;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
+  </style>
 </head>
 <body>
-<div style="min-height:100vh; display:flex; flex-direction:column;">
-  <div class="site-nav" style="display:flex; align-items:center; justify-content:space-between; padding:20px 8vw; border-bottom:1px solid #f0e2d4;">
-    <div style="display:flex; align-items:center; gap:11px;"><div style="width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#f6a24a,#e8663f 55%,#d94f6c);"></div><span style="font-weight:800; font-size:18px; letter-spacing:-.01em;">Mind Guild</span></div>
-    <div class="site-links" style="display:flex; gap:28px; font-size:13px; font-weight:500; color:#6a5f57; font-family:'IBM Plex Mono',monospace;">
-      <a href="publications.html" style="color:#6a5f57;">Publications</a>
-      <a href="products.html" style="color:#6a5f57;">Products</a>
-      <a href="artwork.html" style="color:#6a5f57;">Artwork</a>
-      <a href="videos.html" style="color:#6a5f57;">Videos</a>
-      <a href="collective.html" style="color:#6a5f57;">Collective</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html" aria-label="Mind Guild home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Mind Guild</span>
+    </a>
+    <div class="nav-links">
+      <a href="products.html">Products</a>
+      <a href="publications.html">Publications</a>
+      <a href="artwork.html">Artwork</a>
+      <a href="videos.html">Videos</a>
+      <a href="collective.html">Collective</a>
     </div>
-  </div>
-  <div style="flex:1;">
-    <div style="padding:88px 8vw 76px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:26px; background:radial-gradient(120% 80% at 50% -10%, rgba(246,162,74,.18), transparent 60%);">
-      <h1 style="margin:0; font-weight:400; font-size:46px; line-height:1.18; letter-spacing:-.025em; max-width:920px; text-wrap:pretty; color:#221c17;">Transforming consciousness from a <span style="font-weight:800;">philosophical problem</span> into an <span style="font-weight:800;">engineering discipline</span></h1>
-      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:6px;"><a href="publications.html" style="background:#2a211c; color:#fdf3e9; font-size:14px; font-weight:700; padding:13px 24px; border-radius:100px;">Read the paper</a><a href="collective.html" style="border:1px solid #2a211c; color:#2a211c; font-size:14px; font-weight:700; padding:12px 24px; border-radius:100px;">Meet the Collective</a></div>
-    </div>
-    <div style="padding:8px 8vw 60px; border-bottom:1px solid #f0e2d4;">
-      <div style="max-width:760px; display:flex; flex-direction:column; gap:16px;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#d15a33;">Our vision</div>
-        <p style="margin:0; font-size:19px; line-height:1.7; color:#3c3129; text-align:left; text-wrap:pretty;">Grounded in cognitive and brain science, we identify, simulate, and test the mechanisms that let systems model self and others, integrate perception and memory, imagine possible futures, cooperate, plan, and respond safely to novelty — a foundation for more flexible, trustworthy AI in human-machine teaming that data and compute alone cannot deliver. -- The Mind Guild Collective</p>
+  </nav>
+
+  <main id="main">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Implementations of the Mind Guild</div>
+        <h1>Transforming consciousness from a <strong>philosophical problem</strong> into an <strong>engineering discipline</strong></h1>
+        <p class="hero-copy">We build inspectable AI systems that turn theories of consciousness into computational mechanisms and falsifiable experiments. We do not assume these systems are conscious—we test which mechanisms produce flexible, mind-like capabilities.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#implementation">Explore the current build</a>
+          <a class="button" href="products.html">Try a product</a>
+          <a class="button ghost" href="publications.html">Read the research</a>
+        </div>
       </div>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid #f0e2d4;">
-      <div style="padding:34px 8vw; border-right:1px solid #f0e2d4;"><div style="font-weight:800; font-size:20px; letter-spacing:-.01em;">Exploring consciousness</div><p style="margin:8px 0 0; font-size:13px; line-height:1.55; color:#7a6c62;">Self, memory, and imagination.</p></div>
-      <div style="padding:34px 40px; border-right:1px solid #f0e2d4;"><div style="font-weight:800; font-size:20px; letter-spacing:-.01em;">Simulate</div><p style="margin:8px 0 0; font-size:13px; line-height:1.55; color:#7a6c62;">them in a unified computational model.</p></div>
-      <div style="padding:34px 40px;"><div style="font-weight:800; font-size:20px; letter-spacing:-.01em;">Embody</div><p style="margin:8px 0 0; font-size:13px; line-height:1.55; color:#7a6c62;">With testable artifacts.</p></div>
-    </div>
-  </div>
-  <div style="display:flex; align-items:center; justify-content:space-between; padding:30px 8vw; background:#2a211c; color:#d8c6b8; font-size:13px;"><span style="font-weight:800; font-size:16px; color:#fdf3e9;">Mind Guild</span><span style="font-family:'IBM Plex Mono',monospace; color:#ffffff;">© 2026 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8fe2e6e1eba1e8fae6e3ebcffcf6e2ede6e0e4e6e1eafbe6ecfca1ece0e2">[email&#160;protected]</a></span></div>
-</div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+    </header>
+
+    <section class="vision" aria-labelledby="vision-title">
+      <div class="vision-inner">
+        <div>
+          <div class="eyebrow" id="vision-title">Our vision</div>
+        </div>
+        <p>
+          Grounded in cognitive and brain science, we identify, simulate, and test the mechanisms that let systems model self and others, integrate perception and memory, imagine possible futures, cooperate, plan, and respond safely to novelty—a foundation for more flexible, trustworthy AI in human-machine teaming that data and compute alone cannot deliver.
+          <span class="attribution">-- The Mind Guild Collective</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="implementation" aria-labelledby="implementation-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Implementation dashboard</div>
+            <h2 id="implementation-title">From theory to a build that can fail.</h2>
+          </div>
+          <p class="section-intro">Simulated, Situated and Structurally Coherent Qualia (S3Q) is our first reference architecture: a five-layer implementation built as a reproducible vertical slice, with each claim mapped to code, a test, a metric, or an explicit deferment.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="dashboard-card">
+            <div class="card-topline">
+              <span class="card-number">01 · Architecture</span>
+              <span class="status">In specification</span>
+            </div>
+            <h3>Five-layer S3Q architecture</h3>
+            <p class="card-copy">One shared object-centric representation, operated on by five interacting functions in a perception–action–feedback loop.</p>
+            <ol class="layer-stack" aria-label="Five S3Q architecture layers">
+              <li class="layer"><span>01</span><span><strong>Object binding</strong><small>Identity, stability, SFA and mutual information</small></span></li>
+              <li class="layer"><span>02</span><span><strong>Self/world model</strong><small>Source attribution and forward model T</small></span></li>
+              <li class="layer"><span>03</span><span><strong>Pattern completion</strong><small>Associative completion and compositional recall</small></span></li>
+              <li class="layer"><span>04</span><span><strong>Action and suppression</strong><small>Candidate evaluation and behavioral regulation</small></span></li>
+              <li class="layer"><span>05</span><span><strong>Coherence regulation</strong><small>Precision, valence, goals and top-down feedback</small></span></li>
+            </ol>
+            <a class="card-link" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">Inspect the Layer 1 diagram →</a>
+          </article>
+
+          <article class="dashboard-card">
+            <div class="card-topline">
+              <span class="card-number">02 · Current build</span>
+              <span class="status">In development</span>
+            </div>
+            <h3>S3Q reference vertical slice</h3>
+            <p class="card-copy">A paper-aligned MuJoCo scene family is being designed to exercise the developmental path from stable object slots to self/world attribution, action, imagination and coherence regulation.</p>
+            <ul class="build-list">
+              <li><strong>Paper-to-code contracts</strong><span>Claims, mechanisms and interfaces become executable requirements.</span></li>
+              <li><strong>Embodied task family</strong><span>Multiple objects, action-dependent observability, continuous physics and goal flexibility.</span></li>
+              <li><strong>Reproducible evidence</strong><span>Frozen configurations, seeds, interventions, traces and explicit failure accounting.</span></li>
+            </ul>
+            <a class="card-link" href="videos.html">Watch the Layer 1 working session →</a>
+          </article>
+
+          <article class="dashboard-card">
+            <div class="card-topline">
+              <span class="card-number">03 · Falsification</span>
+              <span class="status">Protocol design</span>
+            </div>
+            <h3>What would change our minds</h3>
+            <p class="card-copy">Success thresholds and failure conditions are specified before held-out results are viewed. Negative and inconclusive results remain first-class outputs.</p>
+            <ul class="test-list">
+              <li><strong>No active-exploration advantage</strong><span>A yoked passive observer acquires an equivalent self/world representation.</span></li>
+              <li><strong>No goal-sensitive decomposition</strong><span>Changing the agent’s goal does not reorganize the relevant representation.</span></li>
+              <li><strong>No architectural advantage</strong><span>Targeted ablations match the full system on composition, valence or imagination tests.</span></li>
+            </ul>
+            <a class="card-link" href="publications.html">Inspect the claims and evidence →</a>
+          </article>
+        </div>
+
+        <aside class="horizon" aria-label="Long-term platform direction">
+          <div class="horizon-label">Long horizon</div>
+          <p>The S3Q reference build is the first package—not the permanent definition—of a theory-neutral experimental platform for comparing mechanisms of flexible intelligence and machine consciousness.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section actions-section" aria-labelledby="actions-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Products · Evidence · Participation</div>
+            <h2 id="actions-title">Try it. Inspect it. Help build it.</h2>
+          </div>
+          <p class="section-intro">The public surface of Mind Guild connects working tools, scientific claims, implementation artifacts and scoped collaboration.</p>
+        </div>
+
+        <div class="action-grid">
+          <article class="action-card">
+            <div class="action-kicker">Try a product</div>
+            <h3>Train a Memory Palace</h3>
+            <p>Build ordered loci, create a Person–Action–Object vocabulary, encode randomized card decks and score exact recall.</p>
+            <div class="action-links">
+              <a href="memory-palace.html">Launch trainer</a>
+              <a href="products.html">All products</a>
+            </div>
+          </article>
+
+          <article class="action-card">
+            <div class="action-kicker">Inspect the evidence</div>
+            <h3>Follow claim to artifact</h3>
+            <p>Read the accepted IEEE SMC 2026 work, inspect architecture diagrams and watch the technical sessions behind the reference build.</p>
+            <div class="action-links">
+              <a href="publications.html">Publications</a>
+              <a href="artwork.html">Architecture and essays</a>
+              <a href="videos.html">Technical videos</a>
+            </div>
+          </article>
+
+          <article class="action-card">
+            <div class="action-kicker">Participate</div>
+            <h3>Contribute to a testable theory of mind</h3>
+            <p>Explore the code and technical work, or propose a scoped collaboration across AI, cognitive neuroscience, mathematics, robotics or experimental design.</p>
+            <div class="action-links">
+              <a href="https://github.com/Mind-Guild" target="_blank" rel="noopener">Explore GitHub</a>
+              <a href="mailto:mind.guild@symbiokinetics.com?subject=Mind%20Guild%20collaboration">Propose a collaboration</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Mind Guild</strong>
+    <span>© 2026 · <a href="mailto:mind.guild@symbiokinetics.com">mind.guild@symbiokinetics.com</a></span>
+  </footer>
+</body>
 </html>
