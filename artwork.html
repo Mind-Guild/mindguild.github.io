@@ -263,6 +263,63 @@
     letter-spacing: .16em;
     text-transform: uppercase;
   }
+  .architecture-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+    overflow: hidden;
+    margin-bottom: 56px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .52);
+    box-shadow: 0 36px 80px -54px rgba(64, 38, 18, .55);
+  }
+  .architecture-preview {
+    display: block;
+    padding: clamp(12px, 2.2vw, 24px);
+    border-right: 1px solid var(--line);
+    background:
+      linear-gradient(rgba(42, 33, 28, .028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42, 33, 28, .028) 1px, transparent 1px),
+      #f6eee6;
+    background-size: 24px 24px;
+  }
+  .architecture-preview img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #dfd3c8;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 24px 60px -38px rgba(42, 33, 28, .65);
+  }
+  .architecture-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(30px, 4.5vw, 52px);
+  }
+  .architecture-copy h2 {
+    margin: 0;
+    font-size: clamp(32px, 4.7vw, 54px);
+    letter-spacing: -.04em;
+    line-height: 1.04;
+  }
+  .architecture-copy p {
+    margin: 18px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.72;
+  }
+  .architecture-credit {
+    margin-top: 22px;
+    color: var(--orange);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .architecture-actions {
+    justify-content: flex-start;
+    margin-top: 26px;
+  }
   .art-card {
     overflow: hidden;
     border: 1px solid rgba(242, 189, 98, .55);
@@ -406,6 +463,8 @@
     .nav-links { gap: 14px; font-size: 11px; }
     .hero { padding: 60px 6vw 42px; }
     .gallery { padding: 42px 6vw 60px; }
+    .architecture-card { grid-template-columns: 1fr; }
+    .architecture-preview { border-right: 0; border-bottom: 1px solid var(--line); }
     .art-image-link { padding: 7px; }
     .art-meta { grid-template-columns: 1fr; padding: 24px; }
     .art-credit { text-align: left; white-space: normal; }
@@ -450,6 +509,22 @@
 
   <main class="gallery">
     <div class="gallery-inner">
+      <article class="architecture-card" aria-labelledby="layer-one-title">
+        <a class="architecture-preview" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener" aria-label="Open Bogdan Udrea's full Layer 1 architecture diagram">
+          <img src="artwork/layer-1-internal-structure.png" alt="Working architecture diagram for Layer 1, showing multimodal encoders, slot assignment, recurrent refinement, trajectory buffering, slow feature analysis, mutual-information estimation, and outputs.">
+        </a>
+        <div class="architecture-copy">
+          <div class="eyebrow">Architecture in progress · Layer 1</div>
+          <h2 id="layer-one-title">Layer 1: Internal Structure</h2>
+          <p>This working sketch traces how multimodal observations move through modality-specific encoders into slot assignment, recurrent refinement, trajectory buffering, slow feature analysis, and mutual-information estimation.</p>
+          <div class="architecture-credit">Diagram by Bogdan Udrea · 2026</div>
+          <div class="actions architecture-actions">
+            <a class="button primary" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">Open full diagram</a>
+            <a class="button" href="artwork/layer-1-internal-structure.pdf" download>Download PDF</a>
+          </div>
+        </div>
+      </article>
+
       <article class="demo-card">
         <div class="demo-copy">
           <div class="art-kicker">Interactive research demo · Memory &amp; consciousness</div>
