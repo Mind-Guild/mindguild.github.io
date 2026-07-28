@@ -284,6 +284,58 @@
     .nav-links { width: 100%; justify-content: space-between; }
     footer { align-items: flex-start; flex-direction: column; padding: 28px 6vw; }
   }
+  .clip-loader {
+    display: grid;
+    place-items: center;
+    padding: 0;
+    color: #f8f1e8;
+    background:
+      radial-gradient(circle at 50% 25%, rgba(143, 195, 255, .14), transparent 42%),
+      #02070d;
+  }
+  .clip-loading {
+    display: grid;
+    width: min(520px, calc(100% - 48px));
+    gap: 12px;
+    justify-items: center;
+    text-align: center;
+  }
+  .clip-loading strong {
+    font-size: clamp(22px, 4vw, 38px);
+    letter-spacing: -.025em;
+  }
+  .clip-loading > span:nth-child(3) {
+    color: #9fb0c1;
+    font-size: 14px;
+  }
+  .progress-track {
+    display: block;
+    width: min(360px, 100%);
+    height: 7px;
+    margin-top: 8px;
+    overflow: hidden;
+    border-radius: 100px;
+    background: rgba(255,255,255,.12);
+  }
+  .progress-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--gold), #e8663f);
+    transition: width .2s ease;
+  }
+  .clip-loader video {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    object-fit: contain;
+  }
+  .clip-noscript {
+    padding: 30px;
+    color: #b9c8d8;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -312,12 +364,15 @@
   <main class="content">
     <div class="content-inner">
       <article class="video-card">
-        <div class="video-shell clip-pending" role="status" aria-label="The 22-minute excerpt is being prepared">
-          <div>
+        <div class="video-shell clip-loader" id="clip-shell">
+          <div class="clip-loading" id="clip-loading" role="status" aria-live="polite">
             <span class="clip-time">00:00–22:00</span>
-            <strong>Slot Attention demo excerpt</strong>
-            <span>The full-length recording has been removed.</span>
+            <strong>Loading Slot Attention demo</strong>
+            <span id="clip-progress">Preparing the 22-minute excerpt…</span>
+            <span class="progress-track" aria-hidden="true"><span id="progress-bar"></span></span>
           </div>
+          <video id="slot-attention-video" controls playsinline preload="metadata" aria-label="Layer 1 Slot Attention Technical Deep Dive, first 22 minutes" hidden></video>
+          <noscript><p class="clip-noscript">JavaScript is required to assemble and play this video excerpt.</p></noscript>
         </div>
         <div class="video-meta">
           <div>
@@ -350,5 +405,54 @@
     <strong>Mind Guild</strong>
     <span>© 2026 · The Mind Guild Collective</span>
   </footer>
+<script>
+  (() => {
+    const partCount = 99;
+    const partBase = 'videos/slot-attention-demo-22min/part-';
+    const video = document.getElementById('slot-attention-video');
+    const loading = document.getElementById('clip-loading');
+    const progress = document.getElementById('clip-progress');
+    const bar = document.getElementById('progress-bar');
+    const parts = new Array(partCount);
+    let nextPart = 0;
+    let completed = 0;
+    let clipUrl;
+
+    const partUrl = index =>
+      partBase + String(index).padStart(3, '0') + '.bin';
+
+    async function worker() {
+      while (true) {
+        const index = nextPart++;
+        if (index >= partCount) return;
+        const response = await fetch(partUrl(index));
+        if (!response.ok) throw new Error('Could not load video part ' + index);
+        parts[index] = await response.arrayBuffer();
+        completed += 1;
+        const percent = Math.round((completed / partCount) * 100);
+        progress.textContent = 'Loading excerpt… ' + percent + '%';
+        bar.style.width = percent + '%';
+      }
+    }
+
+    Promise.all(Array.from({ length: 8 }, worker))
+      .then(() => {
+        const clip = new Blob(parts, { type: 'video/mp4' });
+        clipUrl = URL.createObjectURL(clip);
+        video.src = clipUrl;
+        video.hidden = false;
+        loading.hidden = true;
+      })
+      .catch(error => {
+        progress.textContent = 'The excerpt could not be loaded. Please refresh to try again.';
+        bar.style.width = '0';
+        console.error(error);
+      });
+
+    window.addEventListener('beforeunload', () => {
+      if (clipUrl) URL.revokeObjectURL(clipUrl);
+    });
+  })();
+</script>
 </body>
 </html>
