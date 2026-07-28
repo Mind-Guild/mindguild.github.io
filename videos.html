@@ -128,6 +128,38 @@
     height: 100%;
     border: 0;
   }
+  .clip-pending {
+    display: grid;
+    place-items: center;
+    padding: 32px;
+    color: #f8f1e8;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 25%, rgba(143, 195, 255, .14), transparent 42%),
+      #02070d;
+  }
+  .clip-pending div {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+  }
+  .clip-pending strong {
+    font-size: clamp(22px, 4vw, 38px);
+    letter-spacing: -.025em;
+  }
+  .clip-pending span:last-child {
+    color: #9fb0c1;
+    font-size: 14px;
+  }
+  .clip-time {
+    padding: 7px 12px;
+    border: 1px solid rgba(242, 189, 98, .6);
+    border-radius: 100px;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .08em;
+  }
   .video-meta {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -280,13 +312,12 @@
   <main class="content">
     <div class="content-inner">
       <article class="video-card">
-        <div class="video-shell">
-          <iframe
-            src="https://drive.google.com/file/d/1abyOS5bFA7LRDZphYZOGbHusIVVaPuRm/preview"
-            title="Layer 1 Slot Attention Technical Deep Dive — May 20, 2026"
-            allow="autoplay; fullscreen"
-            allowfullscreen
-            loading="lazy"></iframe>
+        <div class="video-shell clip-pending" role="status" aria-label="The 22-minute excerpt is being prepared">
+          <div>
+            <span class="clip-time">00:00–22:00</span>
+            <strong>Slot Attention demo excerpt</strong>
+            <span>The full-length recording has been removed.</span>
+          </div>
         </div>
         <div class="video-meta">
           <div>
@@ -295,7 +326,7 @@
             <p class="video-copy">A Mind Guild working session on the formal specification of Layer 1 in the artificial consciousness architecture, including object-centric representations, implementation interfaces, APIs, and data structures.</p>
           </div>
           <div class="actions">
-            <a class="button" href="https://drive.google.com/file/d/1abyOS5bFA7LRDZphYZOGbHusIVVaPuRm/view?usp=sharing" target="_blank" rel="noopener noreferrer">Open in Drive ↗</a>
+            <span class="button" aria-disabled="true">22-minute excerpt</span>
           </div>
         </div>
       </article>
