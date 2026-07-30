@@ -242,6 +242,7 @@
     grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
     overflow: hidden;
     margin-bottom: 56px;
+    scroll-margin-top: 110px;
     border: 1px solid var(--line);
     border-radius: 18px;
     background: rgba(255, 255, 255, .52);
@@ -282,6 +283,13 @@
     color: var(--muted);
     font-size: 15px;
     line-height: 1.72;
+  }
+  .architecture-copy p a {
+    color: var(--orange);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
   }
   .architecture-credit {
     margin-top: 22px;
@@ -584,18 +592,19 @@
 
   <main class="gallery">
     <div class="gallery-inner">
-      <article class="architecture-card" aria-labelledby="layer-one-title">
+      <article class="architecture-card" id="layer-one-diagram" aria-labelledby="layer-one-title">
         <a class="architecture-preview" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener" aria-label="Open Bogdan Udrea's full Layer 1 architecture diagram">
           <img src="artwork/layer-1-internal-structure.png" alt="Working architecture diagram for Layer 1, showing multimodal encoders, slot assignment, recurrent refinement, trajectory buffering, slow feature analysis, mutual-information estimation, and outputs.">
         </a>
         <div class="architecture-copy">
           <div class="eyebrow">Architecture in progress · Layer 1</div>
           <h2 id="layer-one-title">Layer 1: Internal Structure</h2>
-          <p>This working sketch traces how multimodal observations move through modality-specific encoders into slot assignment, recurrent refinement, trajectory buffering, slow feature analysis, and mutual-information estimation.</p>
+          <p>This working sketch traces how multimodal observations move through modality-specific encoders into slot assignment, recurrent refinement, trajectory buffering, slow feature analysis, and mutual-information estimation. Its slot-assignment stage is reinterpreted below in <a href="#attentio-competitiva"><em>Attentio competitiva</em></a>.</p>
           <div class="architecture-credit">Diagram by Bogdan Udrea · 2026</div>
           <div class="actions architecture-actions">
             <a class="button primary" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">Open full diagram</a>
             <a class="button" href="artwork/layer-1-internal-structure.pdf" download>Download PDF</a>
+            <a class="button" href="#attentio-competitiva">See Slot Attention artwork</a>
           </div>
         </div>
       </article>
@@ -610,8 +619,9 @@
             <div class="art-kicker">Botanical plate · Slot attention</div>
             <h2 id="attentio-competitiva-title"><em>Attentio competitiva</em></h2>
             <p class="slot-art-deck">A sundew becomes a visual model of object-centric binding: leaves become slots, tentacles become attention weights, and competition resolves a continuous field into discrete claims.</p>
-            <p class="slot-art-bridge"><strong>One mechanism, two lenses</strong>The plate renders Slot Attention as a biological metaphor; the technical session shows the same mechanism taking shape in the Mind Guild architecture.</p>
+            <p class="slot-art-bridge"><strong>One mechanism, three views</strong>The plate renders Slot Attention as a biological metaphor; Bogdan Udrea's Layer 1 diagram places slot assignment within the wider architecture; and the technical session shows the mechanism taking shape in implementation.</p>
             <div class="actions slot-art-actions">
+              <a class="button" href="#layer-one-diagram">Explore Layer 1 diagram</a>
               <a class="button primary" href="videos.html#slot-attention-demo">Watch Slot Attention demo</a>
               <a class="button" href="artwork/attentio-competitiva.jpg" target="_blank" rel="noopener">Open full-size plate</a>
             </div>
