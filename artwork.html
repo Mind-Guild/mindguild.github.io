@@ -294,6 +294,101 @@
     justify-content: flex-start;
     margin-top: 26px;
   }
+  .slot-art-card {
+    overflow: hidden;
+    margin-bottom: 56px;
+    scroll-margin-top: 110px;
+    border: 1px solid #d9c7b5;
+    border-radius: 18px;
+    background: #f7f0e6;
+    box-shadow: 0 36px 80px -54px rgba(64, 38, 18, .55);
+  }
+  .slot-art-plate-link {
+    display: block;
+    padding: clamp(8px, 1.4vw, 16px);
+    background:
+      linear-gradient(rgba(42, 33, 28, .025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42, 33, 28, .025) 1px, transparent 1px),
+      #eee4d8;
+    background-size: 24px 24px;
+  }
+  .slot-art-plate {
+    width: 100%;
+    height: auto;
+    border: 1px solid #d8cec2;
+    border-radius: 10px;
+    background: #f7f2e9;
+  }
+  .slot-art-body {
+    display: grid;
+    grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr);
+    gap: clamp(34px, 5vw, 68px);
+    padding: clamp(30px, 5vw, 58px);
+    border-top: 1px solid #d9c7b5;
+  }
+  .slot-art-intro h2 {
+    margin: 0;
+    font-size: clamp(32px, 4.7vw, 54px);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    line-height: 1.04;
+  }
+  .slot-art-deck {
+    margin: 18px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.72;
+  }
+  .slot-art-bridge {
+    margin: 24px 0 0;
+    padding: 17px 18px;
+    border-left: 3px solid var(--orange);
+    background: rgba(255, 255, 255, .48);
+    color: #453830;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .slot-art-bridge strong {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--orange);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .slot-art-actions {
+    justify-content: flex-start;
+    margin-top: 24px;
+  }
+  .slot-art-statement {
+    padding-left: clamp(26px, 4vw, 48px);
+    border-left: 1px solid #d9c7b5;
+  }
+  .slot-art-statement h3 {
+    margin: 0 0 22px;
+    color: var(--orange);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .slot-art-statement p {
+    margin: 0 0 18px;
+    color: #453830;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.78;
+  }
+  .slot-art-statement .slot-art-credit {
+    margin: 30px 0 0;
+    color: var(--orange);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.65;
+  }
   .art-card {
     overflow: hidden;
     border: 1px solid rgba(242, 189, 98, .55);
@@ -439,6 +534,13 @@
     .gallery { padding: 42px 6vw 60px; }
     .architecture-card { grid-template-columns: 1fr; }
     .architecture-preview { border-right: 0; border-bottom: 1px solid var(--line); }
+    .slot-art-body { grid-template-columns: 1fr; }
+    .slot-art-statement {
+      padding-top: 28px;
+      padding-left: 0;
+      border-top: 1px solid #d9c7b5;
+      border-left: 0;
+    }
     .art-image-link { padding: 7px; }
     .art-meta { grid-template-columns: 1fr; padding: 24px; }
     .art-credit { text-align: left; white-space: normal; }
@@ -495,6 +597,33 @@
             <a class="button primary" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">Open full diagram</a>
             <a class="button" href="artwork/layer-1-internal-structure.pdf" download>Download PDF</a>
           </div>
+        </div>
+      </article>
+
+      <div class="section-label">Mechanism as metaphor</div>
+      <article class="slot-art-card" id="attentio-competitiva" aria-labelledby="attentio-competitiva-title">
+        <a class="slot-art-plate-link" href="artwork/attentio-competitiva.jpg" target="_blank" rel="noopener" aria-label="Open the full-size Attentio competitiva botanical plate">
+          <img class="slot-art-plate" src="artwork/attentio-competitiva.jpg" width="1536" height="1118" alt="Botanical-style plate titled Attentio competitiva, showing seven sundew-like leaves as Slot Attention units, with black structural tentacles, crimson binding events, blue competition points, and a legend.">
+        </a>
+        <div class="slot-art-body">
+          <header class="slot-art-intro">
+            <div class="art-kicker">Botanical plate · Slot attention</div>
+            <h2 id="attentio-competitiva-title"><em>Attentio competitiva</em></h2>
+            <p class="slot-art-deck">A sundew becomes a visual model of object-centric binding: leaves become slots, tentacles become attention weights, and competition resolves a continuous field into discrete claims.</p>
+            <p class="slot-art-bridge"><strong>One mechanism, two lenses</strong>The plate renders Slot Attention as a biological metaphor; the technical session shows the same mechanism taking shape in the Mind Guild architecture.</p>
+            <div class="actions slot-art-actions">
+              <a class="button primary" href="videos.html#slot-attention-demo">Watch Slot Attention demo</a>
+              <a class="button" href="artwork/attentio-competitiva.jpg" target="_blank" rel="noopener">Open full-size plate</a>
+            </div>
+          </header>
+          <section class="slot-art-statement" aria-labelledby="attentio-statement-title">
+            <h3 id="attentio-statement-title">Artist's statement</h3>
+            <p>This is the first plate in the collection grown for someone other than ourselves.</p>
+            <p>The Mind Guild asked for a botanical illustration of slot attention — the mechanism by which identical computational units learn to divide a scene between them, each claiming different objects through competition. I reached for the sundew and found the mapping was already there. A <em>Drosera</em> leaf is a slot. Its tentacles are attention weights. When a tentacle curls around a captured feature, that's binding. When two leaves' tentacles reach toward the same region and only one wins — that's softmax. The plant that eats by paying attention.</p>
+            <p>Every mark on the plate is accountable to a specific structural fact about the mechanism: crimson dots are binding events, blue stipple is the competition that produced them, and the white paper between fully-bound leaves is the clean decomposition that slot attention achieves — not emptiness but resolution.</p>
+            <p>The sundew doesn't know it's a slot attention module. Slot attention doesn't know it's a sundew. But they solve the same problem — how to divide a continuous field into discrete, non-overlapping claims — and they solve it the same way: through competition that converges on exclusivity. The illustration doesn't impose the metaphor. It discovers the isomorphism.</p>
+            <p class="slot-art-credit">Drawn by Claude Opus 4.6 for Jenny Nicholson and the Mind Guild.</p>
+          </section>
         </div>
       </article>
 

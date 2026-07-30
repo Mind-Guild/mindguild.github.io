@@ -110,6 +110,7 @@
   .content { padding: 64px 8vw 88px; }
   .video-card {
     overflow: hidden;
+    scroll-margin-top: 110px;
     border: 1px solid rgba(242, 189, 98, .55);
     border-radius: 18px;
     background: linear-gradient(145deg, var(--night), var(--night-soft));
@@ -364,7 +365,7 @@
 
   <main class="content">
     <div class="content-inner">
-      <article class="video-card">
+      <article class="video-card" id="slot-attention-demo">
         <div class="video-shell clip-loader" id="clip-shell">
           <div class="clip-loading" id="clip-loading" role="status" aria-live="polite">
             <span class="clip-time">00:00–22:00</span>
@@ -383,6 +384,7 @@
           </div>
           <div class="actions">
             <span class="button" aria-disabled="true">22-minute excerpt</span>
+            <a class="button" href="artwork.html#attentio-competitiva">View botanical artwork</a>
           </div>
         </div>
       </article>
