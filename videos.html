@@ -291,7 +291,8 @@
     padding: 0;
     color: #f8f1e8;
     background:
-      radial-gradient(circle at 50% 25%, rgba(143, 195, 255, .14), transparent 42%),
+      linear-gradient(rgba(2, 7, 13, .58), rgba(2, 7, 13, .84)),
+      url('images/slot-attention-technical-deep-dive-poster.jpg') center / cover no-repeat,
       #02070d;
   }
   .clip-loading {
@@ -368,22 +369,22 @@
       <article class="video-card" id="slot-attention-demo">
         <div class="video-shell clip-loader" id="clip-shell">
           <div class="clip-loading" id="clip-loading" role="status" aria-live="polite">
-            <span class="clip-time">00:00–22:00</span>
-            <strong>Loading Slot Attention demo</strong>
-            <span id="clip-progress">Preparing the 22-minute excerpt…</span>
+            <span class="clip-time">22:11 · Produced edition</span>
+            <strong>Loading Slot Attention technical deep dive</strong>
+            <span id="clip-progress">Preparing the produced session…</span>
             <span class="progress-track" aria-hidden="true"><span id="progress-bar"></span></span>
           </div>
-          <video id="slot-attention-video" controls playsinline preload="metadata" aria-label="Layer 1 Slot Attention Technical Deep Dive, first 22 minutes" hidden></video>
-          <noscript><p class="clip-noscript">JavaScript is required to assemble and play this video excerpt.</p></noscript>
+          <video id="slot-attention-video" controls playsinline preload="metadata" poster="images/slot-attention-technical-deep-dive-poster.jpg" aria-label="Layer 1 Slot Attention Technical Deep Dive, produced 22-minute edition" hidden></video>
+          <noscript><p class="clip-noscript">JavaScript is required to assemble and play this produced session.</p></noscript>
         </div>
         <div class="video-meta">
           <div>
             <div class="video-kicker">Technical session · May 20, 2026</div>
             <h2>Layer 1 Slot Attention Technical Deep Dive</h2>
-            <p class="video-copy">A Mind Guild working session on the formal specification of Layer 1 in the artificial consciousness architecture, including object-centric representations, implementation interfaces, APIs, and data structures.</p>
+            <p class="video-copy">A produced Mind Guild working session on the formal specification of Layer 1 in the artificial consciousness architecture—covering object-centric representations, implementation interfaces, APIs, and data structures. This edition adds focused presentation framing, chapter cues, and balanced audio.</p>
           </div>
           <div class="actions">
-            <span class="button" aria-disabled="true">22-minute excerpt</span>
+            <span class="button" aria-disabled="true">22:11 produced edition</span>
             <a class="button" href="artwork.html#attentio-competitiva">View botanical artwork</a>
           </div>
         </div>
@@ -433,7 +434,7 @@
         parts[index] = await response.arrayBuffer();
         completed += 1;
         const percent = Math.round((completed / partCount) * 100);
-        progress.textContent = 'Loading excerpt… ' + percent + '%';
+        progress.textContent = 'Loading produced edition… ' + percent + '%';
         bar.style.width = percent + '%';
       }
     }
@@ -447,7 +448,7 @@
         loading.hidden = true;
       })
       .catch(error => {
-        progress.textContent = 'The excerpt could not be loaded. Please refresh to try again.';
+        progress.textContent = 'The produced session could not be loaded. Please refresh to try again.';
         bar.style.width = '0';
         console.error(error);
       });
