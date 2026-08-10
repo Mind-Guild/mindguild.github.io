@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mind Guild member Luis El Srouji explores primary and learned value, the PVLV model, and what biologically informed value learning could contribute to adaptable AI.">
+  <meta name="theme-color" content="#fdf6ef">
+  <title>What Really Is Value? — Luis El Srouji · Mind Guild</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fdf6ef;
+      --cream: #fffaf5;
+      --ink: #2a211c;
+      --ink-soft: #453830;
+      --muted: #6a5f57;
+      --faint: #9d8879;
+      --line: #ead7c4;
+      --orange: #d15a33;
+      --orange-dark: #a5401f;
+      --blue: #8fc3ff;
+      --night: #0c1927;
+      --night-soft: #142b40;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Libre Franklin", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible {
+      outline: 3px solid rgba(209, 90, 51, .35);
+      outline-offset: 4px;
+    }
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: white;
+      background: var(--ink);
+      transform: translateY(-150%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 20px 8vw;
+      border-bottom: 1px solid rgba(234, 215, 196, .92);
+      background: rgba(253, 246, 239, .94);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 0 0 auto;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f6a24a, #e8663f 55%, #d94f6c);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 26px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .hero {
+      padding: 78px 8vw 64px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(76% 100% at 72% -20%, rgba(143, 195, 255, .18), transparent 62%),
+        radial-gradient(58% 85% at 12% 0%, rgba(246, 162, 74, .20), transparent 64%);
+    }
+    .hero-inner,
+    .article-grid {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+    .eyebrow {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 920px;
+      margin: 20px 0 22px;
+      font-size: clamp(48px, 8vw, 92px);
+      font-weight: 800;
+      letter-spacing: -.055em;
+      line-height: .98;
+      text-wrap: balance;
+    }
+    .standfirst {
+      max-width: 790px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 2.2vw, 22px);
+      line-height: 1.65;
+    }
+    .byline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin-top: 30px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+    .byline strong { color: var(--ink); }
+    .article-wrap { padding: 68px 8vw 90px; }
+    .article-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: clamp(48px, 8vw, 96px);
+      align-items: start;
+    }
+    .article-body {
+      max-width: 760px;
+      min-width: 0;
+    }
+    .article-body p {
+      margin: 0 0 1.45em;
+      color: var(--ink-soft);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.82;
+    }
+    .article-body p:first-child::first-letter {
+      float: left;
+      margin: .08em .12em 0 0;
+      color: var(--orange);
+      font-family: "Libre Franklin", sans-serif;
+      font-size: 4.2em;
+      font-weight: 800;
+      line-height: .78;
+    }
+    .article-body em { color: var(--ink); }
+    .article-body a {
+      border-bottom: 1px solid rgba(209, 90, 51, .45);
+      color: var(--orange-dark);
+    }
+    .article-body a:hover { border-bottom-color: var(--orange-dark); }
+    .companion {
+      position: sticky;
+      top: 110px;
+      overflow: hidden;
+      border: 1px solid rgba(143, 195, 255, .32);
+      border-radius: 18px;
+      color: #f8f1e8;
+      background: linear-gradient(145deg, var(--night), var(--night-soft));
+      box-shadow: 0 30px 70px -50px rgba(12, 25, 39, .9);
+    }
+    .companion-visual {
+      position: relative;
+      min-height: 190px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(143,195,255,.18), transparent 48%);
+      background-size: 22px 22px, 22px 22px, auto;
+    }
+    .node {
+      position: absolute;
+      display: grid;
+      min-width: 82px;
+      min-height: 40px;
+      place-items: center;
+      padding: 7px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 10px;
+      color: white;
+      background: #183451;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 8px;
+      text-align: center;
+    }
+    .node.cortex { top: 22px; left: calc(50% - 41px); }
+    .node.go { top: 82px; left: 18px; background: #244d45; }
+    .node.nogo { top: 82px; right: 18px; background: #4c3039; }
+    .node.gate { bottom: 20px; left: calc(50% - 41px); background: #512d31; }
+    .companion-copy { padding: 25px; }
+    .companion-kicker {
+      color: var(--blue);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .companion h2 {
+      margin: 14px 0 0;
+      font-size: 24px;
+      line-height: 1.16;
+      letter-spacing: -.025em;
+    }
+    .companion p {
+      margin: 14px 0 0;
+      color: #b9c8d8;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .scope-note {
+      padding-top: 13px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: 11px !important;
+    }
+    .button {
+      display: inline-flex;
+      min-height: 43px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      padding: 10px 16px;
+      border-radius: 100px;
+      color: var(--night);
+      background: var(--blue);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .button:hover { background: white; }
+    .article-footer {
+      margin-top: 52px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .article-footer strong { color: var(--ink); }
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px 8vw;
+      color: #d8c6b8;
+      background: var(--ink);
+      font-size: 13px;
+    }
+    footer strong { color: #fdf3e9; font-size: 16px; }
+    footer span:last-child { font-family: "IBM Plex Mono", monospace; }
+    @media (max-width: 880px) {
+      .article-grid { grid-template-columns: 1fr; }
+      .companion {
+        position: static;
+        display: grid;
+        grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr);
+      }
+      .companion-visual {
+        min-height: 100%;
+        border-right: 1px solid rgba(255,255,255,.1);
+        border-bottom: 0;
+      }
+    }
+    @media (max-width: 700px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px 6vw;
+      }
+      .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 12px 18px;
+        font-size: 11px;
+      }
+      .hero { padding: 60px 6vw 50px; }
+      .article-wrap { padding: 52px 6vw 68px; }
+      .companion { grid-template-columns: 1fr; }
+      .companion-visual {
+        min-height: 190px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,.1);
+      }
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 28px 6vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#article">Skip to article</a>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html" aria-label="Mind Guild home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>Mind Guild</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="publications.html">Publications</a>
+      <a href="artwork.html">Artwork</a>
+      <a href="videos.html">Videos</a>
+      <a href="collective.html">Collective</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Mind Guild Perspective · Value learning</div>
+        <h1>What Really Is Value?</h1>
+        <p class="standfirst">Could a deeper understanding of how humans learn and update value help us build autonomous systems that make more adaptable, human-aligned decisions?</p>
+        <div class="byline">
+          <span>By <strong>Luis El Srouji</strong></span>
+          <time datetime="2026-08-10">August 10, 2026</time>
+          <span>Mind Guild member</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="article-wrap" id="article">
+      <div class="article-grid">
+        <article class="article-body">
+          <p>Value and money are often equated in daily language, but the value of a currency is derived entirely from the collective beliefs of many people, as reflected through their spending patterns. Even the items on the “dollar menu” of your favorite fast food restaurant are rarely a dollar for long. So what is the value of a dollar really? As we explore adaptable AI, could a deeper understanding of how humans determine value inform systems that better align with human-like decision-making?</p>
+
+          <p>As autonomous systems become more advanced, we must consider the role of human values in decision making and evaluate if this value system is matched by our technology. Imagine an autonomous emergency medical drone that has been developed to assist in the rescue of survivors after a building collapse. Human rescue teams may risk becoming trapped themselves, while remotely piloted drones can face connectivity issues. Yet, typical deep learning algorithms often fall short when matching the nuanced human valuations that guide decisions, such as prioritizing one patient’s needs over another based on urgency. Humans make judgments rooted in fundamental values, not solely data-driven associations.</p>
+
+          <p>The human brain constantly re-evaluates and updates values based on new information, dynamically weighing options. The PVLV model from Dr. Randall O’Reilly’s Emergent framework illustrates this process. Standing for <em>Primary Values</em> (PVs) and <em>Learned Values</em> (LVs), PVLV represents how the brain differentiates between innately valuable stimuli and those that gain value through learned association using biologically plausible learning algorithms from the Emergent framework. Bodily states trigger signals in the brain that highlight the urgency of various PVs—like hunger, thirst, or even the well-being of a loved one. The brain then estimates the effort required to meet these needs, using LVs as references. The difference between calculated value and effort is reflected in our motivations and decisions.</p>
+
+          <p>Unlike traditional reinforcement learning systems, the PVLV model can weigh multiple competing needs and determine the most urgent. Separate regions process the receipt of PV versus LV stimuli and handle discrete forms of learning. This division of labor guarantees that the motivational system doesn’t lose sight of the PVs, so to speak, and that LVs can be learned, extinguished, transfer contexts, and support other, more complicated classical conditioning phenomena. It learns abstract goals—such as “money leads to food”—which it uses to gauge progress, generating internal reward signals when it advances toward these goals. The model ensures that current goals are maintained unless stronger evidence prompts a shift. For instance, a medical drone might realize that another patient’s condition has worsened and decide whether to complete treatment for the current patient or shift attention to the more critical one. Such decisions are handled with a flexibility akin to human judgment, rather than by a rigid heuristic algorithm.</p>
+
+          <p>As the research of autonomous AI agents advances, we should prefer them to share our human values and motivations. Referring back to the autonomous emergency drone, the system could be designed with primary values (PVs) for multiple vital tasks such as delivering life-saving equipment and searching unstable terrain for survivors. Meanwhile, it would autonomously develop learned values (LVs) through various real and simulated experiences that allow it to generate better judgment calls—such as recognizing the most efficient route in dangerous terrain or determining the likelihood of a specific medical intervention being successful under various conditions. The PVLV model would allow the drone to continuously update its decisions, weighing the urgency of helping a critical patient against its capacity to reach others or return to base to recharge for future missions. In military or disaster scenarios, such a system could save lives by not only completing missions efficiently but adapting to unforeseen challenges in ways current autonomous systems struggle with. Most importantly, engineers could construct the agent’s primary value system to steer its decision-making, better aligning with human priorities.</p>
+
+          <p>Ultimately, the question of value has far-reaching implications. As autonomous systems take on an increasingly prominent role in our lives, it becomes essential to reconsider how we define value and ensure that our technology is aligned with a shared, thoughtful set of fundamental human values.</p>
+
+          <div class="article-footer">
+            <strong>About this perspective.</strong> Mind Guild Perspectives connect member ideas to the mechanisms, experiments, and interactive tools being developed by the collective. The views expressed here are the author’s.
+          </div>
+        </article>
+
+        <aside class="companion" aria-labelledby="companion-title">
+          <div class="companion-visual" aria-hidden="true">
+            <div class="node cortex">Cortex / PFC</div>
+            <div class="node go">D1 · Go</div>
+            <div class="node nogo">D2 · NoGo</div>
+            <div class="node gate">GPi / SNr gate</div>
+          </div>
+          <div class="companion-copy">
+            <div class="companion-kicker">Interactive companion</div>
+            <h2 id="companion-title">Basal Ganglia Attention Gate Lab</h2>
+            <p>Explore how salience, learned Go/NoGo values, dopamine, conflict, and threshold shape which candidate gains access to attention or working-memory updating.</p>
+            <p class="scope-note">The lab demonstrates selection and gating logic rather than a full PVLV implementation, providing an interactive bridge from learned value to behavioral choice.</p>
+            <a class="button" href="basal-ganglia.html">Launch the interactive lab →</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Mind Guild</strong>
+    <span>© 2026 · The Mind Guild Collective</span>
+  </footer>
+</body>
+</html>
