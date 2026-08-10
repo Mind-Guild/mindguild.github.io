@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Research-grounded interactive tools from the Mind Guild Collective, including the Memory Palace and PAO Trainer, Implicit Sequence Learning Test, and Basal Ganglia Attention Gate Lab.">
+<meta name="description" content="Research-grounded interactive tools from the Mind Guild Collective, including the CERES Topographic Map Reading Trainer, Memory Palace and PAO Trainer, Implicit Sequence Learning Test, and Basal Ganglia Attention Gate Lab.">
 <title>Products — Mind Guild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,6 +126,10 @@
     border-color: rgba(101,208,162,.46);
     background: linear-gradient(145deg, #081b1b, #123330);
   }
+  .product-card.topo-card {
+    border-color: rgba(101,208,162,.46);
+    background: linear-gradient(145deg, #071812, #123529);
+  }
   .product-copy {
     display: flex;
     flex-direction: column;
@@ -143,6 +147,7 @@
   }
   .gate-card .product-kicker { color: var(--blue); }
   .sequence-card .product-kicker { color: var(--green); }
+  .topo-card .product-kicker { color: #91e3b3; }
   .product-copy h2 {
     margin: 0;
     font-size: clamp(34px, 4.8vw, 56px);
@@ -186,6 +191,10 @@
   .sequence-card .button.primary {
     border-color: var(--green);
     background: var(--green);
+  }
+  .topo-card .button.primary {
+    border-color: #91e3b3;
+    background: #91e3b3;
   }
   .button:hover { transform: translateY(-1px); }
   .product-visual {
@@ -291,6 +300,14 @@
     color: #effff9;
     font-size: 12px;
   }
+  .topo-card .product-visual {
+    background:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+      radial-gradient(circle at 68% 24%, rgba(101,208,162,.18), transparent 38%);
+    background-size: 24px 24px, 24px 24px, auto;
+  }
+  .trainer-preview, .gate-preview, .sequence-preview, .topo-preview { width: min(520px, 100%); }
   .preview-head {
     display: flex;
     align-items: flex-end;
@@ -441,6 +458,61 @@
     text-transform: uppercase;
   }
   .gate-result strong { color: white; font-size: 13px; }
+  .topo-map {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1.42;
+    margin-bottom: 18px;
+    border: 1px solid rgba(145,227,179,.32);
+    border-radius: 14px;
+    background: #e8dfbd;
+    box-shadow: 0 24px 54px -34px rgba(0,0,0,.9);
+  }
+  .topo-map svg { display: block; width: 100%; height: 100%; }
+  .map-point {
+    position: absolute;
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border: 3px solid #fffaf1;
+    border-radius: 50%;
+    color: #081a14;
+    background: #91e3b3;
+    box-shadow: 0 5px 16px rgba(0,0,0,.35);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .map-point.origin { left: 24%; bottom: 24%; }
+  .map-point.position { top: 25%; right: 22%; background: var(--gold); }
+  .map-route {
+    position: absolute;
+    top: 47%;
+    left: 30%;
+    width: 47%;
+    border-top: 3px dashed rgba(26,77,59,.82);
+    transform: rotate(-25deg);
+    transform-origin: left center;
+  }
+  .topo-feedback {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid rgba(145,227,179,.25);
+    border-radius: 11px;
+    background: rgba(255,255,255,.045);
+  }
+  .topo-feedback strong {
+    color: #91e3b3;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .topo-feedback span { color: #d8f5e4; font-size: 13px; }
   .feature-heading {
     display: flex;
     align-items: center;
@@ -550,6 +622,67 @@
 
   <main class="products">
     <div class="products-inner">
+      <article class="product-card topo-card" aria-labelledby="topographic-trainer-title">
+        <div class="product-copy">
+          <div class="product-kicker">New demo · Spatial cognition</div>
+          <h2 id="topographic-trainer-title">CERES Topographic Map Reading Trainer</h2>
+          <p>Practice translating contour maps into egocentric terrain judgments. Across 12 adaptive trials, study a detailed topographic map, traverse the corresponding landscape, choose the heading back to the origin, and receive immediate angular-error feedback.</p>
+          <div class="actions">
+            <a class="button primary" href="https://topographic-map-trainer.billy5050.chatgpt.site/" target="_blank" rel="noopener">Launch trainer</a>
+            <a class="button" href="papers/ceres-topographic-map-reading.pdf" target="_blank" rel="noopener">Read the I/ITSEC paper</a>
+          </div>
+        </div>
+        <a class="product-visual" href="https://topographic-map-trainer.billy5050.chatgpt.site/" target="_blank" rel="noopener" aria-label="Launch the CERES Topographic Map Reading Trainer">
+          <div class="topo-preview" aria-hidden="true">
+            <div class="preview-head">
+              <span class="preview-label">Trial 07 of 12 · Heading recall</span>
+              <span class="preview-timer">Adaptive</span>
+            </div>
+            <div class="topo-map">
+              <svg viewBox="0 0 620 435" role="img" aria-label="Topographic contour map preview">
+                <defs>
+                  <linearGradient id="terrainWash" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#f2e8c7"/>
+                    <stop offset="1" stop-color="#cfc89f"/>
+                  </linearGradient>
+                  <pattern id="mapGrid" width="50" height="50" patternUnits="userSpaceOnUse">
+                    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#71826f" stroke-opacity=".2" stroke-width="1"/>
+                  </pattern>
+                </defs>
+                <rect width="620" height="435" fill="url(#terrainWash)"/>
+                <rect width="620" height="435" fill="url(#mapGrid)"/>
+                <path d="M-42 319 C52 271 90 294 152 261 S251 184 331 220 443 303 521 268 606 181 674 193" fill="none" stroke="#3e8d79" stroke-width="20" stroke-opacity=".3"/>
+                <path d="M-42 319 C52 271 90 294 152 261 S251 184 331 220 443 303 521 268 606 181 674 193" fill="none" stroke="#2a6f69" stroke-width="4"/>
+                <g fill="none" stroke="#8c5a35" stroke-width="2">
+                  <path d="M-34 116 C45 58 142 53 217 102 S318 178 399 143 520 45 657 82"/>
+                  <path d="M-24 138 C57 82 138 80 205 119 S313 199 405 166 528 71 650 105"/>
+                  <path d="M-15 162 C66 109 137 105 197 139 S308 219 409 188 532 99 642 132"/>
+                  <path d="M4 188 C77 138 144 132 194 160 S307 239 414 211 535 129 629 160"/>
+                  <path d="M24 216 C90 171 149 163 195 184 S307 260 421 236 535 160 611 190"/>
+                  <path d="M45 246 C102 207 154 197 199 207 S312 282 431 262 535 193 588 222"/>
+                  <path d="M69 277 C119 244 166 232 211 232 S323 304 443 289 532 230 563 255"/>
+                  <path d="M98 309 C137 283 179 268 224 259 S342 326 454 316 525 270 537 289"/>
+                  <path d="M126 342 C160 324 196 304 241 289 S363 348 458 344 508 312 516 321"/>
+                </g>
+                <g fill="none" stroke="#70401f" stroke-width="3">
+                  <path d="M32 187 C94 143 150 139 194 160 S307 239 414 211 535 129 629 160"/>
+                  <path d="M98 309 C137 283 179 268 224 259 S342 326 454 316 525 270 537 289"/>
+                </g>
+                <path d="M435 28 L458 74 L446 70 L445 118 L425 118 L426 70 L414 75 Z" fill="#263d31"/>
+                <text x="436" y="21" text-anchor="middle" fill="#263d31" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700">N</text>
+              </svg>
+              <span class="map-route"></span>
+              <span class="map-point origin">O</span>
+              <span class="map-point position">P</span>
+            </div>
+            <div class="topo-feedback">
+              <strong>Feedback</strong>
+              <span>8° angular error · difficulty increased</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
       <article class="product-card" aria-labelledby="memory-trainer-title">
         <div class="product-copy">
           <div class="product-kicker">Available now · Memory athletics</div>
