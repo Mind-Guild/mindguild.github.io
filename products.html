@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Research-grounded interactive tools from the Mind Guild Collective, including the Memory Palace and PAO Trainer and the Basal Ganglia Attention Gate Lab.">
+<meta name="description" content="Research-grounded interactive tools from the Mind Guild Collective, including the Memory Palace and PAO Trainer, Implicit Sequence Learning Test, and Basal Ganglia Attention Gate Lab.">
 <title>Products — Mind Guild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,6 +122,10 @@
     border-color: rgba(143,195,255,.42);
     background: linear-gradient(145deg, #091625, #152b40);
   }
+  .product-card.sequence-card {
+    border-color: rgba(101,208,162,.46);
+    background: linear-gradient(145deg, #081b1b, #123330);
+  }
   .product-copy {
     display: flex;
     flex-direction: column;
@@ -138,6 +142,7 @@
     text-transform: uppercase;
   }
   .gate-card .product-kicker { color: var(--blue); }
+  .sequence-card .product-kicker { color: var(--green); }
   .product-copy h2 {
     margin: 0;
     font-size: clamp(34px, 4.8vw, 56px);
@@ -178,6 +183,10 @@
     border-color: var(--blue);
     background: var(--blue);
   }
+  .sequence-card .button.primary {
+    border-color: var(--green);
+    background: var(--green);
+  }
   .button:hover { transform: translateY(-1px); }
   .product-visual {
     position: relative;
@@ -200,7 +209,88 @@
       radial-gradient(circle at 60% 46%, rgba(143,195,255,.14), transparent 38%);
     background-size: 24px 24px, 24px 24px, auto;
   }
-  .trainer-preview, .gate-preview { width: min(520px, 100%); }
+  .sequence-card .product-visual {
+    background:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+      radial-gradient(circle at 65% 42%, rgba(101,208,162,.18), transparent 38%);
+    background-size: 24px 24px, 24px 24px, auto;
+  }
+  .trainer-preview, .gate-preview, .sequence-preview { width: min(520px, 100%); }
+  .sequence-field {
+    position: relative;
+    display: grid;
+    height: 235px;
+    grid-template-columns: repeat(4, 1fr);
+    place-items: center;
+  }
+  .sequence-axis {
+    position: absolute;
+    right: 7%;
+    left: 7%;
+    height: 1px;
+    background: rgba(255,255,255,.18);
+  }
+  .sequence-node {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    width: 72px;
+    height: 72px;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 50%;
+    background: #112f2c;
+  }
+  .sequence-node.active {
+    border-color: var(--green);
+    background: var(--green);
+    box-shadow: 0 0 0 18px rgba(101,208,162,.08), 0 0 0 38px rgba(101,208,162,.04);
+  }
+  .sequence-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.18);
+  }
+  .sequence-node.active .sequence-dot {
+    background: #0a2420;
+    box-shadow: 0 0 20px rgba(8,27,27,.55);
+  }
+  .sequence-key {
+    position: absolute;
+    top: calc(100% + 16px);
+    color: #c8ddd8;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+  }
+  .sequence-readout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+    border: 1px solid rgba(101,208,162,.22);
+    border-radius: 11px;
+    background: rgba(255,255,255,.035);
+  }
+  .sequence-stat {
+    padding: 14px;
+    border-right: 1px solid rgba(101,208,162,.18);
+  }
+  .sequence-stat:last-child { border-right: 0; }
+  .sequence-stat span {
+    display: block;
+    color: var(--green);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .sequence-stat strong {
+    display: block;
+    margin-top: 8px;
+    color: #effff9;
+    font-size: 12px;
+  }
   .preview-head {
     display: flex;
     align-items: flex-end;
@@ -490,6 +580,39 @@
               <div class="locus"><b>02</b><span>Gallery</span></div>
               <div class="locus"><b>03</b><span>Library</span></div>
               <div class="locus"><b>04</b><span>Observatory</span></div>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="product-card sequence-card" aria-labelledby="sequence-learning-title">
+        <div class="product-copy">
+          <div class="product-kicker">New test · Procedural learning</div>
+          <h2 id="sequence-learning-title">Implicit Sequence Learning Test</h2>
+          <p>Take a web-tested Alternating Serial Reaction Time task that measures whether your motor system becomes sensitive to hidden statistical structure without deliberate memorization. The full protocol includes practice, 10 learning blocks, an awareness check, quality controls, and a private CSV export.</p>
+          <div class="actions">
+            <a class="button primary" href="https://mind-guild-sequence-learning.billy5050.chatgpt.site" target="_blank" rel="noopener">Launch the test</a>
+            <a class="button" href="https://doi.org/10.3389/fpsyg.2016.00808" target="_blank" rel="noopener">Read the validation</a>
+            <a class="button" href="https://doi.org/10.3758/s13428-022-02038-5" target="_blank" rel="noopener">Scoring &amp; reliability</a>
+          </div>
+        </div>
+        <a class="product-visual" href="https://mind-guild-sequence-learning.billy5050.chatgpt.site" target="_blank" rel="noopener" aria-label="Launch the Implicit Sequence Learning Test">
+          <div class="sequence-preview" aria-hidden="true">
+            <div class="preview-head">
+              <span class="preview-label">ASRT · Block 04 of 10</span>
+              <span class="preview-timer">F · G · J · K</span>
+            </div>
+            <div class="sequence-field">
+              <span class="sequence-axis"></span>
+              <div class="sequence-node"><span class="sequence-dot"></span><span class="sequence-key">F</span></div>
+              <div class="sequence-node active"><span class="sequence-dot"></span><span class="sequence-key">G</span></div>
+              <div class="sequence-node"><span class="sequence-dot"></span><span class="sequence-key">J</span></div>
+              <div class="sequence-node"><span class="sequence-dot"></span><span class="sequence-key">K</span></div>
+            </div>
+            <div class="sequence-readout">
+              <div class="sequence-stat"><span>Protocol</span><strong>10 blocks</strong></div>
+              <div class="sequence-stat"><span>Measure</span><strong>RT + accuracy</strong></div>
+              <div class="sequence-stat"><span>Privacy</span><strong>Local data</strong></div>
             </div>
           </div>
         </a>
