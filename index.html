@@ -530,6 +530,11 @@
 
     .action-links a:hover { color: var(--gold); }
 
+    .action-card .repo-access-note {
+      margin: 16px 0 0;
+      font-size: 12px;
+    }
+
     footer {
       display: flex;
       align-items: center;
@@ -634,6 +639,7 @@
       <a href="artwork.html">Artwork</a>
       <a href="videos.html">Videos</a>
       <a href="collective.html">Collective</a>
+      <a href="https://github.com/orgs/Mind-Guild/repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
   </nav>
 
@@ -761,14 +767,17 @@
             </div>
           </article>
 
-          <article class="action-card">
+          <article class="action-card" id="github">
             <div class="action-kicker">Participate</div>
             <h3>Contribute to a testable theory of mind</h3>
             <p>Explore the code and technical work, or propose a scoped collaboration across AI, cognitive neuroscience, mathematics, robotics or experimental design.</p>
             <div class="action-links">
-              <a href="https://github.com/Mind-Guild" target="_blank" rel="noopener">Explore GitHub</a>
+              <a href="https://github.com/orgs/Mind-Guild/repositories" target="_blank" rel="noopener noreferrer">All repositories</a>
+              <a href="https://github.com/Mind-Guild/Mind_Guild" target="_blank" rel="noopener noreferrer" aria-describedby="github-access-note">Mind_Guild repository</a>
+              <a href="https://github.com/Mind-Guild/TopModel" target="_blank" rel="noopener noreferrer" aria-describedby="github-access-note">TopModel repository</a>
               <a href="mailto:mind.guild@symbiokinetics.com?subject=Mind%20Guild%20collaboration">Propose a collaboration</a>
             </div>
+            <p class="repo-access-note" id="github-access-note">Mind_Guild and TopModel are private repositories; GitHub access is required.</p>
           </article>
         </div>
       </div>
