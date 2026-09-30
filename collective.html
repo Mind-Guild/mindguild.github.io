@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Meet the researchers, engineers, and creators of the Mind Guild Collective.">
+<meta name="description" content="Meet all nine authors of Mind Guild’s IEEE SMC five-layer architecture paper: biographies, research interests, affiliations, and professional profiles.">
 <title>The Collective — Mind Guild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,7 +105,7 @@
   }
 
   .collective {
-    padding: 70px 8vw 96px;
+    padding: 48px 8vw 80px;
   }
   .collective-inner {
     width: min(1180px, 100%);
@@ -132,7 +132,9 @@
 
   .profile-card {
     display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: 210px minmax(0, 1fr);
+    margin-bottom: 28px;
+    scroll-margin-top: 105px;
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 18px;
@@ -140,7 +142,7 @@
     box-shadow: 0 34px 72px -58px rgba(74, 40, 18, .55);
   }
   .portrait {
-    min-height: 430px;
+    min-height: 360px;
     position: relative;
     overflow: hidden;
     background: linear-gradient(145deg, #f2bd62, #e8663f 52%, #bd3d62);
@@ -154,7 +156,7 @@
     object-position: center;
   }
   .profile-copy {
-    padding: 48px 52px 52px;
+    padding: 38px 44px 32px;
   }
   .member-number {
     color: var(--orange);
@@ -165,12 +167,12 @@
   }
   h2 {
     margin: 12px 0 6px;
-    font-size: clamp(34px, 5vw, 52px);
+    font-size: clamp(30px, 4vw, 44px);
     letter-spacing: -.04em;
     line-height: 1.08;
   }
   .role {
-    margin: 0 0 26px;
+    margin: 0 0 16px;
     color: var(--muted);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
@@ -194,7 +196,7 @@
     align-items: center;
     gap: 10px;
     min-height: 44px;
-    padding: 9px 15px 9px 10px;
+    padding: 9px 15px;
     border: 1px solid #b8c8d6;
     border-radius: 100px;
     color: #29475f;
@@ -222,7 +224,7 @@
     font-weight: 700;
   }
   .focus-label {
-    margin: 30px 0 12px;
+    margin: 22px 0 12px;
     color: var(--muted);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -303,9 +305,86 @@
     .invitation-mark { display: none; }
     footer { align-items: flex-start; flex-direction: column; padding: 28px 6vw; }
   }
+
+  a:focus-visible { outline: 3px solid #a5401f; outline-offset: 5px; }
+  .skip-link {
+    position: fixed; top: 12px; left: 12px; z-index: 100;
+    padding: 12px 18px; border-radius: 6px; background: var(--ink); color: var(--cream);
+    transform: translateY(-160%);
+  }
+  .skip-link:focus { transform: translateY(0); }
+  .paper-intro {
+    padding: 30px 34px; margin-bottom: 44px; border-left: 3px solid var(--orange);
+    background: #f9ecdf;
+  }
+  .paper-intro .eyebrow { margin-bottom: 12px; font-size: 11px; letter-spacing: .14em; }
+  .paper-title { max-width: 900px; margin: 0 0 14px; font-size: clamp(23px, 3vw, 31px); line-height: 1.3; letter-spacing: -.025em; }
+  .paper-intro p { max-width: 800px; margin: 0 0 18px; color: var(--muted); font-size: 15px; line-height: 1.7; }
+  .paper-link { display: inline-block; padding: 8px 0; color: #a5401f; font-size: 13px; font-weight: 700; line-height: 1.6; }
+  .paper-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .author-directory { margin-bottom: 40px; scroll-margin-top: 100px; }
+  .author-directory .section-heading { margin-bottom: 18px; }
+  .author-index {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px;
+    margin: 0; padding: 1px; list-style: none; border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden; background: var(--line);
+  }
+  .author-index li { min-width: 0; background: var(--cream); }
+  .author-index a { display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 14px 18px; font-size: 14px; font-weight: 600; line-height: 1.5; }
+  .author-index a:hover { background: #f6e6d6; }
+  .author-index a:focus-visible { outline-offset: -4px; }
+  .index-number { flex-shrink: 0; color: #a5401f; font: 11px 'IBM Plex Mono', monospace; }
+  .index-arrow { margin-left: auto; color: #a5401f; }
+  .directory-note { margin: 14px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+  .portrait-monogram {
+    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px;
+    padding: 24px; background: radial-gradient(circle at 20% 20%, #f8dcb5, transparent 65%), #e9b299;
+  }
+  .portrait-monogram::before, .portrait-monogram::after {
+    content: ""; position: absolute; width: 250px; height: 250px;
+    border: 1px solid rgba(107, 56, 35, .16); border-radius: 50%; pointer-events: none;
+  }
+  .portrait-monogram::before { top: -70px; right: -120px; }
+  .portrait-monogram::after { bottom: -90px; left: -125px; }
+  .monogram { position: relative; font-size: 62px; font-weight: 500; letter-spacing: -.07em; color: #57382b; }
+  .portrait-caption { position: relative; max-width: 120px; text-align: center; color: #624335; font: 10px/1.7 'IBM Plex Mono', monospace; letter-spacing: .16em; text-transform: uppercase; }
+  .profile-card:nth-of-type(3n + 2) .portrait-monogram { background: radial-gradient(circle at 20% 20%, #efe5d3, transparent 65%), #c8cbb1; }
+  .profile-card:nth-of-type(3n) .portrait-monogram { background: radial-gradient(circle at 20% 20%, #e7e4e4, transparent 65%), #bbc9d0; }
+  .affiliation { margin: 0 0 20px; color: #57473d; font-size: 13px; line-height: 1.6; }
+  .affiliation span { display: block; color: var(--muted); font: 10px/1.7 'IBM Plex Mono', monospace; letter-spacing: .09em; text-transform: uppercase; }
+  .back-link { display: inline-block; margin-top: 20px; padding: 7px 0; color: var(--muted); font: 11px/1.6 'IBM Plex Mono', monospace; }
+  .back-link:hover { color: #a5401f; text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 1000px) {
+    .nav { padding-left: 6vw; padding-right: 6vw; gap: 20px; }
+    .nav-links { gap: 18px; }
+    .author-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .profile-copy { padding: 32px; }
+    .profile-card { grid-template-columns: 170px minmax(0, 1fr); }
+    .monogram { font-size: 54px; }
+  }
+  @media (max-width: 800px) {
+    .profile-card { grid-template-columns: 1fr; }
+    .portrait-monogram { min-height: 150px; flex-direction: row; gap: 26px; }
+    .portrait-caption { text-align: left; }
+    .portrait:has(.portrait-photo) { min-height: 300px; }
+    .portrait-photo { object-position: center 30%; }
+  }
+  @media (max-width: 520px) {
+    .hero { padding-top: 44px; }
+    .deck { font-size: 17px; }
+    .paper-intro { padding: 24px; margin-bottom: 32px; }
+    .author-index { grid-template-columns: 1fr; }
+    .author-index a { min-height: 52px; padding: 12px 18px; }
+    .profile-card, .author-directory { scroll-margin-top: 155px; }
+    .profile-copy { padding: 28px 24px; }
+    .profile-link { font-size: 11px; max-width: 100%; }
+    .portrait-monogram { min-height: 130px; }
+    .invitation { padding: 24px; gap: 14px; }
+  }
 </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to profiles</a>
   <nav class="nav" aria-label="Primary navigation">
     <a class="brand" href="index.html">
       <span class="brand-mark" aria-hidden="true"></span>
@@ -329,32 +408,262 @@
     </div>
   </header>
 
-  <main class="collective">
+  <main class="collective" id="main-content">
     <div class="collective-inner">
-      <div class="section-heading" aria-hidden="true">
-        <span>Collective members</span>
-        <span></span>
-      </div>
+      <section class="paper-intro" aria-labelledby="paper-heading">
+        <div class="eyebrow">IEEE SMC 2026 · Nine authors · Five layers</div>
+        <h2 class="paper-title" id="paper-heading">From S3Q Theory to Implementation: Towards an Architecture for Machine Qualia</h2>
+        <p>Meet the authors connecting consciousness theory with a testable computational architecture. Our team brings together neuroscience, AI, engineering, and data science.</p>
+        <a class="paper-link" href="https://arxiv.org/abs/2609.30743" target="_blank" rel="noopener noreferrer">Read the five-layer paper <span aria-hidden="true">↗</span></a>
+      </section>
 
-      <article class="profile-card">
-        <div class="portrait">
-          <img class="portrait-photo" src="images/kevin-schmidt.jpg" alt="Portrait of Kevin Schmidt" width="400" height="400">
+      <nav class="author-directory" id="authors" aria-label="Jump to an author profile">
+        <div class="section-heading" aria-hidden="true"><span>Meet the authors</span><span></span></div>
+        <ol class="author-index">
+          <li><a href="#tetiana-grinberg"><span class="index-number" aria-hidden="true">01</span>Tetiana Grinberg<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#katrina-schleisman"><span class="index-number" aria-hidden="true">02</span>Katrina Schleisman<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#patryk-laurent"><span class="index-number" aria-hidden="true">03</span>Patryk Laurent<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#bogdan-udrea"><span class="index-number" aria-hidden="true">04</span>Bogdan Udrea<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#minda-myers"><span class="index-number" aria-hidden="true">05</span>Minda Myers<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#brian-aufderheide"><span class="index-number" aria-hidden="true">06</span>Brian Aufderheide<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#luis-el-srouji"><span class="index-number" aria-hidden="true">07</span>Luis El Srouji<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#doyle-groves"><span class="index-number" aria-hidden="true">08</span>Doyle Groves<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+          <li><a href="#kevin-schmidt"><span class="index-number" aria-hidden="true">09</span>Kevin Schmidt<span class="index-arrow" aria-hidden="true">↓</span></a></li>
+        </ol>
+        <p class="directory-note">Listed in paper order. Affiliations are those reported in the paper.</p>
+      </nav>
+
+      <!-- Profile sources: https://cse.umn.edu/ima/events/perception-understanding-third-wave-ai. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="tetiana-grinberg" aria-labelledby="tetiana-grinberg-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">TG</span><span class="portrait-caption">Mind Guild Collective</span>
         </div>
         <div class="profile-copy">
-          <div class="member-number">Member 01</div>
-          <h2>Kevin Schmidt</h2>
-          <p class="role">Cognitive neuroscientist · AI research leader</p>
-
-          <p class="bio">Dr. Kevin D. Schmidt provides near-term operational application of Artificial Intelligence to human performance while translating principles of biological learning and memory to artificial implementations. Dr. Schmidt is an avid rock and mountain climber, which he pursues passionately in parallel to the quest for artificial consciousness.</p>
-
+          <div class="member-number">IEEE SMC 2026 · Author 01</div>
+          <h2 id="tetiana-grinberg-name">Tetiana Grinberg</h2>
+          <p class="role">Machine learning researcher · Embodied intelligence</p>
+          <p class="affiliation"><span>Paper affiliation</span> Symbiokinetics Inc.</p>
+          <p class="bio">Tetiana Grinberg is a machine learning researcher and co-founder of Symbiokinetics. Her research explores how intelligent systems form concepts, learn through embodied interaction, and develop values compatible with human needs. Her background includes work in Intel Labs’ Emergent AI group and AI-assisted robotic interfaces for neurological rehabilitation.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Tetiana Grinberg's research focus">
+            <li>Embodied intelligence</li>
+            <li>Concept formation</li>
+            <li>Human-compatible AI</li>
+          </ul>
           <div class="profile-links">
-            <a class="profile-link" href="https://www.linkedin.com/in/kevin-schmidt-59b99134/" target="_blank" rel="me noopener noreferrer" aria-label="View Kevin Schmidt's LinkedIn profile">
-              <span class="linkedin-mark" aria-hidden="true">in</span>
-              <span>Connect on LinkedIn</span>
-              <span aria-hidden="true">↗</span>
+            <a class="profile-link" href="https://cse.umn.edu/ima/events/perception-understanding-third-wave-ai" target="_blank" rel="noopener noreferrer">
+              <span>Research background</span><span aria-hidden="true">↗</span>
             </a>
           </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
 
+      <!-- Profile sources: https://www.galois.com/team/katrina-schleisman. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="katrina-schleisman" aria-labelledby="katrina-schleisman-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">KS</span><span class="portrait-caption">Mind Guild Collective</span>
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 02</div>
+          <h2 id="katrina-schleisman-name">Katrina Schleisman</h2>
+          <p class="role">Cognitive neuroscientist · Principal Scientist, Galois</p>
+          <p class="affiliation"><span>Paper affiliation</span> Galois, Inc.</p>
+          <p class="bio">Katrina Schleisman connects research on human cognition with the design of intelligent technology. A Principal Scientist at Galois, she applies neuroscience to biologically inspired AI and human-centered design. She earned her Ph.D. at the University of Minnesota, where her doctoral and postdoctoral work examined learning, memory, and EEG methods.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Katrina Schleisman's research focus">
+            <li>Learning &amp; memory</li>
+            <li>Biologically inspired AI</li>
+            <li>Human-centered design</li>
+          </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://www.galois.com/team/katrina-schleisman" target="_blank" rel="noopener noreferrer">
+              <span>Galois profile</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
+
+      <!-- Profile sources: https://www.pakl.net/ | https://lighthill.ai/. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="patryk-laurent" aria-labelledby="patryk-laurent-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">PL</span><span class="portrait-caption">Mind Guild Collective</span>
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 03</div>
+          <h2 id="patryk-laurent-name">Patryk Laurent</h2>
+          <p class="role">Computational neuroscientist · AI &amp; robotics technologist</p>
+          <p class="affiliation"><span>Paper affiliation</span> Lighthill Technologies, Inc.</p>
+          <p class="bio">Patryk Laurent builds intelligent software and devices across AI, robotics, computer vision, and edge computing. He founded Lighthill Technologies and holds a Ph.D. in computational cognitive neuroscience from the University of Pittsburgh. His work spans reinforcement learning and human decision-making research, robotics software, and the translation of machine learning into working products.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Patryk Laurent's research focus">
+            <li>Computational neuroscience</li>
+            <li>Reinforcement learning</li>
+            <li>Robotics &amp; edge AI</li>
+          </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://www.pakl.net/" target="_blank" rel="noopener noreferrer">
+              <span>Personal profile</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="profile-link" href="https://lighthill.ai/" target="_blank" rel="noopener noreferrer">
+              <span>Lighthill Technologies</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
+
+      <!-- Profile sources: https://threecountrytrustedbroker.com/media/udrea_2015.pdf | https://vissidus.com/. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="bogdan-udrea" aria-labelledby="bogdan-udrea-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">BU</span><span class="portrait-caption">Mind Guild Collective</span>
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 04</div>
+          <h2 id="bogdan-udrea-name">Bogdan Udrea</h2>
+          <p class="role">Aerospace engineer · Spacecraft autonomy</p>
+          <p class="affiliation"><span>Paper affiliation</span> VisSidus Technologies, Inc.</p>
+          <p class="bio">Bogdan Udrea is an aerospace engineer and founder of VisSidus Technologies. His research spans spacecraft dynamics and control, formation flying, mission design, and onboard autonomy. He earned his Ph.D. in aeronautics and astronautics at the University of Washington. His work on cooperative satellite missions connects distributed control with the challenges of operating in complex physical environments.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Bogdan Udrea's research focus">
+            <li>Spacecraft autonomy</li>
+            <li>Distributed control</li>
+            <li>Satellite swarms</li>
+          </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://vissidus.com/" target="_blank" rel="noopener noreferrer">
+              <span>VisSidus Technologies</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="profile-link" href="https://threecountrytrustedbroker.com/media/udrea_2015.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Research &amp; biography (PDF)</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
+
+      <!-- Profile sources: https://about.me/mindamyers. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="minda-myers" aria-labelledby="minda-myers-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">MM</span><span class="portrait-caption">Mind Guild Collective</span>
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 05</div>
+          <h2 id="minda-myers-name">Minda Myers</h2>
+          <p class="role">AI engineer · Human-centered systems</p>
+          <p class="affiliation"><span>Paper affiliation</span> Stanford University</p>
+          <p class="bio">Minda Myers is an AI engineer whose work brings together agentic language-model systems, interpretability, optimization, and user experience. With a background in computer science and psychology, she approaches technology through both computational and human perspectives. Her interests include using AI to address environmental and biological problems while supporting safe, beneficial relationships between people and technology.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Minda Myers's research focus">
+            <li>Agentic AI</li>
+            <li>Interpretability</li>
+            <li>User experience</li>
+          </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://about.me/mindamyers" target="_blank" rel="noopener noreferrer">
+              <span>Personal profile</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
+
+      <!-- Profile sources: https://home.hamptonu.edu/engineering/chemical-faculty-staff/brian-aufderheide/. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="brian-aufderheide" aria-labelledby="brian-aufderheide-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">BA</span><span class="portrait-caption">Mind Guild Collective</span>
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 06</div>
+          <h2 id="brian-aufderheide-name">Brian Aufderheide</h2>
+          <p class="role">Chemical engineer · Modeling &amp; control</p>
+          <p class="affiliation"><span>Paper affiliation</span> Hampton University</p>
+          <p class="bio">Brian Aufderheide is an Associate Professor of Chemical Engineering at Hampton University. He develops models and control methods for chemical, biological, and biomedical systems, including glucose regulation and bioprocesses. He earned his Ph.D. at Rensselaer Polytechnic Institute and combines research, industrial design, and hands-on engineering education with extensive student mentorship.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Brian Aufderheide's research focus">
+            <li>Dynamical systems</li>
+            <li>Model predictive control</li>
+            <li>Biomedical modeling</li>
+          </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://home.hamptonu.edu/engineering/chemical-faculty-staff/brian-aufderheide/" target="_blank" rel="noopener noreferrer">
+              <span>Hampton University profile</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
+
+      <!-- Profile sources: https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2024.1394271/full | https://mind-guild.com/what-really-is-value.html. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="luis-el-srouji" aria-labelledby="luis-el-srouji-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">LS</span><span class="portrait-caption">Mind Guild Collective</span>
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 07</div>
+          <h2 id="luis-el-srouji-name">Luis El Srouji</h2>
+          <p class="role">Neuromorphic computing researcher · Photonic neural networks</p>
+          <p class="affiliation"><span>Paper affiliation</span> UC Davis</p>
+          <p class="bio">Luis El Srouji researches brain-inspired computing at the University of California, Davis. His work explores photonic and optoelectronic neural networks, biologically motivated learning rules, and computing architectures that reflect the diversity of neural dynamics. He also writes for Mind Guild about how primary and learned value can inform adaptable artificial intelligence.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Luis El Srouji's research focus">
+            <li>Neuromorphic computing</li>
+            <li>Photonic neural networks</li>
+            <li>Value learning</li>
+          </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2024.1394271/full" target="_blank" rel="noopener noreferrer">
+              <span>Research publication</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="profile-link" href="what-really-is-value.html">
+              <span>What Really Is Value?</span><span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
+
+      <!-- Profile sources: https://nursing.iu.edu/directory/profiles/groves-doyle.html | https://research.impact.iu.edu/more-iu-research/coronavirus/nurses-and-twitter.html | https://pubmed.ncbi.nlm.nih.gov/28756337/. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="doyle-groves" aria-labelledby="doyle-groves-name">
+        <div class="portrait portrait-monogram" aria-hidden="true">
+          <span class="monogram">DG</span><span class="portrait-caption">Mind Guild Collective</span>
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 08</div>
+          <h2 id="doyle-groves-name">Doyle Groves</h2>
+          <p class="role">Data scientist · Health informatics</p>
+          <p class="affiliation"><span>Paper affiliation</span> Indiana University</p>
+          <p class="bio">Doyle Groves applies data science to questions about health and human experience. An analyst listed with Indiana University’s School of Nursing, he has collaborated on research using machine learning and topic modeling to understand what people share online. His published work includes studies of nurses’ experiences and the concerns of people living with epilepsy.</p>
+          <div class="focus-label">Research focus</div>
+          <ul class="focus-list" aria-label="Doyle Groves's research focus">
+            <li>Data science</li>
+            <li>Topic modeling</li>
+            <li>Health informatics</li>
+          </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://nursing.iu.edu/directory/profiles/groves-doyle.html" target="_blank" rel="noopener noreferrer">
+              <span>Indiana University profile</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="profile-link" href="https://research.impact.iu.edu/more-iu-research/coronavirus/nurses-and-twitter.html" target="_blank" rel="noopener noreferrer">
+              <span>Research at IU</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
+        </div>
+      </article>
+
+      <!-- Profile sources: Existing approved Collective profile. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
+      <article class="profile-card" id="kevin-schmidt" aria-labelledby="kevin-schmidt-name">
+        <div class="portrait">
+          <img class="portrait-photo" src="images/kevin-schmidt.jpg" alt="Portrait of Kevin Schmidt" width="400" height="400" loading="lazy">
+        </div>
+        <div class="profile-copy">
+          <div class="member-number">IEEE SMC 2026 · Author 09</div>
+          <h2 id="kevin-schmidt-name">Kevin Schmidt</h2>
+          <p class="role">Cognitive neuroscientist · AI research leader</p>
+          <p class="affiliation"><span>Paper affiliation</span> Northwestern University</p>
+          <p class="bio">Dr. Kevin D. Schmidt provides near-term operational application of Artificial Intelligence to human performance while translating principles of biological learning and memory to artificial implementations. Dr. Schmidt is an avid rock and mountain climber, which he pursues passionately in parallel to the quest for artificial consciousness.</p>
           <div class="focus-label">Research focus</div>
           <ul class="focus-list" aria-label="Kevin Schmidt's research focus">
             <li>Consciousness engineering</li>
@@ -363,15 +672,21 @@
             <li>Human-machine teaming</li>
             <li>Cognitive architectures</li>
           </ul>
+          <div class="profile-links">
+            <a class="profile-link" href="https://www.linkedin.com/in/kevin-schmidt-59b99134/" target="_blank" rel="noopener noreferrer" aria-label="View Kevin Schmidt's LinkedIn profile">
+              <span class="linkedin-mark" aria-hidden="true">in</span><span>Connect on LinkedIn</span><span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <a class="back-link" href="#authors">Back to authors <span aria-hidden="true">↑</span></a>
         </div>
       </article>
 
       <aside class="invitation">
         <div>
-          <h3>The Collective is growing.</h3>
-          <p>Additional member biographies and research profiles will be added here as the Mind Guild expands.</p>
+          <h3>A shared question. Many perspectives.</h3>
+          <p>Explore the theories, experiments, and tools that bring the Collective’s work together.</p>
         </div>
-        <span class="invitation-mark" aria-hidden="true">+ + +</span>
+        <a class="paper-link" href="publications.html">Explore our research <span aria-hidden="true">→</span></a>
       </aside>
     </div>
   </main>
