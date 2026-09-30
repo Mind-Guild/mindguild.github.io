@@ -147,13 +147,21 @@
     overflow: hidden;
     background: linear-gradient(145deg, #f2bd62, #e8663f 52%, #bd3d62);
   }
+  .portrait-headshot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    padding: 24px;
+    background: #e2d6cb;
+  }
   .portrait-photo {
-    position: absolute;
-    inset: 0;
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    max-width: 220px;
+    height: auto;
+    border-radius: 10px;
   }
   .profile-copy {
     padding: 38px 44px 32px;
@@ -366,8 +374,7 @@
     .profile-card { grid-template-columns: 1fr; }
     .portrait-monogram { min-height: 150px; flex-direction: row; gap: 26px; }
     .portrait-caption { text-align: left; }
-    .portrait:has(.portrait-photo) { min-height: 300px; }
-    .portrait-photo { object-position: center 30%; }
+    .portrait-headshot { min-height: 300px; }
   }
   @media (max-width: 520px) {
     .hero { padding-top: 44px; }
@@ -655,8 +662,9 @@
 
       <!-- Profile sources: Existing approved Collective profile. Affiliation: IEEE SMC camera-ready paper, September 2026. -->
       <article class="profile-card" id="kevin-schmidt" aria-labelledby="kevin-schmidt-name">
-        <div class="portrait">
+        <div class="portrait portrait-headshot">
           <img class="portrait-photo" src="images/kevin-schmidt.jpg" alt="Portrait of Kevin Schmidt" width="400" height="400" loading="lazy">
+          <span class="portrait-caption" aria-hidden="true">Mind Guild Collective</span>
         </div>
         <div class="profile-copy">
           <div class="member-number">IEEE SMC 2026 · Author 09</div>
