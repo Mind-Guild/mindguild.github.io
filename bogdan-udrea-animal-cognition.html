@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="description" content="A Mind Guild discussion with Dr. Bogdan &quot;Maui&quot; Udrea on non-human animal cognition, with two companion slide decks.">
+  <title>Non-human animal cognition — Mind Guild</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root { --paper:#fdf6ef; --ink:#2a211c; --muted:#6a5f57; --line:#ead7c4; --orange:#c64f2a; --gold:#f2bd62; --night:#07121f; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:'Libre Franklin',sans-serif; }
+    a { color:inherit; }
+    a:focus-visible, video:focus-visible { outline:3px solid #2776b8; outline-offset:5px; }
+    .skip { position:absolute; left:20px; top:-80px; z-index:20; padding:12px; background:var(--paper); }
+    .skip:focus { top:12px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:28px; padding:20px 8vw; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; font-size:18px; font-weight:800; text-decoration:none; white-space:nowrap; }
+    .brand-mark { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#f6a24a,#e8663f 55%,#d94f6c); }
+    .nav-links { display:flex; flex-wrap:wrap; gap:24px; font:500 13px 'IBM Plex Mono',monospace; color:var(--muted); }
+    .nav-links a { text-decoration:none; }
+    .nav-links a:hover { color:var(--ink); text-decoration:underline; }
+    .hero { padding:64px 8vw 48px; border-bottom:1px solid var(--line); background:radial-gradient(80% 100% at 90% 0%,rgba(246,162,74,.18),transparent 60%),radial-gradient(60% 80% at 5% 0%,rgba(118,174,243,.12),transparent 60%); }
+    .inner { width:min(1100px,100%); margin:0 auto; }
+    .eyebrow { margin:0 0 18px; color:var(--orange); font:500 12px 'IBM Plex Mono',monospace; letter-spacing:.15em; text-transform:uppercase; }
+    h1 { max-width:900px; margin:0; font-size:clamp(38px,5.8vw,68px); font-weight:800; letter-spacing:-.045em; line-height:1.06; }
+    .deck { margin:22px 0 0; color:var(--muted); font-size:19px; line-height:1.65; }
+    .content { padding:44px 8vw 76px; }
+    .video-card { overflow:hidden; border:1px solid rgba(242,189,98,.55); border-radius:16px; background:var(--night); box-shadow:0 30px 65px -48px rgba(26,45,69,.85); }
+    video { display:block; width:100%; aspect-ratio:16/9; background:#000; object-fit:contain; }
+    .video-meta { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:22px 28px; color:#f8f1e8; }
+    .video-meta p { margin:0; font-size:14px; line-height:1.65; }
+    .video-meta .duration { color:var(--gold); font:500 12px 'IBM Plex Mono',monospace; white-space:nowrap; }
+    .fallback { margin:14px 0 0; color:var(--muted); font-size:13px; line-height:1.6; }
+    .fallback a { text-underline-offset:3px; }
+    .abstract { margin-top:48px; }
+    h2 { margin:0 0 22px; font-size:30px; letter-spacing:-.025em; }
+    .abstract-copy { max-width:880px; font-size:16px; line-height:1.85; }
+    .abstract-copy p { margin:0 0 20px; }
+    .materials { margin-top:46px; padding-top:38px; border-top:1px solid var(--line); }
+    .materials-intro { margin:-8px 0 24px; color:var(--muted); line-height:1.7; }
+    .resources { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .resource { display:flex; flex-direction:column; padding:28px; border:1px solid var(--line); border-radius:12px; background:rgba(255,250,245,.8); }
+    .resource .eyebrow { margin-bottom:14px; font-size:11px; }
+    h3 { margin:0 0 14px; font-size:22px; letter-spacing:-.025em; line-height:1.35; }
+    .resource p { margin:0 0 24px; color:var(--muted); font-size:14px; line-height:1.75; }
+    .resource-actions { display:flex; flex-wrap:wrap; align-items:center; gap:18px; margin-top:auto; font:500 12px 'IBM Plex Mono',monospace; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:11px 18px; border:1px solid #d7b79a; border-radius:100px; text-decoration:none; }
+    .button:hover { background:#f4e6d8; }
+    .download { text-underline-offset:4px; }
+    footer { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:30px 8vw; background:var(--ink); color:#d8c6b8; font:12px 'IBM Plex Mono',monospace; }
+    footer strong { color:#fdf3e9; font:700 16px 'Libre Franklin',sans-serif; }
+    @media(max-width:800px) { .nav { align-items:flex-start; padding:18px 6vw; } .nav-links { justify-content:flex-end; gap:14px; font-size:11px; } .hero { padding:46px 6vw 36px; } .content { padding:30px 6vw 56px; } .resources { grid-template-columns:1fr; } }
+    @media(max-width:520px) { .nav { flex-direction:column; gap:16px; } .nav-links { justify-content:flex-start; } .deck { font-size:16px; } .video-meta { align-items:flex-start; flex-direction:column; gap:8px; padding:20px; } .abstract-copy { font-size:15px; } .resource { padding:23px; } footer { flex-direction:column; align-items:flex-start; padding:26px 6vw; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to recording and abstract</a>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span>Mind Guild</span></a>
+    <div class="nav-links">
+      <a href="products.html">Products</a><a href="publications.html">Publications</a><a href="artwork.html">Artwork</a><a href="videos.html">Videos</a><a href="collective.html">Collective</a>
+    </div>
+  </nav>
+  <header class="hero">
+    <div class="inner">
+      <p class="eyebrow">Mind Guild · Recorded discussion</p>
+      <h1>Non-human animal cognition</h1>
+      <p class="deck">With Dr. Bogdan “Maui” Udrea<br>Flies, honeybees, and the roots of complex behavior.</p>
+    </div>
+  </header>
+  <main class="content" id="main">
+    <div class="inner">
+      <section aria-label="Session recording">
+        <div class="video-card">
+          <video id="session-video" controls playsinline preload="metadata" poster="images/bogdan-fly-poster.jpg" aria-label="Non-human animal cognition: a 46-minute discussion with Dr. Bogdan Maui Udrea">
+            <source src="videos/bogdan-fly/session.m3u8" type="application/vnd.apple.mpegurl">
+            Your browser does not support embedded video.
+          </video>
+          <div class="video-meta"><p><strong>Non-human animal cognition</strong><br>Dr. Bogdan “Maui” Udrea</p><span class="duration">46 minutes · 720p</span></div>
+        </div>
+        <p class="fallback" id="playback-status" role="status" hidden></p>
+        <noscript><p class="fallback">If the recording does not play in your browser, enable JavaScript to use the streaming player.</p></noscript>
+      </section>
+      <section class="abstract" aria-labelledby="abstract-title">
+        <h2 id="abstract-title">Abstract</h2>
+        <div class="abstract-copy">
+          <p>This week, our own Dr. Bogdan "Maui" Udrea will lead an informal discussion on some non-human animal cognition questions that he has been considering.</p>
+          <p>In the 2022 Air Force Chief Scientist Workshop on AI Dr. Yann LeCun mentioned that human cognition is mostly based on observation.</p>
+          <p>Simple animals, such as flies seem to spend a relatively small amount of time performing observation to enable functions necessary for survival and reproduction. Does this mean that flies are “born ready” with certain necessarily simple representations of the environment in which they function?</p>
+          <p>Studies of more complex insects such honeybees (with a nervous system of about 900,000 neurons) have shown that they possess “numerical cognition” that allows them to perform addition and subtraction. Howard et al. [1] state that, in order to perform addition and subtraction, honeybees “acquire long-term rules and use short-term memory” that the authors have trained during the experiments. Moreover, the authors state that the results of their study “suggest the possibility that honeybees and other nonhuman animals may be biologically tuned for complex numerical tasks.” Have the honeybees evolved the ability to perform complex numerical tasks for survival only or do their social skills and collective decision making [2] have something to do with it?</p>
+        </div>
+      </section>
+      <section class="materials" aria-labelledby="materials-title">
+        <h2 id="materials-title">Companion knowledge products</h2>
+        <p class="materials-intro">Two slide decks by Bogdan Udrea to accompany and extend the discussion.</p>
+        <div class="resources">
+          <article class="resource">
+            <p class="eyebrow">Slide deck · PDF · 16 pages</p>
+            <h3>Simple critters and emergent behavior</h3>
+            <p>How simple a (simulated) critter and how few critters for emergent behavior to arise?</p>
+            <div class="resource-actions">
+              <a class="button" href="uploads/v0_Simple_critters_emergent_behavior_QuEST_15-Jul-2024.pdf" target="_blank" rel="noopener" aria-label="Read Simple critters and emergent behavior PDF">Read PDF ↗</a>
+              <a class="download" href="uploads/v0_Simple_critters_emergent_behavior_QuEST_15-Jul-2024.pdf" download aria-label="Download Simple critters and emergent behavior PDF">Download</a>
+            </div>
+          </article>
+          <article class="resource">
+            <p class="eyebrow">Slide deck · PDF · 14 pages</p>
+            <h3>Brain evolution: early bilaterians to humans</h3>
+            <p>Thoughts inspired by Bennett’s “Five Breakthroughs: A First Approximation of Brain Evolution From Early Bilaterians to Humans.”</p>
+            <div class="resource-actions">
+              <a class="button" href="uploads/v0_Brain_Evol_Early_bilats2Humans_QuEST_6-Sep-2024.pdf" target="_blank" rel="noopener" aria-label="Read Brain evolution PDF">Read PDF ↗</a>
+              <a class="download" href="uploads/v0_Brain_Evol_Early_bilats2Humans_QuEST_6-Sep-2024.pdf" download aria-label="Download Brain evolution PDF">Download</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer><strong>Mind Guild</strong><span>© 2026 · The Mind Guild Collective</span></footer>
+  <script src="vendor/hls.min.js"></script>
+  <script>
+    (() => {
+      const video = document.getElementById('session-video');
+      const status = document.getElementById('playback-status');
+      const source = 'videos/bogdan-fly/session.m3u8';
+      const showError = () => {
+        status.textContent = 'The recording could not be loaded. Please refresh the page to try again.';
+        status.hidden = false;
+      };
+      if (window.Hls && Hls.isSupported()) {
+        const hls = new Hls({ backBufferLength: 90 });
+        let recoveredMedia = false;
+        video.querySelector('source').remove();
+        hls.loadSource(source);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.ERROR, (_event, data) => {
+          if (!data.fatal) return;
+          if (data.type === Hls.ErrorTypes.MEDIA_ERROR && !recoveredMedia) {
+            recoveredMedia = true;
+            hls.recoverMediaError();
+          } else {
+            showError();
+            hls.destroy();
+          }
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = source;
+        video.addEventListener('error', showError);
+      } else {
+        status.textContent = 'Please use a current version of Chrome, Edge, Firefox, or Safari to play this recording.';
+        status.hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>
