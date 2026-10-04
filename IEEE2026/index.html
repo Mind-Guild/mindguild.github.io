@@ -197,16 +197,31 @@
     .figure figcaption { padding: 14px 16px; color: var(--muted); font-size: 13px; line-height: 1.55; }
     .figure figcaption a { color: var(--orange-dark); font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; }
 
-    .demo-box {
+    .demo-card {
       margin-top: 28px;
-      padding: 40px 28px;
-      border: 1.5px dashed rgba(209, 90, 51, .5);
+      padding: 32px;
+      border: 1px solid var(--line);
       border-radius: 16px;
-      background: repeating-linear-gradient(135deg, rgba(242, 189, 98, .14) 0 12px, rgba(242, 189, 98, .07) 12px 24px);
-      text-align: center;
+      background: var(--cream);
     }
 
-    .demo-box p { max-width: 560px; margin: 0 auto; color: var(--ink-soft); font-size: 15px; line-height: 1.7; }
+    .demo-kicker {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .demo-card h3 { margin: 10px 0 0; font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -.03em; line-height: 1.2; text-wrap: balance; }
+    .demo-card p { max-width: 680px; margin: 12px 0 0; color: var(--ink-soft); font-size: 15px; line-height: 1.7; }
+    .demo-card .actions { margin-top: 22px; }
+    .demo-card .demo-note { margin-top: 16px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+    .demo-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 14px 0 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; }
+    .demo-links a { color: var(--orange-dark); }
+    .demo-links a:hover { color: var(--ink); }
 
     .follow-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
 
@@ -255,7 +270,6 @@
 
     @media (max-width: 650px) {
       .actions { flex-direction: column; align-items: stretch; }
-      .demo-box { padding: 28px 18px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -333,14 +347,16 @@
         <div class="eyebrow">Demo</div>
         <h2 id="demo-title">Try it yourself</h2>
         <p class="lede">An interactive companion to the paper, so you can see the mechanisms working rather than just read about them.</p>
-        <div class="demo-box">
-          <!-- Replace this placeholder with the demo (embed or launch button). -->
-          <p>The interactive demo goes here. Until it is live, you can watch the Layer 1 working session or try one of our other tools.</p>
-          <div class="actions" style="justify-content:center;">
-            <a class="button primary" href="../videos.html">Watch the Layer 1 session</a>
-            <a class="button" href="../products.html">Try a product</a>
+        <article class="demo-card">
+          <div class="demo-kicker">Live demo · Glass Fly</div>
+          <h3>Watch an agent find itself, imagine, and react</h3>
+          <p>A simulated fly follows an odor plume to food while three parts of the S3Q architecture run live beside it: working out which object is its own body, imagining moves before making them, and answering surprise in one of three ways. Every number is computed from the paper's equations as you watch.</p>
+          <div class="actions">
+            <a class="button primary" href="https://claude.ai/artifact/KAgNqfgK6yMojN3ELqgTdr" target="_blank" rel="noopener noreferrer">Launch the demo ↗</a>
           </div>
-        </div>
+          <p class="demo-note">Opens in a new tab and runs in your browser. An illustrative toy with hand-set parameters: it shows what the architecture predicts, not experimental results.</p>
+        </article>
+        <p class="demo-links"><a href="../videos.html">Watch the Layer 1 session →</a></p>
       </div>
     </section>
 
@@ -384,6 +400,7 @@
     <strong>Mind Guild</strong>
     <span>© 2026 · <a href="../contact/">Contact</a></span>
   </footer>
+
 
 </body>
 </html>
