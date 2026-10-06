@@ -231,6 +231,17 @@
     font-size: 15px;
     font-weight: 700;
   }
+  .speaker-tag {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px 9px;
+    border: 1px solid var(--orange);
+    border-radius: 100px;
+    color: var(--orange);
+    font-size: 10px;
+    letter-spacing: .1em;
+    vertical-align: 1px;
+  }
   .focus-label {
     margin: 22px 0 12px;
     color: var(--muted);
@@ -383,7 +394,7 @@
 <article class="profile-card" id="minda-myers" aria-labelledby="minda-myers-name">
         <div class="portrait portrait-headshot"><img class="portrait-photo" src="/images/minda-myers.jpg" alt="Portrait of Minda Myers" width="400" height="400" loading="lazy"><span class="portrait-caption" aria-hidden="true">Mind Guild Collective</span></div>
         <div class="profile-copy">
-          <div class="member-label">Collective member</div>
+          <div class="member-label">Collective member <span class="speaker-tag">Speaker · IEEE SMC 2026</span></div>
           <h1 id="minda-myers-name">Minda Myers</h1>
           <p class="role">AI engineer · Human-centered systems</p>
           <p class="bio">Minda Myers has worked at the intersection of AI safety, alignment, and engineering for over a decade. A former MIRI visiting fellow, she evaluated early AI companies including DeepMind, supported the emergence of CFAR and Effective Altruism, and develops interpretable AI systems, including few-shot models accelerated 1500× through custom CUDA kernels.</p>
@@ -397,6 +408,9 @@
           <div class="profile-links">
             <a class="profile-link" href="https://www.mindamyers.com/" target="_blank" rel="noopener noreferrer">
               <span>MindaMyers.com</span><span aria-hidden="true">↗</span>
+            </a>
+            <a class="profile-link" href="https://www.linkedin.com/in/mindamyers/" target="_blank" rel="noopener noreferrer" aria-label="View Minda Myers's LinkedIn profile">
+              <span class="linkedin-mark" aria-hidden="true">in</span><span>Connect on LinkedIn</span><span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
