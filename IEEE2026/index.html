@@ -187,6 +187,12 @@
     .paper-links a.dark { border-color: var(--ink); background: var(--ink); color: #fdf3e9; }
     .paper-links a:hover { border-color: var(--orange); }
 
+    .predictions { max-width: 760px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+    .predictions h3 { margin: 0; font-size: clamp(20px, 2.4vw, 24px); letter-spacing: -.03em; }
+    .predictions ul { display: grid; gap: 14px; margin: 18px 0 0; padding-left: 20px; color: var(--ink-soft); font-size: 16px; line-height: 1.7; }
+    .predictions li strong { color: var(--ink); font-weight: 600; }
+    .predictions p { margin: 18px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
     .main-figure { margin-top: 28px; }
     .main-figure + .figure-grid { margin-top: 16px; }
     .figure figcaption strong { color: var(--ink); font-weight: 600; }
@@ -245,7 +251,9 @@
     .li-mark { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: #0a66c2; color: #fff; font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; }
 
     .invite { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .invite-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
     .invite .button { flex: 0 0 auto; }
+    .li-mark { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin: 0 8px 0 -6px; border-radius: 50%; background: #0a66c2; color: #fff; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; flex: none; }
 
     .follow-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
 
@@ -299,6 +307,7 @@
       .section { padding: 48px 6vw; }
       .figure-grid, .follow-grid, .presenter-grid { grid-template-columns: 1fr; }
       .invite { flex-direction: column; align-items: flex-start; gap: 18px; }
+      .invite-actions { justify-content: flex-start; }
       .qr { grid-template-columns: 1fr; gap: 14px; }
       footer { align-items: flex-start; flex-direction: column; padding: 26px 6vw; }
     }
@@ -342,8 +351,8 @@
         <div class="actions">
           <a class="button primary" href="#demo">Try the demo</a>
           <a class="button" href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer"><span class="btn-ico" aria-hidden="true">✉️</span>Join our mailing list ↗</a>
+          <a class="button " href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer" aria-label="Follow Mind Guild on LinkedIn"><span class="li-mark" aria-hidden="true">in</span>Follow on LinkedIn ↗</a>
           <a class="button ghost" href="https://conf.papercept.net/conferences/conferences/SMC26/program/SMC26_ContentListWeb_3.html#tub9" target="_blank" rel="noopener noreferrer">Session details ↗</a>
-          <a class="button ghost" href="#follow-up">Talk to us</a>
         </div>
       </div>
     </header>
@@ -356,6 +365,14 @@
         <div class="paper-links">
           <a class="button orange" href="https://arxiv.org/abs/2609.30743" target="_blank" rel="noopener noreferrer">Read the paper on arXiv ↗</a>
         </div>
+        <div class="predictions">
+          <h3>Two predictions you can test</h3>
+          <ul>
+            <li><strong>The agent finds its own body.</strong> The slot whose motion is most tied to the agent's own motor commands (the one with the highest mutual information) should turn out to be its body. A passive observer can't find it this way.</li>
+            <li><strong>The agent reacts to surprise in three ways.</strong> The response depends on how big the surprise is and whether the thing is good or bad: <strong>hesitance</strong> for moderate surprise, <strong>curiosity</strong> for big surprise that is neutral or good, <strong>avoidance</strong> for big surprise that is bad.</li>
+          </ul>
+          <p>The paper also lists five results that would prove the framework wrong. One example: passive observation finds the self slot just as well as active exploration does. They are in Section VI.</p>
+        </div>
       </div>
     </section>
 
@@ -363,15 +380,15 @@
       <div class="wrap">
         <div class="eyebrow">Architecture</div>
         <h2 id="architecture-title">Inspect the layers</h2>
-        <p class="lede">One shared object-centric representation, operated on by five interacting functions in a perception–action–feedback loop. Below the overview, two diagrams show the internal structure of Layers 1 and 5.</p>
+        <p class="lede">Five functional layers share one representation: continuous per-object slot vectors. Layer 1 builds the slots. Layer 2 labels each one self or world and trains the forward model T. Layers 3 to 5 then work on the slots, reusing T. Below the overview, two diagrams show the inside of Layers 1 and 5.</p>
         <figure class="figure main-figure">
           <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener"><img src="../artwork/five-layer-s3q-architecture.png" alt="Five Layer S3Q Architecture diagram. Situated: Layer 1 object-centric perception and covariance detection, Layer 2 self/world factorization with Forward Model T. Simulated: Layer 3 generative pattern completion, Layer 4 action loop with suppression. Structurally coherent: Layer 5 coherence regulation. Sensing feeds Layer 1, Layer 4 sends motor and action output to the environment, efferent motor feedback returns to Layer 1, and a reality check loop connects the layers to Layer 5." width="1982" height="886" loading="lazy"></a>
-          <figcaption>The five-layer S3Q architecture: Layers 1 and 2 are <strong>situated</strong>, Layers 3 and 4 are <strong>simulated</strong>, and Layer 5 keeps the system <strong>structurally coherent</strong> through the reality check loop. <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener">Open full size ↗</a></figcaption>
+          <figcaption>The five-layer S3Q architecture: Layers 1 and 2 are <strong>situated</strong>, Layers 3 and 4 are <strong>simulated</strong>, and Layer 5 is <strong>structurally coherent</strong>. The reality check loop compares what the model predicts with what the agent senses, and Layer 5 decides how to respond when they disagree. <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener">Open full size ↗</a></figcaption>
         </figure>
         <div class="figure-grid">
           <figure class="figure">
-            <img src="../artwork/layer-1-internal-structure.png" alt="Internal structure diagram of Layer 1, object binding" loading="lazy">
-            <figcaption>Layer 1 · Object binding. <a href="../artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
+            <img src="../artwork/layer-1-internal-structure.png" alt="Internal structure diagram of Layer 1, object-centric perception and covariance detection" loading="lazy">
+            <figcaption>Layer 1 · Object-centric perception and covariance detection. <a href="../artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
           </figure>
           <figure class="figure">
             <img src="../artwork/layer-5-internal-structure.png" alt="Internal structure diagram of Layer 5, coherence regulation" loading="lazy">
@@ -385,15 +402,15 @@
       <div class="wrap">
         <div class="eyebrow">Demo</div>
         <h2 id="demo-title">Try it yourself</h2>
-        <p class="lede">An interactive companion to the paper, so you can see the mechanisms working rather than just read about them.</p>
+        <p class="lede">See the mechanisms run instead of reading about them.</p>
         <article class="demo-card">
           <div class="demo-kicker">Live demo · Glass Fly</div>
           <h3>Watch an agent find itself, imagine, and react</h3>
-          <p>A simulated fly follows an odor plume to food while three parts of the S3Q architecture run live beside it: working out which object is its own body, imagining moves before making them, and answering surprise in one of three ways. Every number is computed from the paper's equations as you watch.</p>
+          <p>A simulated fly follows an odor plume to food while three parts of the architecture run beside it. It works out which object is its own body, imagines moves before making them, and reacts to surprise in one of three ways. The surprise and gate values come from the paper's equations. Slot finding, valence and the forward model are simplified stand-ins.</p>
           <div class="actions">
             <a class="button primary" href="https://claude.ai/artifact/KAgNqfgK6yMojN3ELqgTdr" target="_blank" rel="noopener noreferrer">Launch the demo ↗</a>
           </div>
-          <p class="demo-note">Opens in a new tab and runs in your browser. An illustrative toy with hand-set parameters: it shows what the architecture predicts, not experimental results.</p>
+          <p class="demo-note">Opens in a new tab. It is a toy with hand-set parameters, so it shows what the architecture predicts, not experimental results.</p>
         </article>
       </div>
     </section>
@@ -402,26 +419,26 @@
       <div class="wrap">
         <div class="eyebrow">Background</div>
         <h2 id="background-title">What does S3Q mean?</h2>
-        <p class="lede">S3Q stands for <strong>Simulated, Situated, Structurally Coherent Qualia</strong>. The theory names three jointly necessary conditions for qualia, defining what consciousness requires at the functional level. Our paper turns each one into machinery you can build and test.</p>
+        <p class="lede">S3Q stands for <strong>Simulated, Situated, Structurally Coherent Qualia</strong>. The theory names three jointly necessary conditions for qualia and says what each one means at the functional level. Our paper maps each condition to machinery you can build and test. We define qualia in an operational sense. Whether a system built this way has subjective experience is a question the paper leaves open.</p>
         <div class="follow-grid">
           <article class="follow-card">
             <h3>Situated</h3>
-            <p><strong>Grounded sensorimotor situatedness</strong>: the system <strong>acts in a world</strong> and <strong>senses the results of its own actions</strong>.</p>
+            <p>Everything the system represents is defined by its <strong>interactions in a grounded, dynamic world</strong>. It <strong>acts</strong>, and it <strong>senses what its actions do</strong>.</p>
           </article>
           <article class="follow-card">
             <h3>Simulated</h3>
-            <p><strong>Internal simulation</strong> through a <strong>world model</strong>: the system can <strong>imagine</strong> what would happen before it acts.</p>
+            <p>What the system experiences is its own <strong>internally generated world model</strong>. It can run that model forward to <strong>imagine</strong> what would happen before it acts.</p>
           </article>
           <article class="follow-card">
             <h3>Structurally coherent</h3>
-            <p><strong>Structural coherence</strong> between <strong>predictions</strong> and <strong>observations</strong>: what the system expects and what it senses have to <strong>fit together</strong>.</p>
+            <p>A <strong>"just right" constraint</strong>. The world model has to stay <strong>close enough to reality</strong> to guide action, yet <strong>abstract enough</strong> to generalize. The system checks its <strong>predictions</strong> against what it <strong>senses</strong>.</p>
           </article>
         </div>
-        <p class="further">Further reading: <a href="https://arxiv.org/abs/2103.12638" target="_blank" rel="noopener noreferrer">the S3Q theory paper (2021) ↗</a> · <a href="https://arxiv.org/abs/2303.11944" target="_blank" rel="noopener noreferrer">S3Q applied to memory athletics (2023) ↗</a></p>
+        <p class="further">Further reading: <a href="https://arxiv.org/abs/2103.12638" target="_blank" rel="noopener noreferrer">What Is It Like to Be a Bot? The S3Q theory paper (2021) ↗</a> · <a href="https://arxiv.org/abs/2303.11944" target="_blank" rel="noopener noreferrer">S3Q applied to memory athletics (2023) ↗</a></p>
 
         <div class="bg-block">
           <h3>Learn About Slot Attention, which is in Layer 1</h3>
-          <p class="lede">Slot Attention is how Layer 1 turns raw perception into stable, object-like slots. Watch our 22-minute working session on the formal specification of Layer 1 to learn how it works: object-centric representations, implementation interfaces, APIs and data structures.</p>
+          <p class="lede">Layer 1 splits the sensory stream into objects and gives each one a slot, a vector holding its shape, color, position and motion. We use Slot Attention for this, though the architecture only requires the slot-binding pattern, not one particular method. Our 22-minute working session walks through the formal specification of Layer 1: object-centric representations, interfaces, APIs and data structures.</p>
           <div class="actions">
             <a class="button primary" href="../videos.html">Watch the Layer 1 session →</a>
           </div>
@@ -480,9 +497,12 @@
         <div>
           <div class="eyebrow">You are invited</div>
           <h2 id="mailing-title">Join the Mind Guild mailing list</h2>
-          <p class="lede">We would like to stay in touch after the conference. Ask to be added to our mailing list with a short Google Form.</p>
+          <p class="lede">We would like to stay in touch after the conference. Ask to be added to our mailing list with a short Google Form, or follow the Mind Guild page on LinkedIn.</p>
         </div>
-        <a class="button primary" href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer"><span class="btn-ico" aria-hidden="true">✉️</span>Join the mailing list ↗</a>
+        <div class="invite-actions">
+          <a class="button primary" href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer"><span class="btn-ico" aria-hidden="true">✉️</span>Join the mailing list ↗</a>
+          <a class="button " href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer" aria-label="Follow Mind Guild on LinkedIn"><span class="li-mark" aria-hidden="true">in</span>Follow on LinkedIn ↗</a>
+        </div>
       </div>
     </section>
 
@@ -500,7 +520,7 @@
 
   <footer>
     <strong>Mind Guild</strong>
-    <span>© 2026 · <a href="../contact/">Contact</a> · <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list</a></span>
+    <span>© 2026 · <a href="../contact/">Contact</a> · <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list</a> · <a href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a></span>
   </footer>
 
 
