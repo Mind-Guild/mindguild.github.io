@@ -24,6 +24,18 @@
       --gold: #f2bd62;
       --rose: #d94f6c;
       --night: #14202a;
+
+      /* S3Q tenet colors, sampled from the five-layer diagram (Fig. 1).
+         situated   = Situated tenet, Layers 1 and 2 (blue)
+         simulated  = Simulated tenet, Layers 3 and 4 (green)
+         coherent   = Structurally coherent tenet, Layer 5 (pink)
+         -fill: the layer boxes in the diagram
+         -wash: the pale column background behind them
+         -edge: borders and accents (a darker shade of the fill, derived)
+         -ink:  text on top of the fill (a much darker shade, derived) */
+      --situated-fill: #d9e3ef;  --situated-wash: #f4f7fb;  --situated-edge: #729aca;  --situated-ink: #254265;
+      --simulated-fill: #e9edcc; --simulated-wash: #f8faf0; --simulated-edge: #c5d16b; --simulated-ink: #616920;
+      --coherent-fill: #edd6d6;  --coherent-wash: #f9f2f2;  --coherent-edge: #c97373;  --coherent-ink: #642626;
     }
 
     * { box-sizing: border-box; }
@@ -81,6 +93,7 @@
 
     .wrap { width: min(1080px, 100%); margin: 0 auto; }
 
+    /* Orange labels are actions the visitor can take (see the ORANGE LABELS ARE ACTIONS comment above <main>). */
     .eyebrow {
       color: var(--orange);
       font-family: "IBM Plex Mono", monospace;
@@ -187,11 +200,25 @@
     .paper-links a.dark { border-color: var(--ink); background: var(--ink); color: #fdf3e9; }
     .paper-links a:hover { border-color: var(--orange); }
 
-    .predictions { max-width: 760px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
-    .predictions h3 { margin: 0; font-size: clamp(20px, 2.4vw, 24px); letter-spacing: -.03em; }
-    .predictions ul { display: grid; gap: 14px; margin: 18px 0 0; padding-left: 20px; color: var(--ink-soft); font-size: 16px; line-height: 1.7; }
-    .predictions li strong { color: var(--ink); font-weight: 600; }
-    .predictions p { margin: 18px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    /* Inline highlight for a tenet name or claim. One class per tenet. */
+    .tenet { padding: 1px 6px; border-radius: 5px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .tenet.situated  { background: var(--situated-fill);  color: var(--situated-ink); }   /* Situated, Layers 1-2 */
+    .tenet.simulated { background: var(--simulated-fill); color: var(--simulated-ink); }  /* Simulated, Layers 3-4 */
+    .tenet.coherent  { background: var(--coherent-fill);  color: var(--coherent-ink); }   /* Structurally coherent, Layer 5 */
+
+    /* The three S3Q definition cards in the Background section. */
+    .tenet-card { border-top-width: 4px; }
+    .tenet-card.situated  { background: var(--situated-wash);  border-color: var(--situated-fill);  border-top-color: var(--situated-edge); }
+    .tenet-card.simulated { background: var(--simulated-wash); border-color: var(--simulated-fill); border-top-color: var(--simulated-edge); }
+    .tenet-card.coherent  { background: var(--coherent-wash);  border-color: var(--coherent-fill);  border-top-color: var(--coherent-edge); }
+    .tenet-card h3 { display: inline-block; padding: 3px 11px; border-radius: 7px; }
+    .tenet-card.situated h3  { background: var(--situated-fill);  color: var(--situated-ink); }
+    .tenet-card.simulated h3 { background: var(--simulated-fill); color: var(--simulated-ink); }
+    .tenet-card.coherent h3  { background: var(--coherent-fill);  color: var(--coherent-ink); }
+
+    /* Layer diagrams: Layer 1 is situated, Layer 5 is structurally coherent. */
+    .figure.situated  { border-top: 4px solid var(--situated-edge); }
+    .figure.coherent  { border-top: 4px solid var(--coherent-edge); }
 
     .main-figure { margin-top: 28px; }
     .main-figure + .figure-grid { margin-top: 16px; }
@@ -265,7 +292,12 @@
     .further a:hover { color: var(--orange-dark); border-bottom-color: var(--orange); }
 
     .bg-block { margin-top: 44px; padding-top: 36px; border-top: 1px solid var(--line); }
-    .bg-block h3 { margin: 0; font-size: clamp(22px, 2.8vw, 30px); letter-spacing: -.03em; line-height: 1.15; text-wrap: balance; }
+    .eyebrow + .sec-title { margin-top: 12px; }
+    .sec-title { margin: 0; font-size: clamp(30px, 4vw, 40px); letter-spacing: -.04em; line-height: 1.06; }
+    .sec-sub { margin: 28px 0 0; font-size: clamp(19px, 2.2vw, 23px); letter-spacing: -.02em; line-height: 1.25; text-wrap: balance; }
+    .sec-sub.first, .bg-block.first .sec-sub { margin-top: 18px; }
+    .bg-block .sec-sub { margin-top: 0; }
+    .bg-block.first { margin-top: 0; padding-top: 0; border-top: 0; }
     .bg-block .actions { margin-top: 22px; }
 
     .follow-card h3 { margin: 0; font-size: 18px; letter-spacing: -.02em; }
@@ -337,10 +369,28 @@
     </div>
   </nav>
 
+  <!--
+    ORANGE LABELS ARE ACTIONS
+    Every small orange label on this page (class "eyebrow" or "demo-kicker") names something the visitor can DO,
+    written as a verb phrase in Title Case. Do not use a bare noun ("Demo", "The paper").
+    If you copy this page for another event, keep this convention and fill the labels in like this:
+
+      hero                      Follow Up on Our <Conference> Talk
+      paper                     Learn About the Paper
+      architecture              Explore the Architecture
+      demo                      Run the Demo
+      demo card                 Play With <Demo name>
+      background                Read the Background
+      follow-up / contact       Get in Touch
+      mailing list              Get Updates
+      share / QR code           Share This Page
+
+    The label says the action. The big title next to it says the topic. They should not repeat each other.
+  -->
   <main>
     <header class="hero">
       <div class="wrap">
-        <div class="eyebrow">IEEE SMC 2026 · Follow-up</div>
+        <div class="eyebrow">Follow Up on Our IEEE SMC 2026 Talk</div>
         <h1>From S3Q Theory to Implementation: Towards an Architecture for Machine Qualia</h1>
         <p class="authors"><a href="../collective.html#tetiana-grinberg">Tetiana Grinberg</a>, <a href="../collective.html#katrina-schleisman">Katrina Schleisman</a>, <a href="../collective.html#patryk-laurent">Patryk Laurent</a>, <a href="../collective.html#bogdan-udrea">Bogdan Udrea</a>, <a href="../collective.html#minda-myers">Minda Myers</a>, <a href="../collective.html#brian-aufderheide">Brian Aufderheide</a>, <a href="../collective.html#luis-el-srouji">Luis El Srouji</a>, <a href="../collective.html#doyle-groves">Doyle Groves</a>, <a href="../collective.html#kevin-schmidt">Kevin Schmidt</a></p>
         <div class="session">
@@ -359,52 +409,64 @@
 
     <section class="section alt" id="paper" aria-labelledby="paper-title">
       <div class="wrap">
-        <div class="eyebrow">The paper</div>
+        <div class="eyebrow">Learn About the Paper</div>
         <h2 id="paper-title">A five-layer architecture for S3Q theory</h2>
         <p class="abstract">We propose a five-layer implementation architecture for the S3Q (Simulated, Situated, Structurally Coherent) theory of consciousness. Rather than introducing novel formalisms, the architecture composes published computational primitives into a single pipeline, mapping each tenet to compatible machinery with defined interfaces, a developmental bootstrap sequence, and falsifiable predictions the conjunction produces that no subset does in isolation.</p>
         <div class="paper-links">
           <a class="button orange" href="https://arxiv.org/abs/2609.30743" target="_blank" rel="noopener noreferrer">Read the paper on arXiv ↗</a>
-        </div>
-        <div class="predictions">
-          <h3>Two predictions you can test</h3>
-          <ul>
-            <li><strong>The agent finds its own body.</strong> The slot whose motion is most tied to the agent's own motor commands (the one with the highest mutual information) should turn out to be its body. A passive observer can't find it this way.</li>
-            <li><strong>The agent reacts to surprise in three ways.</strong> The response depends on how big the surprise is and whether the thing is good or bad: <strong>hesitance</strong> for moderate surprise, <strong>curiosity</strong> for big surprise that is neutral or good, <strong>avoidance</strong> for big surprise that is bad.</li>
-          </ul>
-          <p>The paper also lists five results that would prove the framework wrong. One example: passive observation finds the self slot just as well as active exploration does. They are in Section VI.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="architecture" aria-labelledby="architecture-title">
       <div class="wrap">
-        <div class="eyebrow">Architecture</div>
-        <h2 id="architecture-title">Inspect the layers</h2>
+        <div class="eyebrow">Explore the Architecture</div>
+        <h2 id="architecture-title" class="sec-title">Architecture</h2>
+        <h3 class="sec-sub first">Inspect the layers</h3>
         <p class="lede">Five functional layers share one representation: continuous per-object slot vectors. Layer 1 builds the slots. Layer 2 labels each one self or world and trains the forward model T. Layers 3 to 5 then work on the slots, reusing T. Below the overview, two diagrams show the inside of Layers 1 and 5.</p>
         <figure class="figure main-figure">
           <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener"><img src="../artwork/five-layer-s3q-architecture.png" alt="Five Layer S3Q Architecture diagram. Situated: Layer 1 object-centric perception and covariance detection, Layer 2 self/world factorization with Forward Model T. Simulated: Layer 3 generative pattern completion, Layer 4 action loop with suppression. Structurally coherent: Layer 5 coherence regulation. Sensing feeds Layer 1, Layer 4 sends motor and action output to the environment, efferent motor feedback returns to Layer 1, and a reality check loop connects the layers to Layer 5." width="1982" height="886" loading="lazy"></a>
-          <figcaption>The five-layer S3Q architecture: Layers 1 and 2 are <strong>situated</strong>, Layers 3 and 4 are <strong>simulated</strong>, and Layer 5 is <strong>structurally coherent</strong>. The reality check loop compares what the model predicts with what the agent senses, and Layer 5 decides how to respond when they disagree. <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener">Open full size ↗</a></figcaption>
+          <figcaption>The five-layer S3Q architecture: Layers 1 and 2 are <span class="tenet situated">situated</span>, Layers 3 and 4 are <span class="tenet simulated">simulated</span>, and Layer 5 is <span class="tenet coherent">structurally coherent</span>. The reality check loop compares what the model predicts with what the agent senses, and Layer 5 decides how to respond when they disagree. <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener">Open full size ↗</a></figcaption>
         </figure>
         <div class="figure-grid">
-          <figure class="figure">
+          <figure class="figure situated">
             <img src="../artwork/layer-1-internal-structure.png" alt="Internal structure diagram of Layer 1, object-centric perception and covariance detection" loading="lazy">
             <figcaption>Layer 1 · Object-centric perception and covariance detection. <a href="../artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
           </figure>
-          <figure class="figure">
+          <figure class="figure coherent">
             <img src="../artwork/layer-5-internal-structure.png" alt="Internal structure diagram of Layer 5, coherence regulation" loading="lazy">
             <figcaption>Layer 5 · Coherence regulation. <a href="../artwork/layer-5-internal-structure.pdf" target="_blank" rel="noopener">PDF ↗</a></figcaption>
           </figure>
+        </div>
+        <div class="bg-block">
+        <h3 class="sec-sub">What does S3Q mean?</h3>
+        <p class="lede">S3Q stands for <strong>Simulated, Situated, Structurally Coherent Qualia</strong>. The theory names three jointly necessary conditions for qualia and says what each one means at the functional level. Our paper maps each condition to machinery you can build and test. We define qualia in an operational sense. Whether a system built this way has subjective experience is a question the paper leaves open.</p>
+        <div class="follow-grid">
+          <article class="follow-card tenet-card situated">
+            <h3>Situated</h3>
+            <p>Everything the system represents is defined by its <strong>interactions in a grounded, dynamic world</strong>. It <strong>acts</strong>, and it <strong>senses what its actions do</strong>.</p>
+          </article>
+          <article class="follow-card tenet-card simulated">
+            <h3>Simulated</h3>
+            <p>What the system experiences is its own <strong>internally generated world model</strong>. It can run that model forward to <strong>imagine</strong> what would happen before it acts.</p>
+          </article>
+          <article class="follow-card tenet-card coherent">
+            <h3>Structurally coherent</h3>
+            <p>A <strong>"just right" constraint</strong>. The world model has to stay <strong>close enough to reality</strong> to guide action, yet <strong>abstract enough</strong> to generalize. The system checks its <strong>predictions</strong> against what it <strong>senses</strong>.</p>
+          </article>
+        </div>
+        <p class="further">Further reading: <a href="https://arxiv.org/abs/2103.12638" target="_blank" rel="noopener noreferrer">What Is It Like to Be a Bot? The S3Q theory paper (2021) ↗</a> · <a href="https://arxiv.org/abs/2303.11944" target="_blank" rel="noopener noreferrer">S3Q applied to memory athletics (2023) ↗</a></p>
         </div>
       </div>
     </section>
 
     <section class="section alt" id="demo" aria-labelledby="demo-title">
       <div class="wrap">
-        <div class="eyebrow">Demo</div>
+        <div class="eyebrow">Run the Demo</div>
         <h2 id="demo-title">Try it yourself</h2>
         <p class="lede">See the mechanisms run instead of reading about them.</p>
         <article class="demo-card">
-          <div class="demo-kicker">Live demo · Glass Fly</div>
+          <div class="demo-kicker">Play With Glass Fly</div>
           <h3>Watch an agent find itself, imagine, and react</h3>
           <p>A simulated fly follows an odor plume to food while three parts of the architecture run beside it. It works out which object is its own body, imagines moves before making them, and reacts to surprise in one of three ways. The surprise and gate values come from the paper's equations. Slot finding, valence and the forward model are simplified stand-ins.</p>
           <div class="actions">
@@ -417,27 +479,10 @@
 
     <section class="section" id="background" aria-labelledby="background-title">
       <div class="wrap">
-        <div class="eyebrow">Background</div>
-        <h2 id="background-title">What does S3Q mean?</h2>
-        <p class="lede">S3Q stands for <strong>Simulated, Situated, Structurally Coherent Qualia</strong>. The theory names three jointly necessary conditions for qualia and says what each one means at the functional level. Our paper maps each condition to machinery you can build and test. We define qualia in an operational sense. Whether a system built this way has subjective experience is a question the paper leaves open.</p>
-        <div class="follow-grid">
-          <article class="follow-card">
-            <h3>Situated</h3>
-            <p>Everything the system represents is defined by its <strong>interactions in a grounded, dynamic world</strong>. It <strong>acts</strong>, and it <strong>senses what its actions do</strong>.</p>
-          </article>
-          <article class="follow-card">
-            <h3>Simulated</h3>
-            <p>What the system experiences is its own <strong>internally generated world model</strong>. It can run that model forward to <strong>imagine</strong> what would happen before it acts.</p>
-          </article>
-          <article class="follow-card">
-            <h3>Structurally coherent</h3>
-            <p>A <strong>"just right" constraint</strong>. The world model has to stay <strong>close enough to reality</strong> to guide action, yet <strong>abstract enough</strong> to generalize. The system checks its <strong>predictions</strong> against what it <strong>senses</strong>.</p>
-          </article>
-        </div>
-        <p class="further">Further reading: <a href="https://arxiv.org/abs/2103.12638" target="_blank" rel="noopener noreferrer">What Is It Like to Be a Bot? The S3Q theory paper (2021) ↗</a> · <a href="https://arxiv.org/abs/2303.11944" target="_blank" rel="noopener noreferrer">S3Q applied to memory athletics (2023) ↗</a></p>
-
-        <div class="bg-block">
-          <h3>Learn About Slot Attention, which is in Layer 1</h3>
+        <div class="eyebrow">Read the Background</div>
+        <h2 id="background-title" class="sec-title">Background</h2>
+        <div class="bg-block first">
+          <h3 class="sec-sub">Learn About Slot Attention, which is in Layer 1</h3>
           <p class="lede">Layer 1 splits the sensory stream into objects and gives each one a slot, a vector holding its shape, color, position and motion. We use Slot Attention for this, though the architecture only requires the slot-binding pattern, not one particular method. Our 22-minute working session walks through the formal specification of Layer 1: object-centric representations, interfaces, APIs and data structures.</p>
           <div class="actions">
             <a class="button primary" href="../videos.html">Watch the Layer 1 session →</a>
@@ -448,7 +493,7 @@
 
     <section class="section alt" id="follow-up" aria-labelledby="follow-title">
       <div class="wrap">
-        <div class="eyebrow">Follow up</div>
+        <div class="eyebrow">Get in Touch</div>
         <h2 id="follow-title">Questions, critiques, collaborations</h2>
         <div class="follow-grid">
           <article class="follow-card">
@@ -495,7 +540,7 @@
     <section class="section" id="mailing-list" aria-labelledby="mailing-title">
       <div class="wrap invite">
         <div>
-          <div class="eyebrow">You are invited</div>
+          <div class="eyebrow">Get Updates</div>
           <h2 id="mailing-title">Join the Mind Guild mailing list</h2>
           <p class="lede">We would like to stay in touch after the conference. Ask to be added to our mailing list with a short Google Form, or follow the Mind Guild page on LinkedIn.</p>
         </div>
@@ -510,7 +555,7 @@
       <div class="wrap qr">
         <img src="qr.svg" alt="QR code linking to mind-guild.com/IEEE2026" width="150" height="150">
         <div>
-          <div class="eyebrow">Share this page</div>
+          <div class="eyebrow">Share This Page</div>
           <h2 id="share-title" style="font-size:clamp(22px,2.6vw,28px);">mind-guild.com/IEEE2026</h2>
           <p>Scan to open this page on your phone.</p>
         </div>
