@@ -148,6 +148,7 @@
     }
 
     .button:hover { transform: translateY(-2px); }
+    .btn-ico { margin-right: 8px; font-size: 16px; line-height: 1; }
     .button.primary { background: var(--ink); color: #fff8f0; }
     .button.primary:hover { background: #120f0c; }
     .button.orange { border-color: var(--orange); background: var(--orange); color: #fff; box-shadow: 0 10px 24px -14px rgba(209, 90, 51, .8); }
@@ -243,8 +244,10 @@
     .presenter-links .li:hover { border-color: #0a66c2; background: #f3f8fc; color: var(--ink); }
     .li-mark { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: #0a66c2; color: #fff; font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; }
 
+    .invite { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .invite .button { flex: 0 0 auto; }
+
     .follow-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
-    .follow-grid.two-up { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .follow-card { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: white; }
     .follow-card p strong { color: var(--ink); font-weight: 600; }
@@ -294,7 +297,8 @@
       .nav-links { gap: 14px 18px; flex-wrap: wrap; font-size: 11px; }
       .hero { padding: 48px 6vw 40px; }
       .section { padding: 48px 6vw; }
-      .figure-grid, .follow-grid, .follow-grid.two-up, .presenter-grid { grid-template-columns: 1fr; }
+      .figure-grid, .follow-grid, .presenter-grid { grid-template-columns: 1fr; }
+      .invite { flex-direction: column; align-items: flex-start; gap: 18px; }
       .qr { grid-template-columns: 1fr; gap: 14px; }
       footer { align-items: flex-start; flex-direction: column; padding: 26px 6vw; }
     }
@@ -337,7 +341,8 @@
         </div>
         <div class="actions">
           <a class="button primary" href="#demo">Try the demo</a>
-          <a class="button" href="https://conf.papercept.net/conferences/conferences/SMC26/program/SMC26_ContentListWeb_3.html#tub9" target="_blank" rel="noopener noreferrer">See the session in the program ↗</a>
+          <a class="button" href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer"><span class="btn-ico" aria-hidden="true">✉️</span>Join our mailing list ↗</a>
+          <a class="button ghost" href="https://conf.papercept.net/conferences/conferences/SMC26/program/SMC26_ContentListWeb_3.html#tub9" target="_blank" rel="noopener noreferrer">Session details ↗</a>
           <a class="button ghost" href="#follow-up">Talk to us</a>
         </div>
       </div>
@@ -428,12 +433,7 @@
       <div class="wrap">
         <div class="eyebrow">Follow up</div>
         <h2 id="follow-title">Questions, critiques, collaborations</h2>
-        <div class="follow-grid two-up">
-          <article class="follow-card">
-            <h3>Join the mailing list</h3>
-            <p>Ask to be added to the Mind Guild mailing list through a short Google Form.</p>
-            <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Sign up ↗</a>
-          </article>
+        <div class="follow-grid">
           <article class="follow-card">
             <h3>Send us a message</h3>
             <p>Propose a scoped collaboration across AI, cognitive neuroscience, mathematics, robotics or experimental design.</p>
@@ -451,7 +451,7 @@
           </article>
         </div>
         <div class="presenters">
-          <h3>Talk to the presenters</h3>
+          <h3>Connect with the presenters</h3>
           <p>Katrina and Minda are giving the talk at IEEE SMC 2026. Reach them on LinkedIn after the conference.</p>
           <div class="presenter-grid">
             <article class="presenter">
@@ -475,7 +475,18 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="share-title">
+    <section class="section" id="mailing-list" aria-labelledby="mailing-title">
+      <div class="wrap invite">
+        <div>
+          <div class="eyebrow">You are invited</div>
+          <h2 id="mailing-title">Join the Mind Guild mailing list</h2>
+          <p class="lede">We would like to stay in touch after the conference. Ask to be added to our mailing list with a short Google Form.</p>
+        </div>
+        <a class="button primary" href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer"><span class="btn-ico" aria-hidden="true">✉️</span>Join the mailing list ↗</a>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="share-title">
       <div class="wrap qr">
         <img src="qr.svg" alt="QR code linking to mind-guild.com/IEEE2026" width="150" height="150">
         <div>
