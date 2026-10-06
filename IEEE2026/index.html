@@ -230,6 +230,7 @@
     .demo-links a:hover { color: var(--ink); }
 
     .follow-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+    .follow-grid.two-up { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .follow-card { padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: white; }
     .follow-card p strong { color: var(--ink); font-weight: 600; }
@@ -279,7 +280,7 @@
       .nav-links { gap: 14px 18px; flex-wrap: wrap; font-size: 11px; }
       .hero { padding: 48px 6vw 40px; }
       .section { padding: 48px 6vw; }
-      .figure-grid, .follow-grid { grid-template-columns: 1fr; }
+      .figure-grid, .follow-grid, .follow-grid.two-up { grid-template-columns: 1fr; }
       .qr { grid-template-columns: 1fr; gap: 14px; }
       footer { align-items: flex-start; flex-direction: column; padding: 26px 6vw; }
     }
@@ -413,7 +414,12 @@
       <div class="wrap">
         <div class="eyebrow">Follow up</div>
         <h2 id="follow-title">Questions, critiques, collaborations</h2>
-        <div class="follow-grid">
+        <div class="follow-grid two-up">
+          <article class="follow-card">
+            <h3>Join the mailing list</h3>
+            <p>Ask to be added to the Mind Guild mailing list through a short Google Form.</p>
+            <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Sign up ↗</a>
+          </article>
           <article class="follow-card">
             <h3>Send us a message</h3>
             <p>Propose a scoped collaboration across AI, cognitive neuroscience, mathematics, robotics or experimental design.</p>
@@ -447,7 +453,7 @@
 
   <footer>
     <strong>Mind Guild</strong>
-    <span>© 2026 · <a href="../contact/">Contact</a></span>
+    <span>© 2026 · <a href="../contact/">Contact</a> · <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list</a></span>
   </footer>
 
 
