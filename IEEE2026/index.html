@@ -186,6 +186,9 @@
     .paper-links a.dark { border-color: var(--ink); background: var(--ink); color: #fdf3e9; }
     .paper-links a:hover { border-color: var(--orange); }
 
+    .main-figure { margin-top: 28px; }
+    .main-figure + .figure-grid { margin-top: 16px; }
+    .figure figcaption strong { color: var(--ink); font-weight: 600; }
     .figure-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
 
     .figure {
@@ -340,7 +343,11 @@
       <div class="wrap">
         <div class="eyebrow">Architecture</div>
         <h2 id="architecture-title">Inspect the layers</h2>
-        <p class="lede">One shared object-centric representation, operated on by five interacting functions in a perception–action–feedback loop. These diagrams show the internal structure of two of the layers.</p>
+        <p class="lede">One shared object-centric representation, operated on by five interacting functions in a perception–action–feedback loop. Below the overview, two diagrams show the internal structure of Layers 1 and 5.</p>
+        <figure class="figure main-figure">
+          <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener"><img src="../artwork/five-layer-s3q-architecture.png" alt="Five Layer S3Q Architecture diagram. Situated: Layer 1 object-centric perception and covariance detection, Layer 2 self/world factorization with Forward Model T. Simulated: Layer 3 generative pattern completion, Layer 4 action loop with suppression. Structurally coherent: Layer 5 coherence regulation. Sensing feeds Layer 1, Layer 4 sends motor and action output to the environment, efferent motor feedback returns to Layer 1, and a reality check loop connects the layers to Layer 5." width="1982" height="886" loading="lazy"></a>
+          <figcaption>The five-layer S3Q architecture: Layers 1 and 2 are <strong>situated</strong>, Layers 3 and 4 are <strong>simulated</strong>, and Layer 5 keeps the system <strong>structurally coherent</strong> through the reality check loop. <a href="../artwork/five-layer-s3q-architecture.png" target="_blank" rel="noopener">Open full size ↗</a></figcaption>
+        </figure>
         <div class="figure-grid">
           <figure class="figure">
             <img src="../artwork/layer-1-internal-structure.png" alt="Internal structure diagram of Layer 1, object binding" loading="lazy">
