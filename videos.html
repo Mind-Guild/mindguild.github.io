@@ -366,6 +366,21 @@
 
   <main class="content">
     <div class="content-inner">
+      <article class="video-card" id="practice-talk-2026-10-05" style="margin-bottom:40px">
+        <div class="video-shell" style="display:grid;place-items:center">
+          <video id="practice-talk-video" controls playsinline preload="none" poster="images/practice-talk-2026-10-05.jpg" aria-label="Mind Guild talk, October 5, 2026" style="width:100%;height:100%;object-fit:contain"></video>
+        </div>
+        <div class="video-meta">
+          <div>
+            <div class="video-kicker">Recorded talk · October 5, 2026</div>
+            <h2>Mind Guild Talk</h2>
+            <p class="video-copy">Talk recording from October 5, 2026.</p>
+            <p class="video-copy" id="practice-talk-status" role="status" aria-live="polite">11:27 · Select Load recording to watch.</p>
+          </div>
+          <div class="actions"><button class="button" id="practice-talk-load" type="button" style="background:transparent;cursor:pointer">Load recording</button></div>
+        </div>
+      </article>
+
       <article class="video-card" id="slot-attention-demo">
         <div class="video-shell clip-loader" id="clip-shell">
           <div class="clip-loading" id="clip-loading" role="status" aria-live="polite">
@@ -457,6 +472,41 @@
       if (clipUrl) URL.revokeObjectURL(clipUrl);
     });
   })();
+</script>
+<script>
+(() => {
+  const video = document.getElementById('practice-talk-video');
+  const button = document.getElementById('practice-talk-load');
+  const status = document.getElementById('practice-talk-status');
+  let url;
+  button.addEventListener('click', async () => {
+    button.disabled = true;
+    status.textContent = 'Loading recording… 0%';
+    const parts = new Array(17);
+    let next = 0, complete = 0;
+    async function worker() {
+      while (next < parts.length) {
+        const index = next++;
+        const response = await fetch('videos/practice-talk-2026-10-05/part-' + String(index).padStart(3, '0') + '.bin');
+        if (!response.ok) throw new Error('Recording could not be loaded');
+        parts[index] = await response.arrayBuffer();
+        status.textContent = 'Loading recording… ' + Math.round(++complete / parts.length * 100) + '%';
+      }
+    }
+    try {
+      await Promise.all(Array.from({length: 6}, worker));
+      url = URL.createObjectURL(new Blob(parts, {type: 'video/mp4'}));
+      video.src = url;
+      status.textContent = '11:27 · Recording ready';
+      button.hidden = true;
+      video.play().catch(() => {});
+    } catch (error) {
+      status.textContent = 'Unable to load the recording. Please try again.';
+      button.disabled = false;
+    }
+  });
+  window.addEventListener('beforeunload', () => { if (url) URL.revokeObjectURL(url); });
+})();
 </script>
 </body>
 </html>
