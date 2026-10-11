@@ -220,6 +220,12 @@
     .figure.situated  { border-top: 4px solid var(--situated-edge); }
     .figure.coherent  { border-top: 4px solid var(--coherent-edge); }
 
+    .video-frame { margin-top: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
+    .video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+    .video-links { margin: 14px 0 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; }
+    .video-links a { color: var(--orange-dark); }
+    .video-links a:hover { color: var(--ink); }
+
     .main-figure { margin-top: 28px; }
     .main-figure + .figure-grid { margin-top: 16px; }
     .figure figcaption strong { color: var(--ink); font-weight: 600; }
@@ -377,6 +383,7 @@
 
       hero                      Follow Up on Our <Conference> Talk
       paper                     Learn About the Paper
+      talk / video              Watch the Talk
       architecture              Explore the Architecture
       demo                      Run the Demo
       demo card                 Play With the Simulation   (describe it, do not use the demo's name; names change)
@@ -399,9 +406,8 @@
           <span>Evergreen I · Hyatt Regency Bellevue, Bellevue, WA</span>
         </div>
         <div class="actions">
-          <a class="button primary" href="#demo">Try the demo</a>
-          <a class="button" href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer"><span class="btn-ico" aria-hidden="true">✉️</span>Join our mailing list ↗</a>
-          <a class="button " href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer" aria-label="Follow Mind Guild on LinkedIn"><span class="li-mark" aria-hidden="true">in</span>Follow on LinkedIn ↗</a>
+          <a class="button primary" href="#demo">Demo</a>
+          <a class="button" href="#talk">Watch the talk</a>
           <a class="button ghost" href="https://conf.papercept.net/conferences/conferences/SMC26/program/SMC26_ContentListWeb_3.html#tub9" target="_blank" rel="noopener noreferrer">Session details ↗</a>
         </div>
       </div>
@@ -418,7 +424,19 @@
       </div>
     </section>
 
-    <section class="section" id="architecture" aria-labelledby="architecture-title">
+    <section class="section" id="talk" aria-labelledby="talk-title">
+      <div class="wrap">
+        <div class="eyebrow">Watch the Talk</div>
+        <h2 id="talk-title">The talk</h2>
+        <p class="lede">Our IEEE SMC 2026 presentation, recorded.</p>
+        <div class="video-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/ORdwWS629lk" title="Mind Guild talk: From S3Q Theory to Implementation, IEEE SMC 2026" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="video-links"><a href="https://www.youtube.com/watch?v=ORdwWS629lk" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></p>
+      </div>
+    </section>
+
+    <section class="section alt" id="architecture" aria-labelledby="architecture-title">
       <div class="wrap">
         <div class="eyebrow">Explore the Architecture</div>
         <h2 id="architecture-title" class="sec-title">Architecture</h2>
@@ -460,7 +478,7 @@
       </div>
     </section>
 
-    <section class="section alt" id="demo" aria-labelledby="demo-title">
+    <section class="section" id="demo" aria-labelledby="demo-title">
       <div class="wrap">
         <div class="eyebrow">Run the Demo</div>
         <h2 id="demo-title">Try it yourself</h2>
@@ -477,7 +495,7 @@
       </div>
     </section>
 
-    <section class="section" id="background" aria-labelledby="background-title">
+    <section class="section alt" id="background" aria-labelledby="background-title">
       <div class="wrap">
         <div class="eyebrow">Read the Background</div>
         <h2 id="background-title" class="sec-title">Background</h2>
@@ -491,7 +509,7 @@
       </div>
     </section>
 
-    <section class="section alt" id="follow-up" aria-labelledby="follow-title">
+    <section class="section" id="follow-up" aria-labelledby="follow-title">
       <div class="wrap">
         <div class="eyebrow">Get in Touch</div>
         <h2 id="follow-title">Questions, critiques, collaborations</h2>
@@ -514,7 +532,7 @@
         </div>
         <div class="presenters">
           <h3>Connect with the presenters</h3>
-          <p>Katrina and Minda are giving the talk at IEEE SMC 2026. Reach them on LinkedIn after the conference.</p>
+          <p>Katrina and Minda gave the talk at IEEE SMC 2026. Reach them on LinkedIn after the conference.</p>
           <div class="presenter-grid">
             <article class="presenter">
               <h4>Katrina Schleisman</h4>
@@ -537,7 +555,7 @@
       </div>
     </section>
 
-    <section class="section" id="mailing-list" aria-labelledby="mailing-title">
+    <section class="section alt" id="mailing-list" aria-labelledby="mailing-title">
       <div class="wrap invite">
         <div>
           <div class="eyebrow">Get Updates</div>
@@ -551,7 +569,7 @@
       </div>
     </section>
 
-    <section class="section alt" aria-labelledby="share-title">
+    <section class="section" aria-labelledby="share-title">
       <div class="wrap qr">
         <img src="qr.svg" alt="QR code linking to mind-guild.com/IEEE2026" width="150" height="150">
         <div>

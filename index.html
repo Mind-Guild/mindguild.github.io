@@ -284,6 +284,13 @@
       letter-spacing: .04em;
     }
 
+    .section.talk { padding-top: 64px; padding-bottom: 64px; }
+    .video-frame { margin-top: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
+    .video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+    .video-links { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 14px 0 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; color: var(--faint); }
+    .video-links a { color: var(--orange-dark); }
+    .video-links a:hover { color: var(--ink); }
+
     .section {
       padding: 88px 8vw 96px;
     }
@@ -860,6 +867,7 @@
       .hero-actions { flex-direction: column; align-items: stretch; }
       .button { width: 100%; }
       .section { padding-top: 68px; padding-bottom: 72px; }
+      .section.talk { padding-top: 48px; padding-bottom: 48px; }
       .section-heading { margin-bottom: 32px; }
       .dashboard-card { padding: 24px; }
       .layer-stack { grid-template-columns: 1fr; }
@@ -906,7 +914,6 @@
           <a class="button primary" href="#implementation">Explore the current build</a>
           <a class="button" href="products.html">Try a product</a>
           <a class="button ghost" href="publications.html">Read the research</a>
-          <a class="button ghost" href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer" aria-label="Follow Mind Guild on LinkedIn"><span class="li-mark" aria-hidden="true">in</span>Follow on LinkedIn ↗</a>
         </div>
       </div>
     </header>
@@ -914,13 +921,13 @@
     <aside class="notice" role="region" aria-labelledby="smc-title">
       <div class="notice-inner">
         <div class="notice-body">
-          <div class="eyebrow">Presenting at IEEE SMC 2026</div>
+          <div class="eyebrow">Learn About Our Latest Work</div>
           <h2 id="smc-title">From S3Q Theory to Implementation: Towards an Architecture for Machine Qualia</h2>
-          <p class="notice-facts"><strong>Tue, Oct 6 · 4:45–5:00 PM PT</strong> &nbsp;/&nbsp; Evergreen I, Hyatt Regency Bellevue, Bellevue, WA &nbsp;/&nbsp; Session TuB9, Machine Learning IV</p>
+          <p class="notice-facts">Our talk at IEEE SMC 2026, with a demo you can run in your browser.</p>
         </div>
         <div class="notice-actions">
-          <a class="button primary" href="IEEE2026/#demo">View the demo →</a>
-          <a class="notice-link" href="https://conf.papercept.net/conferences/conferences/SMC26/program/SMC26_ContentListWeb_3.html#tub9" target="_blank" rel="noopener noreferrer">See the session in the program ↗</a>
+          <a class="button primary" href="IEEE2026/#paper">Learn more about the paper →</a>
+          <a class="notice-link" href="#talk">Watch the talk ↓</a>
         </div>
       </div>
     </aside>
@@ -934,6 +941,17 @@
           Grounded in cognitive and brain science, we identify, simulate, and test the mechanisms that let systems model self and others, integrate perception and memory, imagine possible futures, cooperate, plan, and respond safely to novelty—a foundation for more flexible, trustworthy AI in human-machine teaming that data and compute alone cannot deliver.
           <span class="attribution">-- The Mind Guild Collective</span>
         </p>
+      </div>
+    </section>
+
+    <section class="section talk" id="talk" aria-labelledby="talk-title">
+      <div class="section-inner">
+        <div class="eyebrow">Watch the Talk</div>
+        <h2 id="talk-title">Our talk at IEEE SMC 2026</h2>
+        <div class="video-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/ORdwWS629lk" title="Mind Guild talk: From S3Q Theory to Implementation, IEEE SMC 2026" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="video-links"><a href="https://www.youtube.com/watch?v=ORdwWS629lk" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a> <span aria-hidden="true">·</span> <a href="IEEE2026/">Paper, demo and follow-up →</a></p>
       </div>
     </section>
 
