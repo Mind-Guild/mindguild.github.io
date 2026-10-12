@@ -77,24 +77,6 @@
       backdrop-filter: blur(12px);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      flex: 0 0 auto;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -.01em;
-    }
-
-    .brand-mark {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f6a24a, #e8663f 55%, var(--rose));
-      box-shadow: 0 0 0 5px rgba(232, 102, 63, .08);
-    }
-
     .nav-links {
       display: flex;
       align-items: center;
@@ -125,20 +107,6 @@
         radial-gradient(70% 90% at 50% -20%, rgba(246, 162, 74, .25), transparent 64%),
         radial-gradient(35% 55% at 92% 8%, rgba(217, 79, 108, .08), transparent 70%);
     }
-
-    .logo-example {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(16px, 4vw, 40px);
-      width: min(560px, 100%);
-      margin: 0 auto 40px;
-      padding: clamp(16px, 5vw, 40px);
-      background: transparent;
-      color: #000;
-    }
-    .logo-example svg { display: block; width: clamp(76px, 15vw, 124px); height: auto; flex: none; }
-    .logo-example span { font-size: clamp(22px, 5vw, 42px); font-weight: 400; letter-spacing: -.035em; white-space: nowrap; }
 
     .hero-inner {
       width: min(1040px, 100%);
@@ -899,15 +867,14 @@
       .button { transition: none; }
     }
   </style>
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <nav class="nav" aria-label="Primary navigation">
-    <a class="brand" href="index.html" aria-label="Mind Guild home">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span>Mind Guild</span>
-    </a>
+    <a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
     <div class="nav-links">
       <a href="products.html">Products</a>
       <a href="publications.html">Publications</a>
@@ -921,10 +888,7 @@
   <main id="main">
     <header class="hero">
       <div class="hero-inner">
-        <div class="logo-example" role="img" aria-label="Mind Guild logo: black geometric mark and wordmark">
-          <svg viewBox="0 0 154 154" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs><mask id="guild-logo-cutouts"><rect width="154" height="154" fill="white"/><path d="M27 27V57L45 51Z M127 27V57L109 51Z" fill="black"/><path d="M27 100H57V127H27Z M97 100H127V127H97Z" fill="black"/></mask></defs><g fill="currentColor" mask="url(#guild-logo-cutouts)"><circle cx="27" cy="27" r="27"/><circle cx="127" cy="27" r="27"/><circle cx="27" cy="127" r="27"/><circle cx="127" cy="127" r="27"/></g><path d="M61 73Q77 62 93 73L77 95Z" fill="currentColor"/></svg>
-          <span aria-hidden="true">Mind Guild</span>
-        </div>
+        <div class="mg-brand mg-brand--hero" role="img" aria-label="Mind Guild"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></div>
         <div class="eyebrow">Implementations of the Mind Guild</div>
         <h1>Transforming consciousness from a <strong>philosophical problem</strong> into an <strong>engineering discipline</strong></h1>
         <p class="hero-copy">We build inspectable AI systems that turn theories of consciousness into computational mechanisms and falsifiable experiments. We do not assume these systems are conscious—we test which mechanisms produce flexible, mind-like capabilities.</p>
@@ -1213,8 +1177,8 @@
   </main>
 
   <footer>
-    <strong>Mind Guild</strong>
-    <span>© 2026 · <a href="mailto:mind.guild@symbiokinetics.com">mind.guild@symbiokinetics.com</a> · <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list</a> · <a href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a></span>
+    <a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+    <span>© 2026 · <a href="/branding/">Brand assets</a> · <a href="mailto:mind.guild@symbiokinetics.com">mind.guild@symbiokinetics.com</a> · <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list</a> · <a href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a></span>
   </footer>
 </body>
 </html>

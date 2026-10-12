@@ -69,16 +69,6 @@
       backdrop-filter: blur(12px);
     }
 
-    .brand { display: flex; align-items: center; gap: 11px; font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
-
-    .brand-mark {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f6a24a, #e8663f 55%, var(--rose));
-      box-shadow: 0 0 0 5px rgba(232, 102, 63, .08);
-    }
-
     .nav-links {
       display: flex;
       gap: 24px;
@@ -359,13 +349,12 @@
       .button { transition: none; }
     }
   </style>
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
 </head>
 <body>
   <nav class="nav" aria-label="Primary navigation">
-    <a class="brand" href="../index.html" aria-label="Mind Guild home">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span>Mind Guild</span>
-    </a>
+    <a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
     <div class="nav-links">
       <a href="../products.html">Products</a>
       <a href="../publications.html">Publications</a>
@@ -582,7 +571,7 @@
   </main>
 
   <footer>
-    <strong>Mind Guild</strong>
+    <a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
     <span>© 2026 · <a href="../contact/">Contact</a> · <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list</a> · <a href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a></span>
   </footer>
 

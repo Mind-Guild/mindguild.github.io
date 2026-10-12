@@ -819,6 +819,8 @@ svg {
   color: var(--destructive);
 }
 </style>
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
 </head>
 <body>
 <div id="mpt">
@@ -859,19 +861,6 @@ svg {
       backdrop-filter: blur(10px);
     }
 
-    #mpt .brand {
-      display: flex;
-      align-items: center;
-      gap: .7rem;
-      font-weight: 500;
-    }
-
-    #mpt .brand-mark {
-      width: 1.65rem;
-      height: 1.65rem;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--warm), var(--viz-series-4));
-    }
 
     #mpt .nav-links {
       display: flex;
@@ -1476,10 +1465,7 @@ svg {
   </style>
 
   <nav class="site-nav" aria-label="Primary navigation">
-    <a class="brand" href="index.html">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span>Mind Guild</span>
-    </a>
+    <a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="publications.html">Publications</a>
@@ -1782,7 +1768,7 @@ svg {
   </main>
 
   <footer>
-    <strong>Mind Guild</strong>
+    <a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
     <span>© 2026 · The Mind Guild Collective</span>
   </footer>
 

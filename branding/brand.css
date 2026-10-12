@@ -1,0 +1,33 @@
+/* One shared logo treatment; lettering is outlined in the supplied SVGs. */
+.mg-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  max-width: 100%;
+  color: #000;
+  text-decoration: none;
+  line-height: 1;
+}
+.mg-brand:focus-visible { outline: 3px solid #d15a33; outline-offset: 6px; }
+.mg-brand > .mg-mark { display: block; width: 32px; height: 32px; flex: none; }
+.mg-brand > .mg-wordmark { display: block; width: 118px; height: auto; flex: none; }
+.mg-brand--footer { gap: 9px; }
+.mg-brand--footer > .mg-mark { width: 26px; height: 26px; }
+.mg-brand--footer > .mg-wordmark { width: 108px; }
+.mg-brand--hero {
+  display: flex;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 40px);
+  width: min(560px, 100%);
+  margin: 0 auto 40px;
+  padding: clamp(16px, 5vw, 40px);
+  background: transparent;
+}
+.mg-brand--hero > .mg-mark { width: clamp(76px, 15vw, 124px); height: auto; }
+.mg-brand--hero > .mg-wordmark { width: clamp(150px, 26vw, 236px); height: auto; }
+@media (max-width: 480px) {
+  .mg-brand--hero { gap: 16px; padding: 8px 0; }
+  .mg-brand--hero > .mg-mark { width: 68px; }
+  .mg-brand--hero > .mg-wordmark { width: min(164px, 52vw); }
+}
