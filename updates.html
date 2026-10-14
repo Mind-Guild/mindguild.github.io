@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="News from the Mind Guild Collective: talks, papers, demos, perspectives, and new tools.">
+<title>Updates — Mind Guild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fdf6ef;
+    --ink: #2a211c;
+    --muted: #6a5f57;
+    --line: #ead7c4;
+    --orange: #d15a33;
+    --gold: #f2bd62;
+    --night: #07121f;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Libre Franklin', sans-serif;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 8px;
+    z-index: 20;
+    padding: 8px 14px;
+    background: var(--ink);
+    color: #fff;
+  }
+  .skip-link:focus { left: 8px; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 20px 8vw;
+    border-bottom: 1px solid rgba(234, 215, 196, .9);
+    background: rgba(253, 246, 239, .94);
+    backdrop-filter: blur(10px);
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links .active {
+    color: var(--ink);
+    border-bottom: 2px solid #e0603f;
+    padding-bottom: 2px;
+  }
+
+  .hero {
+    padding: 84px 8vw 58px;
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+    background:
+      radial-gradient(80% 100% at 90% 0%, rgba(246, 162, 74, .18), transparent 60%),
+      radial-gradient(60% 80% at 5% 0%, rgba(118, 174, 243, .12), transparent 60%);
+  }
+  .eyebrow {
+    margin-bottom: 18px;
+    color: var(--orange);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 800;
+    letter-spacing: -.045em;
+    line-height: 1;
+  }
+  .deck {
+    max-width: 640px;
+    margin: 22px auto 0;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  .follow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 20px;
+    border: 1px solid #e6c9ad;
+    border-radius: 100px;
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .button:hover { border-color: var(--orange); }
+  .button.primary {
+    border-color: var(--orange);
+    background: var(--orange);
+    color: #fff;
+  }
+  .button.primary:hover { background: #b84a27; }
+
+  .content { padding: 64px 8vw 96px; }
+  .content-inner { width: min(1180px, 100%); margin: 0 auto; }
+  .content h2 {
+    margin: 0;
+    font-size: clamp(30px, 4vw, 40px);
+    letter-spacing: -.03em;
+  }
+  .content-deck {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0 40px;
+  }
+  .filters-label {
+    margin-right: 6px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+  .filter {
+    padding: 8px 16px;
+    border: 1px solid #e6c9ad;
+    border-radius: 100px;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    cursor: pointer;
+  }
+  .filter:hover { border-color: var(--orange); color: var(--ink); }
+  .filter[aria-pressed="true"] {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: #fdf3e9;
+  }
+  .filter:focus-visible, .post:focus-within { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+  }
+  .post[hidden] { display: none; }
+  .post {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #efe1d3;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 24px 48px -34px rgba(120, 70, 40, .3);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .post:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 30px 56px -30px rgba(120, 70, 40, .4);
+  }
+  .post-media {
+    aspect-ratio: 16 / 10;
+    border-bottom: 1px solid #efe1d3;
+    background: #fff;
+  }
+  .post-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .post-media.cover img { object-fit: cover; }
+  .post-media.dark { background: var(--night); }
+  .post-media.text {
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    color: #f8f1e8;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 20%, rgba(143, 195, 255, .2), transparent 50%),
+      radial-gradient(circle at 80% 90%, rgba(209, 90, 51, .35), transparent 50%),
+      var(--night);
+    font-size: clamp(20px, 2.2vw, 26px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+  }
+  .post-body { display: flex; flex: 1; flex-direction: column; padding: 26px 28px 30px; }
+  .post-meta {
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .post-meta .tag { color: var(--orange); }
+  .post h3 {
+    margin: 14px 0 0;
+    font-size: 21px;
+    line-height: 1.3;
+    letter-spacing: -.015em;
+  }
+  .post h3 a::after { content: ""; position: absolute; inset: 0; }
+  .post h3 a:focus { outline: none; }
+  .post p {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .empty { color: var(--muted); font-size: 15px; }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 30px 8vw;
+    background: var(--ink);
+    color: #d8c6b8;
+    font-size: 13px;
+  }
+  footer span:last-child { font-family: 'IBM Plex Mono', monospace; }
+
+  @media (max-width: 1000px) {
+    .posts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 800px) {
+    .nav { align-items: flex-start; padding: 18px 6vw; }
+    .nav-links { flex-wrap: wrap; justify-content: flex-end; gap: 14px; font-size: 11px; }
+    .hero { padding: 60px 6vw 44px; }
+    .content { padding: 42px 6vw 64px; }
+  }
+  @media (max-width: 640px) {
+    .posts { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .nav { flex-direction: column; gap: 14px; }
+    .nav-links { width: 100%; justify-content: space-between; }
+    footer { align-items: flex-start; flex-direction: column; padding: 28px 6vw; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .post, .post:hover { transition: none; transform: none; }
+  }
+</style>
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to updates</a>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="publications.html">Publications</a>
+      <a href="products.html">Products</a>
+      <a href="artwork.html">Artwork</a>
+      <a href="videos.html">Videos</a>
+      <span class="active" aria-current="page">Updates</span>
+      <a href="collective.html">Collective</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Mind Guild · News</div>
+    <h1>Updates</h1>
+    <p class="deck">Talks, papers, demos, perspectives, and new tools from the Mind Guild Collective.</p>
+    <div class="follow">
+      <a class="button primary" href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list ↗</a>
+      <a class="button" href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn ↗</a>
+    </div>
+  </header>
+
+  <main class="content" id="main">
+    <div class="content-inner">
+      <h2>Latest from the Collective</h2>
+      <p class="content-deck">Milestones, research progress, and announcements, newest first.</p>
+
+      <div class="filters" role="group" aria-label="Filter updates by type">
+        <span class="filters-label">Filter:</span>
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter" type="button" data-filter="announcement" aria-pressed="false">Announcement</button>
+        <button class="filter" type="button" data-filter="event" aria-pressed="false">Event</button>
+        <button class="filter" type="button" data-filter="research" aria-pressed="false">Research</button>
+        <button class="filter" type="button" data-filter="perspective" aria-pressed="false">Perspective</button>
+        <button class="filter" type="button" data-filter="product" aria-pressed="false">Product</button>
+      </div>
+
+      <!--
+        HOW TO ADD AN UPDATE
+        Copy one <article class="post"> block, paste it at the TOP of the list (newest first),
+        and edit it. data-type must be one of: announcement, event, research, perspective, product.
+        The image block is optional: use <div class="post-media text">Short title</div> when there is no image.
+        Add "cover" to post-media for photos that should fill the frame, "dark" for images on black.
+      -->
+      <div class="posts" id="posts">
+        <article class="post" data-type="announcement">
+          <div class="post-media cover dark"><img src="images/practice-talk-2026-10-05.jpg" alt="" loading="lazy"></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="tag">Announcement</span> — <time datetime="2026-10-10">Oct 10, 2026</time></div>
+            <h3><a href="IEEE2026/#talk">Our IEEE SMC 2026 talk is now online</a></h3>
+            <p>Watch the recorded presentation of “From S3Q Theory to Implementation: Towards an Architecture for Machine Qualia.”</p>
+          </div>
+        </article>
+
+        <article class="post" data-type="event">
+          <div class="post-media text">IEEE SMC 2026<br>Bellevue, WA</div>
+          <div class="post-body">
+            <div class="post-meta"><span class="tag">Event</span> — <time datetime="2026-10-06">Oct 6, 2026</time></div>
+            <h3><a href="IEEE2026/">Presenting at IEEE SMC 2026</a></h3>
+            <p>Katrina Schleisman and Minda Myers presented the five-layer S3Q architecture in Session TuB9, Machine Learning IV, at the Hyatt Regency Bellevue.</p>
+          </div>
+        </article>
+
+        <article class="post" data-type="announcement">
+          <div class="post-media text">Play with the simulation</div>
+          <div class="post-body">
+            <div class="post-meta"><span class="tag">Announcement</span> — <time datetime="2026-10-03">Oct 3, 2026</time></div>
+            <h3><a href="IEEE2026/#demo">Try the architecture in your browser</a></h3>
+            <p>A simulated fly follows an odor plume to food while three parts of the architecture run beside it. A toy with hand-set parameters that shows what the architecture predicts.</p>
+          </div>
+        </article>
+
+        <article class="post" data-type="research">
+          <div class="post-media"><img src="artwork/five-layer-s3q-architecture.png" alt="" loading="lazy"></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="tag">Research</span> — <time datetime="2026-09-28">Sep 28, 2026</time></div>
+            <h3><a href="https://arxiv.org/abs/2609.30743" target="_blank" rel="noopener noreferrer">A five-layer architecture for S3Q theory, on arXiv</a></h3>
+            <p>Our implementation paper maps each S3Q tenet to published computational primitives, with defined interfaces and falsifiable predictions.</p>
+          </div>
+        </article>
+
+        <article class="post" data-type="product">
+          <div class="post-media text">Implicit Sequence<br>Learning Test</div>
+          <div class="post-body">
+            <div class="post-meta"><span class="tag">Product</span> — <time datetime="2026-08-11">Aug 11, 2026</time></div>
+            <h3><a href="products.html">New interactive tools on Products</a></h3>
+            <p>The Implicit Sequence Learning Test now runs on the Mind Guild site, alongside the Memory Palace Trainer and the Basal Ganglia Attention Gate Lab.</p>
+          </div>
+        </article>
+
+        <article class="post" data-type="perspective">
+          <div class="post-media"><img src="artwork/consciousness-energy-attention-experience.png" alt="" loading="lazy"></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="tag">Perspective</span> — <time datetime="2026-08-10">Aug 10, 2026</time></div>
+            <h3><a href="what-really-is-value.html">What really is value?</a></h3>
+            <p>Luis El Srouji explores primary and learned value, the PVLV model, and what biologically informed value learning could add to adaptable AI.</p>
+          </div>
+        </article>
+
+        <article class="post" data-type="research">
+          <div class="post-media cover dark"><img src="images/slot-attention-technical-deep-dive-poster.jpg" alt="" loading="lazy"></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="tag">Research</span> — <time datetime="2026-05-20">May 20, 2026</time></div>
+            <h3><a href="videos.html#slot-attention-demo">Layer 1 Slot Attention technical deep dive</a></h3>
+            <p>A recorded working session on the formal specification of Layer 1: object-centric representations, interfaces, APIs, and data structures.</p>
+          </div>
+        </article>
+      </div>
+      <p class="empty" id="empty" hidden>No updates of this type yet.</p>
+    </div>
+  </main>
+
+  <footer>
+    <a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+    <span>© 2026 · The Mind Guild Collective</span>
+  </footer>
+<script>
+(() => {
+  const buttons = document.querySelectorAll('.filter');
+  const posts = document.querySelectorAll('.post');
+  const empty = document.getElementById('empty');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const type = button.dataset.filter;
+      buttons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+      let shown = 0;
+      posts.forEach(post => {
+        const match = type === 'all' || post.dataset.type === type;
+        post.hidden = !match;
+        if (match) shown += 1;
+      });
+      empty.hidden = shown > 0;
+    });
+  });
+})();
+</script>
+</body>
+</html>
