@@ -266,6 +266,19 @@
       letter-spacing: .04em;
     }
 
+    .vision-link {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.6;
+      border-bottom: 1px solid rgba(165, 64, 31, .4);
+    }
+
+    .vision-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
     .section.talk { padding-top: 64px; padding-bottom: 64px; }
     .video-frame { margin-top: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
     .video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
@@ -894,9 +907,7 @@
         <h1>Transforming consciousness from a <strong>philosophical problem</strong> into an <strong>engineering discipline</strong></h1>
         <p class="hero-copy">We build inspectable AI systems that turn theories of consciousness into computational mechanisms and falsifiable experiments. We do not assume these systems are conscious—we test which mechanisms produce flexible, mind-like capabilities.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#implementation">Explore the current build</a>
-          <a class="button" href="products.html">Try a product</a>
-          <a class="button ghost" href="publications.html">Read the research</a>
+          <a class="button primary" href="updates.html">Learn more</a>
         </div>
       </div>
     </header>
@@ -920,10 +931,13 @@
         <div>
           <div class="eyebrow" id="vision-title">Our vision</div>
         </div>
+        <div>
         <p>
           Grounded in cognitive and brain science, we identify, simulate, and test the mechanisms that let systems model self and others, integrate perception and memory, imagine possible futures, cooperate, plan, and respond safely to novelty—a foundation for more flexible, trustworthy AI in human-machine teaming that data and compute alone cannot deliver.
           <span class="attribution">-- The Mind Guild Collective</span>
         </p>
+        <a class="vision-link" href="safe-neuromorphic-agents.html">Read our essay on AI safety: Building Safe &amp; Verifiable Neuromorphic Agents →</a>
+        </div>
       </div>
     </section>
 
