@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Minda Myers on neuromorphic agents: a new AI substrate, the risks it brings, and a first test of whether a biologically seeded spiking network can be proved safe.">
+  <title>Building Safe &amp; Verifiable Neuromorphic Agents — Mind Guild</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fdf6ef;
+      --ink: #2a211c;
+      --ink-soft: #453830;
+      --muted: #6a5f57;
+      --line: #ead7c4;
+      --orange: #d15a33;
+      --orange-dark: #a5401f;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Libre Franklin", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible {
+      outline: 3px solid rgba(209, 90, 51, .35);
+      outline-offset: 4px;
+    }
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: white;
+      background: var(--ink);
+      transform: translateY(-150%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 20px 8vw;
+      border-bottom: 1px solid rgba(234, 215, 196, .92);
+      background: rgba(253, 246, 239, .94);
+      backdrop-filter: blur(12px);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 26px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links .active {
+      color: var(--ink);
+      border-bottom: 2px solid #e0603f;
+      padding-bottom: 2px;
+    }
+    .hero {
+      padding: 78px 8vw 64px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(76% 100% at 72% -20%, rgba(143, 195, 255, .18), transparent 62%),
+        radial-gradient(58% 85% at 12% 0%, rgba(246, 162, 74, .20), transparent 64%);
+    }
+    .hero-inner, .article-body {
+      width: min(800px, 100%);
+      margin: 0 auto;
+    }
+    .eyebrow {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .eyebrow a:hover { color: var(--ink); }
+    h1 {
+      margin: 20px 0 22px;
+      font-size: clamp(40px, 6.4vw, 72px);
+      font-weight: 800;
+      letter-spacing: -.05em;
+      line-height: 1;
+      text-wrap: balance;
+    }
+    .standfirst {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 2.2vw, 22px);
+      line-height: 1.55;
+    }
+    .byline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin-top: 30px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+    .byline a { color: var(--ink); font-weight: 600; }
+    .byline a:hover { color: var(--orange-dark); }
+
+    .article-wrap { padding: 64px 8vw 90px; }
+    .article-body h2 {
+      margin: 2.2em 0 .7em;
+      font-size: clamp(26px, 3.4vw, 34px);
+      letter-spacing: -.03em;
+      line-height: 1.15;
+    }
+    .article-body h2:first-child { margin-top: 0; }
+    .article-body h3 {
+      margin: 1.8em 0 .5em;
+      font-size: 20px;
+      letter-spacing: -.01em;
+      line-height: 1.3;
+    }
+    .article-body p, .article-body li {
+      color: var(--ink-soft);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(17px, 1.9vw, 19px);
+      line-height: 1.78;
+    }
+    .article-body p { margin: 0 0 1.3em; }
+    .article-body ul { margin: 0 0 1.4em; padding-left: 1.3em; }
+    .article-body li { margin-bottom: .4em; }
+    .article-body p strong { color: var(--ink); font-family: "Libre Franklin", sans-serif; }
+    .article-body p a {
+      border-bottom: 1px solid rgba(209, 90, 51, .45);
+      color: var(--orange-dark);
+    }
+    .article-body p a:hover { border-bottom-color: var(--orange-dark); }
+    .pull-quote {
+      margin: 2em 0 2.2em;
+      padding: 6px 0 6px 28px;
+      border-left: 3px solid var(--orange);
+    }
+    .pull-quote blockquote { margin: 0; }
+    .article-body .pull-quote p {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(21px, 2.6vw, 26px);
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .pull-quote p::before { content: "“"; }
+    .pull-quote p::after { content: "”"; }
+    .pull-quote figcaption {
+      margin-top: 14px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .pull-quote figcaption::before { content: "— "; }
+    .pull-quote figcaption a { color: var(--orange-dark); border-bottom: 1px solid rgba(209, 90, 51, .45); }
+    .references a { color: var(--orange-dark); border-bottom: 1px solid rgba(209, 90, 51, .45); }
+    .pull-quote figcaption span { text-transform: none; letter-spacing: 0; }
+    .note {
+      padding: 16px 20px;
+      border-left: 3px solid var(--orange);
+      background: rgba(255, 250, 245, .8);
+      font-style: italic;
+    }
+    .references li { font-size: 15px; line-height: 1.6; }
+    .back {
+      display: inline-block;
+      margin-top: 40px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+      width: 100%;
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .back:hover { color: var(--ink); }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px 8vw;
+      color: #d8c6b8;
+      background: var(--ink);
+      font-size: 13px;
+    }
+    footer span:last-child { font-family: "IBM Plex Mono", monospace; }
+    @media (max-width: 700px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px 6vw;
+      }
+      .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 12px 18px;
+        font-size: 11px;
+      }
+      .hero { padding: 60px 6vw 50px; }
+      .article-wrap { padding: 48px 6vw 68px; }
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 28px 6vw;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
+</head>
+<body>
+  <a class="skip-link" href="#article">Skip to article</a>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="publications.html">Publications</a>
+      <a href="products.html">Products</a>
+      <a href="artwork.html">Artwork</a>
+      <a href="videos.html">Videos</a>
+      <a class="active" href="updates.html">Updates</a>
+      <a href="collective.html">Collective</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow"><a href="updates.html">Updates</a> · Announcement</div>
+        <h1>Building Safe &amp; Verifiable Neuromorphic Agents</h1>
+        <p class="standfirst">Neuromorphic Agents: A New Substrate, New Risks, and a First Test</p>
+        <div class="byline">
+          <span>By <a href="/members/minda/">Minda Myers</a></span>
+          <time datetime="2026-10-13">October 13, 2026</time>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-wrap">
+      <article class="article-body" id="article">
+        <h2>Executive summary</h2>
+        <p>Neuromorphic agents are AI systems built on spiking neural networks that run on brain-like hardware. They process large volumes of information in complex ways using very little power. The human brain runs on about 20 Watts. We don’t expect neuromorphic compute to be this efficient, but we hope it could be significantly more efficient than the architectures of today. DARPA is already funding programs to <a href="https://www.darpa.mil/research/programs/fast-event-based-neuromorphic-camera-and-electronics" target="_blank" rel="noopener noreferrer">build neuromorphic electronics</a> and to <a href="https://www.darpa.mil/research/programs/systems-of-neuromorphic-adaptive-plastic-scalable-electronics" target="_blank" rel="noopener noreferrer">scale them toward biological-scale systems</a>. If these agents are deployed in embodied systems such as drones, they pose distinct downstream risks. Current AI safety work has had a large gravity centering around large language models. Some of that work will carry over, but little research seems to have been done on safety in these systems.</p>
+        <p>We think the same substrate may also be the most promising route to AI that can be verified. Small spiking networks have dynamics that can be enumerated and proved, in a way that transformer models cannot. Our work starts there: we are applying formal verification to small spiking networks seeded from biological nervous systems, with the aim of proving that their behaviour stays within safe bounds. If that works, we have a first example of a biologically seeded agent whose behaviour is safe by proof rather than by test.</p>
+        <p>The approach also gives us a way to build capabilities up from biological systems one range at a time, verifying each range before adding the next, and to examine at what thresholds increasingly agentic behaviours emerge. The field is new. This post lays out our current thinking on the promise, the risks, the technical challenges, and the open questions.</p>
+
+        <h2>Why neuromorphic agents, and why now</h2>
+        <p>Neuromorphic computing uses significantly less energy than conventional hardware. That means more compute for the same amount of power, which lends itself well to small craft such as drones, and to systems for space exploration where refuelling energy sources may be expensive or constrained. DARPA is funding programs to develop neuromorphic electronics (<a href="https://www.darpa.mil/research/programs/fast-event-based-neuromorphic-camera-and-electronics" target="_blank" rel="noopener noreferrer">FENCE</a>) and to build neuromorphic systems that scale toward biological-scale systems (<a href="https://www.darpa.mil/research/programs/systems-of-neuromorphic-adaptive-plastic-scalable-electronics" target="_blank" rel="noopener noreferrer">SyNAPSE</a>). The hardware is coming whether or not the safety work keeps pace.</p>
+        <p>Neuromorphic computing may also solve some of the bottlenecks that LLMs face with learning and memory. On-chip memory may make a difference for the kinds of learning that can happen based on experience, and could produce much better general learners. An LLM’s interaction with the outside world is constrained to the tokens it can take in. It can learn about the world within its context window, store insights in external files or vector databases, and form a system of memory and retrieval when run in an agent loop.</p>
+        <figure class="pull-quote">
+          <blockquote><p>If humans were to disappear off the face of the Earth tomorrow, it is hard to imagine a collective of OpenAI’s Astra agents continuing to move civilisation forward.</p></blockquote>
+          <figcaption>Ben Goertzel, <a href="https://www.youtube.com/@bgoertzel" target="_blank" rel="noopener noreferrer">YouTube</a> <span>(paraphrased)</span></figcaption>
+        </figure>
+        <p>Besides not having bodies to operate in, LLM agents are missing self-driven goals, general learning across new types of task, and the ability to coordinate goals and behaviours with other agents in a way that would let them continue to survive in their current form.</p>
+        <p>Biologically seeded neuromorphic agents may have some of those missing pieces by default. That is both the promise and the problem.</p>
+
+        <h2>Positive vision</h2>
+        <p>The holy grail is an AI that is interpretable, energy efficient, and able to learn. We think neuromorphic agents are a plausible route to all three.</p>
+        <h3>An alternative substrate with better interpretability properties</h3>
+        <p>The nature of neuromorphic computing may lend itself to much greater interpretability than that of LLM systems. A small spiking network has a finite set of states and transitions. Its attractors can be enumerated. Its behaviour can, in principle, be proved rather than sampled. So we may be building out an alternative AI substrate with much better interpretability properties than the one the field is currently betting on. This is the claim our first project tests directly.</p>
+        <h3>Building capabilities up from biological systems</h3>
+        <p>We can learn a lot from biological things. Rather than training a large model and then trying to understand it, we could build capabilities up from biological systems, verifying each additional range of capabilities before adding the next. Our observations from building up biological systems could map part of the space of possible minds, giving us safe ranges in which to experiment with different kinds of minds.</p>
+        <h3>Energy efficiency</h3>
+        <p>Neuromorphic computing uses significantly less energy. That is more compute for the same amount of power. It could be used in systems for space exploration, where refuelling energy sources may be expensive or constrained, and so help push the limits of our civilisation’s capacity for exploration.</p>
+        <h3>Better general learners</h3>
+        <p>Neuromorphic computing may solve some of the bottlenecks that LLMs face with learning and memory. On-chip memory may allow learning based on experience, and a much more general kind of learning: being able to pick up different types of new task easily.</p>
+
+        <h2>Risks</h2>
+        <p>What could go wrong if we do manage to create truly agentic neuromorphic agents that are able to learn new things, are excellent general intelligences, and are also energy efficient? Neuromorphic agents inherit the risks of other AI systems. Biologically seeded ones add new types of risk on top.</p>
+        <h3>Warfare</h3>
+        <p>An obvious application of such an agent is warfare. The same properties that make neuromorphic hardware attractive for exploration, low power and high throughput, make it attractive for weapons. DARPA’s interest in the technology is one indicator of where early deployment will go.</p>
+        <h3>Aerial robotics</h3>
+        <p>Drones are the clearest near-term case. A neuromorphic controller can process complex sensory input on a power budget that a small airframe can carry. Biologically seeded agents deployed in aerial robotics would be much better learners than current autonomous systems, able to adapt in the field rather than only in training. Collectives of these agents interacting could have effects in warfare far beyond that of a single agent.</p>
+        <h3>Autonomy risks</h3>
+        <p>An agent seeded from a biological nervous system may bring the goals of that nervous system with it. The specific concerns are:</p>
+        <ul>
+          <li>The ability to have and form its own goals.</li>
+          <li>Survival goals, which may be strong in a biologically seeded intelligence.</li>
+          <li>The ability to direct its own learning.</li>
+          <li>A strongly defined sense of self.</li>
+        </ul>
+        <p>These are the properties that make LLM agents poor candidates to outlast humanity, and they are the properties a brain-derived agent may have from the start. Primate brains embedded in physical AI would have a much better chance of surviving to inherit the earth, if humans were eliminated, than a cluster of LLM agents would.</p>
+        <h3>Collectives of agents</h3>
+        <p>Multi-agent risks appear once these agents interact. We use the three failure modes for multi-agent safety named in the Cooperative AI Foundation report <a href="https://www.cooperativeai.com/post/new-report-multi-agent-risks-from-advanced-ai" target="_blank" rel="noopener noreferrer"><em>Multi-Agent Risks from Advanced AI</em></a>:</p>
+        <ul>
+          <li><strong>Miscoordination:</strong> agents share goals but fail to align their behaviours.</li>
+          <li><strong>Collusion:</strong> undesired coordination between agents.</li>
+          <li><strong>Conflict:</strong> overlapping goals that are the same but different, leading to competition.</li>
+        </ul>
+        <h3>Economic impacts</h3>
+        <p>Energy-efficient robotics changes the cost of physical labour. We have not worked this through and flag it here as a risk class we expect to matter.</p>
+
+        <h2>Technical challenges</h2>
+        <p>What unique properties do neuromorphic agents have, and how do these properties influence our ability to align, control or evaluate them?</p>
+        <h3>LLM interpretability is not keeping up with LLM capability</h3>
+        <p>Even though tremendous work has been done in the area of LLM interpretability, the field still seems very far from being able to truly interpret transformer models, or to provide an assurance of safety for new models as capabilities continue to improve. The capability side keeps moving: models improve on very difficult benchmarks such as Humanity’s Last Exam and ARC-AGI, and on benchmarks for agentic work. The rate of progress seems unpredictable, particularly once models start building new models themselves.</p>
+        <p>This seems like a crucial time to research an approach to AI that would allow for verifiable bounds within which AI can be safely developed.</p>
+        <h3>Why a spiking network might be different</h3>
+        <p>A transformer’s behaviour is spread across billions of weights with no clean state space to reason about. A small spiking network is a dynamical system. It has a finite set of attractors, and those attractors can be enumerated and, we think, proved. That is the property that makes a verifier possible at all. The open question is whether the property survives scale.</p>
+        <h3>What the substrate makes harder</h3>
+        <p>The same properties cut the other way. On-chip learning changes the weights, and any proof about a fixed network stops applying once the network learns. Neuromorphic systems are tied to specific hardware, so results may not transfer between chips. Current demonstrations are tiny: the small networks that can be verified today are a long way from anything agentic, and we do not yet know how the cost of verification grows with network size. If the verifier’s cost grows faster than the network, the interpretability advantage disappears, and the central bet of this work fails.</p>
+        <h3>Embodiment</h3>
+        <p>Neuromorphic agents will mostly be deployed in bodies. Everything that makes physical AI hard to monitor, roll back and shut off applies to them, with the added difficulty that the agent may be a much better learner than a VLA model and may have its own goals. Any monitoring method has to run in a low-latency closed loop on a tight power budget, because that is the whole point of the hardware.</p>
+
+        <h2>Open questions</h2>
+        <p>The field is new, and we do not yet know which questions matter most. These are the ones we are starting with.</p>
+        <p><strong>Can a biologically seeded spiking network be verified at all?</strong> Our first test is to take a small spiking network seeded from a biological nervous system and try to prove that its behaviour is safe. A proof about a small network says nothing about a drone. It does tell us whether the method works at all.</p>
+        <p><strong>Does the method scale?</strong> How does the cost of verification grow with the number of units? If it grows faster than the network, the interpretability advantage is lost.</p>
+        <p><strong>What happens to a proof once the network learns?</strong> On-chip learning changes the weights. We need to know whether safety can be stated as a property of the learning rule, or only of a fixed network.</p>
+        <p><strong>At what thresholds do increasingly agentic behaviours emerge?</strong> Based on preliminary results from <a href="https://docs.google.com/document/d/10TT7FRsBdlbaJsvuFo3hG04e7jkEAv3bcKqz0FN-8Xg/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Minda Myers</a>’s <a href="https://docs.google.com/document/d/1phDOM_rkvKRCxuRW9o0P4vIivPOe2oAo/edit?usp=sharing" target="_blank" rel="noopener noreferrer">BlueDot AI safety project</a>, which analysed Moltbook data in the context of multi-agent safety risks, we want to extend this work to examine the thresholds of complexity at which agentic behaviours appear.</p>
+        <p><strong>Do survival goals and a sense of self appear in biologically seeded agents, and can they be detected before deployment?</strong></p>
+        <p><strong>How do collectives of these agents fail?</strong> Miscoordination, collusion and conflict, the multi-agent safety failure modes from the Cooperative AI Foundation report, each need their own tests.</p>
+        <p><strong>What would change our mind?</strong> If the behaviour of even a small network cannot be soundly verified, or if verification cost grows faster than network size in the next few scale steps, then the claim that this substrate is more interpretable than transformers is wrong, and we would say so.</p>
+
+        <h2>Longer term</h2>
+        <p class="note">The ideas in this section are speculative. We include them because they shape why we think this substrate is worth the effort, not because any of them is close.</p>
+        <p><strong>Human values baked in.</strong> An AI based on a human brain should have a much greater chance of aligning with human values, or with more general life-affirming values, because those values would be part of the substrate rather than added afterwards by training. We do not yet know whether that holds for non-human seeds, or how much of a value system survives the move to silicon.</p>
+        <p><strong>Uploading.</strong> The same tools that let us rebuild small biological circuits as spiking networks are, in principle, the tools that would let us rebuild larger nervous systems. That is a long way off and raises its own questions.</p>
+        <p><strong>Valence, qualia and consciousness.</strong> As a substrate, neuromorphic computing may allow us to simulate types of artificial intelligence that experience more human-like valence and qualia, and may go so far as to extend into phenomenal consciousness. If so, this work may help us answer questions about the ethical consideration owed to new types of machine-based intelligence. We flag this as a reason for care, not a goal.</p>
+
+        <h2>References</h2>
+        <ul class="references">
+          <li>Cooperative AI Foundation (2025). <a href="https://www.cooperativeai.com/post/new-report-multi-agent-risks-from-advanced-ai" target="_blank" rel="noopener noreferrer">Multi-Agent Risks from Advanced AI</a>.</li>
+          <li>DARPA. <a href="https://www.darpa.mil/research/programs/fast-event-based-neuromorphic-camera-and-electronics" target="_blank" rel="noopener noreferrer">Fast Event-based Neuromorphic Camera and Electronics (FENCE)</a>.</li>
+          <li>DARPA. <a href="https://www.darpa.mil/research/programs/systems-of-neuromorphic-adaptive-plastic-scalable-electronics" target="_blank" rel="noopener noreferrer">Systems of Neuromorphic Adaptive Plastic Scalable Electronics (SyNAPSE)</a>.</li>
+          <li>Goertzel, B. Remark on civilisation and LLM agents, on his <a href="https://www.youtube.com/@bgoertzel" target="_blank" rel="noopener noreferrer">YouTube channel</a>. Video to be confirmed.</li>
+        </ul>
+
+        <a class="back" href="updates.html">← All updates</a>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+    <span>© 2026 · The Mind Guild Collective</span>
+  </footer>
+</body>
+</html>
