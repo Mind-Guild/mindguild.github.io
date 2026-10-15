@@ -173,6 +173,18 @@
     }
     .pull-quote figcaption::before { content: "— "; }
     .pull-quote figcaption a { color: var(--orange-dark); border-bottom: 1px solid rgba(209, 90, 51, .45); }
+    .article-figure { margin: 2em 0 2.2em; }
+    .article-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
+    .article-figure.is-small img { max-width: 660px; }
+    .article-figure figcaption a { color: var(--orange-dark); border-bottom: 1px solid rgba(209, 90, 51, .45); }
+    .article-figure figcaption a:hover { border-bottom-color: var(--orange-dark); }
+    .article-figure figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      line-height: 1.55;
+    }
     .references a { color: var(--orange-dark); border-bottom: 1px solid rgba(209, 90, 51, .45); }
     .pull-quote figcaption span { text-transform: none; letter-spacing: 0; }
     .note {
@@ -268,8 +280,16 @@
         <p>We think the same substrate may also be the most promising route to AI that can be verified. Small spiking networks have dynamics that can be enumerated and proved, in a way that transformer models cannot. Our work starts there: we are applying formal verification to small spiking networks seeded from biological nervous systems, with the aim of proving that their behaviour stays within safe bounds. If that works, we have a first example of a biologically seeded agent whose behaviour is safe by proof rather than by test.</p>
         <p>The approach also gives us a way to build capabilities up from biological systems one range at a time, verifying each range before adding the next, and to examine at what thresholds increasingly agentic behaviours emerge. The field is new. This post lays out our current thinking on the promise, the risks, the technical challenges, and the open questions.</p>
 
+        <figure class="article-figure">
+          <img src="/images/article-fly-half-digital.jpg" alt="A fruit fly shown in profile, the left half photographic and the right half rendered as a glowing digital network of points and lines." width="1400" height="764" loading="lazy">
+          <figcaption>A fruit fly, half biological and half digital. Illustration by David Schaerf, North Star Labs, from <a href="https://medium.com/@david_46352/the-black-box-just-opened-78c7d23d96a0" target="_blank" rel="noopener">The black box just opened</a>.</figcaption>
+        </figure>
         <h2>Why neuromorphic agents, and why now</h2>
         <p>Neuromorphic computing uses significantly less energy than conventional hardware. That means more compute for the same amount of power, which lends itself well to small craft such as drones, and to systems for space exploration where refilling energy sources may be expensive or constrained. DARPA is funding programs to develop neuromorphic electronics (<a href="https://www.darpa.mil/research/programs/fast-event-based-neuromorphic-camera-and-electronics" target="_blank" rel="noopener noreferrer">FENCE</a>) and to build neuromorphic systems that scale toward biological-scale systems (<a href="https://www.darpa.mil/research/programs/systems-of-neuromorphic-adaptive-plastic-scalable-electronics" target="_blank" rel="noopener noreferrer">SyNAPSE</a>). The hardware is coming whether or not the safety work keeps pace.</p>
+        <figure class="article-figure is-small">
+          <img src="/images/article-drone-hardware.jpg" alt="A small research quadcopter with a processor chip mounted on its frame, photographed against a white background." width="660" height="371" loading="lazy">
+          <figcaption>Small craft have a tiny power budget. Low-power hardware is what makes on-board learning plausible.</figcaption>
+        </figure>
         <p>Neuromorphic computing may also solve some of the bottlenecks that LLMs face with learning and memory. On-chip memory may make a difference for the kinds of learning that can happen based on experience, and could produce much better general learners. An LLM’s interaction with the outside world is constrained to the tokens it can take in. It can learn about the world within its context window, store insights in external files or vector databases, and form a system of memory and retrieval when run in an agent loop.</p>
         <figure class="pull-quote">
           <blockquote><p>If humans were to disappear off the face of the Earth tomorrow, it is hard to imagine a collective of OpenAI’s Astra agents continuing to move civilisation forward.</p></blockquote>
@@ -284,6 +304,10 @@
         <p>The nature of neuromorphic computing may lend itself to much greater interpretability than that of LLM systems. A small spiking network has a finite set of states and transitions. Its attractors can be enumerated. Its behaviour can, in principle, be proved rather than sampled. So we may be building out an alternative AI substrate with much better interpretability properties than the one the field is currently betting on. This is the claim our first project tests directly.</p>
         <h3>Building capabilities up from biological systems</h3>
         <p>We can learn a lot from biological things. Rather than training a large model and then trying to understand it, we could build capabilities up from biological systems, verifying each additional range of capabilities before adding the next. Our observations from building up biological systems could map part of the space of possible minds, giving us safe ranges in which to experiment with different kinds of minds.</p>
+        <figure class="article-figure">
+          <img src="/images/article-fly-brain-neurons.jpg" alt="Traced neurons in a fruit fly brain, drawn in many colours against a black background, with two large mesh-like optic lobes at the sides." width="935" height="510" loading="lazy">
+          <figcaption>Neurons traced in a fruit fly brain. Biological circuits like this are the starting point for building capabilities up one range at a time.</figcaption>
+        </figure>
         <h3>Energy efficiency</h3>
         <p>Neuromorphic computing uses significantly less energy. That is more compute for the same amount of power. It could be used in systems for space exploration, where refilling energy sources may be expensive or constrained, and so help push the limits of our civilisation’s capacity for exploration.</p>
         <h3>Better general learners</h3>
@@ -295,6 +319,10 @@
         <p>An obvious application of such an agent is warfare. The same properties that make neuromorphic hardware attractive for exploration, low power and high throughput, make it attractive for weapons. DARPA’s interest in the technology is one indicator of where early deployment will go.</p>
         <h3>Aerial robotics</h3>
         <p>Drones are the clearest near-term case. A neuromorphic controller can process complex sensory input on a power budget that a small airframe can carry. Biologically seeded agents deployed in aerial robotics would be much better learners than current autonomous systems, able to adapt in the field rather than only in training. Collectives of these agents interacting could have effects in warfare far beyond that of a single agent.</p>
+        <figure class="article-figure">
+          <img src="/images/article-drone-in-flight.jpg" alt="A small quadcopter drone hovering in front of a blurred brick building and autumn trees." width="1200" height="675" loading="lazy">
+          <figcaption>Drones are the clearest near-term case for low-power neuromorphic control.</figcaption>
+        </figure>
         <h3>Autonomy risks</h3>
         <p>An agent seeded from a biological nervous system may bring the goals of that nervous system with it. The specific concerns are:</p>
         <ul>
@@ -311,6 +339,10 @@
           <li><strong>Collusion:</strong> undesired coordination between agents.</li>
           <li><strong>Conflict:</strong> overlapping goals that are the same but different, leading to competition.</li>
         </ul>
+        <figure class="article-figure">
+          <img src="/images/article-drone-swarm.jpg" alt="A group of white quadcopter drones flying in formation against a blue sky." width="950" height="534" loading="lazy">
+          <figcaption>Multi-agent risks appear when many autonomous systems act in the same space.</figcaption>
+        </figure>
         <h3>Economic impacts</h3>
         <p>Energy-efficient robotics changes the cost of physical labour. We have not worked this through and flag it here as a risk class we expect to matter.</p>
 
