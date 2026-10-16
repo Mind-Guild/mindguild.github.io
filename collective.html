@@ -228,6 +228,27 @@
     letter-spacing: .1em;
     vertical-align: 1px;
   }
+  .writing-list {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .writing-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 13px 16px;
+    border: 1px solid #e6c9ad;
+    border-radius: 12px;
+    background: #fffaf5;
+    transition: border-color .18s ease, transform .18s ease;
+  }
+  .writing-list a:hover { border-color: var(--orange); transform: translateY(-1px); }
+  .writing-title { font-weight: 700; font-size: 15px; line-height: 1.35; color: #2a211c; }
+  .writing-title::after { content: " \2192"; color: var(--orange); }
+  .writing-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6a5f57; }
   .focus-label {
     margin: 22px 0 12px;
     color: var(--muted);
@@ -559,6 +580,11 @@
             <li>Whole-brain emulation</li>
             <li>User experience</li>
           </ul>
+          <div class="focus-label">Writing</div>
+          <!-- Add each new essay or article by Minda here, newest first. -->
+          <ul class="writing-list" aria-label="Essays by Minda Myers">
+            <li><a href="/safe-neuromorphic-agents.html"><span class="writing-title">Building Safe &amp; Verifiable Neuromorphic Agents</span><span class="writing-meta">Essay · October 13, 2026</span></a></li>
+          </ul>
           <div class="profile-links">
             <a class="profile-link" href="https://www.mindamyers.com/" target="_blank" rel="noopener noreferrer">
               <span>MindaMyers.com</span><span aria-hidden="true">↗</span>
@@ -602,7 +628,7 @@
         </div>
       </article>
 
-      <!-- Profile sources: https://threecountrytrustedbroker.com/media/udrea_2015.pdf | https://vissidus.com/. -->
+      <!-- Profile sources: https://scholar.google.com/citations?user=gE7zXpwAAAAJ&hl=en | https://vissidus.com/. -->
       <article class="profile-card" id="bogdan-udrea" aria-labelledby="bogdan-udrea-name">
         <div class="portrait portrait-monogram" aria-hidden="true">
           <span class="monogram">BU</span><span class="portrait-caption">Mind Guild Collective</span>
@@ -622,8 +648,8 @@
             <a class="profile-link" href="https://vissidus.com/" target="_blank" rel="noopener noreferrer">
               <span>VisSidus Technologies</span><span aria-hidden="true">↗</span>
             </a>
-            <a class="profile-link" href="https://threecountrytrustedbroker.com/media/udrea_2015.pdf" target="_blank" rel="noopener noreferrer">
-              <span>Research &amp; biography (PDF)</span><span aria-hidden="true">↗</span>
+            <a class="profile-link" href="https://scholar.google.com/citations?user=gE7zXpwAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
+              <span>Google Scholar</span><span aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
