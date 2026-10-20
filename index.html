@@ -101,7 +101,7 @@
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 96px 8vw 82px;
+      padding: 56px 8vw 52px;
       text-align: center;
       background:
         radial-gradient(70% 90% at 50% -20%, rgba(246, 162, 74, .25), transparent 64%),
@@ -123,33 +123,51 @@
     }
 
     h1 {
-      max-width: 1000px;
-      margin: 24px auto 0;
+      max-width: 940px;
+      margin: 18px auto 0;
       color: #221c17;
-      font-size: clamp(43px, 6vw, 76px);
+      font-size: clamp(29px, 4vw, 50px);
       font-weight: 400;
-      letter-spacing: -.045em;
-      line-height: 1.06;
+      letter-spacing: -.035em;
+      line-height: 1.14;
       text-wrap: balance;
     }
 
     h1 strong { font-weight: 800; }
 
+    /* Closing phrase of the home headline: smaller and in a quieter color so the question leads. */
+    .h1-sub {
+      display: block;
+      max-width: 34em;
+      margin: .5em auto 0;
+      color: var(--muted);
+      font-size: .54em;
+      font-weight: 400;
+      letter-spacing: -.01em;
+      line-height: 1.4;
+      text-wrap: balance;
+    }
+
     .hero-copy {
-      max-width: 800px;
-      margin: 30px auto 0;
+      max-width: 760px;
+      margin: 20px auto 0;
       color: var(--ink-soft);
-      font-size: clamp(17px, 2vw, 20px);
-      line-height: 1.7;
+      font-size: clamp(15.5px, 1.5vw, 17px);
+      line-height: 1.6;
       text-wrap: pretty;
     }
+
+    /* Tighter hero logo (overrides the shared brand.css sizes on this page only). */
+    .hero .mg-brand--hero { margin-bottom: 6px; padding: 6px 0; }
+    .hero .mg-brand--hero > .mg-mark { width: clamp(60px, 10vw, 92px); }
+    .hero .mg-brand--hero > .mg-wordmark { width: clamp(124px, 19vw, 178px); }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
-      margin-top: 34px;
+      margin-top: 26px;
     }
 
     .button {
@@ -836,7 +854,7 @@
         font-size: 11px;
       }
 
-      .hero { padding: 72px 6vw 62px; }
+      .hero { padding: 40px 6vw 44px; }
       .lineage { grid-template-columns: 1fr; }
       .vision, .section { padding-left: 6vw; padding-right: 6vw; }
 
@@ -858,7 +876,8 @@
     }
 
     @media (max-width: 650px) {
-      h1 { font-size: clamp(39px, 12vw, 56px); }
+      h1 { font-size: clamp(26px, 7.4vw, 36px); }
+      .hero-copy { margin-top: 16px; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .button { width: 100%; }
       .section { padding-top: 68px; padding-bottom: 72px; }
@@ -904,8 +923,8 @@
       <div class="hero-inner">
         <div class="mg-brand mg-brand--hero" role="img" aria-label="Mind Guild"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></div>
         <div class="eyebrow">Implementations of the Mind Guild</div>
-        <h1>Transforming consciousness from a <strong>philosophical problem</strong> into an <strong>engineering discipline</strong></h1>
-        <p class="hero-copy">We build inspectable AI systems that turn theories of consciousness into computational mechanisms and falsifiable experiments. We do not assume these systems are conscious—we test which mechanisms produce flexible, mind-like capabilities.</p>
+        <h1>Tackling the ambitious philosophical question <strong>“what is consciousness”</strong> with <strong>leading&#8209;edge research</strong> <span class="h1-sub">at the intersection of cognitive neuroscience, philosophy, machine learning, robotics, and control systems.</span></h1>
+        <p class="hero-copy">Our initiatives aim to map safe, verifiable machine architectures, so that we can build interpretable computational mechanisms to carefully test theories of cognition. We hope to make progress towards answering the biggest open questions in philosophy, and to shed light on which mechanisms produce flexible, mind-like capabilities in embodied agents.</p>
         <div class="hero-actions">
           <a class="button primary" href="updates.html">Learn more</a>
         </div>
@@ -952,69 +971,16 @@
       </div>
     </section>
 
-    <section class="section" id="implementation" aria-labelledby="implementation-title">
+    <section class="section framework-teaser" aria-labelledby="framework-title">
       <div class="section-inner">
         <div class="section-heading">
           <div>
-            <div class="eyebrow">Implementation dashboard</div>
-            <h2 id="implementation-title">From theory to a build that can fail.</h2>
+            <div class="eyebrow">Implementation framework</div>
+            <h2 id="framework-title">An idea we would like to build.</h2>
           </div>
-          <p class="section-intro">Simulated, Situated and Structurally Coherent Qualia is our first reference architecture: a five-layer implementation built as a reproducible vertical slice, with each claim mapped to code, a test, a metric, or an explicit deferment.</p>
+          <p class="section-intro">We are designing a framework under which different theories of cognition could be implemented and tested side by side. Simulated, Situated and Structurally Coherent Qualia (S3Q) would be the first theory explored in it. It is a proposal in development, not a finished system.</p>
         </div>
-
-        <div class="dashboard-grid">
-          <article class="dashboard-card">
-            <div class="card-topline">
-              <span class="card-number">01 · Architecture</span>
-              <span class="status">In specification</span>
-            </div>
-            <h3>Five-layer architecture</h3>
-            <p class="card-copy">Five functional layers share one representation, continuous per-object slot vectors, and run in an action loop.</p>
-            <ol class="layer-stack" aria-label="Five architecture layers">
-              <li class="layer"><span>01</span><span><strong>Object binding</strong><small>Identity, stability, SFA and mutual information</small></span></li>
-              <li class="layer"><span>02</span><span><strong>Self/world model</strong><small>Source attribution and forward model T</small></span></li>
-              <li class="layer"><span>03</span><span><strong>Pattern completion</strong><small>Associative completion and compositional recall</small></span></li>
-              <li class="layer"><span>04</span><span><strong>Action and suppression</strong><small>Candidate evaluation and behavioral regulation</small></span></li>
-              <li class="layer"><span>05</span><span><strong>Coherence regulation</strong><small>Precision, valence, goals and top-down feedback</small></span></li>
-            </ol>
-            <a class="card-link" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">Inspect the Layer 1 diagram →</a>
-          </article>
-
-          <article class="dashboard-card">
-            <div class="card-topline">
-              <span class="card-number">02 · Current build</span>
-              <span class="status">In development</span>
-            </div>
-            <h3>Reference vertical slice</h3>
-            <p class="card-copy">A paper-aligned MuJoCo scene family is being designed to exercise the developmental path from stable object slots to self/world attribution, action, imagination and coherence regulation.</p>
-            <ul class="build-list">
-              <li><strong>Paper-to-code contracts</strong><span>Claims, mechanisms and interfaces become executable requirements.</span></li>
-              <li><strong>Embodied task family</strong><span>Multiple objects, action-dependent observability, continuous physics and goal flexibility.</span></li>
-              <li><strong>Reproducible evidence</strong><span>Frozen configurations, seeds, interventions, traces and explicit failure accounting.</span></li>
-            </ul>
-            <a class="card-link" href="videos.html">Watch the Layer 1 working session →</a>
-          </article>
-
-          <article class="dashboard-card">
-            <div class="card-topline">
-              <span class="card-number">03 · Falsification</span>
-              <span class="status">Protocol design</span>
-            </div>
-            <h3>What would change our minds</h3>
-            <p class="card-copy">Success thresholds and failure conditions are specified before held-out results are viewed. Negative and inconclusive results remain first-class outputs.</p>
-            <ul class="test-list">
-              <li><strong>No active-exploration advantage</strong><span>A yoked passive observer acquires an equivalent self/world representation.</span></li>
-              <li><strong>No goal-sensitive decomposition</strong><span>Changing the agent’s goal does not reorganize the relevant representation.</span></li>
-              <li><strong>No architectural advantage</strong><span>Targeted ablations match the full system on composition, valence or imagination tests.</span></li>
-            </ul>
-            <a class="card-link" href="publications.html">Inspect the claims and evidence →</a>
-          </article>
-        </div>
-
-        <aside class="horizon" aria-label="Long-term platform direction">
-          <div class="horizon-label">Long horizon</div>
-          <p>The reference build is the first package—not the permanent definition—of a theory-neutral experimental platform for comparing mechanisms of flexible intelligence and machine consciousness.</p>
-        </aside>
+        <a class="button primary" href="implementation.html">See the proposed framework →</a>
       </div>
     </section>
 
@@ -1023,9 +989,9 @@
         <div class="section-heading">
           <div>
             <div class="eyebrow">Research foundation</div>
-            <h2 id="credibility-title">Published theory. Peer-reviewed architecture.</h2>
+            <h2 id="credibility-title">Research completed so far.</h2>
           </div>
-          <p class="section-intro">The build on this page follows a public line of work, from a foundational theory of consciousness to an implementation architecture accepted at an IEEE conference.</p>
+          <p class="section-intro">Our public line of work: a foundational theory of consciousness, its application to memory athletics, and an architecture that implements it.</p>
         </div>
 
         <ol class="lineage">
@@ -1042,7 +1008,7 @@
             <a href="https://arxiv.org/abs/2303.11944" target="_blank" rel="noopener noreferrer">arXiv:2303.11944 →</a>
           </li>
           <li>
-            <div class="year">2026 · IEEE</div>
+            <div class="year">2026 · IEEE · peer-reviewed</div>
             <h3>From S3Q Theory to Implementation</h3>
             <p>A five-layer architecture composing published computational primitives, with falsifiable predictions that no subset of the parts makes alone.</p>
             <a href="publications.html">Read the paper →</a>
@@ -1055,7 +1021,7 @@
       <div class="section-inner">
         <div class="section-heading">
           <div>
-            <div class="eyebrow">Products · Evidence · Participation</div>
+            <div class="eyebrow">Get Involved</div>
             <h2 id="actions-title">Try it. Inspect it. Help build it.</h2>
           </div>
           <p class="section-intro">The public surface of Mind Guild connects working tools, scientific claims, implementation artifacts and scoped collaboration.</p>

@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A proposed framework for implementing, testing and comparing theories of cognition and consciousness. An idea we would like to build, not a finished system.">
+  <meta name="theme-color" content="#fdf6ef">
+  <title>Implementation framework — Mind Guild</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fdf6ef;
+      --paper-deep: #f7ebdf;
+      --cream: #fffaf5;
+      --ink: #2a211c;
+      --ink-soft: #453830;
+      --muted: #6a5f57;
+      --faint: #9d8879;
+      --line: #ead7c4;
+      --orange: #d15a33;
+      --orange-dark: #a5401f;
+      --gold: #f2bd62;
+      --rose: #d94f6c;
+      --green: #48705d;
+      --night: #14202a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Libre Franklin", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(209, 90, 51, .35);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 20px 8vw;
+      border-bottom: 1px solid rgba(234, 215, 196, .92);
+      background: rgba(253, 246, 239, .94);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 28px;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      border-bottom-color: rgba(209, 90, 51, .55);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 96px 8vw 82px;
+      text-align: center;
+      background:
+        radial-gradient(70% 90% at 50% -20%, rgba(246, 162, 74, .25), transparent 64%),
+        radial-gradient(35% 55% at 92% 8%, rgba(217, 79, 108, .08), transparent 70%);
+    }
+
+    .hero-inner {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 1000px;
+      margin: 24px auto 0;
+      color: #221c17;
+      font-size: clamp(43px, 6vw, 76px);
+      font-weight: 400;
+      letter-spacing: -.045em;
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+
+    h1 strong { font-weight: 800; }
+
+    .hero-copy {
+      max-width: 800px;
+      margin: 30px auto 0;
+      color: var(--ink-soft);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border: 1px solid var(--ink);
+      border-radius: 100px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .18s ease, background .18s ease, color .18s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button.primary {
+      background: var(--ink);
+      color: #fff8f0;
+    }
+
+    .button.primary:hover { background: #120f0c; }
+
+    .button.ghost {
+      border-color: var(--line);
+      background: rgba(255, 250, 245, .65);
+    }
+
+    .button.ghost:hover { background: white; }
+
+    .li-mark { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin: 0 8px 0 -6px; border-radius: 50%; background: #0a66c2; color: #fff; font-family: Arial, sans-serif; font-size: 12px; font-weight: 700; flex: none; }
+
+
+    .credibility { background: var(--paper-deep); border-top: 1px solid var(--line); }
+
+    .lineage {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .lineage li {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--cream);
+    }
+
+    .lineage .year {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .12em;
+    }
+
+    .lineage h3 {
+      margin: 10px 0 0;
+      font-size: 19px;
+      line-height: 1.3;
+      letter-spacing: -.02em;
+    }
+
+    .lineage p {
+      margin: 10px 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .lineage a {
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .lineage a:hover { color: var(--ink); }
+
+    .vision {
+      padding: 58px 8vw 64px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 245, .55);
+    }
+
+    .vision-inner {
+      display: grid;
+      grid-template-columns: minmax(140px, .38fr) minmax(0, 1.62fr);
+      gap: 48px;
+      width: min(1080px, 100%);
+      margin: 0 auto;
+    }
+
+    .vision p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 2.2vw, 23px);
+      line-height: 1.65;
+      text-wrap: pretty;
+    }
+
+    .attribution {
+      display: block;
+      margin-top: 18px;
+      color: var(--faint);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+
+    .vision-link {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.6;
+      border-bottom: 1px solid rgba(165, 64, 31, .4);
+    }
+
+    .vision-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+    .section.talk { padding-top: 64px; padding-bottom: 64px; }
+    .video-frame { margin-top: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
+    .video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+    .video-links { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 14px 0 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 600; color: var(--faint); }
+    .video-links a { color: var(--orange-dark); }
+    .video-links a:hover { color: var(--ink); }
+
+    .section {
+      padding: 88px 8vw 96px;
+    }
+
+    .section-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      gap: 56px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+
+    h2 {
+      max-width: 760px;
+      margin: 16px 0 0;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      text-wrap: balance;
+    }
+
+    .section-intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--cream);
+      box-shadow: 0 28px 70px -55px rgba(87, 50, 30, .55);
+    }
+
+    .dashboard-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 30px;
+      border-right: 1px solid var(--line);
+    }
+
+    .dashboard-card:last-child { border-right: 0; }
+
+    .card-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .card-number {
+      color: var(--faint);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .12em;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border: 1px solid rgba(72, 112, 93, .26);
+      border-radius: 100px;
+      background: rgba(72, 112, 93, .07);
+      color: var(--green);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      content: "";
+    }
+
+    .dashboard-card h3 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.22;
+      letter-spacing: -.025em;
+    }
+
+    .card-copy {
+      margin: 13px 0 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .layer-stack,
+    .build-list,
+    .test-list {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 26px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .layer {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .layer span:first-child {
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .layer strong,
+    .build-list strong,
+    .test-list strong {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .layer small {
+      display: block;
+      margin-top: 2px;
+      color: var(--faint);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .build-list li,
+    .test-list li {
+      position: relative;
+      padding: 12px 12px 12px 34px;
+      border-radius: 8px;
+      background: var(--paper-deep);
+    }
+
+    .build-list li::before,
+    .test-list li::before {
+      position: absolute;
+      top: 13px;
+      left: 13px;
+      color: var(--orange);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 700;
+      content: "→";
+    }
+
+    .test-list li::before { content: "×"; }
+
+    .build-list span,
+    .test-list span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      margin-top: auto;
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .card-link:hover { color: var(--ink); }
+
+    .status-key { max-width: 760px; margin: 0 0 22px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .status-key strong { color: var(--ink); }
+
+    .horizon {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      margin-top: 22px;
+      padding: 22px 24px;
+      border: 1px solid rgba(242, 189, 98, .42);
+      border-radius: 12px;
+      background: linear-gradient(100deg, rgba(242, 189, 98, .12), rgba(217, 79, 108, .04));
+    }
+
+    .horizon-label {
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .horizon p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .actions-section {
+      border-top: 1px solid var(--line);
+      background: var(--night);
+      color: #f8f1e8;
+    }
+
+    .actions-section .eyebrow { color: var(--gold); }
+
+    .actions-section h2 { color: white; }
+
+    .actions-section .section-intro { color: #b9c8d8; }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .action-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 290px;
+      padding: 28px;
+      border: 1px solid rgba(242, 189, 98, .22);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .action-kicker {
+      color: var(--gold);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .action-card h3 {
+      margin: 20px 0 0;
+      color: white;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    .action-card p {
+      margin: 13px 0 26px;
+      color: #b9c8d8;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .action-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: auto;
+    }
+
+    .action-links a {
+      color: #f8f1e8;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .action-links a::after {
+      margin-left: 7px;
+      color: var(--gold);
+      content: "→";
+    }
+
+    .action-links a:hover { color: var(--gold); }
+
+    .action-card .repo-access-note {
+      margin: 16px 0 0;
+      font-size: 12px;
+    }
+
+
+
+    .meetings { padding-top: 56px; padding-bottom: 56px; background: var(--paper-deep); border-bottom: 1px solid var(--line); }
+
+    .meetings-panel {
+      padding: 24px 32px 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--cream);
+    }
+
+    .notice {
+      border-top: 1px dashed rgba(209, 90, 51, .55);
+      border-bottom: 1px dashed rgba(209, 90, 51, .55);
+      background: repeating-linear-gradient(135deg, rgba(242, 189, 98, .18) 0 12px, rgba(242, 189, 98, .10) 12px 24px);
+    }
+
+    .notice { padding: 0 8vw; }
+
+    .notice-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: center;
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 22px 0;
+    }
+
+    .notice-body .eyebrow { font-size: 11px; letter-spacing: .2em; }
+
+    .notice-body h2 {
+      max-width: 760px;
+      margin: 8px 0 0;
+      font-size: clamp(18px, 2vw, 21px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.3;
+      text-wrap: balance;
+    }
+
+    .notice-body .notice-facts {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .notice-body strong { color: var(--ink); font-weight: 600; }
+
+    .notice-actions { display: grid; justify-items: center; gap: 10px; }
+    .notice-actions .button { min-height: 44px; padding: 10px 20px; white-space: nowrap; }
+
+    .notice-link {
+      color: var(--orange-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(165, 64, 31, .4);
+    }
+
+    .notice-link:hover { color: var(--ink); }
+
+    .meetings-lede {
+      max-width: 900px;
+      margin: 10px 0 0;
+      color: var(--ink-soft);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.5;
+    }
+
+    .meetings-panel .button { margin-top: 18px; min-height: 44px; padding: 10px 22px; }
+    .meetings-lede strong { font-weight: 700; }
+
+    .network { padding-top: 56px; padding-bottom: 64px; }
+
+    .network-panel {
+      display: grid;
+      grid-template-columns: minmax(140px, 170px) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+      padding: 22px 32px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--cream);
+    }
+
+    .net-graph { display: block; width: 100%; height: auto; overflow: visible; }
+
+    .net-edges line {
+      stroke: var(--orange);
+      stroke-opacity: .28;
+      stroke-width: 1.2;
+    }
+
+    .net-edges .spoke { stroke-opacity: .5; }
+    .net-edges .rim { stroke-opacity: .55; stroke-width: 1.5; }
+
+    .n-small { fill: var(--gold); }
+    .n-academic { fill: var(--cream); stroke: var(--orange); stroke-width: 2.5; }
+    .n-industry { fill: var(--orange); }
+    .hub-halo { fill: rgba(232, 102, 63, .14); }
+    .hub { fill: url(#hubGradient); }
+
+
+    .net-rotor { transform-origin: 150px 130px; transition: transform 2.2s cubic-bezier(.3, .7, .2, 1); }
+    .network-panel:hover .net-rotor { transform: rotate(150deg); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .net-rotor { animation: drift 10s ease-in-out infinite alternate; }
+      .n-small { animation: twinkle 4s ease-in-out infinite; }
+      .n-small:nth-of-type(2n) { animation-delay: -1.7s; }
+      @keyframes drift { from { rotate: -12deg; } to { rotate: 12deg; } }
+      @keyframes twinkle { 50% { opacity: .35; } }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .net-rotor { transition: none; }
+      .network-panel:hover .net-rotor { transform: none; }
+    }
+
+    .network-link { margin-top: 20px; min-height: 44px; padding: 10px 22px; }
+
+    .network-lede {
+      margin: 10px 0 18px;
+      color: var(--ink-soft);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.5;
+    }
+
+    .network-group {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      padding-top: 12px;
+    }
+
+    .network-group + .network-group {
+      margin-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .network-group h3 {
+      margin: 0;
+      color: var(--faint);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .network-group ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .network-group li a,
+    .network-group li > span {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      background: white;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .network-group li a {
+      border-color: rgba(209, 90, 51, .45);
+      color: var(--orange-dark);
+    }
+
+    .network-group li a span { margin-left: 4px; }
+
+    .network-group li a:hover {
+      border-color: var(--orange);
+      background: var(--orange);
+      color: white;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hub-halo { animation: pulse 3.2s ease-in-out infinite; transform-origin: 150px 130px; }
+      @keyframes pulse { 50% { transform: scale(1.18); opacity: .6; } }
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px 8vw;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      background: #0e171f;
+      color: #b9c8d8;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: white;
+      font-size: 16px;
+    }
+
+    footer span:last-child {
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    footer a { color: #f8f1e8; }
+    footer a:hover { color: var(--gold); }
+
+    @media (max-width: 1040px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .dashboard-card {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .dashboard-card:last-child { border-bottom: 0; }
+      .layer-stack { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .layer {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px 6vw;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px 18px;
+        font-size: 11px;
+      }
+
+      .hero { padding: 72px 6vw 62px; }
+      .lineage { grid-template-columns: 1fr; }
+      .vision, .section { padding-left: 6vw; padding-right: 6vw; }
+
+      .vision-inner,
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .action-grid { grid-template-columns: 1fr; }
+      .meetings-panel { padding: 22px; }
+      .notice { padding: 0 6vw; }
+      .notice-inner { grid-template-columns: 1fr; gap: 14px; padding: 20px 0; }
+      .notice-actions { justify-items: start; }
+      .network-panel { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
+      .net-graph { max-width: 150px; margin: 0 auto; }
+      .network-group { grid-template-columns: 1fr; gap: 8px; }
+      .action-card { min-height: 0; }
+    }
+
+    @media (max-width: 650px) {
+      h1 { font-size: clamp(39px, 12vw, 56px); }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .button { width: 100%; }
+      .section { padding-top: 68px; padding-bottom: 72px; }
+      .section.talk { padding-top: 48px; padding-bottom: 48px; }
+      .section-heading { margin-bottom: 32px; }
+      .dashboard-card { padding: 24px; }
+      .layer-stack { grid-template-columns: 1fr; }
+      .layer { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
+      .horizon { grid-template-columns: 1fr; gap: 10px; }
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 28px 6vw;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+    <div class="nav-links">
+      <a href="products.html">Products</a>
+      <a href="publications.html">Publications</a>
+      <a href="artwork.html">Artwork</a>
+      <a href="videos.html">Videos</a>
+      <a href="updates.html">Updates</a>
+      <a href="collective.html">Collective</a>
+      <a href="https://github.com/orgs/Mind-Guild/repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Implementation framework · a proposal</div>
+        <h1>A framework for exploring <strong>theories of mind</strong></h1>
+        <p class="hero-copy">This is an idea of what we would like to build: a shared framework under which different theories of cognition and consciousness could be implemented, tested and compared. It is a proposal in development, not a finished system. The status labels below show what exists today.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#implementation">See the proposed build</a>
+          <a class="button ghost" href="index.html">Back to home</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="implementation" aria-labelledby="implementation-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">The first theory we would explore</div>
+            <h2 id="implementation-title">From theory to a build that can fail.</h2>
+          </div>
+          <p class="section-intro">Simulated, Situated and Structurally Coherent Qualia (S3Q) is our first reference architecture and the first theory we would explore in this framework. It is a five-layer design meant to be built as a reproducible vertical slice, with each claim mapped to code, a test, a metric, or an explicit deferment.</p>
+        </div>
+
+        <p class="status-key"><strong>Status key.</strong> <em>In specification</em> means the design is written down but not built. <em>In development</em> means we are building it now. <em>Protocol design</em> means the test plan is being drafted.</p>
+
+        <div class="dashboard-grid">
+          <article class="dashboard-card">
+            <div class="card-topline">
+              <span class="card-number">01 · Architecture</span>
+              <span class="status">In specification</span>
+            </div>
+            <h3>Five-layer architecture</h3>
+            <p class="card-copy">Five functional layers share one representation, continuous per-object slot vectors, and run in an action loop.</p>
+            <ol class="layer-stack" aria-label="Five architecture layers">
+              <li class="layer"><span>01</span><span><strong>Object binding</strong><small>Identity, stability, SFA and mutual information</small></span></li>
+              <li class="layer"><span>02</span><span><strong>Self/world model</strong><small>Source attribution and forward model T</small></span></li>
+              <li class="layer"><span>03</span><span><strong>Pattern completion</strong><small>Associative completion and compositional recall</small></span></li>
+              <li class="layer"><span>04</span><span><strong>Action and suppression</strong><small>Candidate evaluation and behavioral regulation</small></span></li>
+              <li class="layer"><span>05</span><span><strong>Coherence regulation</strong><small>Precision, valence, goals and top-down feedback</small></span></li>
+            </ol>
+            <a class="card-link" href="artwork/layer-1-internal-structure.pdf" target="_blank" rel="noopener">Inspect the Layer 1 diagram →</a>
+          </article>
+
+          <article class="dashboard-card">
+            <div class="card-topline">
+              <span class="card-number">02 · Current build</span>
+              <span class="status">In development</span>
+            </div>
+            <h3>Reference vertical slice</h3>
+            <p class="card-copy">A paper-aligned MuJoCo scene family is being designed to exercise the developmental path from stable object slots to self/world attribution, action, imagination and coherence regulation.</p>
+            <ul class="build-list">
+              <li><strong>Paper-to-code contracts</strong><span>Claims, mechanisms and interfaces become executable requirements.</span></li>
+              <li><strong>Embodied task family</strong><span>Multiple objects, action-dependent observability, continuous physics and goal flexibility.</span></li>
+              <li><strong>Reproducible evidence</strong><span>Frozen configurations, seeds, interventions, traces and explicit failure accounting.</span></li>
+            </ul>
+            <a class="card-link" href="videos.html">Watch the Layer 1 working session →</a>
+          </article>
+
+          <article class="dashboard-card">
+            <div class="card-topline">
+              <span class="card-number">03 · Falsification</span>
+              <span class="status">Protocol design</span>
+            </div>
+            <h3>What would change our minds</h3>
+            <p class="card-copy">Success thresholds and failure conditions are specified before held-out results are viewed. Negative and inconclusive results remain first-class outputs.</p>
+            <ul class="test-list">
+              <li><strong>No active-exploration advantage</strong><span>A yoked passive observer acquires an equivalent self/world representation.</span></li>
+              <li><strong>No goal-sensitive decomposition</strong><span>Changing the agent’s goal does not reorganize the relevant representation.</span></li>
+              <li><strong>No architectural advantage</strong><span>Targeted ablations match the full system on composition, valence or imagination tests.</span></li>
+            </ul>
+            <a class="card-link" href="publications.html">Inspect the claims and evidence →</a>
+          </article>
+        </div>
+
+        <aside class="horizon" aria-label="Long-term platform direction">
+          <div class="horizon-label">Long horizon</div>
+          <p>The reference build is the first package—not the permanent definition—of a theory-neutral experimental platform for comparing mechanisms of flexible intelligence and machine consciousness.</p>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+    <span>© 2026 · <a href="/branding/">Brand assets</a> · <a href="mailto:mind.guild@symbiokinetics.com">mind.guild@symbiokinetics.com</a> · <a href="https://forms.gle/CQHrLRK7wcZbBYtT7" target="_blank" rel="noopener noreferrer">Join the mailing list</a> · <a href="https://www.linkedin.com/company/mind-guild-implementations/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a></span>
+  </footer>
+</body>
+</html>
