@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Complete Mind Guild’s Human–Machine Teaming Heuristic Evaluation and receive a study completion receipt.">
+<meta name="theme-color" content="#fdf6ef"><meta name="robots" content="noindex,follow">
+<title>HMT Heuristic Evaluation · Mind Guild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/branding/brand.css?v=20261012"><link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
+<style>
+:root{--paper:#fdf6ef;--ink:#2a211c;--muted:#6a5f57;--line:#ead7c4;--accent:#a5401f}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Libre Franklin",Arial,sans-serif;line-height:1.7}a{color:var(--accent);text-underline-offset:4px}.skip-link{position:absolute;left:20px;top:-100px;background:var(--ink);color:white;padding:10px 15px;z-index:100}.skip-link:focus{top:10px}.nav{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:20px 6vw;border-bottom:1px solid var(--line)}.nav-links{display:flex;gap:24px;align-items:center;font:12px "IBM Plex Mono",monospace;flex-wrap:wrap;justify-content:flex-end}.nav-links a{color:var(--muted);text-decoration:none}.nav-links a[aria-current]{color:var(--accent)}main{max-width:1180px;margin:0 auto;padding:0 28px}.hero{padding:50px 0 34px}.eyebrow{font:600 11px "IBM Plex Mono",monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.18em}.hero h1{font-size:clamp(30px,4vw,48px);line-height:1.15;letter-spacing:-.035em;font-weight:650;margin:17px 0}.hero p{max-width:760px;color:var(--muted);font-size:16px}.form-note{font:11px "IBM Plex Mono",monospace;color:var(--muted);padding:14px 0 24px;border-top:1px solid var(--line);margin:0}.form-note a{font-weight:500}#hmt-form{display:block;width:100%;min-height:650px;height:1700px;border:0;background:var(--paper);scroll-margin-top:20px}footer{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;padding:30px 6vw;border-top:1px solid var(--line);font:11px "IBM Plex Mono",monospace;color:var(--muted)}footer a{color:inherit}a:focus-visible{outline:3px solid #b85430;outline-offset:5px}@media(max-width:650px){.nav{padding:18px 20px;flex-wrap:wrap;gap:15px}.nav-links{gap:17px;font-size:10px}main{padding:0 18px}.hero{padding:30px 0 22px}.hero p{font-size:14px}.form-note{font-size:10px;line-height:1.9}.nav .mg-brand>.mg-mark{width:32px}.nav .mg-brand>.mg-wordmark{width:135px}footer{font-size:10px}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#hmt-form">Skip to questionnaire</a>
+<nav class="nav" aria-label="Primary navigation">
+<a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a>
+<div class="nav-links"><a href="/index.html">Home</a><a href="/products.html">Products</a><a href="/publications.html">Publications</a><a href="/hmt-evaluation.html" aria-current="page">HMT Evaluation</a></div>
+</nav>
+<main id="main">
+<header class="hero"><div class="eyebrow">Research participation · Mind Guild</div><h1>Better teaming starts<br>with your perspective.</h1><p>Evaluate how well a system supports its human teammates. Complete the questionnaire below and save your completion receipt for your study records.</p></header>
+<p class="form-note">Invited to a study? Use your researcher’s study-specific link. If the form does not load, <a id="direct-form" href="https://mind-guild-hmt-studies.billy5050.chatgpt.site/" target="_blank" rel="noopener noreferrer">open the questionnaire in a new tab ↗</a>.</p>
+<iframe id="hmt-form" title="Mind Guild Human–Machine Teaming Heuristic Evaluation questionnaire" src="https://mind-guild-hmt-studies.billy5050.chatgpt.site/?embed=1" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>
+<noscript><p>Enable JavaScript to complete the questionnaire, or contact <a href="mailto:mind.guild@symbiokinetics.com">mind.guild@symbiokinetics.com</a> for help.</p></noscript>
+</main>
+<footer><a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></a><span>© 2026 · <a href="mailto:mind.guild@symbiokinetics.com">mind.guild@symbiokinetics.com</a> · <a href="https://mind-guild-hmt-studies.billy5050.chatgpt.site/admin" target="_blank" rel="noopener noreferrer">Researcher access</a></span></footer>
+<script>
+(function(){
+ const origin="https://mind-guild-hmt-studies.billy5050.chatgpt.site";
+ const frame=document.getElementById('hmt-form');const direct=document.getElementById('direct-form');
+ const input=new URLSearchParams(location.search);const params=new URLSearchParams();
+ for(const name of ['study','session']){const value=input.get(name);if(value)params.set(name,value.slice(0,100));}
+ direct.href=origin+'/?'+params.toString();params.set('embed','1');frame.src=origin+'/?'+params.toString();
+ addEventListener('message',function(event){
+  if(event.origin!==origin||event.source!==frame.contentWindow||!event.data)return;
+  if(event.data.type==='mg-hmt-height'&&Number.isFinite(event.data.height))frame.style.height=Math.max(500,Math.min(20000,Math.ceil(event.data.height)+16))+'px';
+  if(event.data.type==='mg-hmt-step')frame.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+ });
+})();
+</script>
+</body>
+</html>
