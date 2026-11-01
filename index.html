@@ -125,35 +125,36 @@
     h1 {
       max-width: 940px;
       margin: 18px auto 0;
-      color: #221c17;
-      font-size: clamp(34px, 5.4vw, 66px);
+      color: var(--ink);
+      font-size: clamp(34px, 5.4vw, 64px);
       font-weight: 400;
-      letter-spacing: -.035em;
-      line-height: 1.14;
+      letter-spacing: -.04em;
+      line-height: 1.1;
       text-wrap: balance;
     }
 
     h1 strong { font-weight: 800; }
+    h1 .h1-accent { color: var(--orange); }   /* the one accent word, same orange as the labels and links */
 
     /* Closing phrase of the home headline: smaller and in a quieter color so the question leads. */
     .h1-sub {
       display: block;
       max-width: 34em;
-      margin: .7em auto 0;
+      margin: .8em auto 0;
       color: var(--muted);
-      font-size: clamp(16px, 1.75vw, 22px);
+      font-size: clamp(17px, 1.8vw, 22px);
       font-weight: 400;
-      letter-spacing: -.01em;
-      line-height: 1.4;
+      letter-spacing: -.005em;
+      line-height: 1.45;
       text-wrap: balance;
     }
 
     .hero-copy {
-      max-width: 760px;
-      margin: 20px auto 0;
+      max-width: 780px;
+      margin: 22px auto 0;
       color: var(--ink-soft);
-      font-size: clamp(15.5px, 1.5vw, 17px);
-      line-height: 1.6;
+      font-size: clamp(16px, 1.55vw, 18px);
+      line-height: 1.65;
       text-wrap: pretty;
     }
 
@@ -922,7 +923,7 @@
     <header class="hero">
       <div class="hero-inner">
         <div class="mg-brand mg-brand--hero" role="img" aria-label="Mind Guild"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></div>
-        <h1>We make the <strong>philosophy of mind</strong> <strong>buildable</strong> <span class="h1-sub">at the intersection of cognitive neuroscience, philosophy, machine learning, robotics, and control systems.</span></h1>
+        <h1>We make the <strong>philosophy of mind</strong> <strong class="h1-accent">buildable</strong> <span class="h1-sub">at the intersection of cognitive neuroscience, philosophy, machine learning, robotics, and control systems.</span></h1>
         <p class="hero-copy">Our initiatives map safe, verifiable machine architectures, so that we can build interpretable computational mechanisms to carefully test theories of cognition, and let what we build revise the theories in turn. We work towards answering the biggest open questions in philosophy, and towards showing which mechanisms produce flexible, mind-like capabilities in embodied agents.</p>
         <div class="hero-actions">
           <a class="button primary" href="updates.html">Learn more</a>
