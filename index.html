@@ -126,7 +126,7 @@
       max-width: 940px;
       margin: 18px auto 0;
       color: #221c17;
-      font-size: clamp(29px, 4vw, 50px);
+      font-size: clamp(34px, 5.4vw, 66px);
       font-weight: 400;
       letter-spacing: -.035em;
       line-height: 1.14;
@@ -139,9 +139,9 @@
     .h1-sub {
       display: block;
       max-width: 34em;
-      margin: .5em auto 0;
+      margin: .7em auto 0;
       color: var(--muted);
-      font-size: .54em;
+      font-size: clamp(16px, 1.75vw, 22px);
       font-weight: 400;
       letter-spacing: -.01em;
       line-height: 1.4;
@@ -876,7 +876,7 @@
     }
 
     @media (max-width: 650px) {
-      h1 { font-size: clamp(26px, 7.4vw, 36px); }
+      h1 { font-size: clamp(32px, 9.4vw, 44px); }
       .hero-copy { margin-top: 16px; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .button { width: 100%; }
@@ -922,9 +922,8 @@
     <header class="hero">
       <div class="hero-inner">
         <div class="mg-brand mg-brand--hero" role="img" aria-label="Mind Guild"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480.07" height="80.63"></div>
-        <div class="eyebrow">Implementations of the Mind Guild</div>
-        <h1>Tackling the ambitious philosophical question <strong>“what is consciousness”</strong> with <strong>leading&#8209;edge research</strong> <span class="h1-sub">at the intersection of cognitive neuroscience, philosophy, machine learning, robotics, and control systems.</span></h1>
-        <p class="hero-copy">Our initiatives aim to map safe, verifiable machine architectures, so that we can build interpretable computational mechanisms to carefully test theories of cognition. We hope to make progress towards answering the biggest open questions in philosophy, and to shed light on which mechanisms produce flexible, mind-like capabilities in embodied agents.</p>
+        <h1>We make the <strong>philosophy of mind</strong> <strong>buildable</strong> <span class="h1-sub">at the intersection of cognitive neuroscience, philosophy, machine learning, robotics, and control systems.</span></h1>
+        <p class="hero-copy">Our initiatives map safe, verifiable machine architectures, so that we can build interpretable computational mechanisms to carefully test theories of cognition, and let what we build revise the theories in turn. We work towards answering the biggest open questions in philosophy, and towards showing which mechanisms produce flexible, mind-like capabilities in embodied agents.</p>
         <div class="hero-actions">
           <a class="button primary" href="updates.html">Learn more</a>
         </div>
