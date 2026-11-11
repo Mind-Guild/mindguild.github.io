@@ -1,0 +1,1126 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Simulation Frameworks Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: graph-paper field guide. A lens bar re-weights one affordance matrix; specimen cards, ranked videos and open decisions follow. */
+:root{
+  --paper:#f1f3ef; --panel:#e5eae4; --card:#fafbf9; --ink:#17212a; --ink-2:#44525c; --ink-3:#69767e;
+  --rule:#c3ccc6; --grid:rgba(23,33,42,.05);
+  --accent:#1d5d8a; --accent-ink:#ffffff; --accent-soft:rgba(29,93,138,.10);
+  --pencil:#a8234a; --pencil-soft:rgba(168,35,74,.08);
+  --ok:#2b7a4b; --part:#a86f0e; --no:#8a959b;
+  --display:"Archivo","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0e1418; --panel:#16212a; --card:#121b21; --ink:#e2e8e4; --ink-2:#a9b7be; --ink-3:#80909a;
+    --rule:#2a3740; --grid:rgba(226,232,228,.04);
+    --accent:#7cb8e4; --accent-ink:#0a1822; --accent-soft:rgba(124,184,228,.14);
+    --pencil:#f18aa7; --pencil-soft:rgba(241,138,167,.12);
+    --ok:#5cc489; --part:#e2b04c; --no:#5f6d75;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0e1418; --panel:#16212a; --card:#121b21; --ink:#e2e8e4; --ink-2:#a9b7be; --ink-3:#80909a;
+  --rule:#2a3740; --grid:rgba(226,232,228,.04);
+  --accent:#7cb8e4; --accent-ink:#0a1822; --accent-soft:rgba(124,184,228,.14);
+  --pencil:#f18aa7; --pencil-soft:rgba(241,138,167,.12);
+  --ok:#5cc489; --part:#e2b04c; --no:#5f6d75;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* navigation */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--paper);border-bottom:1px solid var(--rule)}
+.bar nav{display:flex;gap:18px;align-items:center;overflow-x:auto;padding-block:11px;scrollbar-width:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar a{font:500 .74rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.bar a:hover{color:var(--accent)}
+.bar .mark{font:780 .9rem/1 var(--display);font-stretch:72%;font-variation-settings:"wdth" 72;color:var(--ink);letter-spacing:.03em}
+
+/* type */
+h1,h2,h3,h4{margin:0}
+h1,h2,h3{font-family:var(--display);font-stretch:72%;font-variation-settings:"wdth" 72;line-height:1.02;letter-spacing:-.005em;text-wrap:balance}
+h1{font-size:clamp(2.7rem,7.4vw,4.9rem);font-weight:780}
+h2{font-size:clamp(1.9rem,4.2vw,2.75rem);font-weight:740}
+h3{font-size:1.4rem;font-weight:720}
+h4,.k{font:600 .7rem/1.25 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.eyebrow{font:500 .74rem/1.35 var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3)}
+.lede{max-width:66ch;font-size:1.125rem;color:var(--ink-2)}
+.measure{max-width:72ch}
+section{border-top:1px solid var(--rule)}
+section>.wrap{padding-block:52px 60px;display:grid;gap:24px}
+.sec-head{display:grid;gap:10px}
+
+/* hero */
+.hero{padding-block:46px 42px;display:grid;gap:20px}
+.goal{border-left:3px solid var(--accent);padding:6px 0 6px 16px;font-style:italic;font-size:1.15rem;max-width:62ch}
+.goal cite{display:block;font:500 .7rem/1.4 var(--mono);font-style:normal;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-top:6px}
+.tally{display:flex;flex-wrap:wrap;gap:10px 26px;font:500 .78rem/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.tally span{display:flex;align-items:baseline;gap:7px}
+.tally b{font:760 1.85rem/1 var(--display);font-stretch:72%;font-variation-settings:"wdth" 72;color:var(--ink);letter-spacing:0}
+.legend{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;font:400 .8rem/1.3 var(--mono);color:var(--ink-2);padding:10px 14px;border:1px dashed var(--rule);border-radius:3px;background:var(--card);width:fit-content;max-width:100%}
+.legend span{display:inline-flex;gap:7px;align-items:center}
+
+/* marks */
+.dot{--c:var(--no);display:inline-block;width:13px;height:13px;border-radius:50%;border:2px solid var(--c);box-sizing:border-box;vertical-align:-2px;flex:none}
+.dot.l2{--c:var(--ok);background:var(--c)}
+.dot.l1{--c:var(--part);background:linear-gradient(90deg,var(--c) 50%,transparent 50%)}
+.dot.l0{--c:var(--no)}
+.dot.lu{--c:var(--ink-3);border-style:dashed}
+.infer{font:500 .6rem/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--pencil);border:1px solid var(--pencil);border-radius:2px;padding:2px 4px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.src{font:500 .74rem/1 var(--mono);text-decoration:none;margin-left:5px;padding:1px 4px;border-radius:2px;color:var(--accent);background:var(--accent-soft);white-space:nowrap}
+.src:hover{background:var(--accent);color:var(--accent-ink)}
+.src-note{font:500 .6rem/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);border:1px dashed var(--ink-3);padding:2px 4px;border-radius:2px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+.tag{display:inline-block;font:600 .62rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:3px 5px;border-radius:2px;border:1px solid currentColor;margin-left:8px;vertical-align:3px}
+.tag.world{color:var(--accent)} .tag.genre{color:var(--part)} .tag.sandbox{color:var(--ok)} .tag.agent{color:var(--pencil)} .tag.dev{color:var(--ink-3)}
+
+/* kinds diagram */
+.kinds{display:grid;border-top:2px solid var(--ink)}
+.krow{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1.5fr) 28px minmax(0,1.3fr);gap:10px;align-items:start;padding:14px 0;border-bottom:1px solid var(--rule)}
+.krow.khead{padding:9px 0}
+.krow.khead span{font:600 .68rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3)}
+.arrow{font:400 1.05rem/1.5 var(--mono);color:var(--ink-3);text-align:center}
+.kname{font:720 1.2rem/1.15 var(--display);font-stretch:80%;font-variation-settings:"wdth" 80}
+.named{color:var(--accent)}
+.ksub{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-2);margin-top:4px}
+.none{color:var(--ink-3);font-family:var(--mono)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font:400 .76rem/1.2 var(--mono);padding:3px 7px;border:1px solid var(--rule);border-radius:3px;background:var(--card);color:var(--ink-2)}
+.pill.named{color:var(--accent);border-color:var(--accent)}
+@media (max-width:760px){
+  .krow{grid-template-columns:1fr;gap:4px}
+  .krow.khead{display:none}
+  .arrow{text-align:left;line-height:1}
+  .arrow span{display:none}
+  .arrow::before{content:"↓"}
+}
+.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.point{background:var(--card);border:1px solid var(--rule);padding:14px 16px;border-radius:3px;display:grid;gap:6px;align-content:start}
+.point h3{font-size:1.1rem}
+.point p{font-size:.95rem;color:var(--ink-2)}
+
+/* lens + matrix */
+.toolrow{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between}
+.lensbar{display:flex;flex-wrap:wrap;gap:7px}
+.lens,.vf,.seg button{font:500 .78rem/1.2 var(--mono);padding:7px 10px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:3px;cursor:pointer}
+.lens:hover,.vf:hover,.seg button:hover{border-color:var(--accent)}
+.lens[aria-pressed="true"],.vf[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.seg{display:flex;align-items:center;gap:6px;font:500 .72rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.seg button{text-transform:none;letter-spacing:0;padding:5px 8px}
+.mx{overflow-x:auto;border:1px solid var(--rule);background:var(--card);border-radius:3px}
+.mx table{border-collapse:separate;border-spacing:0;min-width:1020px;width:100%}
+.mx th,.mx td{padding:0;border-bottom:1px solid var(--rule);text-align:center;vertical-align:middle}
+.mx tbody tr:last-child th,.mx tbody tr:last-child td{border-bottom:0}
+.mx thead tr.groups th{font:600 .64rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3);text-align:left;padding:8px 8px 6px;border-left:1px solid var(--rule)}
+.mx thead tr.groups th:first-child{border-left:0}
+.mx th.env{position:sticky;left:0;z-index:2;background:var(--card);text-align:left;padding:8px 12px;min-width:132px;border-right:1px solid var(--rule)}
+.colbtn{appearance:none;border:0;background:none;cursor:pointer;color:var(--ink-2);font:500 .66rem/1.25 var(--mono);text-transform:uppercase;letter-spacing:.04em;padding:8px 4px;width:100%;min-height:52px;display:flex;align-items:flex-end;justify-content:center}
+.colbtn:hover{color:var(--accent)}
+.envname{display:block;font:720 1.02rem/1.1 var(--display);font-stretch:80%;font-variation-settings:"wdth" 80;color:var(--ink);text-decoration:none}
+.envname:hover{color:var(--accent)}
+.envkind{display:block;font:400 .66rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.mx td.c,.mx th.cn{transition:opacity .2s ease}
+.mx .dim{opacity:.24}
+.mx .dim:hover{opacity:.7}
+.cellbtn{appearance:none;border:0;background:none;width:100%;min-height:44px;min-width:56px;display:grid;place-items:center;cursor:pointer;position:relative;color:inherit;padding:0}
+.cellbtn:hover{background:var(--accent-soft)}
+.cellbtn[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent)}
+.cellbtn .inf{position:absolute;top:6px;right:7px;width:5px;height:5px;border-radius:50%;background:var(--pencil)}
+.mx td.tl{font:500 .72rem/1.3 var(--mono);color:var(--ink-2);padding:0 12px;white-space:nowrap;text-align:left;border-left:1px solid var(--rule)}
+.mx td.tl span{display:inline-flex;gap:4px;align-items:center;margin-right:8px}
+.mx .tl-h{font:600 .64rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:8px 12px;border-left:1px solid var(--rule)}
+.insp{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--accent);padding:12px 16px;border-radius:3px;display:grid;gap:6px;min-height:72px}
+.insp p{max-width:84ch}
+.insp .why{color:var(--ink-2);font-size:.95rem}
+.lenspanel{display:grid;gap:20px;background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:20px}
+.lp-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.lp-codes{font:500 .74rem/1.3 var(--mono);color:var(--ink-2)}
+.lp-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:880px){.lp-cols{grid-template-columns:1fr}}
+.lp-cols>div{display:grid;gap:8px;align-content:start;min-width:0}
+.lp-cols ul,.pull ul{margin:0;padding-left:1.1em;display:grid;gap:7px;font-size:.95rem}
+.fit{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:9px 22px;margin-top:8px}
+.fit div{display:grid;grid-template-columns:16px 6.6em minmax(0,1fr);gap:8px;align-items:baseline;font-size:.93rem}
+.fit b{font:720 .98rem/1.2 var(--display);font-stretch:80%;font-variation-settings:"wdth" 80}
+.cols-note{font:400 .76rem/1.5 var(--mono);color:var(--ink-3)}
+
+/* world cards */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:880px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:18px;display:grid;gap:12px;align-content:start;min-width:0}
+.card-head{display:flex;align-items:baseline;flex-wrap:wrap}
+.card h3{font-size:1.75rem}
+.kind{font-size:.95rem;color:var(--ink-2)}
+.io{display:grid;gap:8px;font:400 .8rem/1.5 var(--mono);color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);padding:10px 12px;border-radius:2px}
+.io div{display:grid;grid-template-columns:2.8em minmax(0,1fr);gap:8px}
+.io .lbl{font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.lists{display:grid;gap:12px}
+.lists>div{display:grid;gap:6px}
+.lists ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:.94rem}
+.lists li{padding-left:1.35em;position:relative}
+.lists li::before{position:absolute;left:0;top:0;font:600 .9rem/1.6 var(--mono)}
+.aff li::before{content:"+";color:var(--ok)}
+.str li::before{content:"−";color:var(--pencil)}
+.ten li::before{content:"⇄";color:var(--part)}
+.status{font:400 .8rem/1.5 var(--mono);color:var(--ink-2);border-top:1px dashed var(--rule);padding-top:10px}
+.status span{font-weight:600;color:var(--ink)}
+.links{display:flex;flex-wrap:wrap;gap:6px 16px;font:400 .8rem/1.3 var(--mono)}
+
+/* videos */
+.flag{background:var(--pencil-soft);border:1px solid var(--pencil);border-radius:3px;padding:12px 16px;max-width:84ch;display:grid;gap:4px}
+.flag strong{color:var(--pencil);font:600 .72rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.rubric{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 22px;font-size:.93rem;margin:0;padding-left:1.1em}
+.passes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:880px){.passes{grid-template-columns:1fr}}
+.pass{background:var(--card);border:1px solid var(--rule);padding:14px 16px;border-radius:3px;display:grid;gap:8px;align-content:start;min-width:0}
+.pass-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pass h3{font-size:1.25rem}
+.pass .tot{font:760 1.6rem/1 var(--display);font-stretch:72%;font-variation-settings:"wdth" 72;color:var(--accent);font-variant-numeric:tabular-nums}
+.pass .sub{font-size:.9rem;color:var(--ink-2)}
+.pass ol{margin:0;padding-left:1.4em;display:grid;gap:5px;font-size:.92rem}
+.pmeta{font:400 .72rem/1.3 var(--mono);color:var(--ink-3);white-space:nowrap}
+.vfilter{display:flex;flex-wrap:wrap;gap:6px}
+.vgroups{display:grid;gap:34px}
+.vgroup{display:grid;gap:10px}
+.vgroup-head{display:flex;gap:10px 16px;align-items:baseline;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:6px}
+.vgroup-head h3{font-size:1.6rem}
+.gnote{font-size:.92rem;color:var(--ink-2);max-width:80ch}
+.vrow{display:grid;grid-template-columns:42px minmax(0,1fr);gap:14px;background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:14px 16px}
+.vrank{font:760 2.1rem/1 var(--display);font-stretch:72%;font-variation-settings:"wdth" 72;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.vrow.top{border-color:var(--accent)}
+.vrow.top .vrank{color:var(--accent)}
+.vbody{display:grid;gap:6px;min-width:0}
+.vtitle{font:600 1.04rem/1.35 var(--body)}
+.vmeta{font:400 .74rem/1.4 var(--mono);color:var(--ink-3)}
+.vscore{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.dv{display:inline-flex;gap:3px;align-items:center}
+.dv i{width:9px;height:13px;border:1px solid var(--accent);display:block;border-radius:1px}
+.dv i.on{background:var(--accent)}
+.dvl{font:500 .7rem/1 var(--mono);color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.conf{font:600 .62rem/1 var(--mono);text-transform:uppercase;letter-spacing:.07em;padding:3px 5px;border-radius:2px;border:1px solid var(--ink-3);color:var(--ink-2)}
+.conf.low{border-color:var(--pencil);color:var(--pencil)}
+.vgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 18px;font-size:.92rem}
+@media (max-width:760px){.vgrid{grid-template-columns:1fr}}
+.vgrid .k,.vbasis .k,.tension .k,.settle .k{display:block;margin-bottom:2px}
+.vbasis{font-size:.88rem;color:var(--ink-2)}
+.vlog{display:flex;flex-wrap:wrap;gap:6px 16px;font:400 .74rem/1.3 var(--mono);color:var(--ink-2);border-top:1px dashed var(--rule);padding-top:8px}
+.vlog label{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.vlog input{accent-color:var(--accent);width:15px;height:15px;margin:0}
+
+/* decisions */
+.decs{display:grid;gap:14px}
+.dec{background:var(--card);border:1px solid var(--rule);border-radius:3px}
+.dec summary{cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:baseline;list-style:none}
+.dec summary::-webkit-details-marker{display:none}
+.dn{font:600 .78rem/1 var(--mono);color:var(--accent)}
+.dq{font:720 1.22rem/1.2 var(--display);font-stretch:80%;font-variation-settings:"wdth" 80}
+.dec .body{padding:0 16px 16px;display:grid;gap:12px}
+.pulls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.pulls{grid-template-columns:1fr}}
+.pull{border-top:2px solid var(--accent);padding-top:8px;display:grid;gap:6px;align-content:start;min-width:0}
+.pull.b{border-top-color:var(--part)}
+.pull h4{color:var(--ink-2)}
+.tension{background:var(--pencil-soft);padding:9px 12px;border-radius:2px;font-size:.94rem}
+.settle{font-size:.94rem}
+
+/* words, reaching, sources */
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--card)}
+.tbl table{border-collapse:collapse;width:100%;min-width:780px;font-size:.92rem}
+.tbl th,.tbl td{padding:10px 12px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th{font:600 .66rem/1.2 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3)}
+.tbl td:first-child{font:720 1.02rem/1.2 var(--display);font-stretch:80%;font-variation-settings:"wdth" 80;white-space:nowrap}
+.reach{list-style:none;margin:0;padding:0;display:grid;gap:10px;max-width:86ch}
+.reach li{padding-left:1.6em;position:relative}
+.reach li::before{content:"";position:absolute;left:.25em;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--pencil)}
+.outs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.out{background:var(--card);border:1px dashed var(--rule);border-radius:3px;padding:12px 14px;display:grid;gap:6px;align-content:start}
+.out h3{font-size:1.1rem}
+.out p{font-size:.92rem;color:var(--ink-2)}
+.acro{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:6px 24px;margin:0;font-size:.9rem}
+.acro div{display:grid;grid-template-columns:5.2em minmax(0,1fr);gap:8px}
+.acro dt{font:600 .78rem/1.5 var(--mono);color:var(--accent)}
+.acro dd{margin:0}
+.srcs{columns:2 340px;column-gap:30px;font-size:.88rem;margin:0;padding-left:1.1em}
+.srcs li{break-inside:avoid;margin-bottom:7px}
+footer .wrap{padding-block:26px 40px;font:400 .76rem/1.5 var(--mono);color:var(--ink-3);border-top:1px solid var(--rule)}
+</style>
+
+<div class="bar"><div class="wrap"><nav aria-label="Sections">
+  <a class="mark" href="#top">Simulation Guide</a>
+  <a href="#kinds">Kinds</a><a href="#matrix">Matrix</a><a href="#worlds">Worlds</a><a href="#videos">Videos</a><a href="#decisions">Decisions</a><a href="#words">Words</a><a href="#reaching">Reaching</a><a href="#sources">Sources</a>
+</nav></div></div>
+
+<header class="wrap hero" id="top">
+  <p class="eyebrow">Mind Guild paper companion · researched 7 November 2026</p>
+  <h1>Simulation Frameworks Guide</h1>
+  <p class="lede">A guide to eight simulation options for an agent built to test theories of consciousness. Compare environments, frameworks, and agent interfaces by what they let an agent sense and do. Switch theory lenses, review the demo videos, and work through the open decisions.</p>
+  <blockquote class="goal">“implement an agent with sufficiently expressive states and actions to test theories of consciousness”<cite>Minda, stating the goal</cite></blockquote>
+  <div class="tally" aria-label="Summary counts">
+    <span><b>8</b>names</span><span><b>5</b>worlds</span><span><b>1</b>genre</span><span><b>1</b>sandbox</span><span><b>1</b>agent</span><span><b>9</b>theory lenses</span><span><b>33</b>videos ranked</span><span><b>12</b>open decisions</span>
+  </div>
+  <div class="legend" aria-label="Legend">
+    <span><i class="dot l2"></i>native</span><span><i class="dot l1"></i>partial or buildable</span><span><i class="dot l0"></i>absent or awkward</span><span><i class="dot lu"></i>unknown</span><span><span class="infer" style="margin:0">inferred</span>my inference, not sourced</span><span><span class="src" style="margin:0">↗</span>source</span>
+  </div>
+</header>
+
+<section id="kinds"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Read this first</p>
+    <h2>The eight names are four kinds of thing</h2>
+    <p class="lede">Five are worlds, one is a genre, one is a sandbox built on another, and one is an agent. A comparison table that treats them as peers mixes levels.</p>
+  </div>
+  <div class="kinds">
+    <div class="krow khead"><span>Foundation</span><span></span><span>Research interface or platform</span><span></span><span>What sits on top</span></div>
+    <div class="krow">
+      <div><span class="kname named">Minecraft</span><span class="tag world">world</span><span class="ksub">A Java game.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><div class="chips"><span class="pill">Malmo</span><span class="pill">MineRL</span><span class="pill">MineDojo</span><span class="pill">MineStudio</span><span class="pill">Mineflayer</span></div><span class="ksub">Each exposes a different observation and action space.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="kname named">Voyager</span><span class="tag agent">agent</span><span class="ksub">A language-model agent that reaches Minecraft through Mineflayer, reading text and writing code.</span></div>
+    </div>
+    <div class="krow">
+      <div><span class="kname named">NetHack</span><span class="tag world">world</span><span class="ksub">A 1987 terminal game.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><div class="chips"><span class="pill">NetHack Learning Environment (NLE)</span></div><span class="ksub">The research interface to the full game.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="kname named">MiniHack</span><span class="tag sandbox">sandbox</span><span class="ksub">Writes custom levels on top of NLE.</span></div>
+    </div>
+    <div class="krow">
+      <div><span class="kname named">MuJoCo</span><span class="tag world">world</span><span class="ksub">Multi-Joint dynamics with Contact (MuJoCo), a physics engine with no world until you author one.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><div class="chips"><span class="pill">dm_control</span><span class="pill">Gymnasium</span><span class="pill">MuJoCo Playground</span><span class="pill">MIMo body</span></div><span class="ksub">Task suites and ready-made bodies.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="kname">Mind Guild scene family</span><span class="tag dev">in development</span><span class="ksub">Listed on the Mind Guild framework page.</span></div>
+    </div>
+    <div class="krow">
+      <div><span class="kname">Unity</span><span class="ksub">A game engine.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="kname named">ThreeDWorld (TDW)</span><span class="tag world">world</span><span class="ksub">A Unity build driven by a Python controller.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="none">nothing named</span></div>
+    </div>
+    <div class="krow">
+      <div><span class="kname">Godot + Bullet</span><span class="ksub">Game and physics engines.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="kname named">Avalon</span><span class="tag world">world</span><span class="ksub">A simulator plus a 20-task benchmark.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="none">nothing named</span></div>
+    </div>
+    <div class="krow">
+      <div><span class="kname named">GridWorld</span><span class="tag genre">genre</span><span class="ksub">A family of environments, not one package.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><div class="chips"><span class="pill">MiniGrid</span><span class="pill">AI Safety Gridworlds</span><span class="pill">pycolab</span><span class="pill">JAX ports</span></div><span class="ksub">The matrix uses MiniGrid as the reference implementation.</span></div>
+      <div class="arrow" aria-hidden="true"><span>→</span></div>
+      <div><span class="none">your choice of implementation</span></div>
+    </div>
+  </div>
+  <div class="points">
+    <div class="point"><h3>Voyager is an agent</h3><p>Comparing Voyager with MuJoCo compares an agent with a physics engine. Voyager reaches Minecraft through the Mineflayer bot library.</p></div>
+    <div class="point"><h3>“Minecraft” needs its interface named</h3><p>MineRL gives the agent pixels and keyboard-and-mouse control. Mineflayer gives text and code. They sit at opposite ends of the interface range.</p></div>
+    <div class="point"><h3>“GridWorld” needs an implementation named</h3><p>MiniGrid, DeepMind’s AI Safety Gridworlds and the JAX ports differ in observations, speed and upkeep.</p></div>
+    <div class="point"><h3>NetHack and MiniHack share an engine</h3><p>They differ in experimental control. The full game generates its own levels; MiniHack lets you write them.</p></div>
+  </div>
+</div></section>
+
+<section id="matrix"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Compare</p>
+    <h2>Affordance matrix</h2>
+    <p class="lede">Pick a theory lens. The columns that lens depends on stay bright and the tally counts only those. Select any cell or column heading to see the fact behind it.</p>
+  </div>
+  <div class="toolrow">
+    <div class="lensbar" id="lensbar" role="group" aria-label="Theory lens"></div>
+    <div class="seg" role="group" aria-label="Row order">Order<button type="button" data-sort="listed" aria-pressed="true">As listed</button><button type="button" data-sort="fit" aria-pressed="false">By count under lens</button></div>
+  </div>
+  <div class="mx" id="mx"></div>
+  <div class="insp" id="insp" aria-live="polite"><div class="k">Inspector</div><p>Select a cell or a column heading to see the fact and its source. Cells marked with a small red dot rest partly on my inference.</p></div>
+  <div class="lenspanel" id="lenspanel"></div>
+</div></section>
+
+<section id="worlds"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Specimens</p>
+    <h2>Eight simulation options, side by side</h2>
+    <p class="lede">Each card pairs what the agent receives with what it can emit, then lists what the world affords, what it strains, and facts that pull against each other.</p>
+  </div>
+  <div class="cards" id="cards"></div>
+</div></section>
+
+<section id="videos"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Watch</p>
+    <h2>Demo videos, ranked by what one viewing settles</h2>
+    <p class="lede">For each environment, the question is whether a single video can tell you if the world can host the agent. Ranks favor videos that answer that fastest.</p>
+  </div>
+  <div class="flag"><strong>Not watched</strong><p>I have not watched these videos. Both browsers disconnected before I could pull transcripts, so each rank rests on the title, channel, length, view count, upload age and the paper behind the video. The confidence label says how far that basis supports the rank.</p></div>
+  <div><h4 style="margin-bottom:8px">A video ranks higher when it</h4>
+  <ul class="rubric">
+    <li>shows the agent’s raw input, the frame or tensor it actually receives</li>
+    <li>shows the action interface, graded or discrete</li>
+    <li>shows a scene being built or changed in code</li>
+    <li>comes from the platform’s creators</li>
+    <li>shows an agent learning or acting</li>
+    <li>does all this in fewer minutes</li>
+  </ul></div>
+  <div class="passes" id="passes"></div>
+  <div class="vfilter" id="vfilter" role="group" aria-label="Filter videos by world"></div>
+  <div class="vgroups" id="vgroups"></div>
+  <p class="gnote">The watch log under each video stays in your browser only. Use it to record what each video actually showed, so the next pass can skip what is settled.</p>
+</div></section>
+
+<section id="decisions"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Decide</p>
+    <h2>Decisions this comparison forces</h2>
+    <p class="lede">None are made here. Each lists facts that pull one way, facts that pull the other, a fact in tension, and what would settle it.</p>
+  </div>
+  <div class="decs" id="decs"></div>
+</div></section>
+
+<section id="words"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Vocabulary check</p>
+    <h2>Words that shift meaning between fields</h2>
+    <p class="lede">The paper spans Reinforcement Learning (RL), consciousness science and philosophy of mind. These terms read differently in each.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Term</th><th scope="col">In Machine Learning and RL</th><th scope="col">In consciousness science or philosophy</th><th scope="col">Suggested handling</th></tr></thead>
+    <tbody id="wordrows"></tbody>
+  </table></div>
+</div></section>
+
+<section id="reaching"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Self-check</p>
+    <h2>Where this page is reaching</h2>
+  </div>
+  <ul class="reach" id="reach"></ul>
+</div></section>
+
+<section id="outside"><div class="wrap">
+  <div class="sec-head">
+    <p class="eyebrow">Adjacent</p>
+    <h2>Outside your list</h2>
+    <p class="lede">Not researched in depth. Each touches a decision above.</p>
+  </div>
+  <div class="outs" id="outs"></div>
+</div></section>
+
+<section id="acronyms"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Reference</p><h2>Acronyms</h2></div>
+  <dl class="acro" id="acro"></dl>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Reference</p><h2>Sources</h2></div>
+  <ul class="srcs" id="srclist"></ul>
+</div></section>
+
+<footer><div class="wrap">Compiled for Minda Myers and the Mind Guild collective. Facts checked against the linked sources on 7 November 2026; video statistics as of that date.</div></footer>
+
+<script>
+(function(){
+"use strict";
+
+var SRC = {
+  mg_home:["Mind Guild home page","https://mind-guild.com/index.html"],
+  mg_impl:["Mind Guild proposed framework","https://mind-guild.com/implementation.html"],
+  notes:["Minda’s working notes with Claude, May–July 2026 (private)",null],
+  butlin23:["Butlin, Long et al. 2023, Consciousness in Artificial Intelligence","https://arxiv.org/abs/2308.08708"],
+  butlin25:["Butlin, Long et al. 2025, Identifying indicators of consciousness in AI systems","https://www.cell.com/trends/cognitive-sciences/fulltext/S1364-6613(25)00286-4"],
+  dossa24:["Dossa et al. 2024, a global workspace agent in a realistic multimodal environment","https://www.frontiersin.org/articles/10.3389/fncom.2024.1352685"],
+  maytie24:["Maytié et al. 2024, cross-modal policy transfer through a global workspace","https://arxiv.org/abs/2403.04588"],
+  gkg24:["Goldstein & Kirk-Giannini 2024, A Case for AI Consciousness","https://arxiv.org/abs/2410.11407"],
+  wilterson21:["Wilterson & Graziano 2021, attention schema in a neural network agent","https://pmc.ncbi.nlm.nih.gov/articles/PMC8379943"],
+  asrole24:["Computational characterization of the role of an attention schema (2024)","https://arxiv.org/abs/2402.01056"],
+  liu23:["Liu et al. 2023, Attention Schema in Neural Agents","https://arxiv.org/abs/2305.17375"],
+  albantakis14:["Albantakis et al. 2014, integrated causal structures in animats","https://adamilab.msu.edu/wp-content/uploads/Albantakisetal2014.pdf"],
+  sanyal26:["Sanyal 2026, ReCoN-Ipsundrum indicator assays","https://arxiv.org/abs/2602.23232"],
+  mimo:["Mattern et al., MIMo: a multimodal infant model","https://arxiv.org/abs/2312.04318"],
+  mimo2:["López et al. 2025, MIMo grows!","https://arxiv.org/abs/2509.09805"],
+  mimo_retarget:["Motion retargeting from infants to simulated bodies (2026)","https://arxiv.org/abs/2604.27583"],
+  mujoco:["MuJoCo repository","https://github.com/google-deepmind/mujoco"],
+  mujoco_org:["mujoco.org","https://mujoco.org/"],
+  playground:["MuJoCo Playground","https://github.com/google-deepmind/mujoco_playground"],
+  tdw_pypi:["ThreeDWorld on PyPI, current documentation index","https://pypi.org/project/tdw"],
+  tdw_docs_old:["ThreeDWorld 1.8 documentation index (IntPhys demo, determinism benchmark)","https://pypi.org/project/tdw/1.8.23.0/"],
+  tdw_paper:["Gan et al., ThreeDWorld platform paper","https://arxiv.org/abs/2007.04954"],
+  cbmm_tut:["CBMM course page for the ThreeDWorld tutorial","https://cbmm.mit.edu/video/threedworld-tdw-tutorial"],
+  avalon_paper:["Albrecht et al. 2022, Avalon","https://arxiv.org/abs/2210.13417"],
+  avalon_repo:["Avalon repository","https://github.com/Avalon-Benchmark/avalon"],
+  avalon_imbue:["Imbue’s Avalon page","https://imbue.com/research/avalon/"],
+  avalon_pypi:["avalon-rl on PyPI (licenses)","https://pypi.org/project/avalon-rl/1.0.1/"],
+  imbue_launch:["Generally Intelligent launch post","https://imbue.com/blog/launch"],
+  semhelm:["Semantic HELM paper, describing Avalon’s inputs","https://arxiv.org/abs/2306.09312"],
+  nle_paper:["Küttler et al. 2020, The NetHack Learning Environment","https://arxiv.org/abs/2006.13760"],
+  minihack_paper:["Samvelyan et al. 2021, MiniHack the Planet","https://arxiv.org/abs/2109.13202"],
+  minihack_repo:["MiniHack repository (NetHack-LE)","https://github.com/NetHack-LE/minihack"],
+  minihack_blog:["Meta AI MiniHack announcement","https://ai.meta.com/blog/minihack-a-new-sandbox-for-open-ended-reinforcement-learning/"],
+  minerl_sum:["MineRL repository summary (MineRL 1.0 interface)","https://www.sourcepulse.org/projects/1486145"],
+  minerl_data:["Guss et al. 2019, MineRL dataset","https://arxiv.org/abs/1907.13440"],
+  minedojo:["Fan et al. 2022, MineDojo","https://arxiv.org/abs/2206.08853"],
+  minedojo_q:["MineRL and MineDojo compared (GitHub discussion)","https://github.com/minerllabs/minerl/issues/735"],
+  minestudio:["MineStudio (2024)","https://arxiv.org/abs/2412.18293"],
+  bedd:["BEDD, the MineRL BASALT evaluation dataset","https://arxiv.org/abs/2312.02405"],
+  v_resim:["MineRL resimulation video","https://www.youtube.com/watch?v=7pyYLbrMq1M"],
+  dreamer4:["Dreamer 4 video","https://www.youtube.com/watch?v=oDlBtTcX0g0"],
+  physion_v:["Physion video","https://www.youtube.com/watch?v=Jz7ImDazcJI"],
+  genie:["Genie 4 announcement video, Google DeepMind","https://www.youtube.com/watch?v=sFfPkUJd_Jk"],
+  voyager:["Wang et al. 2023, Voyager","https://arxiv.org/abs/2305.16291"],
+  voyager_site:["Voyager project site","https://voyager.minedojo.org/"],
+  voyager_install:["Voyager installation notes on Fabric mods (fork mirror)","https://github.com/duydo/Voyager/blob/main/installation/fabric_mods_install.md"],
+  minigrid:["MiniGrid documentation","https://minigrid.farama.org/"],
+  minigrid_sum:["MiniGrid project summary (speed)","https://sourceforge.net/mirror/minigrid/profile/"],
+  minigrid_paper:["Chevalier-Boisvert et al. 2023, Minigrid & Miniworld","https://arxiv.org/abs/2306.13831"],
+  babyai:["BabyAI repository note on observations","https://github.com/mila-iqia/babyai"],
+  safety_gw:["Leike et al. 2017, AI Safety Gridworlds","https://arxiv.org/abs/1711.09883"],
+  animalai:["Animal-AI Environment paper (2025)","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11870899/"],
+  animalai3:["Animal-AI 3 (2023)","https://arxiv.org/abs/2312.11414"]
+};
+
+var LEVEL = {"2":"native","1":"partial or buildable","0":"absent or awkward","-1":"unknown"};
+
+var COLS = [
+  {k:"pix",name:"Objects in pixels",why:"Raw images with separable objects, which an object-binding front end (Layer 1) and recurrent perceptual organization (RPT-2) need."},
+  {k:"body",name:"Own body sensed",why:"Proprioception, touch or a visible body, which a self/world model (Layer 2) and embodiment (AE-2) need."},
+  {k:"multi",name:"Several senses",why:"Independent input streams that can compete for a limited workspace, as Global Workspace Theory (GWT) requires."},
+  {k:"cont",name:"Graded motor output",why:"Continuous actions, needed for efference-copy logic and the suppression gate’s subthreshold leak (Layer 4)."},
+  {k:"lang",name:"Language in or out",why:"A text channel for instructions or reports. Useful for report paradigms; risky because language invites gamed indicators."},
+  {k:"phys",name:"Continuous physics",why:"Lawful, continuous dynamics, part of the task family on the Mind Guild framework page."},
+  {k:"indep",name:"World acts on its own",why:"Changes the agent did not cause, so self-caused and world-caused change can be told apart."},
+  {k:"obs",name:"View depends on action",why:"Action-dependent observability: what the agent sees changes with what it does."},
+  {k:"goal",name:"Competing drives",why:"Goals and valenced outcomes that compete, for agency (AE-1), Layer 5 and the valence tests."},
+  {k:"script",name:"Scripted interventions",why:"Building scenes and changing them mid-episode: staged violations, held-out compositions."},
+  {k:"det",name:"Seeded replay",why:"Reproducing an episode exactly, which supports a yoked passive observer and frozen configurations."},
+  {k:"speed",name:"Steps per second",why:"How fast the world steps; it sets experiment turnaround."},
+  {k:"maint",name:"Maintained now",why:"Whether the code is kept working as of November 2026."},
+  {k:"human",name:"Human data",why:"Recorded human behavior in the same world, for comparison."}
+];
+var GROUPS = [["Perceive",["pix","body","multi"]],["Act",["cont","lang"]],["World",["phys","indep","obs","goal"]],["Control",["script","det"]],["Practical",["speed","maint","human"]]];
+
+var ENVS = [
+{id:"minecraft",name:"Minecraft",tag:"world",kind:"A game, reached through research interfaces.",
+ inp:"MineRL 1.0: first-person Red-Green-Blue (RGB) frames at 640×360. MineDojo adds structured state such as inventory and nearby blocks. Mineflayer, Voyager’s route, gives text and Application Programming Interface (API) state only.",
+ out:"MineRL 1.0: near-human keyboard and mouse, inventory screen included. Mineflayer: JavaScript calls.",
+ ioSrc:["minerl_sum","minedojo"],
+ cells:{
+  pix:[1,"Pixel frames exist, but terrain is built from uniform blocks, so what counts as one object is ambiguous: a tree is many blocks. Animals, monsters and dropped items are distinct.","minerl_sum",true],
+  body:[1,"The first-person view shows the hand and held item. There is no joint-level body sense; position, health and hunger are available.","voyager",false],
+  multi:[1,"Vision plus structured game state and chat text. The common research interfaces do not appear to expose game audio.",null,true],
+  cont:[1,"Camera turns are continuous; walking, jumping and attacking are on/off keys.","minerl_sum",false],
+  lang:[2,"In-game chat, language-prompted MineDojo tasks, and Large Language Model (LLM) agents that drive bots through Mineflayer.","minedojo",false],
+  phys:[1,"Game physics: falling sand and gravel, flowing fluids, projectiles. It is not a continuous rigid-body simulator.",null,false],
+  indep:[2,"Animals and monsters move, day turns to night, water flows and crops grow without the agent.",null,false],
+  obs:[2,"A first-person field of view, caves and darkness make what the agent sees depend on where it looks and goes.",null,false],
+  goal:[2,"Health and hunger plus an open-ended technology tree; MineDojo lists thousands of tasks.","minedojo",false],
+  script:[1,"Game commands can teleport the agent, place blocks or spawn creatures mid-episode, and MineDojo has a task API. Clumsier than a Python-native simulator.","minedojo",true],
+  det:[1,"Recorded human episodes can be re-simulated, which MineRL has demonstrated. Exact simulator determinism is not promised.","v_resim",true],
+  speed:[0,"About 60 Steps Per Second (SPS) for a MineRL task in the NetHack Learning Environment paper’s 2020 benchmark, against 14,400 for NetHack.","nle_paper",false],
+  maint:[1,"Minecraft itself is active; the research layer is fragmented. MineRL 1.0 dates from 2022, MineDojo builds on MineRL 0.4.4, and MineStudio (2024) set out to unify the pipeline.",["minedojo_q","minestudio"],false],
+  human:[2,"MineRL: over 60 million recorded state-action pairs. MineDojo: about 730,000 YouTube videos plus wiki pages and Reddit posts.",["minerl_data","minedojo"],false]},
+ affords:[["A world that keeps acting without the agent: animals, monsters, weather, fluids.",null,false],["Built-in drives (health, hunger) and an open-ended goal space.","minedojo",false],["The largest human record of any option: demonstrations, video, wiki and forum text.",["minerl_data","minedojo"],false],["World models have learned it from pixels; Dreamer 4 collected diamonds from offline experience.","dreamer4",false]],
+ strains:[["Slow: about 60 Steps Per Second (SPS) in the 2020 benchmark.","nle_paper",false],["No body sense beyond position, health and hunger.",null,false],["On block terrain, what an object-binding front end should call one object is unclear.",null,true],["Five overlapping research interfaces with different observation and action spaces.",["minedojo_q","minestudio"],false]],
+ tension:[["“Minecraft is rich” and “Minecraft is thin” are both true, depending on the interface: MineRL gives pixels and motor-like control, Mineflayer gives text and code.",["minerl_sum","voyager"],false],["MineDojo’s video corpus is huge, and a later benchmark team notes those videos mix streamer overlays, texture packs and mods.","bedd",false]],
+ status:"Game active. Research interfaces: MineRL 1.0 (2022), MineDojo (2022), MineStudio (2024).",
+ links:[["MineDojo","https://minedojo.org/"],["MineRL dataset paper","https://arxiv.org/abs/1907.13440"],["MineStudio paper","https://arxiv.org/abs/2412.18293"]]},
+
+{id:"mujoco",name:"MuJoCo",tag:"world",kind:"Multi-Joint dynamics with Contact (MuJoCo): a physics engine. You author the world.",
+ inp:"Whatever you attach: joint positions and velocities, actuator forces, touch, accelerometer and gyroscope sensors, plus rendered RGB, depth and per-object segmentation images from any camera, including cameras in a body’s eyes.",
+ out:"Continuous actuator commands: torque, joint position or, in bodies such as the Multi-Modal Infant Model (MIMo), muscle activation.",
+ ioSrc:["mujoco","mimo"],
+ cells:{
+  pix:[2,"Scenes are as plain or cluttered as you author them, and the renderer can output per-object segmentation, which gives ground truth for scoring learned object slots.","mujoco",false],
+  body:[2,"Full proprioception. The Multi-Modal Infant Model (MIMo) adds a touch-sensitive skin, a vestibular system and binocular eyes.","mimo",false],
+  multi:[1,"Vision, touch, body position and balance; no audio and no language.","mimo",false],
+  cont:[2,"Continuous control is the native mode. MIMo offers position, torque and muscle actuation models.","mimo2",false],
+  lang:[0,"No language channel; you would add one.",null,false],
+  phys:[2,"Contact-rich rigid-body physics built for model-based control.","mujoco_org",false],
+  indep:[1,"Objects fall, roll and collide by themselves. Creatures or other agents that move with intent must be added.",null,false],
+  obs:[2,"Cameras can sit in a head or eyes, so looking and moving change what is seen, with real occlusion.","mimo",false],
+  goal:[1,"No built-in drives or body budget; rewards and internal variables are yours to define.",null,false],
+  script:[2,"Scenes are written in MuJoCo’s XML format and edited from code, and the full simulation state can be read and overwritten mid-episode, so objects can be moved or physics violated on cue.","mujoco",false],
+  det:[2,"Simulation state can be saved and restored, which supports exact replay for a yoked observer. Determinism across machines was not checked.","mujoco",true],
+  speed:[2,"Fast on a Central Processing Unit (CPU). Batched Graphics Processing Unit (GPU) simulation runs through MuJoCo XLA (MJX, where XLA is Accelerated Linear Algebra) and MuJoCo Warp, as in MuJoCo Playground.","playground",false],
+  maint:[2,"Maintained by Google DeepMind under Apache-2.0, aiming for a release in the first week of each month.","mujoco",false],
+  human:[0,"No human dataset. 2026 work retargets infant motion capture onto MIMo.","mimo_retarget",false]},
+ affords:[["Graded motor output and full body sense, the two things Layers 2 and 4 lean on.","mimo",false],["Exact control of state: move, freeze or teleport anything mid-episode for violation tests.","mujoco",false],["Ground-truth segmentation for scoring object binding.","mujoco",false],["Fast on CPU, batched on GPU, and maintained on a monthly cadence.",["playground","mujoco"],false],["MIMo supplies a ready infant body with touch skin, balance and binocular eyes.","mimo",false]],
+ strains:[["No world content: every object, creature and drive is yours to build.",null,false],["No audio or language.",null,false],["Plain rendering may make object binding easy enough that reviewers discount it.",null,true]],
+ tension:[["The Mind Guild framework page already lists a MuJoCo scene family in development, yet MuJoCo supplies the least ready-made goal structure and valence of the physics options here.","mg_impl",false],["Simple scenes help a slot learner converge and weaken any claim about rich perception.",null,true]],
+ status:"Active: Google DeepMind, Apache-2.0, monthly release target.",
+ links:[["mujoco.org","https://mujoco.org/"],["Repository","https://github.com/google-deepmind/mujoco"],["MuJoCo Playground","https://github.com/google-deepmind/mujoco_playground"],["MIMo paper","https://arxiv.org/abs/2312.04318"]]},
+
+{id:"tdw",name:"ThreeDWorld",tag:"world",kind:"ThreeDWorld (TDW): a multimodal simulation platform on the Unity engine.",
+ inp:"Near-photorealistic images with depth and instance-segmentation passes, physically derived impact audio, and physics data for every object.",
+ out:"Commands from a Python controller every frame: forces and torques, avatar motion, robot targets (Magnebot), humanoid Replicant actions.",
+ ioSrc:["tdw_pypi"],
+ cells:{
+  pix:[2,"Near-photorealistic images with an instance-segmentation pass, so learned objects can be scored against ground truth. Photorealism may make unsupervised object binding harder.","tdw_pypi",true],
+  body:[1,"Several bodies: first-person and embodied avatars, the Magnebot robot, humanoid Replicants. How much each senses about itself varies.","tdw_pypi",false],
+  multi:[2,"Vision, depth and physically derived impact audio (Clatter), plus Virtual Reality (VR) input for human participants.","tdw_pypi",false],
+  cont:[1,"Low-level forces and torques exist; the ready-made agents mostly take higher-level motions such as move-by and reach-for.","tdw_pypi",true],
+  lang:[0,"No language channel.",null,false],
+  phys:[2,"PhysX rigid bodies plus a Flex module for soft bodies, cloth and fluids.","tdw_pypi",false],
+  indep:[2,"Objects fall, roll, splash and collide, and multiple agents can share a scene.","tdw_paper",false],
+  obs:[2,"Cameras ride on avatars; rooms and occlusion make views depend on movement.",null,false],
+  goal:[1,"No built-in drives; build them.",null,false],
+  script:[2,"A Python controller sends commands every frame. The documentation shipped an IntPhys demo, which stages physically impossible events for intuitive-physics tests.","tdw_docs_old",false],
+  det:[1,"The documentation included a benchmark of PhysX determinism; exact replay is not promised.","tdw_docs_old",true],
+  speed:[1,"A rendering-bound Unity build that needs a GPU plus a display or remote rendering. No published steps-per-second figure found.",null,true],
+  maint:[1,"In Long-Term Support (LTS) since version 1.13.0.0 (31 May 2024): minor updates and bug fixes only.","tdw_pypi",false],
+  human:[1,"VR lets people act in the same scenes, and the platform paper reports attention studies in humans and networks.",["tdw_pypi","tdw_paper"],false]},
+ affords:[["The only listed world with physically derived audio.","tdw_pypi",false],["Soft bodies, cloth and fluids beyond rigid physics.","tdw_pypi",false],["A cognitive-science lineage: an intuitive-physics demo (IntPhys) and human-versus-model benchmarks (Physion).",["tdw_docs_old","physion_v"],false],["Virtual Reality (VR), so people can act in the same scenes.","tdw_pypi",false]],
+ strains:[["In Long-Term Support since May 2024: minor updates and bug fixes only.","tdw_pypi",false],["Rendering-bound and GPU-dependent; no published speed figure found.",null,true],["Ready-made agents act through higher-level motions more than raw motor commands.",null,true],["No drives or valence.",null,false]],
+ tension:[["The richest perception on the list may also be the hardest for unsupervised object binding.",null,true],["Strongest cognitive-science pedigree, least active development.","tdw_pypi",false]],
+ status:"Long-Term Support since 1.13.0.0 (31 May 2024).",
+ links:[["Repository","https://github.com/threedworld-mit/tdw"],["Documentation index","https://pypi.org/project/tdw"],["Platform paper","https://arxiv.org/abs/2007.04954"],["Tutorial course page","https://cbmm.mit.edu/video/threedworld-tdw-tutorial"]]},
+
+{id:"voyager",name:"Voyager",tag:"agent",kind:"An agent architecture that runs on Minecraft through the Mineflayer library.",
+ inp:"A text summary: inventory, equipment, nearby blocks and creatures, biome, time, health and hunger, position, plus error messages from its own code.",
+ out:"JavaScript programs that call the Mineflayer bot API, written by GPT-4 (Generative Pre-trained Transformer 4).",
+ ioSrc:["voyager"],
+ cells:{
+  pix:[0,"The original agent never sees pixels; it reads a text state.","voyager",false],
+  body:[0,"Its body appears only as position, health and hunger numbers in text.","voyager",false],
+  multi:[1,"Text state, execution errors and its own success check: one modality.","voyager",false],
+  cont:[0,"Actions are whole programs, such as a function that mines a block, so motor detail is hidden.","voyager",false],
+  lang:[2,"Language carries its planning, code writing and self-verification, run on GPT-4 (Generative Pre-trained Transformer 4).","voyager",false],
+  phys:[1,"Inherits Minecraft’s game physics, through the API only.",null,false],
+  indep:[2,"Inherits Minecraft’s living world.",null,false],
+  obs:[1,"Knows what the API reports as nearby, which differs from what a camera would show.","voyager",false],
+  goal:[2,"An automatic curriculum proposes its next goal from its state and progress.","voyager",false],
+  script:[1,"Minecraft commands plus its own growing library of code skills.","voyager",false],
+  det:[0,"Language-model sampling and retired model versions make exact reruns unlikely.",null,true],
+  speed:[0,"Bounded by language-model calls and a running Minecraft server.",null,true],
+  maint:[0,"A 2023 research release tied to GPT-4 and a Minecraft setup with Fabric mods. No sign of active maintenance found.","voyager_install",true],
+  human:[1,"Minecraft human data exists, but Voyager does not learn from it.",null,false]},
+ affords:[["A worked language agent: a curriculum that picks goals, a library of reusable skills, and a self-check on success.","voyager",false],["Philosophers cite it. Goldstein and Kirk-Giannini use Voyager as an example of the language agents they argue could meet Global Workspace Theory’s conditions.","gkg24",false],["Long-horizon behavior without gradient training.","voyager",false]],
+ strains:[["No pixels and no motor commands, so an object-binding front end and a self/world model get no input.","voyager",false],["Runs on a language model trained on human writing about experience, which invites gamed indicators.","butlin25",false],["Hard to reproduce: model snapshots retire and sampling varies.",null,true]],
+ tension:[["Language agents may already meet GWT’s functional conditions, and the same agents are the clearest case of indicators being gamed.",["gkg24","butlin25"],false]],
+ status:"2023 research release; installation needs a specific Minecraft setup with Fabric mods.",
+ links:[["Paper","https://arxiv.org/abs/2305.16291"],["Project site","https://voyager.minedojo.org/"]]},
+
+{id:"grid",name:"GridWorld",tag:"genre",kind:"A genre. MiniGrid serves as the reference implementation in the matrix.",
+ inp:"MiniGrid default: a 7×7×3 egocentric encoding (object, color, state per cell), not pixels; RGB wrappers exist. BabyAI tasks add a text mission.",
+ out:"Discrete: turn left, turn right, forward, pick up, drop, toggle, done.",
+ ioSrc:["babyai","minigrid"],
+ cells:{
+  pix:[1,"Objects come pre-separated by grid cells. MiniGrid’s default observation is a symbolic encoding; pixel rendering is optional and trivial to segment.","babyai",false],
+  body:[0,"The agent is a triangle with a position and heading.","minigrid",false],
+  multi:[1,"A grid view plus a text mission in BabyAI tasks.","minigrid",false],
+  cont:[0,"Discrete actions only.","minigrid",false],
+  lang:[1,"Language goes in as missions; nothing comes out unless you add it.","minigrid",false],
+  phys:[0,"No physics.",null,false],
+  indep:[1,"Static by default. DeepMind’s AI Safety Gridworlds include an adversary, and moving objects are easy to script.","safety_gw",false],
+  obs:[2,"MiniGrid’s 7×7 view turns with the agent, so observability depends on action.","babyai",false],
+  goal:[1,"Rewards and hazards are yours to define.",null,false],
+  script:[2,"Everything is Python; size and complexity are programmable, with procedural generation.","minigrid",false],
+  det:[2,"Seeded and deterministic.","minigrid",false],
+  speed:[2,"Thousands of steps per second in Python; JAX ports run far faster.","minigrid_sum",true],
+  maint:[2,"MiniGrid is maintained by the Farama Foundation on the Gymnasium API. AI Safety Gridworlds dates from 2017.",["minigrid","safety_gw"],false],
+  human:[1,"The Minigrid and Miniworld paper ran a 10-person transfer study.","minigrid_paper",false]},
+ affords:[["Precedent: the attention-schema agent, the IIT animats and 2026 indicator assays all used gridworld-scale worlds.",["wilterson21","albantakis14","sanyal26"],false],["One property per environment, as DeepMind’s safety suite shows.","safety_gw",false],["Seeded, fast, fully scriptable.","minigrid",false]],
+ strains:[["No body, physics or graded action.",null,false],["Objects arrive pre-separated, so object binding is trivial.","babyai",false],["Reviewers may read results as toy demonstrations.",null,true]],
+ tension:[["Most consciousness-agent precedents are gridworld-scale, yet the one realistic 3D GWT study concluded that a more sophisticated task or environment may be needed.","dossa24",false]],
+ status:"MiniGrid maintained by the Farama Foundation; AI Safety Gridworlds from 2017.",
+ links:[["MiniGrid docs","https://minigrid.farama.org/"],["Minigrid & Miniworld paper","https://arxiv.org/abs/2306.13831"],["AI Safety Gridworlds paper","https://arxiv.org/abs/1711.09883"]]},
+
+{id:"avalon",name:"Avalon",tag:"world",kind:"A 3D survival simulator and benchmark on the Godot engine.",
+ inp:"An egocentric 96×96 Red-Green-Blue plus Depth (RGB-D) image and 23 body values: movement of body, head and both hands, hand collision and grasp flags, four energy values, time left.",
+ out:"21 continuous dimensions (translation and rotation of the head and each hand) plus grasp and jump; a reduced 9-dimension mouse-and-keyboard mode.",
+ ioSrc:["avalon_paper"],
+ cells:{
+  pix:[2,"An egocentric 96×96 image of procedurally generated terrain, plants, animals and items.","avalon_paper",false],
+  body:[2,"The agent sees its own hands, and 23 body values describe its movement, grasp, collisions and energy.","avalon_paper",false],
+  multi:[1,"Vision, depth, body values and energy; no audio or language.","avalon_paper",false],
+  cont:[2,"21 continuous dimensions control the head and both hands, plus grasp and jump.","avalon_paper",false],
+  lang:[0,"No language. Its developers mentioned exploring language tasks outside the released benchmark.","imbue_launch",false],
+  phys:[2,"Bullet physics: climbing, falling damage, throwing, stacking.","avalon_paper",false],
+  indep:[2,"Predators and prey move with their own behaviors.","avalon_paper",false],
+  obs:[2,"A first-person 3D view in large worlds.","avalon_paper",false],
+  goal:[2,"One energy budget: food adds energy; movement, falls and predator attacks drain it; the episode ends at zero.","avalon_paper",false],
+  script:[2,"A world generator per task with finely controllable factors of variation, a difficulty curriculum and the Godot editor.","avalon_paper",false],
+  det:[2,"Deterministic: the same seed and actions reproduce identical output.","avalon_paper",false],
+  speed:[2,"About 7,000 steps per second without a display (paper); up to 10,000 on one GPU (Imbue’s page).",["avalon_paper","avalon_imbue"],false],
+  maint:[-1,"Released in 2022 by Generally Intelligent. The repository lists no releases and states nothing about maintenance; treat it as unmaintained until checked.","avalon_repo",true],
+  human:[2,"About 215 hours of human Virtual Reality (VR) play on the 1,000 evaluation worlds.","avalon_paper",false]},
+ affords:[["The closest ready-made match to the reference build: hands in view, body values, an energy budget, animals with their own behavior, continuous control.","avalon_paper",false],["Deterministic replay for yoked controls.","avalon_paper",false],["About 7,000 Steps Per Second (SPS) without a display.","avalon_paper",false],["About 215 hours of human VR play on the 1,000 evaluation worlds.","avalon_paper",false]],
+ strains:[["No releases or maintenance statement since its 2022 release.","avalon_repo",false],["No audio or language.","avalon_paper",false],["Code is licensed GPLv3 (GNU General Public License version 3), which matters if the platform is redistributed.","avalon_pypi",false],["Runs on a custom Godot build.","avalon_repo",false]],
+ tension:[["Best feature fit for the reference build, highest abandonment risk.",null,true],["The paper files energy under proprioceptive input; neuroscience would call energy-like signals interoceptive.",["avalon_paper","semhelm"],false]],
+ status:"Unknown. Public repository, no releases listed, no maintenance statement.",
+ links:[["Paper","https://arxiv.org/abs/2210.13417"],["Repository","https://github.com/Avalon-Benchmark/avalon"],["Imbue page","https://imbue.com/research/avalon/"]]},
+
+{id:"nethack",name:"NetHack",tag:"world",kind:"A game, reached through the NetHack Learning Environment (NLE).",
+ inp:"Symbolic tensors: a 21×79 grid of glyph IDs (up to 5,991 kinds), 25 status values (hit points, hunger, depth and more), a 256-byte message, inventory.",
+ out:"93 to 98 discrete keyboard commands (the paper gives both counts), with a 76-action useful subset.",
+ ioSrc:["nle_paper"],
+ cells:{
+  pix:[0,"The NetHack Learning Environment (NLE) paper describes no pixel observation; every object arrives labeled as a glyph.","nle_paper",false],
+  body:[0,"No body sense beyond status numbers.","nle_paper",false],
+  multi:[1,"Several symbolic streams: map, status, message text and inventory.","nle_paper",false],
+  cont:[0,"93 to 98 discrete commands; the paper gives both counts.","nle_paper",false],
+  lang:[1,"Game messages arrive as text, and a language wrapper can take text actions.","minihack_repo",false],
+  phys:[0,"Turn-based rules, no continuous physics.",null,false],
+  indep:[2,"Monsters, pets and shopkeepers act on their own, and dynamics are stochastic.","nle_paper",false],
+  obs:[2,"Unexplored maps, dark rooms and blindness hide the world until the hero moves.",null,false],
+  goal:[2,"Hunger, hit points and many competing threats and resources.","nle_paper",false],
+  script:[0,"The full game generates its own levels; controlled paradigms need MiniHack.","minihack_paper",false],
+  det:[1,"Stochastic, but the random number generator can be seeded.","nle_paper",false],
+  speed:[2,"14,400 steps per second on a 2020 laptop in the paper’s benchmark.","nle_paper",false],
+  maint:[1,"Community-maintained under the NetHack-LE organization; MiniHack now runs on NLE 1.1.0.","minihack_repo",false],
+  human:[2,"More than five million recorded human games on the NetHack Alt.org (NAO) server.","nle_paper",false]},
+ affords:[["A deep, stochastic world full of independent agents.","nle_paper",false],["Hunger and hit points as built-in pressures.","nle_paper",false],["14,400 Steps Per Second (SPS) on a 2020 laptop.","nle_paper",false],["Over five million recorded human games.","nle_paper",false],["Perception perturbations exist as game states: blindness and hallucination.",null,true]],
+ strains:[["No pixels, physics or body; objects arrive labeled.","nle_paper",false],["The full game is too hard to isolate questions in; MiniHack’s authors built MiniHack for that reason.","minihack_paper",false]],
+ tension:[["Blindness and hallucination look like ready-made misperception paradigms, but they are scripted symbol swaps.",null,true]],
+ status:"Community-maintained: NLE 1.1.0 under the NetHack-LE organization.",
+ links:[["NLE paper","https://arxiv.org/abs/2006.13760"],["MiniHack repository (NLE 1.1.0 note)","https://github.com/NetHack-LE/minihack"]]},
+
+{id:"minihack",name:"MiniHack",tag:"sandbox",kind:"A sandbox on NLE for writing your own NetHack levels.",
+ inp:"Pixel (tile), symbolic and text observations of NetHack levels you design.",
+ out:"NetHack’s discrete commands, usually restricted per task.",
+ ioSrc:["minihack_blog"],
+ cells:{
+  pix:[1,"Tile-rendered pixels are available, but every object is a pre-drawn tile on a grid.","minihack_blog",false],
+  body:[0,"No body sense.",null,false],
+  multi:[1,"Pixel, symbolic and text views of the same level.","minihack_blog",false],
+  cont:[0,"NetHack’s discrete commands.",null,false],
+  lang:[1,"A language wrapper turns observations into text and accepts text actions.","minihack_repo",false],
+  phys:[0,"No physics.",null,false],
+  indep:[2,"Over 500 monsters and 450 items with their own rules.","minihack_blog",false],
+  obs:[2,"Layout and level features are configurable, and NetHack’s lighting and line of sight carry over.","minihack_repo",true],
+  goal:[1,"Custom reward functions; NetHack’s hunger and hit points carry over.","minihack_blog",false],
+  script:[2,"Levels are written in NetHack’s description-file language or in Python: monsters, traps, objects, terrain and randomness.","minihack_repo",false],
+  det:[1,"Seedable through NLE.","nle_paper",false],
+  speed:[2,"Runs on NetHack’s compiled engine, so it keeps NLE’s speed.","minihack_paper",false],
+  maint:[1,"Moved to the NetHack-LE organization; supports the Gymnasium API and NLE 1.1.0.","minihack_repo",false],
+  human:[0,"No MiniHack-specific human data.",null,false]},
+ affords:[["Write a paradigm in a few lines of a level-description language or in Python.","minihack_repo",false],["Over 500 monsters and 450 items with their own rules.","minihack_blog",false],["The same level as pixels, symbols or text.","minihack_blog",false],["Hosts ported MiniGrid and Boxoban tasks.","minihack_paper",false]],
+ strains:[["The same limits as NetHack for body, physics and graded action.",null,false]],
+ tension:[["Maximum experimental control, minimum sensorimotor richness.",null,true]],
+ status:"Maintained under NetHack-LE; Gymnasium API; NLE 1.1.0.",
+ links:[["Paper","https://arxiv.org/abs/2109.13202"],["Repository","https://github.com/NetHack-LE/minihack"],["Meta announcement","https://ai.meta.com/blog/minihack-a-new-sandbox-for-open-ended-reinforcement-learning/"]]}
+];
+
+var LENSES = [
+{id:"s3q",chip:"S3Q reference build",full:"Simulated, Situated, Structurally Coherent Qualia (S3Q) reference build",codes:"Layers 1–5: object binding · self/world model · pattern completion · action and suppression · coherence regulation",
+ cols:["pix","body","cont","phys","indep","obs","goal","script","det"],
+ needs:[["The task family the Mind Guild framework page names: “Multiple objects, action-dependent observability, continuous physics and goal flexibility.”","mg_impl",false],["Changes with two causes, the agent’s own movement and things that move by themselves, so Layer 2 has something to attribute.","mg_impl",false],["Graded motor output for Layer 4, including the subthreshold leak (σ ≈ 0.9) in the paper’s dream hypothesis, as summarized in May 2026 working notes.","notes",false],["Valenced outcomes for Layer 5 and for the valence tests among the stated failure conditions.","mg_impl",false],["Seeds, interventions and traces, so a yoked passive observer can be compared with the active agent.","mg_impl",false]],
+ precedents:[["The framework page lists a MuJoCo scene family as in development.","mg_impl",false],["MIMo, a MuJoCo infant body with touch, body position, balance and binocular vision. Its authors motivate it by noting that intelligence and consciousness emerge through development.","mimo",false]],
+ edges:[["The comparison may arrive after a choice. With MuJoCo already in development, reviewers may ask whether the paper selects an environment or justifies one.","mg_impl",true],["A passive observer that only watches needs a recorded frame log, which any environment can produce. Exact determinism matters only if the passive agent must be carried through the same world.",null,true],["The SAVi line of slot models grew up on synthetic scenes. Textured or photoreal worlds may need feature-based successors such as VideoSAUR, which the paper allows as a drop-in.","notes",true]],
+ fit:{minecraft:[1,"Living world and drives; block objects, no body sense, slow."],mujoco:[2,"Body, graded control, physics, interventions; world content and drives must be built."],tdw:[1,"Rich physics and perception; no drives, agents mostly high-level, in Long-Term Support."],voyager:[0,"No pixels and no motor commands, so Layers 1 and 2 get no input."],grid:[0,"No body, physics or graded action; useful for isolated sub-tests only."],avalon:[2,"Hands in view, body values, energy budget, animals, continuous control, deterministic; maintenance unknown."],nethack:[0,"Symbolic, discrete, no physics."],minihack:[0,"Scriptable, but symbolic and discrete."]}},
+
+{id:"gwt",chip:"Global Workspace (GWT)",full:"Global Workspace Theory (GWT)",codes:"Indicators GWT-1 to GWT-4 in Butlin et al.",
+ cols:["multi","goal","obs","script","lang"],
+ needs:[["Several specialized input streams that compete for a limited-capacity workspace whose contents are then broadcast.","butlin25",false],["Tasks where integrating or switching between streams pays off.","dossa24",false],["Competing demands that force selection.",null,true]],
+ precedents:[["Dossa et al. (2024) built an agent meeting all four GWT indicators and trained it on audio-guided navigation in realistic 3D scenes. It beat a recurrent baseline at small working-memory sizes; the authors suggest a more sophisticated task or environment may be needed to show behavioral benefits.","dossa24",false],["Maytié et al. (2024) used a global workspace for cross-modal policy transfer in a Webots factory world and a simple-shapes world.","maytie24",false],["Goldstein and Kirk-Giannini (2024) argue language agents could meet GWT’s conditions and cite Voyager as one such agent.","gkg24",false]],
+ edges:[["Realism alone did not reveal the workspace’s value in Dossa et al.; the task carried the weight.","dossa24",false],["NetHack’s map, status and message streams are separate inputs, but the game has already done the specialized processing.",null,true]],
+ fit:{tdw:[2,"Vision, audio and physics streams."],mujoco:[1,"Vision, touch, body position, balance (with MIMo)."],avalon:[1,"Vision, depth, body values, energy."],minecraft:[1,"Vision, game state, chat."],nethack:[1,"Map, status, messages, inventory, all symbolic."],minihack:[1,"Pixel, symbolic and text views."],grid:[1,"Grid plus mission text."],voyager:[1,"Text streams only; already cited as a GWT-style language agent."]}},
+
+{id:"rpt",chip:"Recurrent Processing (RPT)",full:"Recurrent Processing Theory (RPT)",codes:"Indicators RPT-1, RPT-2",
+ cols:["pix","obs","script"],
+ needs:[["Raw input that needs perceptual organization (grouping, figure and ground, occlusion, binding), which is RPT-2.","butlin25",false],["RPT-1, recurrent input modules, is architectural; the world only has to give recurrence something to do.",null,true]],
+ precedents:[["Sanyal (2026) mapped RPT-1 to a persistence loop with a lesion test in custom gridworlds.","sanyal26",false]],
+ edges:[["Symbolic worlds hand the agent percepts that are already organized, so the environment does the work RPT-2 is about.",null,true],["Masking and timing control for perception tests is easiest in rendered simulators and custom 2D worlds.",null,true]],
+ fit:{mujoco:[2,"Rendered scenes you control."],tdw:[2,"Photoreal scenes with occlusion."],avalon:[2,"Egocentric 3D."],minecraft:[1,"Pixels, block objects."],minihack:[1,"Pixel tiles, pre-segmented."],grid:[1,"Optional pixels, trivially segmented."],nethack:[0,"Glyph IDs."],voyager:[0,"Text."]}},
+
+{id:"hot",chip:"Higher-Order (HOT)",full:"Higher-Order Theories (HOT)",codes:"Indicators HOT-1 to HOT-4",
+ cols:["pix","lang","script","det"],
+ needs:[["Graded stimulus strength or noise, so first-order perception can be right or wrong.","butlin25",false],["A way to report confidence, wager or opt out, which tests metacognitive monitoring (HOT-2).","butlin25",false],["Belief updates driven by that monitor (HOT-3).","butlin25",false]],
+ precedents:[["None found among this list’s environments; the search was not exhaustive.",null,false]],
+ edges:[["NetHack offers discrete perception perturbations, blindness and hallucination, but nothing graded.",null,true],["Voyager’s self-verification looks metacognitive, but it judges text the model itself produced.","voyager",true]],
+ fit:{tdw:[2,"Full control of contrast, timing, occlusion."],mujoco:[2,"The same control, simpler scenes."],grid:[2,"The easiest place for a clean opt-out task."],avalon:[1,"Possible through world generators."],minihack:[1,"Scriptable, discrete."],minecraft:[1,"Possible, clumsy."],nethack:[1,"Discrete perturbations only."],voyager:[1,"A self-check exists, text only."]}},
+
+{id:"ast",chip:"Attention Schema (AST)",full:"Attention Schema Theory (AST)",codes:"Indicator AST-1",
+ cols:["pix","obs","indep","script"],
+ needs:[["Scenes where attention must be steered: noise, distractors, moving targets.","wilterson21",false],["For the social version, other agents whose attention can be modeled.","liu23",false]],
+ precedents:[["Wilterson and Graziano (2021): a pixel-input agent controlling an attention window in a catch task learned well only with an attention schema.","wilterson21",false],["A 2024 follow-up found a schema emerges when attention is important and hard to track.","asrole24",false],["Liu et al. (2023) tested attention schemas in multi-agent reinforcement learning.","liu23",false]],
+ edges:[["Slot and transformer “attention” are weighting operations. AST concerns a model of a selection process, so equating the two slides between meanings.",null,true]],
+ fit:{grid:[2,"The precedent tasks are 2D."],tdw:[2,"Cluttered scenes; the platform paper reports attention studies in humans and networks."],mujoco:[1,"Buildable."],avalon:[1,"Predators to track."],minecraft:[1,"Multi-agent possible."],minihack:[1,"Many monsters to track, symbolic."],nethack:[0,"Too uncontrolled."],voyager:[0,"No visual attention to model."]}},
+
+{id:"pp",chip:"Predictive Processing (PP)",full:"Predictive Processing (PP) and active inference",codes:"Indicator PP-1",
+ cols:["cont","phys","indep","script","det"],
+ needs:[["Lawful dynamics worth predicting.",null,false],["Controllable surprises for Violation-of-Expectation (VOE) tests.","tdw_docs_old",false],["Tight action-perception loops, where acting changes what is predicted.",null,false]],
+ precedents:[["Dreamer-family world models learned Minecraft from pixels; Dreamer 4 learned from offline experience.","dreamer4",false],["ThreeDWorld’s documentation shipped an IntPhys demo that stages impossible events.","tdw_docs_old",false],["Sanyal (2026) used a one-step forward model as PP-1 in gridworlds.","sanyal26",false]],
+ edges:[["In stochastic, rule-based worlds such as NetHack, much of what gets predicted is game rules rather than sensory flow.",null,true]],
+ fit:{mujoco:[2,"Deterministic physics and interventions."],tdw:[2,"Physics plus staged violations."],avalon:[2,"Physics and animals, deterministic."],minecraft:[1,"Learnable, slow."],grid:[1,"Simple to build."],minihack:[1,"Scriptable rules."],nethack:[1,"Stochastic rules."],voyager:[0,"No sensory stream."]}},
+
+{id:"ae",chip:"Agency & Embodiment (AE)",full:"Agency and Embodiment (AE)",codes:"Indicators AE-1, AE-2",
+ cols:["body","cont","indep","goal"],
+ needs:[["AE-1: learning from feedback to pursue goals, flexibly, especially when goals compete.","butlin25",false],["AE-2: modeling how outputs change inputs, and using that model in perception or control.","butlin25",false]],
+ precedents:[["Butlin et al. state AE-2 computationally, so a simulated body can satisfy it in principle.","butlin23",false]],
+ edges:[["Enactivist and biological views tie embodiment to a living, self-maintaining body, which none of these worlds provides.",null,true]],
+ fit:{avalon:[2,"Energy budget, threats, visible hands, continuous control."],mujoco:[2,"Strongest AE-2; AE-1 must be built."],minecraft:[1,"Strong AE-1, weak AE-2."],tdw:[1,"Bodies exist; goals must be built."],nethack:[1,"Strong AE-1, no AE-2."],minihack:[1,"Same as NetHack."],grid:[1,"Both buildable, minimal."],voyager:[1,"Goal curriculum, no sensorimotor loop."]}},
+
+{id:"iit",chip:"Integrated Information (IIT)",full:"Integrated Information Theory (IIT)",codes:"Outside the indicator set",
+ cols:["script","det","speed"],
+ needs:[["Little from the world. Integrated information (Φ) is a property of the system’s causal structure; the environment matters as pressure that shapes that structure.","albantakis14",false],["Worlds small enough that the agent stays small, because Φ is only computable for tiny systems.","albantakis14",true]],
+ precedents:[["Albantakis et al. (2014) evolved small logic-gate animats in a falling-block world; integration rose with environmental complexity, especially memory demands.","albantakis14",false]],
+ edges:[["Butlin et al. build their indicators on computational functionalism, which IIT rejects, so IIT tests sit outside the indicator framework.","butlin23",false],["Every listed world rich enough to be interesting needs an agent too large for Φ.",null,true]],
+ fit:{grid:[2,"Tiny worlds keep Φ computable."],minihack:[1,"Small levels are possible."],mujoco:[0,"Agent too large for Φ."],tdw:[0,"Agent too large for Φ."],avalon:[0,"Agent too large for Φ."],minecraft:[0,"Agent too large for Φ."],nethack:[0,"Agent too large for Φ."],voyager:[0,"Runs on a language model; Φ is out of reach."]}},
+
+{id:"body",chip:"Body budget & valence",full:"Interoceptive and affect-based views (body budget, valence)",codes:"No fixed indicator code",
+ cols:["body","indep","goal"],
+ needs:[["Internal variables the agent must keep in range, threats and rewards with valence, and time pressure.",null,false]],
+ precedents:[["Sanyal (2026) used a body-budget proxy, valence and arousal readouts, and a pain-persistence assay in gridworlds.","sanyal26",false]],
+ edges:[["Game counters such as hunger and health are scripted scores. Treating them as interoception is a theoretical choice.",null,true],["Avalon’s paper groups energy with proprioceptive inputs; neuroscience would call energy-like signals interoceptive.",["avalon_paper","semhelm"],false]],
+ fit:{avalon:[2,"Energy budget with gains and losses."],nethack:[2,"Hunger and hit points."],minecraft:[2,"Health and hunger."],minihack:[1,"Inherits NetHack’s counters."],grid:[1,"Build your own."],mujoco:[1,"Build your own."],tdw:[0,"Nothing native."],voyager:[1,"Reads hunger and health as text."]}}
+];
+
+var VIDEOS = [
+{env:"minecraft",id:"z6PTrGifupU",title:"What is MineRL?",ch:"The MineRL Project",dur:"7:30",views:"333,946",age:"5 yr",dv:4,conf:"medium",tests:"How do research agents see and act inside Minecraft?",shows:"Likely MineRL’s first-person frames, keyboard-and-camera actions and its human demonstration data.",misses:"Probably predates MineRL 1.0’s 640×360 interface; nothing on Mineflayer or MineDojo.",basis:"Creator channel, short, by far the most viewed research video on the topic."},
+{env:"minecraft",id:"oDlBtTcX0g0",title:"Dreamer 4 | Diamonds from Offline Experience",ch:"Danijar Hafner",dur:"2:56",views:"13,193",age:"1 yr",dv:4,conf:"medium",tests:"Can a learned world model imagine Minecraft well enough to act from it?",shows:"A world-model agent’s results in Minecraft, the nearest outside analog to Layers 2 and 4.",misses:"Interface, scripting, body.",basis:"The author’s own channel; 2025 work."},
+{env:"minecraft",id:"HqyM0qxmOvk",title:"So you wanna get into Minecraft AI? (MineRL)",ch:"Elliotcodes",dur:"15:06",views:"6,501",age:"2 yr",dv:3,conf:"low",tests:"What does setting up MineRL actually cost?",shows:"Probably installation and a first agent.",misses:"Research framing.",basis:"Practitioner channel; title only."},
+{env:"minecraft",id:"oz5yZc9ULAc",title:"Video PreTraining (VPT): Learning to Act by Watching Unlabeled O…",ch:"Yannic Kilcher",dur:"32:34",views:"41,467",age:"4 yr",dv:3,conf:"medium",tests:"What does a human-like mouse-and-keyboard action space demand?",shows:"A detailed walk-through of labeling actions from video and of the native action space.",misses:"Environment customization; long.",basis:"A well-known paper explainer."},
+{env:"minecraft",id:"7pyYLbrMq1M",title:"MineRL: Multi-Perspective, Multi-Agent Data Resimulation",ch:"MineRL Labs",dur:"1:12",views:"787",age:"7 yr",dv:2,conf:"low",tests:"Can recorded episodes be replayed from other viewpoints, a route to a yoked observer?",shows:"A resimulation demo.",misses:"Everything else.",basis:"Creator channel; title only."},
+
+{env:"mujoco",id:"xGJ62avW8zw",title:"F. M. López et al.: MIMo grows! Simulating body and sensory deve…",ch:"CVUTFEL",dur:"15:06",views:"165",age:"10 mo",dv:5,conf:"low",tests:"Can a MuJoCo body carry the senses a self/world model needs: touch, body position, balance, binocular vision?",shows:"A talk on MIMo v2, an infant body that grows from birth to 24 months.",misses:"General scene authoring; speed.",basis:"The paper’s authors presenting. Very few views, so quality is unknown."},
+{env:"mujoco",id:"yHZVVfsJ8mc",title:"DeepMind MuJoCo presentation by Yuval Tassa",ch:"Conference on Robot Learning",dur:"8:43",views:"7,924",age:"4 yr",dv:4,conf:"medium",tests:"What does MuJoCo model, according to its lead developer?",shows:"Contacts, actuators, sensors and design goals around the open-sourcing.",misses:"Later GPU paths (MJX, MuJoCo Warp) and MuJoCo Playground.",basis:"The lead developer at a robotics conference."},
+{env:"mujoco",id:"rAai4QzcYbs",title:"DeepMind Control Suite",ch:"Yuval Tassa",dur:"2:34",views:"53,857",age:"8 yr",dv:3,conf:"medium",tests:"What do standard MuJoCo bodies and continuous-control tasks look like?",shows:"The suite’s bodies and tasks.",misses:"Sensing detail, scripting.",basis:"The lead developer’s channel."},
+{env:"mujoco",id:"YScjmR8LwQI",title:"MuJoCo: touch grid illustration",ch:"Yuval Tassa",dur:"0:23",views:"892",age:"3 yr",dv:2,conf:"medium",tests:"Can a MuJoCo body carry a grid of touch sensors?",shows:"A 23-second touch-sensor demo.",misses:"Everything else.",basis:"The lead developer’s channel."},
+{env:"mujoco",id:"hx_bgoTF7bs",title:"Emergence of Locomotion Behaviours in Rich Environments",ch:"Google DeepMind",dur:"3:26",views:"699,289",age:"9 yr",dv:2,conf:"high",tests:"What behavior emerges from simple rewards in varied terrain?",shows:"Simulated bodies running, jumping and climbing obstacle courses.",misses:"Interfaces; an old MuJoCo version.",basis:"A widely seen 2017 result."},
+
+{env:"tdw",id:"e93bDUmccmo",title:"ThreeDWorld (TDW) Tutorial",ch:"MITCBMM",dur:"1:12:05",views:"1,964",age:"4 yr",dv:5,conf:"medium",tests:"Can we build our scenes and agents in ThreeDWorld, and with how much effort?",shows:"The project lead’s feature tour, then a hands-on lab session, per the course page.",misses:"Changes since 2022: Clatter audio, Replicants, Long-Term Support status.",basis:"The project lead and a core developer."},
+{env:"tdw",id:"Jz7ImDazcJI",title:"Physion: Evaluating Physical Prediction from Vision in Humans & …",ch:"Felix Binder",dur:"4:55",views:"820",age:"4 yr",dv:4,conf:"medium",tests:"Can ThreeDWorld produce controlled physical events shown to both people and models?",shows:"ThreeDWorld stimuli used to compare human and model predictions.",misses:"Agents acting; the controller API.",basis:"A benchmark video; short."},
+{env:"tdw",id:"R1NcsNo6huY",title:"ThreeDWorld (TDW) - A multi-modal platform for interactive physical simulation",ch:"MITCBMM",dur:"54:36",views:"3,141",age:"5 yr",dv:3,conf:"medium",tests:"What is ThreeDWorld’s design philosophy?",shows:"The project lead’s 2021 summer-course lecture.",misses:"It overlaps the tutorial.",basis:"The project lead."},
+{env:"tdw",id:"WRx41xsB_wo",title:"CVPR 21 ThreeDWorld (TDW) Transport Challenge",ch:"Chuang Gan",dur:"1:50",views:"2,746",age:"5 yr",dv:3,conf:"medium",tests:"What does an embodied agent’s task look like in ThreeDWorld?",shows:"The challenge’s robot agent in household scenes.",misses:"The API.",basis:"The first author of the ThreeDWorld paper."},
+{env:"tdw",id:"1r2nt1agRSs",title:"TDW physics dataset",ch:"Dan Gutfreund",dur:"7:06",views:"11",age:"6 yr",dv:2,conf:"low",tests:"What kinds of physical events can ThreeDWorld generate?",shows:"Probably dataset samples.",misses:"Agents.",basis:"A co-author’s channel; 11 views."},
+
+{env:"voyager",id:"BU3w_AbCEbA",title:"Voyager: An Open-Ended Embodied Agent with Large Language Models",ch:"Arize AI",dur:"46:51",views:"2,605",age:"3 yr",dv:4,conf:"low",tests:"What does Voyager perceive and output?",shows:"A paper-reading session on the curriculum, skill library and code-as-action prompting.",misses:"Running it; models after GPT-4.",basis:"Discussion format; long."},
+{env:"voyager",id:"uTg39rNMojo",title:"Voyager: Fully Autonomous AI Agents/NPCs In MINECRAFT - Open End…",ch:"WorldofAI",dur:"16:32",views:"17,797",age:"3 yr",dv:3,conf:"low",tests:"What does running Voyager involve?",shows:"Probably a demo and a setup walkthrough.",misses:"Research framing.",basis:"Title and channel only."},
+{env:"voyager",id:"Wh4abvcUj8Q",title:"Can AI (actually) beat Minecraft?",ch:"Emergent Garden",dur:"20:38",views:"103,262",age:"1 yr",dv:3,conf:"low",tests:"How far had code-writing language-model agents in Minecraft got by 2025?",shows:"Mindcraft, a Voyager-style successor on the same bot library.",misses:"Voyager itself.",basis:"Recent and popular; adjacent to Voyager."},
+{env:"voyager",id:"VKEA5cJluc0",title:"NVIDIA’s New AI Mastered Minecraft 15X Faster!",ch:"Two Minute Papers",dur:"6:13",views:"209,742",age:"3 yr",dv:2,conf:"medium",tests:"What did Voyager achieve?",shows:"Headline results, quickly.",misses:"Interface detail.",basis:"The “15X” matches Voyager’s reported technology-tree speedup."},
+{env:"voyager",id:"gRotoL8P8D8",title:"How to Play Minecraft with AI (mindcraft tutorial)",ch:"Emergent Garden",dur:"15:41",views:"225,838",age:"1 yr",dv:2,conf:"low",tests:"How hard is a Voyager-style agent to run today?",shows:"Setting up Mindcraft.",misses:"Voyager.",basis:"Tutorial title."},
+
+{env:"grid",id:"CGTkoUidQ8I",title:"AI Safety Gridworlds",ch:"Robert Miles AI Safety",dur:"7:23",views:"95,549",age:"8 yr",dv:4,conf:"medium",tests:"Can a tiny world isolate one property per test?",shows:"DeepMind’s suite, one small environment per safety property.",misses:"MiniGrid specifics, scale.",basis:"A clear explainer, widely viewed."},
+{env:"grid",id:"eElfR_BnL5k",title:"AI Gridworlds - Computerphile",ch:"Computerphile",dur:"10:15",views:"128,120",age:"8 yr",dv:3,conf:"medium",tests:"The same question, in conversation form.",shows:"The same suite, explained by the same presenter.",misses:"MiniGrid specifics.",basis:"Same presenter."},
+{env:"grid",id:"WM2THPzFSNk",title:"Friend or Foe? AI Safety Gridworlds extra bit",ch:"Robert Miles AI Safety",dur:"3:47",views:"44,662",age:"8 yr",dv:3,conf:"medium",tests:"Can a gridworld test whether an agent models another agent’s intent?",shows:"The adversary environment.",misses:"Everything else.",basis:"Short and specific."},
+{env:"grid",id:"bHeeaXgqVig",title:"State and Action Values in a Grid World: A Policy for a Reinforc…",ch:"Jacob Schrum",dur:"13:53",views:"91,011",age:"11 yr",dv:2,conf:"high",tests:"What are states, actions and values, concretely?",shows:"Reinforcement Learning (RL) basics on a grid.",misses:"Anything specific to consciousness tests.",basis:"A teaching video for co-authors new to RL."},
+
+{env:"avalon",id:"4M-J11yMpD8",title:"Avalon Demo",ch:"Imbue",dur:"1:51",views:"5,343",age:"4 yr",dv:4,conf:"medium",tests:"What does the agent’s world look like: terrain, animals, food, hands?",shows:"The developers’ own demo.",misses:"Interface, energy mechanics and code; pair it with the paper’s observation and action sections.",basis:"The only creator video found. Imbue’s site hosts both the Avalon page and the Generally Intelligent launch post."},
+
+{env:"nethack",id:"G4KecBtp6fg",title:"The NetHack Learning Environment",ch:"UCL Centre for Artificial Intelligence",dur:"49:40",views:"3,774",age:"6 yr",dv:4,conf:"medium",tests:"What does an NLE agent receive and emit, and how fast?",shows:"Likely the environment’s authors on observations, actions, speed and baselines.",misses:"MiniHack and language-model agents.",basis:"The lab where the authors worked; long."},
+{env:"nethack",id:"mFiSTdTHiAI",title:"NetHack 2021 NeurIPS Challenge -- AutoAscend team -- Visualizati…",ch:"Michał Sypetkowski",dur:"1:31",views:"766",age:"4 yr",dv:3,conf:"medium",tests:"What does the screen look like while a strong agent plays?",shows:"A rule-based challenge entry in action.",misses:"Learning agents.",basis:"A challenge team member’s channel."},
+{env:"nethack",id:"w8BhP6e4V3A",title:"NetHack - What a game from 1987 tells us about the current limit…",ch:"UCL Centre for Artificial Intelligence",dur:"23:56",views:"724",age:"5 yr",dv:3,conf:"low",tests:"Why NetHack, in half an hour?",shows:"A shorter overview.",misses:"Interface detail.",basis:"Same lab."},
+{env:"nethack",id:"oYSNXTkeCtw",title:"Tim & Heinrich — Democraticizing Reinforcement Learning Research",ch:"CoreWeave",dur:"54:10",views:"12,493",age:"5 yr",dv:2,conf:"low",tests:"What does NLE cost to run at scale?",shows:"Two of the environment’s authors on cheap, fast research.",misses:"Interface detail.",basis:"Authors named in the title."},
+{env:"nethack",id:"zx-_pUC7wIk",title:"The NetHack Learning Environment and Its Challenges for Open-Ended Learning",ch:"ICARL",dur:"1:04:29",views:"545",age:"3 yr",dv:2,conf:"low",tests:"Where did NLE research stand after the 2021 challenge?",shows:"A 2022 seminar by the senior author.",misses:"Brevity.",basis:"The senior author; long."},
+
+{env:"minihack",id:"jxAgX8GNXJ8",title:"Building diverse MiniHack environments with just a few lines of…",ch:"AI at Meta",dur:"1:38",views:"1,118",age:"4 yr",dv:5,conf:"medium",tests:"Can we write our own paradigms quickly?",shows:"Description files turning into playable levels.",misses:"Perception and action detail.",basis:"Creator channel; under two minutes."},
+{env:"minihack",id:"3uLVxwlcSQc",title:"Neurosymbolic Reinforcement Learning: Playing MiniHack With Prob…",ch:"DTAI KU Leuven",dur:"4:57",views:"301",age:"1 yr",dv:2,conf:"low",tests:"How do outside labs use MiniHack?",shows:"A neurosymbolic reinforcement learning study (title truncated in search).",misses:"A platform overview.",basis:"A university lab’s channel."},
+{env:"minihack",id:"Gb48OwHvOxg",title:"Facebook AI Introduces ‘MiniHack’ [Framework For Designing Envi…",ch:"Marktechpost AI",dur:"4:47",views:"113",age:"5 yr",dv:1,conf:"low",tests:"Nothing beyond the announcement.",shows:"A narrated summary.",misses:"Anything past the blog post.",basis:"An aggregator channel."}
+];
+
+var GROUP_NOTES = {
+  grid:"No creator-made MiniGrid video turned up. The MiniGrid documentation’s animated examples are a better single look at that implementation.",
+  avalon:"Only one creator video exists in search results. Pair it with the Avalon paper’s observation and action sections.",
+  voyager:"Ranks favor videos that show what Voyager reads and writes, because its interface is the open question."
+};
+
+var FAST = ["z6PTrGifupU","rAai4QzcYbs","YScjmR8LwQI","Jz7ImDazcJI","WRx41xsB_wo","VKEA5cJluc0","CGTkoUidQ8I","4M-J11yMpD8","mFiSTdTHiAI","jxAgX8GNXJ8"];
+
+var DECISIONS = [
+{q:"What does “test theories of consciousness” mean in this paper?",
+ a:{h:"Test mechanisms",items:[["The framework page states its failure conditions as ablation, yoked-observer and goal-change tests.","mg_impl",false],["The home page frames the work as finding which mechanisms produce flexible, mind-like capabilities.","mg_home",false]]},
+ b:{h:"Assess consciousness indicators",items:[["Butlin et al. (2025) derive 14 indicators from six theories for assessing AI systems.","butlin25",false],["Dossa et al. built their agent to meet the four GWT indicators.","dossa24",false]]},
+ tension:["The group’s IEEE talk title includes “Machine Qualia”, which reads closer to the second option.","mg_home",false],
+ settle:"One sentence in the introduction naming the claim the environment must support."},
+{q:"One world, or a ladder of worlds?",
+ a:{h:"One world",items:[["One codebase, and results stay comparable across theories.",null,true],["A theory-neutral platform is easier to defend on one substrate, and a MuJoCo scene family is already in development.","mg_impl",false]]},
+ b:{h:"A ladder",items:[["The attention-schema and IIT precedents used tiny 2D worlds; the first embodied GWT agent used realistic 3D.",["wilterson21","albantakis14","dossa24"],false],["MiniHack and Minigrid/Miniworld were built to scale complexity in steps.",["minihack_paper","minigrid_paper"],false]]},
+ tension:["Changing observation spaces between rungs adds a confound, which the Minigrid/Miniworld paper studied directly.","minigrid_paper",false],
+ settle:"List which predictions must hold on every rung."},
+{q:"How abstract should the agent’s actions be?",
+ a:{h:"Graded motor commands",items:[["The dream hypothesis needs subthreshold, leaky motor output.","notes",false],["Layer 2 attributes change to self using motor commands; Avalon and MuJoCo provide them natively.",["avalon_paper","mimo2"],false]]},
+ b:{h:"Discrete primitives or programs",items:[["Discrete actions make Mutual Information (MI) estimates and credit assignment cheaper.",null,true],["Voyager’s code actions are compositional and reach long horizons.","voyager",false]]},
+ tension:["Code actions hide the sensorimotor loop that AE-2 asks for.","butlin25",true],
+ settle:"Decide whether the suppression gate’s leak is a claim this paper must test in this environment."},
+{q:"Should objects arrive as pixels to bind, or as symbols?",
+ a:{h:"Pixels",items:[["Object binding is Layer 1 of the reference build.","mg_impl",false],["RPT-2 concerns organizing raw input into objects.","butlin25",false]]},
+ b:{h:"Symbols",items:[["NetHack’s glyph IDs give perfect ground truth and keep later layers clear of Layer 1 failures.","nle_paper",false]]},
+ tension:["A middle path: MuJoCo and ThreeDWorld render segmentation masks, so the agent learns from pixels and you score against ground truth.",["mujoco","tdw_pypi"],false],
+ settle:"Decide whether Layer 1’s success is itself a hypothesis under test."},
+{q:"Does the agent need a report channel?",
+ a:{h:"Yes",items:[["Higher-Order Theories (HOT) need confidence reports or opt-outs.","butlin25",false],["Minecraft chat, NetHack messages and BabyAI missions supply language.",["minedojo","nle_paper","minigrid"],false]]},
+ b:{h:"No, or only carefully",items:[["Butlin et al. warn that systems optimized to mimic consciousness-related behavior game the indicators.","butlin25",false],["Consciousness science also uses no-report paradigms that read signatures without asking.",null,false]]},
+ tension:["Language agents give the richest reports and the most contaminated ones; Voyager runs on GPT-4.",["voyager","gkg24"],false],
+ settle:"Check whether any prediction depends on what the agent says."},
+{q:"Valence built in, or designed?",
+ a:{h:"Built in",items:[["Avalon’s energy budget; NetHack’s and Minecraft’s hunger and health.",["avalon_paper","nle_paper"],false],["Ready-made threats and food make valence tests quick to stage.",null,true]]},
+ b:{h:"Designed",items:[["MuJoCo and ThreeDWorld have none, so the body budget can be built to match Layer 5’s theory.","mg_impl",true]]},
+ tension:["A game counter is a scripted score; calling it interoception is a theoretical commitment.",null,true],
+ settle:"Decide whether the valence tests need a body budget the agent senses, or only rewards."},
+{q:"What does the yoked passive observer need?",
+ a:{h:"Exact replay",items:[["Avalon reproduces output exactly for the same seed and actions.","avalon_paper",false],["MiniGrid is seeded, NLE’s random number generator is seedable, and MuJoCo can save and restore state.",["minigrid","nle_paper","mujoco"],false]]},
+ b:{h:"A frame log",items:[["A learner that only watches needs recorded observations, which any environment can produce.",null,true]]},
+ tension:["If the passive agent should be moved through the world without control, as in Held and Hein’s kitten carousel, the simulator must accept imposed motion: natural in MuJoCo and Avalon, awkward in Minecraft and NetHack.",null,true],
+ settle:"Specify the passive condition: watching, or being carried."},
+{q:"Where is the compute bottleneck?",
+ a:{h:"The world",items:[["NLE ran at 14,400 Steps Per Second (SPS) and MineRL at about 60 in the same benchmark.","nle_paper",false],["Avalon runs about 7,000 SPS without a display; MuJoCo batches on GPUs.",["avalon_paper","playground"],false]]},
+ b:{h:"The learner",items:[["Slot models trained on video may dominate cost whatever the simulator; an earlier SAVi++ install ran out of memory on a g5.xlarge instance.","notes",true]]},
+ tension:["Simulator speed matters most for reinforcement learning sample counts, and least if Layer 1 trains offline on recorded frames.",null,true],
+ settle:"Profile one Layer 1 training run on rendered frames before ranking worlds on speed."},
+{q:"How much maintenance risk can the paper carry?",
+ a:{h:"Low risk",items:[["MuJoCo targets monthly releases.","mujoco",false],["MiniGrid (Farama) and NLE/MiniHack (NetHack-LE) run on the Gymnasium API.",["minigrid","minihack_repo"],false]]},
+ b:{h:"More features, more risk",items:[["Avalon lists no releases and no maintenance statement.","avalon_repo",false],["ThreeDWorld has been in Long-Term Support since May 2024.","tdw_pypi",false],["Voyager depends on GPT-4 and a 2023 Minecraft setup.","voyager_install",false]]},
+ tension:["Avalon has the best feature fit for the reference build and the highest abandonment risk.",null,true],
+ settle:"Decide how long the platform’s reproducibility promise has to hold."},
+{q:"How should Voyager and GridWorld appear in the paper?",
+ a:{h:"As listed environments",items:[["Keeps the comparison readers may expect.",null,true]]},
+ b:{h:"Reclassified",items:[["Voyager is an agent that reaches Minecraft through the Mineflayer library.","voyager",false],["GridWorld is a family: MiniGrid, AI Safety Gridworlds, JAX ports.",["minigrid","safety_gw"],false]]},
+ tension:["Goldstein and Kirk-Giannini cite Voyager as a language agent in a GWT argument, a reason to keep it as a reference architecture rather than a world.","gkg24",false],
+ settle:"A table with separate columns for world, interface and agent."},
+{q:"Which senses, and how many?",
+ a:{h:"More streams",items:[["ThreeDWorld has physically derived audio.","tdw_pypi",false],["MIMo has touch, balance and binocular vision.","mimo",false],["GWT needs streams that compete.","butlin25",false]]},
+ b:{h:"Fewer, chosen by task",items:[["Realistic audio-visual input alone did not reveal the workspace’s behavioral benefit.","dossa24",false]]},
+ tension:["Each added sense multiplies object-binding and source-attribution work in Layers 1 and 2.",null,true],
+ settle:"Name the task that makes integration necessary before adding a sense."},
+{q:"Do you need human comparison data?",
+ a:{h:"Yes",items:[["Avalon: about 215 hours of human VR play.","avalon_paper",false],["NetHack: over five million recorded games. MineRL: over 60 million state-action pairs.",["nle_paper","minerl_data"],false]]},
+ b:{h:"No",items:[["Mechanism tests compare ablations of the same agent, not agents with people.","mg_impl",false]]},
+ tension:["ThreeDWorld’s Physion work shows a middle route: the same stimuli shown to people and to models.","physion_v",false],
+ settle:"Check whether any claim says “like humans”."}
+];
+
+var WORDS = [
+["Environment","Reinforcement Learning (RL): the world plus the interface an agent steps through.","Rarely used; experiments speak of tasks and paradigms.","Name three things separately: world, interface, task."],
+["State","RL: the full underlying state, as opposed to the agent’s partial observation.","A global state of consciousness (waking, sleep, anesthesia), as opposed to its contents.","“Observation and action spaces” instead of “expressive states”."],
+["Expressive","Machine Learning (ML): what functions a model class can represent.","Not a standard term.","“Rich” or “high-bandwidth” interface."],
+["Proprioception","RL papers: any internal body reading; Avalon groups energy with it.","Sensing limb position and movement; energy-like signals are interoception.","Keep the two apart."],
+["Attention","ML: a weighting operation (transformers, Slot Attention).","Selection of information for processing (GWT, AST).","Say which one."],
+["World model","RL: a learned dynamics model such as Dreamer; Layer 2’s forward model T. More recently, generated interactive worlds such as Google DeepMind’s Genie.","An internal model of world and self.","“Forward model” for Layer 2."],
+["Embodiment","Robotics: physical hardware. AE-2: modeling output-input contingencies.","Enactivist and biological views: a living, self-maintaining body.","State which sense the paper uses."],
+["Agent","RL: anything that maps observations to actions.","An entity with agency, as in AE-1’s flexible pursuit of competing goals.","Reserve “agency” for the second."],
+["Qualia","S3Q: computational units of bound features.","The felt qualities of experience; cognitive neuroscience mostly says “conscious content”.","Define it once, early."],
+["Imagination","RL: rollouts in a learned model.","Mental imagery and simulation; the reference build’s imagination-by-suppression sits closer to this.","Say which one."]
+];
+
+var REACH = [
+["I did not watch any video. Both browsers disconnected before transcripts could be pulled, so each rank rests on title, channel, length, view count, upload age and the paper behind the video.",null,false],
+["The reference-build requirements come from the Mind Guild framework page (current) and Minda’s May–July 2026 working notes (the σ ≈ 0.9 leak, the SAVi++ memory problem). The paper may have moved on.",["mg_impl","notes"],false],
+["I don’t know whether the paper’s comparison is an open selection or a justification of the MuJoCo scene family already in development.","mg_impl",false],
+["How well slot learners separate objects in Minecraft’s block textures or ThreeDWorld’s photoreal scenes is untested here.",null,false],
+["Determinism across machines for MuJoCo, and determinism for ThreeDWorld, were not verified; Avalon’s is stated in its paper.","avalon_paper",false],
+["Maintenance for Avalon and Voyager is inferred from missing releases, not from a statement.",["avalon_repo","voyager_install"],false],
+["Theory-to-world mappings are interpretive. Most theories constrain the architecture far more than the world.",null,false],
+["Treating game counters as interoception, and NetHack’s blindness or hallucination as misperception, is my framing.",null,false],
+["Speed figures come from different years and machines. Only the NLE paper’s table compares worlds on one machine.","nle_paper",false]
+];
+
+var OUTSIDE = [
+["Animal-AI Environment","A Unity “virtual laboratory” built to port animal-cognition experiments to AI agents (2025 paper; version 3 in 2023). Relevant if the paper takes a marker-based route.",["animalai","animalai3"],false],
+["Miniworld","MiniGrid’s 3D sibling with a shared API; the natural bridge for a 2D-to-3D ladder.","minigrid_paper",false],
+["SoundSpaces on Habitat","Where Dossa et al. ran the first embodied GWT agent with audio-visual input.","dossa24",false],
+["Craftax","A fast JAX re-implementation of a 2D Minecraft-like game with NetHack-inspired mechanics. Named from memory; not researched this session.",null,true]
+];
+
+var ACRO = [
+["AE","Agency and Embodiment"],["AI","Artificial Intelligence"],["API","Application Programming Interface"],["AST","Attention Schema Theory"],["CPU","Central Processing Unit"],["GPLv3","GNU General Public License version 3"],["GPT-4","Generative Pre-trained Transformer 4"],["GPU","Graphics Processing Unit"],["GWT","Global Workspace Theory"],["HOT","Higher-Order Theories"],["IEEE","Institute of Electrical and Electronics Engineers"],["IIT","Integrated Information Theory"],["LLM","Large Language Model"],["LTS","Long-Term Support"],["MI","Mutual Information"],["MIMo","Multi-Modal Infant Model"],["MJX","MuJoCo XLA"],["ML","Machine Learning"],["MuJoCo","Multi-Joint dynamics with Contact"],["NAO","NetHack Alt.org"],["NLE","NetHack Learning Environment"],["PP","Predictive Processing"],["RGB-D","Red-Green-Blue plus Depth"],["RL","Reinforcement Learning"],["RPT","Recurrent Processing Theory"],["S3Q","Simulated, Situated, Structurally Coherent Qualia"],["SPS","Steps Per Second"],["TDW","ThreeDWorld"],["VOE","Violation-of-Expectation"],["VPT","Video PreTraining"],["VR","Virtual Reality"],["XLA","Accelerated Linear Algebra"]
+];
+
+/* ---------- helpers ---------- */
+var state = {lens:"s3q", sort:"listed", sel:null, vf:"all"};
+var envById = {}; ENVS.forEach(function(e){ envById[e.id]=e; });
+var colByK = {}; COLS.forEach(function(c){ colByK[c.k]=c; });
+function lensNow(){ for(var i=0;i<LENSES.length;i++){ if(LENSES[i].id===state.lens) return LENSES[i]; } return LENSES[0]; }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+function srcLink(k){ var s=SRC[k]; if(!s) return ""; if(!s[1]) return '<span class="src-note" title="'+esc(s[0])+'">notes</span>'; return '<a class="src" href="'+esc(s[1])+'" target="_blank" rel="noopener" title="'+esc(s[0])+'" aria-label="Source: '+esc(s[0])+'">↗</a>'; }
+function srcs(k){ if(!k) return ""; return (Array.isArray(k)?k:[k]).map(srcLink).join(""); }
+function infTag(b){ return b?'<span class="infer" title="My inference, not stated in a source">inferred</span>':''; }
+function item(it){ return esc(it[0])+infTag(it[2])+srcs(it[1]); }
+function li(it){ return '<li>'+item(it)+'</li>'; }
+function dot(l){ var c={"2":"l2","1":"l1","0":"l0"}[String(l)]||"lu"; return '<span class="dot '+c+'" role="img" aria-label="'+LEVEL[String(l)]+'"></span>'; }
+function tally(env,lens){ var t={n2:0,n1:0,n0:0,nu:0}; lens.cols.forEach(function(k){ var l=env.cells[k][0]; if(l===2)t.n2++; else if(l===1)t.n1++; else if(l===0)t.n0++; else t.nu++; }); return t; }
+function secs(d){ return d.split(":").map(Number).reduce(function(a,b){ return a*60+b; },0); }
+function fmt(s){ var h=Math.floor(s/3600); var m=Math.round((s-h*3600)/60); if(m===60){h++;m=0;} return h? h+" h "+(m<10?"0":"")+m+" min" : m+" min"; }
+
+var LOGKEY="simulation-frameworks-guide-watchlog-v1";
+var LOG={};
+try{
+  var savedWatchlog=localStorage.getItem(LOGKEY);
+  // Carry forward watch marks saved under the imported file's previous name.
+  if(savedWatchlog===null) savedWatchlog=localStorage.getItem("testbed-atlas-watchlog-v1");
+  LOG=JSON.parse(savedWatchlog||"{}")||{};
+}catch(err){ LOG={}; }
+function saveLog(){ try{ localStorage.setItem(LOGKEY,JSON.stringify(LOG)); }catch(err){} }
+var CHECKS=[["w","Watched"],["in","Saw raw input"],["out","Saw action interface"],["code","Saw scene code"],["body","Saw a body"]];
+
+/* ---------- matrix ---------- */
+function renderLensbar(){
+  document.getElementById("lensbar").innerHTML = LENSES.map(function(l){
+    return '<button type="button" class="lens" data-lens="'+l.id+'" aria-pressed="'+(l.id===state.lens)+'" title="'+esc(l.full)+'">'+esc(l.chip)+'</button>';
+  }).join("");
+}
+function renderMatrix(){
+  var lens=lensNow(); var on={}; lens.cols.forEach(function(k){ on[k]=true; });
+  var rows=ENVS.slice();
+  if(state.sort==="fit"){ rows.sort(function(a,b){ var ta=tally(a,lens), tb=tally(b,lens); return (tb.n2*2+tb.n1)-(ta.n2*2+ta.n1) || ENVS.indexOf(a)-ENVS.indexOf(b); }); }
+  var h='<table><thead><tr class="groups"><th class="env" scope="col"><span class="sr">World</span></th>';
+  GROUPS.forEach(function(g){ h+='<th colspan="'+g[1].length+'" scope="colgroup">'+esc(g[0])+'</th>'; });
+  h+='<th class="tl-h" rowspan="2" scope="col">Under this lens</th></tr><tr class="names"><th class="env" scope="col"><span class="k">World</span></th>';
+  GROUPS.forEach(function(g){ g[1].forEach(function(k){ h+='<th scope="col" class="cn'+(on[k]?'':' dim')+'"><button type="button" class="colbtn" data-col="'+k+'">'+esc(colByK[k].name)+'</button></th>'; }); });
+  h+='</tr></thead><tbody>';
+  rows.forEach(function(e){
+    h+='<tr><th scope="row" class="env"><a class="envname" href="#w-'+e.id+'">'+esc(e.name)+'</a><span class="envkind">'+esc(e.tag)+'</span></th>';
+    GROUPS.forEach(function(g){ g[1].forEach(function(k){
+      var c=e.cells[k]; var pressed=(state.sel&&state.sel.env===e.id&&state.sel.col===k)?"true":"false";
+      h+='<td class="c'+(on[k]?'':' dim')+'"><button type="button" class="cellbtn" data-env="'+e.id+'" data-col="'+k+'" aria-pressed="'+pressed+'" aria-label="'+esc(e.name+", "+colByK[k].name+": "+LEVEL[String(c[0])])+'">'+dot(c[0])+(c[3]?'<span class="inf" aria-hidden="true"></span>':'')+'</button></td>';
+    }); });
+    var t=tally(e,lens);
+    h+='<td class="tl"><span>'+dot(2)+t.n2+'</span><span>'+dot(1)+t.n1+'</span><span>'+dot(0)+t.n0+'</span>'+(t.nu?'<span>'+dot(-1)+t.nu+'</span>':'')+'</td></tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById("mx").innerHTML=h;
+}
+function showCell(envId,k){
+  var e=envById[envId], c=e.cells[k], col=colByK[k], lens=lensNow();
+  state.sel={env:envId,col:k};
+  var inLens=lens.cols.indexOf(k)>=0;
+  document.getElementById("insp").innerHTML='<div class="k">'+esc(e.name)+' · '+esc(col.name)+(inLens?' · counts under '+esc(lens.chip):' · not counted under '+esc(lens.chip))+'</div><p>'+dot(c[0])+' <b>'+esc(LEVEL[String(c[0])])+'.</b> '+esc(c[1])+infTag(c[3])+srcs(c[2])+'</p><p class="why">'+esc(col.why)+'</p>';
+  Array.prototype.forEach.call(document.querySelectorAll("#mx .cellbtn"),function(b){ b.setAttribute("aria-pressed",(b.getAttribute("data-env")===envId&&b.getAttribute("data-col")===k)?"true":"false"); });
+}
+function showCol(k){
+  var col=colByK[k];
+  var names=LENSES.filter(function(l){ return l.cols.indexOf(k)>=0; }).map(function(l){ return l.chip; });
+  document.getElementById("insp").innerHTML='<div class="k">Column · '+esc(col.name)+'</div><p>'+esc(col.why)+'</p><p class="why">Lenses that count it: '+esc(names.length?names.join(", "):"none")+'.</p>';
+}
+function renderLensPanel(){
+  var l=lensNow();
+  var h='<div class="lp-head"><h3>'+esc(l.full)+'</h3><span class="lp-codes">'+esc(l.codes)+'</span></div>';
+  h+='<div class="lp-cols"><div><h4>The world must afford</h4><ul>'+l.needs.map(li).join("")+'</ul></div>';
+  h+='<div><h4>Precedents</h4><ul>'+l.precedents.map(li).join("")+'</ul></div>';
+  h+='<div><h4>Edges</h4><ul>'+l.edges.map(li).join("")+'</ul></div></div>';
+  h+='<div><h4>Fit by world</h4><div class="fit">'+ENVS.map(function(e){ var f=l.fit[e.id]; return '<div>'+dot(f[0])+'<b>'+esc(e.name)+'</b><span>'+esc(f[1])+'</span></div>'; }).join("")+'</div></div>';
+  h+='<p class="cols-note">Columns this lens counts: '+l.cols.map(function(k){ return esc(colByK[k].name); }).join(" · ")+'</p>';
+  document.getElementById("lenspanel").innerHTML=h;
+}
+
+/* ---------- worlds ---------- */
+function renderWorlds(){
+  document.getElementById("cards").innerHTML = ENVS.map(function(e){
+    return '<article class="card" id="w-'+e.id+'"><div class="card-head"><h3>'+esc(e.name)+'</h3><span class="tag '+esc(e.tag)+'">'+esc(e.tag)+'</span></div>'+
+      '<p class="kind">'+esc(e.kind)+'</p>'+
+      '<div class="io"><div><span class="lbl">In</span><span>'+esc(e.inp)+'</span></div><div><span class="lbl">Out</span><span>'+esc(e.out)+srcs(e.ioSrc)+'</span></div></div>'+
+      '<div class="lists"><div><h4>Affords</h4><ul class="aff">'+e.affords.map(li).join("")+'</ul></div>'+
+      '<div><h4>Strains</h4><ul class="str">'+e.strains.map(li).join("")+'</ul></div>'+
+      '<div><h4>Facts in tension</h4><ul class="ten">'+e.tension.map(li).join("")+'</ul></div></div>'+
+      '<p class="status"><span>Status, November 2026.</span> '+esc(e.status)+'</p>'+
+      '<div class="links">'+e.links.map(function(x){ return '<a href="'+esc(x[1])+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>'; }).join("")+'</div></article>';
+  }).join("");
+}
+
+/* ---------- videos ---------- */
+function vidsFor(envId){ return VIDEOS.filter(function(v){ return v.env===envId; }); }
+function passCard(title,sub,list){
+  var total=list.reduce(function(a,v){ return a+secs(v.dur); },0);
+  var done=list.filter(function(v){ return LOG[v.id]&&LOG[v.id].w; }).length;
+  return '<div class="pass"><div class="pass-head"><h3>'+esc(title)+'</h3><span class="tot">'+fmt(total)+'</span></div><p class="sub">'+esc(sub)+' Watched so far: '+done+' of '+list.length+'.</p><ol>'+
+    list.map(function(v){ return '<li><a href="https://www.youtube.com/watch?v='+esc(v.id)+'" target="_blank" rel="noopener">'+esc(v.title)+'</a> <span class="pmeta">'+esc(envById[v.env].name)+' · '+esc(v.dur)+'</span></li>'; }).join("")+'</ol></div>';
+}
+function renderPasses(){
+  var best=ENVS.map(function(e){ return vidsFor(e.id)[0]; }).filter(Boolean);
+  var fast=FAST.map(function(id){ for(var i=0;i<VIDEOS.length;i++){ if(VIDEOS[i].id===id) return VIDEOS[i]; } return null; }).filter(Boolean);
+  document.getElementById("passes").innerHTML = passCard("Fast pass","Short videos that still answer the core question for each world.",fast) + passCard("Best single video per world","The top-ranked video for each world, whatever its length.",best);
+}
+function renderVFilter(){
+  var opts=[["all","All worlds"]].concat(ENVS.map(function(e){ return [e.id,e.name]; }));
+  document.getElementById("vfilter").innerHTML = opts.map(function(o){ return '<button type="button" class="vf" data-vf="'+o[0]+'" aria-pressed="'+(state.vf===o[0])+'">'+esc(o[1])+'</button>'; }).join("");
+}
+function vrow(v,rank){
+  var lg=LOG[v.id]||{};
+  var meter='<span class="dv" role="img" aria-label="Expected diagnostic value '+v.dv+' of 5">'+[1,2,3,4,5].map(function(i){ return '<i class="'+(i<=v.dv?'on':'')+'"></i>'; }).join("")+'</span>';
+  return '<div class="vrow'+(rank===1?' top':'')+'"><div class="vrank">'+rank+'</div><div class="vbody">'+
+    '<a class="vtitle" href="https://www.youtube.com/watch?v='+esc(v.id)+'" target="_blank" rel="noopener">'+esc(v.title)+'</a>'+
+    '<div class="vmeta">'+esc(v.ch)+' · '+esc(v.dur)+' · '+esc(v.views)+' views · '+esc(v.age)+' ago</div>'+
+    '<div class="vscore">'+meter+'<span class="dvl">expected diagnostic value</span><span class="conf'+(v.conf==="low"?" low":"")+'">'+esc(v.conf)+' confidence</span></div>'+
+    '<div class="vgrid"><div><span class="k">Tests</span>'+esc(v.tests)+'</div><div><span class="k">Likely shows</span>'+esc(v.shows)+'</div><div><span class="k">Won’t show</span>'+esc(v.misses)+'</div></div>'+
+    '<p class="vbasis"><span class="k">Basis for the rank</span>'+esc(v.basis)+'</p>'+
+    '<div class="vlog" role="group" aria-label="Your watch log for '+esc(v.title)+'">'+CHECKS.map(function(c){ var id="log-"+v.id+"-"+c[0]; return '<label for="'+esc(id)+'"><input type="checkbox" id="'+esc(id)+'" data-v="'+esc(v.id)+'" data-c="'+c[0]+'"'+(lg[c[0]]?' checked':'')+'>'+esc(c[1])+'</label>'; }).join("")+'</div>'+
+    '</div></div>';
+}
+function renderVideos(){
+  var envs=ENVS.filter(function(e){ return state.vf==="all"||state.vf===e.id; });
+  document.getElementById("vgroups").innerHTML = envs.map(function(e){
+    var list=vidsFor(e.id);
+    return '<div class="vgroup"><div class="vgroup-head"><h3>'+esc(e.name)+'</h3><span class="tag '+esc(e.tag)+'">'+esc(e.tag)+'</span><span class="pmeta">'+list.length+' video'+(list.length===1?'':'s')+'</span></div>'+
+      (GROUP_NOTES[e.id]?'<p class="gnote">'+esc(GROUP_NOTES[e.id])+'</p>':'')+
+      list.map(function(v,i){ return vrow(v,i+1); }).join("")+'</div>';
+  }).join("");
+}
+
+/* ---------- decisions and reference ---------- */
+function renderDecisions(){
+  document.getElementById("decs").innerHTML = DECISIONS.map(function(d,i){
+    return '<details class="dec" open><summary><span class="dn">D'+(i+1)+'</span><span class="dq">'+esc(d.q)+'</span></summary><div class="body">'+
+      '<div class="pulls"><div class="pull"><h4>'+esc(d.a.h)+'</h4><ul>'+d.a.items.map(li).join("")+'</ul></div>'+
+      '<div class="pull b"><h4>'+esc(d.b.h)+'</h4><ul>'+d.b.items.map(li).join("")+'</ul></div></div>'+
+      '<p class="tension"><span class="k">In tension</span>'+item(d.tension)+'</p>'+
+      '<p class="settle"><span class="k">What would settle it</span>'+esc(d.settle)+'</p></div></details>';
+  }).join("");
+}
+function renderWords(){
+  document.getElementById("wordrows").innerHTML = WORDS.map(function(w){ return '<tr><td>'+esc(w[0])+'</td><td>'+esc(w[1])+'</td><td>'+esc(w[2])+'</td><td>'+esc(w[3])+'</td></tr>'; }).join("");
+}
+function renderReach(){ document.getElementById("reach").innerHTML = REACH.map(li).join(""); }
+function renderOutside(){
+  document.getElementById("outs").innerHTML = OUTSIDE.map(function(o){ return '<div class="out"><h3>'+esc(o[0])+'</h3><p>'+esc(o[1])+infTag(o[3])+srcs(o[2])+'</p></div>'; }).join("");
+}
+function renderAcro(){
+  document.getElementById("acro").innerHTML = ACRO.map(function(a){ return '<div><dt>'+esc(a[0])+'</dt><dd>'+esc(a[1])+'</dd></div>'; }).join("");
+}
+function renderSources(){
+  var keys=Object.keys(SRC).sort(function(a,b){ return SRC[a][0].localeCompare(SRC[b][0]); });
+  document.getElementById("srclist").innerHTML = keys.map(function(k){ var s=SRC[k]; return '<li>'+(s[1]?'<a href="'+esc(s[1])+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>':esc(s[0]))+'</li>'; }).join("");
+}
+
+/* ---------- events ---------- */
+document.getElementById("lensbar").addEventListener("click",function(ev){
+  var b=ev.target.closest("[data-lens]"); if(!b) return;
+  state.lens=b.getAttribute("data-lens");
+  renderLensbar(); renderMatrix(); renderLensPanel();
+  if(state.sel){ showCell(state.sel.env,state.sel.col); }
+});
+Array.prototype.forEach.call(document.querySelectorAll(".seg [data-sort]"),function(b){
+  b.addEventListener("click",function(){
+    state.sort=b.getAttribute("data-sort");
+    Array.prototype.forEach.call(document.querySelectorAll(".seg [data-sort]"),function(x){ x.setAttribute("aria-pressed",String(x===b)); });
+    renderMatrix();
+  });
+});
+document.getElementById("mx").addEventListener("click",function(ev){
+  var c=ev.target.closest(".cellbtn");
+  if(c){ showCell(c.getAttribute("data-env"),c.getAttribute("data-col")); return; }
+  var h=ev.target.closest(".colbtn");
+  if(h){ showCol(h.getAttribute("data-col")); }
+});
+document.getElementById("vfilter").addEventListener("click",function(ev){
+  var b=ev.target.closest("[data-vf]"); if(!b) return;
+  state.vf=b.getAttribute("data-vf"); renderVFilter(); renderVideos();
+});
+document.getElementById("vgroups").addEventListener("change",function(ev){
+  var t=ev.target; if(!t.matches('input[type="checkbox"][data-v]')) return;
+  var v=t.getAttribute("data-v"), c=t.getAttribute("data-c");
+  LOG[v]=LOG[v]||{}; LOG[v][c]=t.checked; saveLog(); renderPasses();
+});
+
+renderLensbar(); renderMatrix(); renderLensPanel(); renderWorlds();
+renderPasses(); renderVFilter(); renderVideos(); renderDecisions();
+renderWords(); renderReach(); renderOutside(); renderAcro(); renderSources();
+})();
+</script>
+
+</body></html>
