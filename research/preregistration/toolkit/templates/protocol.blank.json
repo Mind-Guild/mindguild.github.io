@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "study_id": null,
+  "title": null,
+  "status": "draft",
+  "metadata": {
+    "description": null,
+    "contributors": [],
+    "license": null,
+    "subjects": [],
+    "tags": [],
+    "public_or_embargoed": null,
+    "embargo_end_date": null
+  },
+  "source_records": [],
+  "prior_work_disclosure": null,
+  "outcome_access_before_registration": null,
+  "sections": {
+    "aims": null,
+    "data_generating_parameters": null,
+    "varied_factors": null,
+    "factor_values_and_constants": null,
+    "factor_combinations_and_condition_count": null,
+    "estimands_and_targets": null,
+    "methods_and_extracted_quantities": null,
+    "performance_measures": null,
+    "monte_carlo_uncertainty": null,
+    "repetition_count_rationale": null,
+    "missingness_and_nonconvergence": null,
+    "interpretation_and_analysis": null,
+    "software_and_packages": null,
+    "computational_environment": null,
+    "reproducibility_measures": null,
+    "additional_notes": null
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "classification": "primary",
+      "status": "proposed",
+      "statement": null,
+      "contrast": null,
+      "outcome": null,
+      "analysis": null,
+      "interpretation_rule": null,
+      "source_record_ids": []
+    }
+  ],
+  "execution": {
+    "independent_unit": null,
+    "n_independent_repetitions": null,
+    "evaluation_episodes_per_condition": null,
+    "pilot_seed_blocks": [],
+    "confirmatory_seed_blocks": [],
+    "rng_stream_derivation": null,
+    "training_budget": null,
+    "hyperparameter_selection": null,
+    "checkpoint_selection": null,
+    "stopping_rule": null,
+    "failure_rule": null,
+    "test_access_rule": null,
+    "run_command": null,
+    "analysis_command": null
+  },
+  "artifacts": {
+    "code_repository_url": null,
+    "code_commit_sha": null,
+    "scenario_manifest_sha256": null,
+    "environment_lock_sha256": null
+  },
+  "quality_evidence": {
+    "generator_properties": null,
+    "split_leakage_check": null,
+    "metric_synthetic_cases": null,
+    "full_dry_run": null
+  },
+  "open_decisions": [],
+  "reviews": {
+    "science": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null
+    },
+    "implementation": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null
+    },
+    "analysis": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null
+    }
+  }
+}

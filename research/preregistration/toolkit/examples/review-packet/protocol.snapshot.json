@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "study_id": "MG-OCC-001",
+  "title": "Persistent object representations and identity-location binding through occlusion",
+  "status": "proposed",
+  "metadata": {
+    "description": "Proposed simulation comparing object-centric and global recurrent predictive models on target localization through occlusion, including held-out color-motion combinations. All numerical and implementation commitments require review before registration.",
+    "contributors": [
+      {
+        "name": "Kevin Schmidt",
+        "profile_url": "https://osf.io/user/zryq5"
+      }
+    ],
+    "license": null,
+    "subjects": [],
+    "tags": [
+      "Mind Guild",
+      "simulation",
+      "object binding",
+      "occlusion",
+      "compositional generalization"
+    ],
+    "public_or_embargoed": null,
+    "embargo_end_date": null
+  },
+  "source_records": [
+    {
+      "id": "S1",
+      "location": "paper outline 20261106.docx; sections on object-centric encapsulation, task, and metrics",
+      "what_it_supports": "Motivation for stable object features, transferable operators, successor features, and observable representations. Does not settle the concrete design."
+    },
+    {
+      "id": "S2",
+      "location": "Draft Position Paper 20261104.docx; opening sections through the central claim",
+      "what_it_supports": "Theoretical motivation and scope; broad decompositionality and qualia claims. Does not finalize sample size or analysis."
+    },
+    {
+      "id": "S3",
+      "location": "Kevin's recent direction: object-occlusion bouncing-ball color/object/location binding task",
+      "what_it_supports": "Starting task family; specific implementation below is a proposal."
+    }
+  ],
+  "prior_work_disclosure": null,
+  "outcome_access_before_registration": null,
+  "sections": {
+    "aims": "Estimate whether persistent object-centric representations improve identity-conditioned localization after occlusion, and whether any advantage extends to held-out color-motion combinations. This is a bounded functional test; it does not establish subjective experience.",
+    "data_generating_parameters": "PROPOSED: a controlled 2D generator with two differently colored balls. Cue the target color before occlusion. At a fixed registered query time, each model predicts the target's 2D position from permitted observations. UNRESOLVED: physics, numeric parameter distributions, timestep, rendering, query time, occluder geometry, target/distractor separation rules, and observation schema.",
+    "varied_factors": "PROPOSED: visibility (occluded / continuously visible) and combination split (seen / held-out color-motion combinations). Models are comparison methods, not additional generator factors. UNRESOLVED: exact factor levels and whether motions include more than bouncing.",
+    "factor_values_and_constants": "UNRESOLVED: enumerate colors, speeds, trajectories, bounce physics, episode lengths, occlusion durations, object sizes, nuisance variables, and numeric constants.",
+    "factor_combinations_and_condition_count": "PROPOSED: 2 visibility levels x 2 combination-split levels = 4 evaluation conditions per method. The primary contrast uses the occluded, held-out condition. Three candidate methods would yield 12 method-condition cells, not 12 independent model fits per block. UNRESOLVED: accept/revise methods and exact scenario manifest.",
+    "estimands_and_targets": "PROPOSED primary estimand: expected full-minus-global-baseline localization-accuracy difference in the occluded, held-out condition, over the registered independent training/evaluation blocks. Secondary descriptive targets: visible-control accuracy, identity swap frequency, and performance loss under the binding ablation.",
+    "methods_and_extracted_quantities": "PROPOSED: (M1) persistent object-centric recurrent predictive model, (M2) global recurrent predictive model, and (M3) ablation that disrupts persistent object binding. Supply the same permitted observations and comparable data/training/tuning budgets. Extract per-episode predicted target position, ground truth for scoring only, and per-run success/failure. UNRESOLVED: exact models, trainable capacity, forward model, use of SF, hyperparameters, and checkpoint rule.",
+    "performance_measures": "PROPOSED: per-episode identity-conditioned localization success = 1 if the Euclidean target-position error is within a fixed tolerance and the prediction is strictly closer to the target than to the distractor; else 0. Average episodes within condition and block, then take the registered across-block estimator. UNRESOLVED: tolerance, missing predictions, ties, ambiguous configurations, and exact secondary scoring.",
+    "monte_carlo_uncertainty": "PROPOSED: paired analysis over independently generated training/evaluation blocks, with an evaluation panel shared across methods within each block and independently generated across blocks. UNRESOLVED: validate the pairing and specify the confidence interval algorithm, confidence level, any resample count, and analysis RNG seed.",
+    "repetition_count_rationale": "UNRESOLVED: choose independent repetition count using disclosed pilot variability, target interval precision or power, and compute budget. Fix evaluation episodes separately. Do not count frames or episodes from one model as independent model replications.",
+    "missingness_and_nonconvergence": "UNRESOLVED: distinguish infrastructure crashes, generator/scoring bugs, numerical nonconvergence, and valid low-performing models. Set retry cap, resume policy, failure outcome treatment, missing-pair handling, and interruption rule before confirmatory execution.",
+    "interpretation_and_analysis": "PROPOSED: estimate H1's full-minus-baseline difference with a prespecified interval. Define the minimum meaningful benefit before registration. Treat visible-control and binding-ablation comparisons as descriptive/exploratory unless explicitly promoted and given a multiplicity plan. UNRESOLVED: numerical threshold and exact support/challenge/inconclusive rules.",
+    "software_and_packages": "UNRESOLVED: selected framework, exact versions, dependency lockfile, generator, training, and analysis packages.",
+    "computational_environment": "UNRESOLVED: CPU/GPU, OS, accelerator libraries, precision/determinism settings, memory, and expected compute.",
+    "reproducibility_measures": "PROPOSED: archive frozen code/config/splits with hashes, all run statuses, scoring outputs, analysis outputs, and deviation logs; link the resulting research outputs to the OSF registration. UNRESOLVED: repository and artifact release plan.",
+    "additional_notes": "No meeting transcript was supplied for this example. Every design choice here is a proposal for review. Confirm actual pilot/outcome exposure before registration. Keep novel dynamics composition and reward transfer as separately specified follow-on claims."
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "classification": "primary",
+      "status": "proposed",
+      "statement": "A persistent object-centric predictive model has higher identity-conditioned localization accuracy than a comparable global recurrent model in the occluded, held-out condition.",
+      "contrast": "M1 minus M2; occluded visibility and held-out color-motion combinations.",
+      "outcome": "Identity-conditioned localization accuracy, aggregated first within each independent training/evaluation block.",
+      "analysis": null,
+      "interpretation_rule": null,
+      "source_record_ids": [
+        "S1",
+        "S2",
+        "S3"
+      ]
+    }
+  ],
+  "execution": {
+    "independent_unit": "PROPOSED: one independently generated block containing a training run per method and an independent evaluation panel shared only within that block.",
+    "n_independent_repetitions": null,
+    "evaluation_episodes_per_condition": null,
+    "pilot_seed_blocks": [],
+    "confirmatory_seed_blocks": [],
+    "rng_stream_derivation": null,
+    "training_budget": null,
+    "hyperparameter_selection": null,
+    "checkpoint_selection": null,
+    "stopping_rule": null,
+    "failure_rule": null,
+    "test_access_rule": "PROPOSED: use only disclosed pilots and validation for selection; freeze and register before confirmatory training/evaluation; keep confirmatory combinations out of training, validation, tuning, and probe fitting.",
+    "run_command": null,
+    "analysis_command": null
+  },
+  "artifacts": {
+    "code_repository_url": null,
+    "code_commit_sha": null,
+    "scenario_manifest_sha256": null,
+    "environment_lock_sha256": null
+  },
+  "quality_evidence": {
+    "generator_properties": null,
+    "split_leakage_check": null,
+    "metric_synthetic_cases": null,
+    "full_dry_run": null
+  },
+  "open_decisions": [
+    {
+      "id": "D1",
+      "decision": "Approve the narrow hypothesis and choose primary outcome/condition/meaningful-effect threshold.",
+      "owner": null
+    },
+    {
+      "id": "D2",
+      "decision": "Finalize numeric generator, allowed observations, scoring, and split manifest.",
+      "owner": null
+    },
+    {
+      "id": "D3",
+      "decision": "Select exact predictive architectures, forward model, ablation, training/tuning budgets, and checkpoint rule.",
+      "owner": null
+    },
+    {
+      "id": "D4",
+      "decision": "Disclose all prior work/results, run feasibility pilots, choose independent repetitions and inference.",
+      "owner": null
+    },
+    {
+      "id": "D5",
+      "decision": "Specify failures, stopping, random streams, exact commands, and reproducibility artifacts.",
+      "owner": null
+    },
+    {
+      "id": "D6",
+      "decision": "Confirm title, coauthors/order, license, subjects, public or embargoed status, and reviews.",
+      "owner": null
+    }
+  ],
+  "reviews": {
+    "science": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null
+    },
+    "implementation": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null
+    },
+    "analysis": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null
+    }
+  }
+}

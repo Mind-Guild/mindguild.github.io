@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meeting to Preregistration — Mind Guild</title>
+  <meta name="description" content="A practical pipeline from research working meetings to OSF preregistered simulation studies, with a meeting worksheet, editable protocols, worked example, and downloadable toolkit.">
+  <meta name="theme-color" content="#fdf6ef">
+  <link rel="canonical" href="https://mind-guild.com/research/preregistration/">
+  <link rel="icon" type="image/svg+xml" href="/branding/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <style>
+    :root { --paper:#fdf6ef; --cream:#fffaf5; --ink:#2a211c; --muted:#6a5f57; --line:#e4d6c8; --orange:#a5401f; --night:#102133; --gold:#f2bd62; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:32px; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:'Libre Franklin',Arial,sans-serif; line-height:1.7; }
+    a { color:var(--orange); text-underline-offset:4px; }
+    a:hover { text-decoration-thickness:2px; }
+    a:focus-visible { outline:3px solid var(--orange); outline-offset:5px; }
+    .skip { position:absolute; left:20px; top:-100px; padding:10px 18px; background:var(--cream); z-index:10; }
+    .skip:focus { top:15px; }
+    .nav { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:23px max(5vw,24px); border-bottom:1px solid var(--line); }
+    .nav-links { display:flex; flex-wrap:wrap; gap:25px; font-size:12px; font-weight:600; }
+    .nav-links a { color:var(--ink); text-decoration:none; }
+    .wrap { width:min(1220px,90%); margin:auto; }
+    .hero { padding:64px 0 58px; background:radial-gradient(ellipse at 85% 20%,#f4dbbf 0,transparent 58%); border-bottom:1px solid var(--line); }
+    .crumb { margin:0 0 35px; font-size:12px; color:var(--muted); }
+    .crumb a { color:inherit; }
+    .hero-grid { display:grid; grid-template-columns:1.35fr .85fr; gap:65px; align-items:center; }
+    .eyebrow { font:600 11px/1.6 'IBM Plex Mono',monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--orange); }
+    h1 { margin:20px 0; font-size:clamp(42px,4.8vw,66px); letter-spacing:-.055em; line-height:1.08; max-width:720px; }
+    h1 em { font-style:normal; color:var(--orange); }
+    .lede { max-width:660px; font-size:17px; line-height:1.85; color:var(--muted); }
+    .actions { display:flex; flex-wrap:wrap; gap:11px; margin-top:28px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:10px 19px; border:1px solid var(--orange); border-radius:50px; font-size:12px; font-weight:600; text-decoration:none; color:var(--orange); background:transparent; }
+    .button.primary { background:var(--orange); color:white; }
+    .small-link { display:inline-block; margin-top:18px; font-size:12px; }
+    .workflow { padding:30px; border-radius:18px; background:var(--night); color:#fff8f1; box-shadow:0 25px 70px -45px #182b40; }
+    .workflow .eyebrow { color:var(--gold); }
+    .workflow ol { list-style:none; margin:20px 0; padding:0; }
+    .workflow li { display:grid; grid-template-columns:36px 1fr; gap:14px; padding:14px 0; border-bottom:1px solid #384b5c; }
+    .workflow li:last-child { border:0; }
+    .workflow .num { color:var(--gold); font:500 12px/1.8 'IBM Plex Mono',monospace; padding-top:2px; }
+    .workflow strong { font-size:16px; }
+    .workflow small { display:block; color:#bccbd6; font-size:12px; margin-top:3px; }
+    .boundary { border-top:1px solid #506273; padding-top:17px; font-size:12px; color:#d4dfe7; }
+    .facts { display:flex; flex-wrap:wrap; gap:26px; margin-top:35px; font:11px/1.6 'IBM Plex Mono',monospace; color:var(--muted); }
+    .facts span { padding-left:12px; border-left:2px solid #bd734a; }
+    .document-layout { display:grid; grid-template-columns:225px minmax(0,1fr); gap:60px; padding-top:52px; padding-bottom:70px; align-items:start; }
+    aside.toc { position:sticky; top:25px; font-size:12px; }
+    .toc strong { display:block; margin-bottom:16px; font:600 11px/1.5 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+    .toc a { display:block; margin:0 0 13px; color:var(--ink); text-decoration:none; line-height:1.5; }
+    .toc a:hover { color:var(--orange); text-decoration:underline; }
+    .toc .repo { margin-top:23px; padding-top:20px; border-top:1px solid var(--line); color:var(--orange); }
+    .prose { min-width:0; font-size:15px; }
+    .prose h2 { font-size:29px; letter-spacing:-.035em; line-height:1.3; margin:48px 0 20px; padding-top:29px; border-top:1px solid var(--line); }
+    .prose h2:first-of-type { margin-top:30px; }
+    .prose h3 { font-size:21px; letter-spacing:-.02em; margin-top:32px; }
+    .prose p { margin:0 0 20px; }
+    .prose ul,.prose ol { padding-left:23px; margin:0 0 25px; }
+    .prose li { padding-left:4px; margin-bottom:12px; }
+    .prose li p { margin-bottom:8px; }
+    .table-scroll { overflow-x:auto; margin:25px 0; border:1px solid var(--line); border-radius:10px; }
+    table { width:100%; min-width:580px; border-collapse:collapse; font-size:13px; background:var(--cream); line-height:1.65; }
+    th,td { padding:15px; vertical-align:top; text-align:left; border-bottom:1px solid var(--line); }
+    th { background:#f4e7d8; font-size:12px; }
+    tr:last-child td { border-bottom:0; }
+    code { font:12px/1.7 'IBM Plex Mono',monospace; background:#f0e3d5; border-radius:3px; padding:2px 5px; overflow-wrap:anywhere; }
+    pre { padding:22px; overflow:auto; background:var(--night); border-radius:10px; color:#e9eff5; }
+    pre code { padding:0; color:inherit; background:none; overflow-wrap:normal; }
+    .related { background:#f4e7d8; border-top:1px solid var(--line); padding:32px 0; }
+    .related .wrap { display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+    footer { padding:30px 5vw; display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; align-items:center; border-top:1px solid var(--line); font-size:11px; color:var(--muted); }
+    @media(max-width:1000px) { .hero-grid { gap:32px; } .document-layout { grid-template-columns:180px minmax(0,1fr); gap:35px; } }
+    @media(max-width:760px) { .nav { align-items:flex-start; } .nav-links { justify-content:flex-end; gap:13px; } .hero { padding:38px 0; } .hero-grid { grid-template-columns:1fr; } .workflow { max-width:none; } .document-layout { grid-template-columns:1fr; gap:20px; padding-top:30px; } aside.toc { position:static; padding:20px; border:1px solid var(--line); border-radius:10px; } .toc a { margin-bottom:10px; } .prose h2 { font-size:25px; } .facts { gap:16px; } }
+    @media(max-width:480px) { .nav { flex-direction:column; } .nav-links { justify-content:flex-start; } .wrap { width:88%; } h1 { font-size:42px; } .workflow { padding:24px; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#guide">Skip to the full guide</a>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="mg-brand" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480" height="81"></a>
+    <div class="nav-links"><a href="/products.html">Products</a><a href="/implementation.html">Implementation</a><a href="/publications.html">Publications</a><a href="https://github.com/Mind-Guild/mindguild.github.io/tree/main/research/preregistration/toolkit">GitHub</a></div>
+  </nav>
+  <main>
+    <header class="hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/products.html">Research tools</a> &nbsp;/&nbsp; Preregistration</p>
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">A working method · An editable toolkit</div>
+            <h1>From discussion<br>to a <em>testable study.</em></h1>
+            <p class="lede">Turn a technical working meeting into an OSF simulation preregistration. Capture what was agreed, connect each hypothesis to a concrete test, and preserve the plan through execution and reporting.</p>
+            <div class="actions"><a class="button primary" href="downloads/Mind_Guild_Preregistration_Pipeline_Kit.zip" download>Download the complete kit ↓</a><a class="button" href="#guide">Read the guide</a></div>
+            <a class="small-link" href="toolkit/README.md" download="Mind_Guild_Meeting_to_OSF_Pipeline.md">Download the editable Markdown guide</a>
+          </div>
+          <div class="workflow" aria-label="Pipeline overview">
+            <div class="eyebrow">Meeting to Preregistration</div>
+            <ol>
+              <li><span class="num">01</span><div><strong>Capture the claim</strong><small>Decisions, source notes, and open questions</small></div></li>
+              <li><span class="num">02</span><div><strong>Specify the test</strong><small>Methods, measures, and expected result patterns</small></div></li>
+              <li><span class="num">03</span><div><strong>Review and freeze</strong><small>Disclosed pilots and a fixed study packet</small></div></li>
+              <li><span class="num">04</span><div><strong>Register, run, report</strong><small>OSF record, reproducible runs, and deviations</small></div></li>
+            </ol>
+            <div class="boundary">Complete registration before confirmatory runs. The worked occlusion study is a proposal with decisions still open.</div>
+          </div>
+        </div>
+        <div class="facts"><span>45-minute meeting worksheet</span><span>OSF Simulation Studies template</span><span>Toolkit v1.0 · 11 November 2026</span></div>
+      </div>
+    </header>
+    <div class="wrap document-layout">
+      <aside class="toc" aria-label="Guide contents"><strong>In the guide</strong><a href="#1-the-pipeline">1. The pipeline</a><a href="#2-a-45-minute-working-meeting">2. A 45-minute working meeting</a><a href="#3-translate-ideas-into-testable-commitments">3. Translate ideas into testable commitments</a><a href="#4-plan-expected-results-before-looking-at-outcomes">4. Plan expected results before looking at outcomes</a><a href="#5-simulation-details-that-must-be-fixed">5. Simulation details that must be fixed</a><a href="#6-use-the-kit">6. Use the kit</a><a href="#7-complete-the-osf-registration">7. Complete the OSF registration</a><a href="#8-carry-the-same-plan-through-execution-and-reporting">8. Carry the same plan through execution and reporting</a><a href="#9-smallest-implementation-package">9. Smallest implementation package</a><a href="#sources">Sources</a><a class="repo" href="https://github.com/Mind-Guild/mindguild.github.io/tree/main/research/preregistration/toolkit">Browse the editable source ↗</a><a href="toolkit/templates/meeting_worksheet.md" download>Meeting worksheet ↓</a></aside>
+      <article class="prose" id="guide" aria-label="Full pipeline guide"><p>Prepared for Kevin Schmidt • 11 November 2026 • Starter workflow, version 1.0</p>
+<p><strong>The meeting produces decisions; a structured protocol carries those decisions into code, analysis, and the OSF form.</strong> AI can extract, organize, and check the plan. Researchers decide the scientific commitments and review the final registration.</p>
+<p>Kevin's verified OSF profile: <a href="https://osf.io/user/zryq5">https://osf.io/user/zryq5</a>. This is a contributor profile. A new simulation study needs its own registration. No OSF draft or registration has been created by this kit.</p>
+<h2 id="1-the-pipeline">1. The pipeline</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Work</th>
+<th>Concrete output</th>
+<th>Completion condition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Capture</td>
+<td>Preserve meeting notes or a transcript with speaker names and timestamps; record prior simulations and results already seen.</td>
+<td>Source record and decision ledger</td>
+<td>Suggestions, agreements, disagreements, and unknowns are distinguishable.</td>
+</tr>
+<tr class="even">
+<td>Specify</td>
+<td>Translate each claim into a manipulation, comparator, outcome, analysis, and interpretation rule.</td>
+<td><code>protocol.json</code></td>
+<td>Each primary hypothesis has a complete evidence chain.</td>
+</tr>
+<tr class="odd">
+<td>Check feasibility</td>
+<td>Implement and inspect generator, baselines, scoring, and analysis using disclosed pilot seeds and synthetic results.</td>
+<td>Pilot log and quality evidence</td>
+<td>The design can run; failures and information seen are documented.</td>
+</tr>
+<tr class="even">
+<td>Review and freeze</td>
+<td>Resolve choices; have science, implementation, and analysis reviewed; pin code, dependencies, split manifest, and seed plan.</td>
+<td>Local frozen packet and checksums</td>
+<td>No unresolved confirmatory decisions; reviews refer to the same protocol digest.</td>
+</tr>
+<tr class="odd">
+<td>Register</td>
+<td>Complete OSF's Simulation Studies form, attach the frozen protocol and supporting plans, choose access, and submit.</td>
+<td>OSF registration URL, timestamp, and status</td>
+<td>The registration is completed and archived; the recorded plan precedes confirmatory runs.</td>
+</tr>
+<tr class="even">
+<td>Execute</td>
+<td>Run the registered design and retain every planned run's status and provenance.</td>
+<td>Run manifest, raw outputs, checkpoints, analysis outputs</td>
+<td>Planned runs are accounted for, including failures.</td>
+</tr>
+<tr class="odd">
+<td>Report</td>
+<td>Compare each registered prediction with its estimate, uncertainty, and departures from plan.</td>
+<td>Hypothesis-by-hypothesis report and deviation log</td>
+<td>Planned and exploratory analyses remain identifiable.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The key boundary:</strong> disclose exploratory work, then freeze and register before generating the confirmatory training runs or evaluating their outcomes. A local timestamp, uploaded protocol file, or saved OSF draft does not complete an OSF registration. If work is already underway, state exactly what was generated and inspected and limit prospective claims accordingly.</p>
+<h2 id="2-a-45-minute-working-meeting">2. A 45-minute working meeting</h2>
+<p>Use <code>templates/meeting_worksheet.md</code>. One person facilitates; one person captures decisions. A person can cover multiple roles.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<thead>
+<tr class="header">
+<th>Minutes</th>
+<th>Decision to make</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–5</td>
+<td>Which bounded claim are we testing, and what relevant results have we already seen?</td>
+</tr>
+<tr class="even">
+<td>5–15</td>
+<td>What is the primary hypothesis, causal contrast, primary outcome, and result that would challenge it?</td>
+</tr>
+<tr class="odd">
+<td>15–25</td>
+<td>What exactly generates observations? Which factors vary? Which combinations are held out? What are the baselines and ablations?</td>
+</tr>
+<tr class="even">
+<td>25–35</td>
+<td>What is an independent replication? How will we select repetition count, aggregate outcomes, quantify uncertainty, and handle failures?</td>
+</tr>
+<tr class="odd">
+<td>35–40</td>
+<td>Sketch expected figures and fill in support, contradictory, negligible, and inconclusive result patterns.</td>
+</tr>
+<tr class="even">
+<td>40–45</td>
+<td>Read back decisions, unresolved questions, owners, implementation tasks, and review responsibilities.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Do not force numerical choices merely to finish the meeting. Give unresolved decisions an owner and a resolution method. The subsequent pilot and review close them before registration.</p>
+<h2 id="3-translate-ideas-into-testable-commitments">3. Translate ideas into testable commitments</h2>
+<p>Use this chain for every hypothesis:</p>
+<p><strong>Claim → mechanism or manipulation → comparator → observable outcome → estimator → decision rule → scope of conclusion.</strong></p>
+<p>For the initial occlusion study, the following is a <strong>proposed design</strong>, not an agreement extracted from a meeting:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>Candidate specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Narrow claim</td>
+<td>Persistent object representations improve color–object–location binding through occlusion.</td>
+</tr>
+<tr class="even">
+<td>Task</td>
+<td>Track two differently colored balls; cue a target before occlusion; predict its location at a specified query time.</td>
+</tr>
+<tr class="odd">
+<td>Comparison</td>
+<td>Object-centric predictive model versus a global recurrent predictive model with matched observations, training budget, and comparable capacity.</td>
+</tr>
+<tr class="even">
+<td>Primary condition</td>
+<td>Occlusion with held-out color × motion combinations; all primitive colors and motions occur in training.</td>
+</tr>
+<tr class="odd">
+<td>Primary outcome</td>
+<td>Identity-conditioned localization accuracy: a prediction falls within a fixed tolerance of the target and is closer to it than to a distractor. Fix tolerance, tie rules, and query timing before registration.</td>
+</tr>
+<tr class="even">
+<td>Primary estimand</td>
+<td>Mean full-model minus baseline accuracy across independent training/evaluation blocks in the prespecified primary condition.</td>
+</tr>
+<tr class="odd">
+<td>Mechanism check</td>
+<td>Remove persistent object binding; compare loss of performance, including a visible control condition. Label secondary analyses and their multiplicity treatment.</td>
+</tr>
+<tr class="even">
+<td>Interpretation</td>
+<td>A reliable advantage supports this operational claim under the tested generator. It does not establish phenomenal consciousness.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Keep the first study bounded. Identity tracking, novel object–dynamics composition, and reward transfer are separable claims. A successor-feature reward-transfer advantage alone does not test composition of novel dynamics. For predictive rollouts, specify the actual learned transition/forward model as well as any successor features.</p>
+<p>To prevent shortcut solutions, audit correlations between color, starting position, speed, query time, and label. A single object cannot reveal identity swaps. Keep simulator object IDs and hidden state out of model inputs unless they are an explicit, equally supplied condition. Establish identity before occlusion; do not let per-frame rematching hide swaps.</p>
+<h2 id="4-plan-expected-results-before-looking-at-outcomes">4. Plan expected results before looking at outcomes</h2>
+<p>Sketch a figure with x = condition, y = the primary metric, one series per model, and uncertainty over independent repetitions. Mark it <strong>predicted / schematic</strong>. Record the expected ordering, the minimum meaningful difference, and how each pattern will be interpreted. Predictions are not fabricated observations or guaranteed effects.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<thead>
+<tr class="header">
+<th>Observed pattern</th>
+<th>Prespecified interpretation to consider</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Interval for the primary difference lies above the chosen meaningful-effect threshold</td>
+<td>Supports the bounded superiority prediction.</td>
+</tr>
+<tr class="even">
+<td>Entire interval lies below zero</td>
+<td>Evidence against the predicted direction for this comparison.</td>
+</tr>
+<tr class="odd">
+<td>Entire interval is inside a prespecified negligible-effect region</td>
+<td>Supports practical equivalence only if an equivalence procedure was selected in advance.</td>
+</tr>
+<tr class="even">
+<td>Interval spans meaningful benefit and negligible/adverse effects</td>
+<td>Inconclusive; uncertainty is too large.</td>
+</tr>
+<tr class="odd">
+<td>Sanity checks fail or outcome scoring is invalid</td>
+<td>A measurement or implementation problem; document it before making a scientific claim.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Choose one inferential procedure and exact interpretation rules. A nonsignificant result by itself does not falsify a theory. If several outcomes or contrasts are confirmatory, prespecify multiplicity handling or a hierarchical testing order.</p>
+<h2 id="5-simulation-details-that-must-be-fixed">5. Simulation details that must be fixed</h2>
+<ul>
+<li><strong>Generator:</strong> physics, distributions and numeric ranges, rendering, timestep, episode length, occlusion geometry, query timing, noise, action/observation schema, and fixed constants.</li>
+<li><strong>Splits:</strong> explicit training, validation, and confirmatory scenario manifests; held-out combinations; distinct random streams; no checkpoint selection or probe fitting on the confirmatory set. Run a check that every held-out primitive is nevertheless represented in training.</li>
+<li><strong>Models:</strong> exact configurations, parameter counts, training updates/data budget, tuning budget, checkpoint rule, probes, and ablations. State which resources are matched and report residual differences.</li>
+<li><strong>Replications:</strong> independent training runs or matched blocks are the primary units; frames and episodes from one trained model are nested measurements. Fix training, generator, evaluation, and analysis RNG streams. Equal seed integers do not by themselves establish useful statistical pairing.</li>
+<li><strong>Estimator:</strong> define within-episode, within-condition, and across-run aggregation, condition weights, confidence interval procedure, resampling unit, resample count, analysis RNG seed, and any alternative analysis triggers.</li>
+<li><strong>Stopping and failures:</strong> fix the planned run count, training limit, crash retry cap, resume rule, nonconvergence classification, missing-outcome treatment, and study-interruption policy. Poor learning is an outcome, not an automatic exclusion. Preserve unsuccessful attempts.</li>
+<li><strong>Implementation:</strong> inspect generator properties, split leakage, hand-calculated metric cases, and a complete dry run. Run analysis on synthetic positive, zero, and negative effects to check sign and interpretation.</li>
+</ul>
+<p>Use development held-out combinations for piloting and reserve the final confirmatory combinations from model selection. Disjoint seed integers alone do not prevent leakage from repeated tuning on the final test regime. If prior pilots already informed the final design, disclose that information and define what fresh comparison remains prospective.</p>
+<p>If methods share an evaluation panel, intervals across training runs alone are conditional on that panel. To target variability over new scenes, design independent evaluation panels per block or specify an analysis that represents the additional level of sampling. Sharing a panel within a genuinely independent block can support paired comparisons; document the construction.</p>
+<p>For planning a mean paired difference, an approximate 95% interval half-width is <code>h ≈ 1.96 × s_d / sqrt(R)</code>, where <code>s_d</code> is the SD across independent block differences and <code>R</code> is their count. Thus <code>R ≈ (1.96 × s_d / h)^2</code>. For illustration only, <code>s_d = .10</code> and <code>h = .03</code> gives 43 blocks after rounding up. This is a normal-approximation precision calculation, not a final sample size recommendation or a power calculation. Disclosed pilots can inform <code>s_d</code>; check the chosen interval procedure and computational budget before freezing. More episodes do not substitute for independent model runs. [4,5]</p>
+<h2 id="6-use-the-kit">6. Use the kit</h2>
+<ol type="1">
+<li>Fill the meeting worksheet. Use <code>prompts/transcript_to_protocol.md</code> with the transcript and blank protocol to produce a sourced draft and a decision list.</li>
+<li>Copy <code>templates/protocol.blank.json</code> into your study folder as <code>protocol.json</code>. The illustrative occlusion version is in <code>examples/occlusion.proposed.json</code>.</li>
+<li>Run the compiler from the kit folder with Python 3.10 or newer; no extra packages are required:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/build_packet.py examples/occlusion.proposed.json <span class="at">--out</span> review-packet</span></code></pre></div>
+<p>It writes <code>osf_packet.md</code>, <code>readiness.json</code>, and <code>protocol.snapshot.json</code>. Exit code 2 means unresolved decisions; exit code 0 means its mechanical checks pass. The example intentionally fails readiness. The compiler checks declarations, required fields, seed overlap, and review digests. It cannot verify the scientific validity, actual code contents, or honesty of human review.</p>
+<ol start="4" type="1">
+<li>Resolve blockers. Record science, implementation, and analysis reviews against the <code>review_digest</code> printed in <code>readiness.json</code>. One researcher can cover several roles, but an additional reader is useful. Any substantive protocol edit changes that digest and requires renewed review.</li>
+<li>Set <code>status</code> to <code>approved_for_freeze</code>, then create a new local freeze directory:</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/build_packet.py protocol.json <span class="at">--out</span> frozen-v1 <span class="at">--freeze</span></span></code></pre></div>
+<p>The freeze contains the copied plan, rendered packet, hashes, and local freeze metadata. It is an archival convention, not an OSF timestamp or an access control. Protect the directory and version it. No network requests or simulations run through this script.</p>
+<p>Compiler checks can be run with <code>python -m unittest discover -s tests -v</code>. Test fixtures are synthetic declarations used only to verify software behavior; they are not scientific plans or recorded human approvals.</p>
+<h2 id="7-complete-the-osf-registration">7. Complete the OSF registration</h2>
+<p>Use the OSF <strong>Simulation Studies</strong> template, which follows ADEMP: aims, data-generating mechanisms, estimands/targets, methods, and performance measures. It also asks about repetitions, Monte Carlo uncertainty, failures, software, and reproducibility. It is a sensible starting point for this algorithm-comparison simulation; check the form against the final design. [1,2]</p>
+<p>Open <a href="https://osf.io/registries">https://osf.io/registries</a> or your My Registrations page and start a new draft. Use Kevin's profile when resolving the contributor identity; confirm all other contributors, their order, license, subjects, and access choice. Paste the packet into the corresponding form sections and attach the frozen protocol and supporting manifests/code snapshot before submission. Review the form against the attached files. [2,3]</p>
+<p>As of 11 November 2026, OSF is transitioning its Projects functionality. New projects/components cease on 16 November 2026, and existing projects become read-only on 19 February 2027. Build ongoing collaboration around your versioned research repository and create registrations directly through the registration workflow. Submitted attachment files cannot be replaced; eligible form responses can receive transparent updates. Archive amended materials elsewhere and link the outputs as appropriate. [3]</p>
+<p>After submission, verify the registration is archived and approvals complete. Record its URL, registration timestamp, status, and frozen protocol digest in <code>templates/registration_record.json</code>. Check those records before starting confirmatory runs. Public registrations receive a DOI; an embargoed record can be cited by its registration URL until public. [2]</p>
+<h2 id="8-carry-the-same-plan-through-execution-and-reporting">8. Carry the same plan through execution and reporting</h2>
+<p>Use <code>templates/run_manifest.csv</code> to account for each planned method × block × condition and every attempt. Store raw outputs and checksums without discarding failures. Keep <code>templates/deviations.csv</code> current. For a change, record what changed, why, when, who approved it, and what results were visible then. Preserve the original plan and make an OSF update or new registration appropriate to the change; subsequent registration cannot make previously observed analyses prospective.</p>
+<p>The final report should list every registered hypothesis, its prespecified contrast, estimate, uncertainty, interpretation, and deviations. Put new questions and unplanned analyses in an explicitly exploratory section. Attach schematic expectations and actual results separately.</p>
+<h2 id="9-smallest-implementation-package">9. Smallest implementation package</h2>
+<p>For your next coworking session, complete these work items in order:</p>
+<ol type="1">
+<li>Capture one hypothesis and produce the sourced decision ledger.</li>
+<li>Implement two-object occlusion trajectories, a split manifest, and deterministic scoring.</li>
+<li>Run a simple motion-prediction sanity baseline and test scoring on known identity swaps.</li>
+<li>Implement the two comparable predictive models and run a disclosed feasibility pilot.</li>
+<li>Select independent repetition count and exact analysis, resolve remaining fields, review, freeze, and register.</li>
+</ol>
+<p>The MVP is complete when a researcher can trace one claim from the meeting into an executable design and a complete OSF registration packet. Full API submission and a dashboard can be added later. They are not prerequisites for a useful first study.</p>
+<h2 id="sources">Sources</h2>
+<p>Checked 11 November 2026. The workflow and example above are original recommendations; linked sources establish the OSF options and underlying methodological guidance.</p>
+<ol type="1">
+<li>Center for Open Science. Simulation Studies preregistration template introduction: <a href="https://www.cos.io/blog/introducing-the-simulation-studies-preregistration-template">https://www.cos.io/blog/introducing-the-simulation-studies-preregistration-template</a></li>
+<li>OSF. Registration guide and template list: <a href="https://help.osf.io/article/330-welcome-to-registrations">https://help.osf.io/article/330-welcome-to-registrations</a></li>
+<li>OSF. Projects transition: registration questions and use cases: <a href="https://help.osf.io/article/768-osf-projects-transition-registration-questions-and-use-cases">https://help.osf.io/article/768-osf-projects-transition-registration-questions-and-use-cases</a> ; transition dates: <a href="https://help.osf.io/article/770-registrations">https://help.osf.io/article/770-registrations</a></li>
+<li>Morris, White &amp; Crowther (2019). Using simulation studies to evaluate statistical methods. <a href="https://doi.org/10.1002/sim.8086">https://doi.org/10.1002/sim.8086</a></li>
+<li>Agarwal et al. (2021). Deep Reinforcement Learning at the Edge of the Statistical Precipice. <a href="https://arxiv.org/abs/2108.13264">https://arxiv.org/abs/2108.13264</a></li>
+<li>Siepe et al. (2024). Simulation studies for methodological research in psychology. <a href="https://doi.org/10.1037/met0000695">https://doi.org/10.1037/met0000695</a></li>
+<li>OSF-linked public planning form (consulted to align section headings): <a href="https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit">https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit</a></li>
+</ol>
+<p>Context used: <code>paper outline 20261106.docx</code> and the available opening sections of <code>Draft Position Paper 20261104.docx</code>, plus your current occlusion-task direction. These motivate the example; they do not establish finalized numerical design decisions or completed implementations.</p>
+</article>
+    </div>
+    <section class="related" aria-label="Related research resources"><div class="wrap"><div><strong>Choosing an environment?</strong><br><a href="/demos/simulation-frameworks-guide/">Explore the Simulation Frameworks Guide →</a></div><div><strong>Ready to prepare the OSF form?</strong><br><a href="https://osf.io/registries">Open OSF Registries →</a></div></div></section>
+  </main>
+  <footer><a class="mg-brand mg-brand--footer" href="/index.html" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" aria-hidden="true" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" aria-hidden="true" width="480" height="81"></a><span>© 2026 · Mind Guild · <a href="/products.html">Research tools</a> · <a href="#guide">Back to guide</a></span></footer>
+</body>
+</html>
