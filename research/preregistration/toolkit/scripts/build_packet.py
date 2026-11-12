@@ -10,8 +10,14 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+SCRIPT_DIRECTORY = Path(__file__).resolve().parent
+if str(SCRIPT_DIRECTORY) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIRECTORY))
+import protocol_v2 as capture
 
 
 SECTION_LABELS = {
@@ -40,11 +46,11 @@ TEXT_EXECUTION = (
 QUALITY_FIELDS = (
     "generator_properties", "split_leakage_check", "metric_synthetic_cases", "full_dry_run",
 )
-PLACEHOLDER = re.compile(r"\b(TBD|TODO|UNRESOLVED|PROPOSED|TO BE CONFIRMED)\b|\[INSERT", re.I)
+PLACEHOLDER = capture.PLACEHOLDER
 
 
 def canonical(value):
-    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return capture.canonical(value)
 
 
 def sha256(data):
@@ -90,8 +96,11 @@ def validate(protocol):
             return []
         return value
 
-    if protocol.get("schema_version") != 1:
-        blockers.append("schema_version: supported value is 1")
+    version = protocol.get("schema_version")
+    if type(version) is not int or version not in {1, 2}:
+        blockers.append("schema_version: supported values are legacy 1 (draft only) and 2")
+    elif version == 1:
+        blockers.append("schema_version: legacy v1 is draft-only; run scripts/migrate_protocol.py before freeze")
     if protocol.get("status") != "approved_for_freeze":
         blockers.append("status: use approved_for_freeze only after resolving and reviewing the plan")
     for field in ("study_id", "title", "metadata.description", "metadata.license",
@@ -105,7 +114,7 @@ def validate(protocol):
     if any(not isinstance(x, str) or not x.strip() for x in subjects):
         blockers.append("metadata.subjects: use nonempty taxonomy labels")
     access = get(protocol, "metadata.public_or_embargoed")
-    if access not in {"public", "embargoed"}:
+    if not isinstance(access, str) or access not in {"public", "embargoed"}:
         blockers.append("metadata.public_or_embargoed: choose public or embargoed")
     elif access == "embargoed":
         value = get(protocol, "metadata.embargo_end_date")
@@ -141,7 +150,7 @@ def validate(protocol):
             blockers.append(f"hypotheses[{i}]: supply a stable ID")
         else:
             hypothesis_ids.append(hid)
-        if hypothesis.get("classification") not in {"primary", "secondary", "exploratory"}:
+        if not isinstance(hypothesis.get("classification"), str) or hypothesis.get("classification") not in {"primary", "secondary", "exploratory"}:
             blockers.append(f"hypotheses[{i}]: choose primary, secondary, or exploratory")
         primary_count += hypothesis.get("classification") == "primary"
         if hypothesis.get("status") != "decided":
@@ -195,6 +204,8 @@ def validate(protocol):
     if protocol.get("open_decisions") != []:
         blockers.append("open_decisions: resolve the list before freeze")
 
+    if type(version) is int and version == 2:
+        blockers.extend(capture.validate_v2(protocol))
     digest = review_digest(protocol)
     for role in ("science", "implementation", "analysis"):
         review = get(protocol, f"reviews.{role}", {})
@@ -234,6 +245,7 @@ def packet(protocol, report):
         lines.extend(["## " + title, "", render(get(protocol, "sections." + key)), ""])
         if key == "aims":
             lines.extend(["### Explicit hypothesis records", "", render(protocol.get("hypotheses")), ""])
+    lines.extend([capture.structured_packet(protocol), ""])
     for key, title in (("execution", "Execution plan"), ("artifacts", "Pinned artifacts"),
                        ("quality_evidence", "Implementation evidence"), ("source_records", "Source records"),
                        ("reviews", "Review attestations"), ("open_decisions", "Open decisions")):
@@ -261,9 +273,14 @@ def main():
             raise ValueError("protocol root must be a JSON object")
         blockers = validate(protocol)
         report = {"status": "BLOCKED" if blockers else "READY_FOR_LOCAL_FREEZE",
+                  "schema_version": protocol.get("schema_version"),
                   "review_digest": review_digest(protocol), "protocol_file_sha256": sha256(raw),
                   "blockers": blockers,
-                  "scope": "Declared metadata only; no verification of source code, scientific validity, or authenticated review."}
+                  "scope": "Declared records and consistency only; no verification of scientific validity, remote artifact bytes, identities, or authenticated human agreement.",
+                  "capture_outputs": ["decision_ledger.csv", "artifact_handoff.csv"],
+                  "decision_status_counts": {status: sum(row["decision_status"] == status for row in capture.decision_rows(protocol))
+                                             for status in sorted(capture.DECISION_STATES)},
+                  "count_interpretation": "Field/status counts are not a scientific readiness score."}
         if args.freeze and blockers:
             print(f"Freeze refused: {len(blockers)} unresolved checks. Build a draft packet without --freeze to inspect them.")
             return 2
@@ -271,6 +288,13 @@ def main():
         (args.out / "protocol.snapshot.json").write_bytes(raw)
         (args.out / "readiness.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         (args.out / "osf_packet.md").write_text(packet(protocol, report), encoding="utf-8")
+        decision_rows = capture.decision_rows(protocol)
+        headers = list(decision_rows[0]) if decision_rows else ["field_path", "decision_status", "current_value_digest"]
+        (args.out / "decision_ledger.csv").write_text(capture.csv_text(decision_rows, headers), encoding="utf-8")
+        handoff = protocol.get("artifact_handoff", {})
+        items = capture.objects(handoff.get("items")) if isinstance(handoff, dict) else []
+        (args.out / "artifact_handoff.csv").write_text(capture.csv_text(items,
+            ["id", "kind", "status", "location", "sha256", "immutable_version", "owner", "reason"]), encoding="utf-8")
         if args.freeze:
             freeze = {"local_frozen_at_utc": datetime.now(timezone.utc).isoformat(),
                       "protocol_file_sha256": sha256(raw), "review_digest": report["review_digest"],
@@ -288,3 +312,4 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

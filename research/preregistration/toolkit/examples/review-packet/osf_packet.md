@@ -4,7 +4,7 @@
 
 Study ID: MG-OCC-001  
 Mechanical readiness: BLOCKED  
-Review digest: `9159f7c76f43f9c7dd208f0f060f147f2064ff05eea3ea7aa3661ae649664a1d`
+Review digest: `f26a0df206dbb8b668b2e9930ad7ccc4609102cc1c8d65b9696286c2be544abb`
 
 ## Metadata
 
@@ -123,6 +123,163 @@ PROPOSED: archive frozen code/config/splits with hashes, all run statuses, scori
 
 No meeting transcript was supplied for this example. Every design choice here is a proposal for review. Confirm actual pilot/outcome exposure before registration. Keep novel dynamics composition and reward transfer as separately specified follow-on claims.
 
+## Structured scientific records (schema v2)
+
+These records supplement the OSF form. Mechanical validation checks declared decisions and consistency; scientific adequacy and actual agreement remain human responsibilities.
+
+### Claim-to-measure map: H1
+
+| Decision | Specification |
+| --- | --- |
+| construct | Persistent identity-location binding through occlusion |
+| operational definition | Predict the cued object location after occlusion while distinguishing the distractor. |
+| metric definition | UNRESOLVED: choose the localization tolerance, query time, ties, invalid-output treatment, and episode scoring. |
+| estimand | Proposed full-minus-global-baseline mean accuracy difference in the occluded held-out condition across independent blocks. |
+| mechanism | Persistent object-specific recurrent representations for target identity and motion. |
+| manipulation | Proposed comparison of full, global recurrent, and disrupted-binding models under matched observations. |
+| comparator | UNRESOLVED: match training, tuning, and capacity budgets and specify remaining model differences. |
+| conclusion scope | A functional binding/generalization claim under the declared generator. |
+| inference limits | An advantage alone would not establish phenomenal experience or novel-dynamics composition. |
+| component IDs | ["M1", "M2", "M3"] |
+| directly encoded effect | Missing |
+| interpretation of encoded effect | Missing |
+
+| Rival explanation | Discriminating control | Distinguishing result |
+| --- | --- | --- |
+| Additional capacity or tuning rather than persistent binding. | Match capacity and tuning budgets and include the binding ablation. | A binding-specific advantage must survive the matched comparison; exact decision rule remains to be chosen. |
+
+Expected result patterns: {"support": "UNRESOLVED: select the meaningful-effect threshold and interval criterion.", "challenge": "A precise reversed or practically negligible effect under prespecified criteria would challenge the prediction.", "inconclusive": "Uncertainty spanning meaningful benefit and negligible/adverse outcomes."}
+
+### Component status
+
+| ID / component | Implementation | Evidence | Included? | Artifacts / sources |
+| --- | --- | --- | --- | --- |
+| M1 / Persistent object-centric predictive model | analyst_proposed | not_demonstrated | True | {"artifacts": [], "sources": ["S4"]} |
+| M2 / Global recurrent predictive comparator | analyst_proposed | not_demonstrated | True | {"artifacts": [], "sources": ["S4"]} |
+| M3 / Persistent-binding ablation | analyst_proposed | not_demonstrated | True | {"artifacts": [], "sources": ["S4"]} |
+
+### Calibration, state dynamics, and learning
+
+| Phase | Declaration |
+| --- | --- |
+| offline calibration | {"enabled": true, "parameters": ["encoder parameters", "predictive model parameters"], "method": "UNRESOLVED: specify training rule and objective.", "data_and_selection": "UNRESOLVED: training/validation manifests and tuning selection.", "freeze_point": "UNRESOLVED: choose the checkpoint before confirmatory evaluation."} |
+| within run state | {"enabled": true, "state_variables": ["object slots or global recurrent state"], "update_rule": "UNRESOLVED: exact model-specific state transition equations.", "memory_role": "Proposed preservation of identity and predicted position across occlusion."} |
+| online updates | {"enabled": false, "parameters": [], "rule": null, "signal_type": null, "signal_definition": null, "objective": null, "schedule": null, "evaluation_update_policy": null} |
+
+### Artifact handoff
+
+| ID / kind | Status | Location | Pin | Owner / reason |
+| --- | --- | --- | --- | --- |
+| A_code / code | requested | Missing | Missing | {"owner": null, "reason": null} |
+| A_config / config | requested | Missing | Missing | {"owner": null, "reason": null} |
+| A_environment / environment | requested | Missing | Missing | {"owner": null, "reason": null} |
+| A_scenario_manifest / scenario_manifest | requested | Missing | Missing | {"owner": null, "reason": null} |
+| A_input_traces / input_traces | requested | Missing | Missing | {"owner": null, "reason": null} |
+| A_equations / equations | requested | Missing | Missing | {"owner": null, "reason": null} |
+| A_slides / slides | requested | Missing | Missing | {"owner": null, "reason": null} |
+| A_chat / chat | requested | Missing | Missing | {"owner": null, "reason": null} |
+
+Handoff confirmation: {"confirmed_by": null, "confirmed_at_utc": null}
+
+### Prior results and prospective boundary
+
+| Declaration | Value |
+| --- | --- |
+| declaration status | incomplete |
+| declared by | Missing |
+| declared at utc | Missing |
+| registration scope | new_simulation_runs |
+| confirmatory status | Missing |
+| prospective scope | PROPOSED: new model/scenario runs reserved after registration. |
+| reserved runs or conditions | Missing |
+| access controls | Missing |
+
+No-prior-results explanation: Missing
+
+### Per-field provenance
+
+The full decision ledger includes current value digests in `decision_ledger.csv`. Unknown speakers remain unresolved; proposals require explicit adoption.
+
+| Field | Decision / origin | Source / locator | Speaker attribution | Decision owner |
+| --- | --- | --- | --- | --- |
+| /prior_work_disclosure | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /outcome_access_before_registration | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /sections/aims | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/data_generating_parameters | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/varied_factors | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/factor_values_and_constants | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/factor_combinations_and_condition_count | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/estimands_and_targets | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/methods_and_extracted_quantities | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/performance_measures | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/monte_carlo_uncertainty | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/repetition_count_rationale | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/missingness_and_nonconvergence | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /sections/interpretation_and_analysis | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /execution/independent_unit | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /execution/n_independent_repetitions | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/evaluation_episodes_per_condition | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/pilot_seed_blocks | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/confirmatory_seed_blocks | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/rng_stream_derivation | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/training_budget | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/hyperparameter_selection | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/checkpoint_selection | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/stopping_rule | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/failure_rule | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /execution/test_access_rule | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /hypotheses/0/statement | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /hypotheses/0/contrast | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /hypotheses/0/outcome | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /hypotheses/0/analysis | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /hypotheses/0/interpretation_rule | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /claim_measure_map/0/construct | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/operational_definition | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/metric_definition | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/estimand | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/mechanism | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/manipulation | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/comparator | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/conclusion_scope | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/inference_limits | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/component_ids | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/rival_explanations | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/expected_result_patterns | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /claim_measure_map/0/directly_encoded_effect | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /components/0/mechanism | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/0/implementation_status | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/0/evidence_status | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/0/included_in_study | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/0/artifact_ids | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /components/1/mechanism | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/1/implementation_status | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/1/evidence_status | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/1/included_in_study | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/1/artifact_ids | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /components/2/mechanism | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/2/implementation_status | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/2/evidence_status | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/2/included_in_study | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /components/2/artifact_ids | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /learning/offline_calibration/enabled | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/offline_calibration/parameters | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/offline_calibration/method | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/offline_calibration/data_and_selection | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/offline_calibration/freeze_point | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/within_run_state/enabled | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/within_run_state/state_variables | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/within_run_state/update_rule | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/within_run_state/memory_role | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /learning/online_updates/enabled | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /artifact_handoff/items | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /results_access/prior_results | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /results_access/registration_scope | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /results_access/confirmatory_status | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /results_access/prospective_scope | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
+| /results_access/reserved_runs_or_conditions | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /results_access/access_controls | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+
+
 ## Execution plan
 
 ```json
@@ -184,6 +341,11 @@ No meeting transcript was supplied for this example. Every design choice here is
     "id": "S3",
     "location": "Kevin's recent direction: object-occlusion bouncing-ball color/object/location binding task",
     "what_it_supports": "Starting task family; specific implementation below is a proposal."
+  },
+  {
+    "id": "S4",
+    "location": "Schema v2 worked example, 12 November 2026; analyst-authored design proposals",
+    "what_it_supports": "The structured additions below illustrate capture. They are not meeting agreements or implementation evidence."
   }
 ]
 ```
@@ -249,6 +411,11 @@ No meeting transcript was supplied for this example. Every design choice here is
     "id": "D6",
     "decision": "Confirm title, coauthors/order, license, subjects, public or embargoed status, and reviews.",
     "owner": null
+  },
+  {
+    "id": "V2_CAPTURE",
+    "decision": "Complete the v2 structured records and renew the three reviews.",
+    "owner": null
   }
 ]
 ```
@@ -256,7 +423,6 @@ No meeting transcript was supplied for this example. Every design choice here is
 ## Mechanical blockers
 
 - status: use approved_for_freeze only after resolving and reviewing the plan
-- metadata.description: resolve proposed or placeholder content
 - metadata.license: supply a nonempty, specific value
 - prior_work_disclosure: supply a nonempty, specific value
 - outcome_access_before_registration: supply a nonempty, specific value
@@ -266,7 +432,6 @@ No meeting transcript was supplied for this example. Every design choice here is
 - sections.varied_factors: resolve proposed or placeholder content
 - sections.factor_values_and_constants: resolve proposed or placeholder content
 - sections.factor_combinations_and_condition_count: resolve proposed or placeholder content
-- sections.estimands_and_targets: resolve proposed or placeholder content
 - sections.methods_and_extracted_quantities: resolve proposed or placeholder content
 - sections.performance_measures: resolve proposed or placeholder content
 - sections.monte_carlo_uncertainty: resolve proposed or placeholder content
@@ -301,6 +466,135 @@ No meeting transcript was supplied for this example. Every design choice here is
 - quality_evidence.metric_synthetic_cases: supply a nonempty, specific value
 - quality_evidence.full_dry_run: supply a nonempty, specific value
 - open_decisions: resolve the list before freeze
+- artifact_handoff.items[0].reason: supply resolved, specific text
+- artifact_handoff.items[0].owner: supply resolved, specific text
+- artifact_handoff.items[0]: requested capture is still open
+- artifact_handoff.items[1].reason: supply resolved, specific text
+- artifact_handoff.items[1].owner: supply resolved, specific text
+- artifact_handoff.items[1]: requested capture is still open
+- artifact_handoff.items[2].reason: supply resolved, specific text
+- artifact_handoff.items[2].owner: supply resolved, specific text
+- artifact_handoff.items[2]: requested capture is still open
+- artifact_handoff.items[3].reason: supply resolved, specific text
+- artifact_handoff.items[3].owner: supply resolved, specific text
+- artifact_handoff.items[3]: requested capture is still open
+- artifact_handoff.items[4].reason: supply resolved, specific text
+- artifact_handoff.items[4].owner: supply resolved, specific text
+- artifact_handoff.items[4]: requested capture is still open
+- artifact_handoff.items[5].reason: supply resolved, specific text
+- artifact_handoff.items[5].owner: supply resolved, specific text
+- artifact_handoff.items[5]: requested capture is still open
+- artifact_handoff.items[6].reason: supply resolved, specific text
+- artifact_handoff.items[6].owner: supply resolved, specific text
+- artifact_handoff.items[6]: requested capture is still open
+- artifact_handoff.items[7].reason: supply resolved, specific text
+- artifact_handoff.items[7].owner: supply resolved, specific text
+- artifact_handoff.items[7]: requested capture is still open
+- artifact_handoff: capture the core code artifact
+- artifact_handoff: capture the core config artifact
+- artifact_handoff: capture the core environment artifact
+- artifact_handoff: capture the core scenario_manifest artifact
+- artifact_handoff.confirmed_by: supply resolved, specific text
+- artifact_handoff.confirmed_at_utc: supply a timezone-aware confirmation time
+- components[0]: a confirmatory component must be implemented before freeze
+- components[0].artifact_ids: supply a nonempty list
+- components[1]: a confirmatory component must be implemented before freeze
+- components[1].artifact_ids: supply a nonempty list
+- components[2]: a confirmatory component must be implemented before freeze
+- components[2].artifact_ids: supply a nonempty list
+- claim_measure_map[0].metric_definition: supply resolved, specific text
+- claim_measure_map[0].comparator: supply resolved, specific text
+- claim_measure_map[0].expected_result_patterns.support: supply resolved, specific text
+- claim_measure_map[0].directly_encoded_effect: explicitly choose true or false
+- learning.offline_calibration.method: supply resolved, specific text
+- learning.offline_calibration.data_and_selection: supply resolved, specific text
+- learning.offline_calibration.freeze_point: supply resolved, specific text
+- learning.within_run_state.update_rule: supply resolved, specific text
+- results_access.declaration_status: a complete disclosure is required
+- results_access.declared_by: supply resolved, specific text
+- results_access.declared_at_utc: supply a timezone-aware declaration time
+- results_access.no_prior_results_reason: supply resolved, specific text
+- results_access.confirmatory_status: choose already_inspected, generated_uninspected, not_generated, not_recorded
+- results_access: registration scope requires not_generated; disclose observed outputs as prior work and reserve a genuinely unobserved target
+- results_access.prospective_scope: supply resolved, specific text
+- results_access.reserved_runs_or_conditions: supply resolved, specific text
+- results_access.access_controls: supply resolved, specific text
+- provenance: /prior_work_disclosure needs an explicit decided record
+- provenance: /outcome_access_before_registration needs an explicit decided record
+- provenance: /sections/aims needs an explicit decided record
+- provenance: /sections/data_generating_parameters needs an explicit decided record
+- provenance: /sections/varied_factors needs an explicit decided record
+- provenance: /sections/factor_values_and_constants needs an explicit decided record
+- provenance: /sections/factor_combinations_and_condition_count needs an explicit decided record
+- provenance: /sections/estimands_and_targets needs an explicit decided record
+- provenance: /sections/methods_and_extracted_quantities needs an explicit decided record
+- provenance: /sections/performance_measures needs an explicit decided record
+- provenance: /sections/monte_carlo_uncertainty needs an explicit decided record
+- provenance: /sections/repetition_count_rationale needs an explicit decided record
+- provenance: /sections/missingness_and_nonconvergence needs an explicit decided record
+- provenance: /sections/interpretation_and_analysis needs an explicit decided record
+- provenance: /execution/independent_unit needs an explicit decided record
+- provenance: /execution/n_independent_repetitions needs an explicit decided record
+- provenance: /execution/evaluation_episodes_per_condition needs an explicit decided record
+- provenance: /execution/pilot_seed_blocks needs an explicit decided record
+- provenance: /execution/confirmatory_seed_blocks needs an explicit decided record
+- provenance: /execution/rng_stream_derivation needs an explicit decided record
+- provenance: /execution/training_budget needs an explicit decided record
+- provenance: /execution/hyperparameter_selection needs an explicit decided record
+- provenance: /execution/checkpoint_selection needs an explicit decided record
+- provenance: /execution/stopping_rule needs an explicit decided record
+- provenance: /execution/failure_rule needs an explicit decided record
+- provenance: /execution/test_access_rule needs an explicit decided record
+- provenance: /hypotheses/0/statement needs an explicit decided record
+- provenance: /hypotheses/0/contrast needs an explicit decided record
+- provenance: /hypotheses/0/outcome needs an explicit decided record
+- provenance: /hypotheses/0/analysis needs an explicit decided record
+- provenance: /hypotheses/0/interpretation_rule needs an explicit decided record
+- provenance: /claim_measure_map/0/construct needs an explicit decided record
+- provenance: /claim_measure_map/0/operational_definition needs an explicit decided record
+- provenance: /claim_measure_map/0/metric_definition needs an explicit decided record
+- provenance: /claim_measure_map/0/estimand needs an explicit decided record
+- provenance: /claim_measure_map/0/mechanism needs an explicit decided record
+- provenance: /claim_measure_map/0/manipulation needs an explicit decided record
+- provenance: /claim_measure_map/0/comparator needs an explicit decided record
+- provenance: /claim_measure_map/0/conclusion_scope needs an explicit decided record
+- provenance: /claim_measure_map/0/inference_limits needs an explicit decided record
+- provenance: /claim_measure_map/0/component_ids needs an explicit decided record
+- provenance: /claim_measure_map/0/rival_explanations needs an explicit decided record
+- provenance: /claim_measure_map/0/expected_result_patterns needs an explicit decided record
+- provenance: /claim_measure_map/0/directly_encoded_effect needs an explicit decided record
+- provenance: /components/0/mechanism needs an explicit decided record
+- provenance: /components/0/implementation_status needs an explicit decided record
+- provenance: /components/0/evidence_status needs an explicit decided record
+- provenance: /components/0/included_in_study needs an explicit decided record
+- provenance: /components/0/artifact_ids needs an explicit decided record
+- provenance: /components/1/mechanism needs an explicit decided record
+- provenance: /components/1/implementation_status needs an explicit decided record
+- provenance: /components/1/evidence_status needs an explicit decided record
+- provenance: /components/1/included_in_study needs an explicit decided record
+- provenance: /components/1/artifact_ids needs an explicit decided record
+- provenance: /components/2/mechanism needs an explicit decided record
+- provenance: /components/2/implementation_status needs an explicit decided record
+- provenance: /components/2/evidence_status needs an explicit decided record
+- provenance: /components/2/included_in_study needs an explicit decided record
+- provenance: /components/2/artifact_ids needs an explicit decided record
+- provenance: /learning/offline_calibration/enabled needs an explicit decided record
+- provenance: /learning/offline_calibration/parameters needs an explicit decided record
+- provenance: /learning/offline_calibration/method needs an explicit decided record
+- provenance: /learning/offline_calibration/data_and_selection needs an explicit decided record
+- provenance: /learning/offline_calibration/freeze_point needs an explicit decided record
+- provenance: /learning/within_run_state/enabled needs an explicit decided record
+- provenance: /learning/within_run_state/state_variables needs an explicit decided record
+- provenance: /learning/within_run_state/update_rule needs an explicit decided record
+- provenance: /learning/within_run_state/memory_role needs an explicit decided record
+- provenance: /learning/online_updates/enabled needs an explicit decided record
+- provenance: /artifact_handoff/items needs an explicit decided record
+- provenance: /results_access/prior_results needs an explicit decided record
+- provenance: /results_access/registration_scope needs an explicit decided record
+- provenance: /results_access/confirmatory_status needs an explicit decided record
+- provenance: /results_access/prospective_scope needs an explicit decided record
+- provenance: /results_access/reserved_runs_or_conditions needs an explicit decided record
+- provenance: /results_access/access_controls needs an explicit decided record
 - reviews.science: approval is not recorded
 - reviews.science: supply the actual reviewer name
 - reviews.science: supply a timezone-aware review time not in the future

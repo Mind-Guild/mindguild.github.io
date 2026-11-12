@@ -38,7 +38,45 @@ def synthetic_declaration():
                               environment_lock_sha256="c" * 64)
     for key in compiler.QUALITY_FIELDS:
         value["quality_evidence"][key] = "Synthetic fixture: " + key
+    claim = value["claim_measure_map"][0]
+    for key in compiler.capture.CLAIM_FIELDS:
+        claim[key] = "Synthetic fixture: " + key
+    claim.update(component_ids=["M1"], directly_encoded_effect=False,
+                 rival_explanations=[{"explanation": "Synthetic rival", "discriminating_control": "Synthetic control", "distinguishing_result": "Synthetic distinguishing result"}],
+                 expected_result_patterns={"support": "Synthetic support", "challenge": "Synthetic challenge", "inconclusive": "Synthetic uncertainty"})
+    value["components"][0].update(name="Synthetic circuit", role="model", mechanism="Synthetic mechanism",
+                                    implementation_status="implemented", evidence_status="verified", included_in_study=True,
+                                    artifact_ids=["A_code", "A_config"], source_record_ids=["S1"])
+    for item in value["artifact_handoff"]["items"]:
+        if item["kind"] in compiler.capture.CORE_ARTIFACTS:
+            digest = {"environment": "c" * 64, "scenario_manifest": "b" * 64}.get(item["kind"], "d" * 64)
+            item.update(status="captured", location="https://example.invalid/test-only/" + item["kind"], sha256=digest,
+                        immutable_version="a" * 40 if item["kind"] == "code" else None, owner="SYNTHETIC_TEST_ONLY")
+        else:
+            item.update(status="not_applicable", reason="No such artifact is used in this synthetic software fixture.")
+    value["artifact_handoff"].update(confirmed_by="SYNTHETIC_TEST_ONLY", confirmed_at_utc="2020-01-01T00:00:00Z")
+    value["learning"]["offline_calibration"]["enabled"] = False
+    value["learning"]["within_run_state"].update(enabled=True, state_variables=["position"], update_rule="Synthetic state integration", memory_role="Synthetic position state")
+    value["learning"]["online_updates"]["enabled"] = False
+    value["results_access"].update(declaration_status="complete", declared_by="SYNTHETIC_TEST_ONLY", declared_at_utc="2020-01-01T00:00:00Z",
+                                    no_prior_results_reason="Synthetic fixture only; no empirical results exist.",
+                                    registration_scope="new_simulation_runs", confirmatory_status="not_generated", prospective_scope="Synthetic fresh runs",
+                                    reserved_runs_or_conditions="Synthetic blocks 101, 102, 103", access_controls="Synthetic holdout rule")
+    decide_fixture(value)
     return attest_fixture(value)
+
+
+def decide_fixture(value):
+    """Synthetic per-field attestations only, never evidence of actual agreement."""
+    value["provenance"] = []
+    for path in compiler.capture.required_provenance_paths(value):
+        record = compiler.capture.provenance_record(path)
+        record.update(origin="researcher_followup", decision_status="decided", source_record_ids=["S1"],
+                      source_locator="Synthetic decision row for " + path, speaker_label="SYNTHETIC_TEST_ONLY",
+                      speaker_attribution="identified", decision_by="SYNTHETIC_TEST_ONLY", decision_record="Synthetic software test declaration",
+                      recorded_at_utc="2020-01-01T00:00:00Z", value_digest=compiler.capture.value_digest(compiler.capture.pointer_value(value,path)))
+        value["provenance"].append(record)
+    return value
 
 
 def attest_fixture(value):
@@ -118,3 +156,4 @@ class BoundaryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "study_id": "MG-OCC-001",
   "title": "Persistent object representations and identity-location binding through occlusion",
   "status": "proposed",
@@ -38,6 +38,11 @@
       "id": "S3",
       "location": "Kevin's recent direction: object-occlusion bouncing-ball color/object/location binding task",
       "what_it_supports": "Starting task family; specific implementation below is a proposal."
+    },
+    {
+      "id": "S4",
+      "location": "Schema v2 worked example, 12 November 2026; analyst-authored design proposals",
+      "what_it_supports": "The structured additions below illustrate capture. They are not meeting agreements or implementation evidence."
     }
   ],
   "prior_work_disclosure": null,
@@ -135,6 +140,11 @@
       "id": "D6",
       "decision": "Confirm title, coauthors/order, license, subjects, public or embargoed status, and reviews.",
       "owner": null
+    },
+    {
+      "id": "V2_CAPTURE",
+      "decision": "Complete the v2 structured records and renew the three reviews.",
+      "owner": null
     }
   ],
   "reviews": {
@@ -159,5 +169,1715 @@
       "review_digest": null,
       "notes": null
     }
+  },
+  "claim_measure_map": [
+    {
+      "hypothesis_id": "H1",
+      "component_ids": [
+        "M1",
+        "M2",
+        "M3"
+      ],
+      "construct": "Persistent identity-location binding through occlusion",
+      "operational_definition": "Predict the cued object location after occlusion while distinguishing the distractor.",
+      "metric_definition": "UNRESOLVED: choose the localization tolerance, query time, ties, invalid-output treatment, and episode scoring.",
+      "estimand": "Proposed full-minus-global-baseline mean accuracy difference in the occluded held-out condition across independent blocks.",
+      "mechanism": "Persistent object-specific recurrent representations for target identity and motion.",
+      "manipulation": "Proposed comparison of full, global recurrent, and disrupted-binding models under matched observations.",
+      "comparator": "UNRESOLVED: match training, tuning, and capacity budgets and specify remaining model differences.",
+      "conclusion_scope": "A functional binding/generalization claim under the declared generator.",
+      "inference_limits": "An advantage alone would not establish phenomenal experience or novel-dynamics composition.",
+      "rival_explanations": [
+        {
+          "explanation": "Additional capacity or tuning rather than persistent binding.",
+          "discriminating_control": "Match capacity and tuning budgets and include the binding ablation.",
+          "distinguishing_result": "A binding-specific advantage must survive the matched comparison; exact decision rule remains to be chosen."
+        }
+      ],
+      "expected_result_patterns": {
+        "support": "UNRESOLVED: select the meaningful-effect threshold and interval criterion.",
+        "challenge": "A precise reversed or practically negligible effect under prespecified criteria would challenge the prediction.",
+        "inconclusive": "Uncertainty spanning meaningful benefit and negligible/adverse outcomes."
+      },
+      "directly_encoded_effect": null,
+      "encoded_effect_implications": null
+    }
+  ],
+  "components": [
+    {
+      "id": "M1",
+      "name": "Persistent object-centric predictive model",
+      "role": "model",
+      "mechanism": "Analyst proposal: Persistent object-centric predictive model",
+      "implementation_status": "analyst_proposed",
+      "evidence_status": "not_demonstrated",
+      "included_in_study": true,
+      "artifact_ids": [],
+      "source_record_ids": [
+        "S4"
+      ]
+    },
+    {
+      "id": "M2",
+      "name": "Global recurrent predictive comparator",
+      "role": "control",
+      "mechanism": "Analyst proposal: Global recurrent predictive comparator",
+      "implementation_status": "analyst_proposed",
+      "evidence_status": "not_demonstrated",
+      "included_in_study": true,
+      "artifact_ids": [],
+      "source_record_ids": [
+        "S4"
+      ]
+    },
+    {
+      "id": "M3",
+      "name": "Persistent-binding ablation",
+      "role": "control",
+      "mechanism": "Analyst proposal: Persistent-binding ablation",
+      "implementation_status": "analyst_proposed",
+      "evidence_status": "not_demonstrated",
+      "included_in_study": true,
+      "artifact_ids": [],
+      "source_record_ids": [
+        "S4"
+      ]
+    }
+  ],
+  "learning": {
+    "offline_calibration": {
+      "enabled": true,
+      "parameters": [
+        "encoder parameters",
+        "predictive model parameters"
+      ],
+      "method": "UNRESOLVED: specify training rule and objective.",
+      "data_and_selection": "UNRESOLVED: training/validation manifests and tuning selection.",
+      "freeze_point": "UNRESOLVED: choose the checkpoint before confirmatory evaluation."
+    },
+    "within_run_state": {
+      "enabled": true,
+      "state_variables": [
+        "object slots or global recurrent state"
+      ],
+      "update_rule": "UNRESOLVED: exact model-specific state transition equations.",
+      "memory_role": "Proposed preservation of identity and predicted position across occlusion."
+    },
+    "online_updates": {
+      "enabled": false,
+      "parameters": [],
+      "rule": null,
+      "signal_type": null,
+      "signal_definition": null,
+      "objective": null,
+      "schedule": null,
+      "evaluation_update_policy": null
+    }
+  },
+  "provenance": [
+    {
+      "field_path": "/prior_work_disclosure",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/outcome_access_before_registration",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/aims",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "6c3d5b22c165a37cc310bd603a1063a1a011369855c860bd51e9f56768c8bf6b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/data_generating_parameters",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "6ef542e425adb7d1c50107bb8ed15e93da539a944898978a3b752831a8afb0d7",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/varied_factors",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "15c17e9538f4c4d4810335a9825d54ea10ee1b6faf90aadccd118994c0fa1e07",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/factor_values_and_constants",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "3ccad91e544fc235cd33ee40a4be36abcfa20cf7f49354097b2b16ecaa9e7c36",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/factor_combinations_and_condition_count",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "83141d7a696fe7a406bac643d6b29191623c2406242add314aab275bc9da844f",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/estimands_and_targets",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "e31f74c74c0e09cf970ddd7ea2a580ca14098cfb2ee9e1f7b24016b3d42050bd",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/methods_and_extracted_quantities",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "0c477a06e6473b8e456901cb927b108106eb4901e4c116b89bcf0987f731ef27",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/performance_measures",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "d5b4217597e787c02f7ea162e299e4663255477fb2b5132dd95d0808b51461c6",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/monte_carlo_uncertainty",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "3423ec2d2d3662f821531557a664fd081ea99fd7a3486726771f32144e4d43ce",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/repetition_count_rationale",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "659327a5eff3462f640d61695f60042eb465ad3809ea622c50f781e1e25e62fe",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/missingness_and_nonconvergence",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "623963745c29eaf5c75daa3f76a63e547372fcf8c1bcf15f9a8c6f3d064165d8",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/sections/interpretation_and_analysis",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "dcbef2d88c863206c8c3073ee152692af555b83de3e64ab69a039ede67b3a8be",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/independent_unit",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "650c063c51a18ac838231562788509dc55b64266bd90f3d7a246d46f56b50921",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/n_independent_repetitions",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/evaluation_episodes_per_condition",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/pilot_seed_blocks",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/confirmatory_seed_blocks",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/rng_stream_derivation",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/training_budget",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/hyperparameter_selection",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/checkpoint_selection",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/stopping_rule",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/failure_rule",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/execution/test_access_rule",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4471b8ba4be07439d5e98bcc60f033ca4f111efd43b4f20f79e13a01c1d6044c",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/hypotheses/0/statement",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "2cfb06d07fe34e0dde0504a96cfb0a7c788ba7b1dfecfb950c4f83302e9ffa93",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/hypotheses/0/contrast",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "ddb282810cf08f743bad63ac00a7a7febc21f207d48642d01a9dac8fb93b7f24",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/hypotheses/0/outcome",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "ad3a2299114212fbfc9ff508762c53e175ad1da1d963a778f9b147a7af6ac0fa",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/hypotheses/0/analysis",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/hypotheses/0/interpretation_rule",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/construct",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "863edbb87b6609b8800f392b03b93dee4e5b820d9c0ede2b86a9a34ea583ee7a",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/operational_definition",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "ade32512d366a178a7013a16c0411c162d513d6e312092e10e9fe2ef80c5e26c",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/metric_definition",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "e3107ca2457a70d14391fcebc001fafd79bb584b7c43c397e069609597906d91",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/estimand",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "de73d10c3f715d2669ee6664faa21484e14a2f434cde73f53a68e552f0d3f010",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/mechanism",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "6bc540e59618e443ee8a7964cf411b6addb5a998d7d44968cf5cd9e38c60f0ee",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/manipulation",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "98c8f7abc00d8eb0dc784e68ed5a2b96d083634075c7767b2791f81dc3629930",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/comparator",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "e086c10e0e4e32e9339ef38e7fb18cfcd4170b0e5c59576548a27bbffcd7e180",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/conclusion_scope",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4f9377c2c9a68423039ed4cfb5c955420b6e57f3c203b5502d8f420273ef8a5b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/inference_limits",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "737eb71e11dd4142c25251b203039f379cdad5dd999100d306f038193ed52862",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/component_ids",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4916477db197cb34cd32aa998de470ef65e8e20c161e976768d880fef0543694",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/rival_explanations",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4396d32e85b0a268a14a486a922ede4e5ccd7f91ba88932248bfd80fcda80264",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/expected_result_patterns",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "43884f5378b1b617d3ee7986ccd9270361f9823269be568030a1680f19725dc1",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/claim_measure_map/0/directly_encoded_effect",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/0/mechanism",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "637d21cf51e9b0fe4da2d14bd7b68223f152ffa62ac0ca012d51153b8940a364",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/0/implementation_status",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "c9d4f3678e23364343fffa7768976db40a3fa09447871f69dbc31841e2750c3c",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/0/evidence_status",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b9d1fb3fd9522cd26031280c7c92d45b21d96c1d6fbd1a816fade0419820dc65",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/0/included_in_study",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/0/artifact_ids",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/1/mechanism",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "01d103a9b9aac61222e3f26f7c718df5834bb530feee14d577b5e35175a80e43",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/1/implementation_status",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "c9d4f3678e23364343fffa7768976db40a3fa09447871f69dbc31841e2750c3c",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/1/evidence_status",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b9d1fb3fd9522cd26031280c7c92d45b21d96c1d6fbd1a816fade0419820dc65",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/1/included_in_study",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/1/artifact_ids",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/2/mechanism",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "9370348cea12e0b83be7d5be1e8529eb99acd11ef0fd84ac6973a770af552e3e",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/2/implementation_status",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "c9d4f3678e23364343fffa7768976db40a3fa09447871f69dbc31841e2750c3c",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/2/evidence_status",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b9d1fb3fd9522cd26031280c7c92d45b21d96c1d6fbd1a816fade0419820dc65",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/2/included_in_study",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/components/2/artifact_ids",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/offline_calibration/enabled",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/offline_calibration/parameters",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "2120c2a752f82838c3403c6d4fb4c9fe81cb39eab8a2315bb0964d1b8bbf7f4c",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/offline_calibration/method",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "2c4e414a90087f224123425242b98d708c12061e0a27cb17ee94f918d26601ab",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/offline_calibration/data_and_selection",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "e949867c449077d27e5f73b25d4f5efdd0aac13e731fedb3d529bef3e8284da7",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/offline_calibration/freeze_point",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4a7e4166fe8bf0823ff0599ea7a4dff8f805fb2a831e131bd190cb248b756477",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/within_run_state/enabled",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/within_run_state/state_variables",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "e0424590707d2153ef88106a8d4943a4a429e2509d06caa0cbc869f0529c89aa",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/within_run_state/update_rule",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "80c7a30df4ac9c581e7338ea34b491fbf9ea5f5e6871e56a7b7d1d856bdf0d5b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/within_run_state/memory_role",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "0e1cdfe1935e04708c2b167af4573a6b7dcdd045ad6398ae076a0971242ded1c",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/learning/online_updates/enabled",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/artifact_handoff/items",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "bca8457d1835a1db8d3f94ff45ac304dbddf92dc9b628f512bd4c0e55ec05d00",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/results_access/prior_results",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/results_access/registration_scope",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "2cef599da77b51dd698a617459c09fe6ae837f2266b5ae7facaae81ea4300e30",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/results_access/confirmatory_status",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/results_access/prospective_scope",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S4"
+      ],
+      "source_locator": "v2 worked-example proposal; no adoption recorded",
+      "speaker_label": null,
+      "speaker_attribution": "not_applicable",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "34dc21178083e1119645fc5c9121854e10400e3a515c2053f5e096e25632457f",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/results_access/reserved_runs_or_conditions",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/results_access/access_controls",
+      "origin": "not_recorded",
+      "decision_status": "not_recorded",
+      "source_record_ids": [],
+      "source_locator": null,
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    }
+  ],
+  "artifact_handoff": {
+    "items": [
+      {
+        "id": "A_code",
+        "kind": "code",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_config",
+        "kind": "config",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_environment",
+        "kind": "environment",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_scenario_manifest",
+        "kind": "scenario_manifest",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_input_traces",
+        "kind": "input_traces",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_equations",
+        "kind": "equations",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_slides",
+        "kind": "slides",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_chat",
+        "kind": "chat",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      }
+    ],
+    "confirmed_by": null,
+    "confirmed_at_utc": null
+  },
+  "results_access": {
+    "declaration_status": "incomplete",
+    "declared_by": null,
+    "declared_at_utc": null,
+    "prior_results": [],
+    "no_prior_results_reason": null,
+    "registration_scope": "new_simulation_runs",
+    "confirmatory_status": null,
+    "prospective_scope": "PROPOSED: new model/scenario runs reserved after registration.",
+    "reserved_runs_or_conditions": null,
+    "access_controls": null
+  },
+  "migration": {
+    "from_schema_version": 1,
+    "original_protocol_sha256": "b262c70cfac8f5af72cd1c18ec9ac52b421031ba05ff112d85db9c70114ee7e2",
+    "original_hash_basis": "canonical_json",
+    "previous_status": "proposed",
+    "previous_reviews": {
+      "science": {
+        "reviewer_name": null,
+        "approved": false,
+        "reviewed_at_utc": null,
+        "review_digest": null,
+        "notes": null
+      },
+      "implementation": {
+        "reviewer_name": null,
+        "approved": false,
+        "reviewed_at_utc": null,
+        "review_digest": null,
+        "notes": null
+      },
+      "analysis": {
+        "reviewer_name": null,
+        "approved": false,
+        "reviewed_at_utc": null,
+        "review_digest": null,
+        "notes": null
+      }
+    },
+    "note": "Legacy values preserved. New fields are unresolved; old approvals are historical only."
   }
 }

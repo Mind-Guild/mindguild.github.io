@@ -1,6 +1,6 @@
 # Mind Guild: working meeting to OSF simulation preregistration
 
-Prepared for Kevin Schmidt • 11 November 2026 • Starter workflow, version 1.0
+Prepared for Mind Guild • Updated 12 November 2026 • Toolkit and schema version 2.0
 
 **The meeting produces decisions; a structured protocol carries those decisions into code, analysis, and the OSF form.** AI can extract, organize, and check the plan. Researchers decide the scientific commitments and review the final registration.
 
@@ -10,15 +10,15 @@ Kevin's verified OSF profile: https://osf.io/user/zryq5. This is a contributor p
 
 | Stage | Work | Concrete output | Completion condition |
 | --- | --- | --- | --- |
-| Capture | Preserve meeting notes or a transcript with speaker names and timestamps; record prior simulations and results already seen. | Source record and decision ledger | Suggestions, agreements, disagreements, and unknowns are distinguishable. |
-| Specify | Translate each claim into a manipulation, comparator, outcome, analysis, and interpretation rule. | `protocol.json` | Each primary hypothesis has a complete evidence chain. |
+| Capture | Preserve timestamped notes, slides, code/config/input snapshots, and prior-results disclosures. Keep speaker attribution explicit. | Source records, artifact handoff, and decision ledger | Suggestions, agreements, disagreements, and unknowns are distinguishable. |
+| Specify | Connect each construct to a measure, estimand, manipulation, comparator, rival explanation, and conclusion limit. Record component and learning status separately. | Structured v2 `protocol.json` | Each confirmatory hypothesis has a complete claim-to-measure map. |
 | Check feasibility | Implement and inspect generator, baselines, scoring, and analysis using disclosed pilot seeds and synthetic results. | Pilot log and quality evidence | The design can run; failures and information seen are documented. |
 | Review and freeze | Resolve choices; have science, implementation, and analysis reviewed; pin code, dependencies, split manifest, and seed plan. | Local frozen packet and checksums | No unresolved confirmatory decisions; reviews refer to the same protocol digest. |
 | Register | Complete OSF's Simulation Studies form, attach the frozen protocol and supporting plans, choose access, and submit. | OSF registration URL, timestamp, and status | The registration is completed and archived; the recorded plan precedes confirmatory runs. |
 | Execute | Run the registered design and retain every planned run's status and provenance. | Run manifest, raw outputs, checkpoints, analysis outputs | Planned runs are accounted for, including failures. |
 | Report | Compare each registered prediction with its estimate, uncertainty, and departures from plan. | Hypothesis-by-hypothesis report and deviation log | Planned and exploratory analyses remain identifiable. |
 
-**The key boundary:** disclose exploratory work, then freeze and register before generating the confirmatory training runs or evaluating their outcomes. A local timestamp, uploaded protocol file, or saved OSF draft does not complete an OSF registration. If work is already underway, state exactly what was generated and inspected and limit prospective claims accordingly.
+**The key boundary:** disclose exploratory work, then freeze and register before generating new confirmatory runs. V2 also supports a separately labeled analysis-only scope for already-generated outputs that remain uninspected; it does not describe their generation as prospective. Already-inspected confirmatory outputs cannot pass that gate. A local timestamp, uploaded protocol file, or saved OSF draft does not complete an OSF registration. State exactly what was generated and inspected and define the remaining unobserved target.
 
 ## 2. A 45-minute working meeting
 
@@ -34,6 +34,8 @@ Use `templates/meeting_worksheet.md`. One person facilitates; one person capture
 | 40–45 | Read back decisions, unresolved questions, owners, implementation tasks, and review responsibilities. |
 
 Do not force numerical choices merely to finish the meeting. Give unresolved decisions an owner and a resolution method. The subsequent pilot and review close them before registration.
+
+Add the [ten-minute protocol close](templates/protocol_close.md) when the discussion has generated several possible studies. It captures the chosen claim, competing explanation, expected plot, implementation/learning status, results already seen, artifact owners, and explicit agreement status.
 
 ## 3. Translate ideas into testable commitments
 
@@ -90,21 +92,21 @@ For planning a mean paired difference, an approximate 95% interval half-width is
 
 ## 6. Use the kit
 
-1. Fill the meeting worksheet. Use `prompts/transcript_to_protocol.md` with the transcript and blank protocol to produce a sourced draft and a decision list.
-2. Copy `templates/protocol.blank.json` into your study folder as `protocol.json`. The illustrative occlusion version is in `examples/occlusion.proposed.json`.
+1. Fill the meeting worksheet and protocol close. Use `prompts/transcript_to_protocol.md` with the transcript, blank protocol, and [v2 record reference](SCHEMA.md) to produce a sourced draft.
+2. Copy `templates/protocol.blank.json` into your study folder as `protocol.json`. The illustrative occlusion version is in `examples/occlusion.proposed.json`. Existing v1 protocols can be copied forward with `python scripts/migrate_protocol.py old-protocol.json --out protocol.json`; the migration preserves old content, adds unresolved v2 records, and clears active approvals while retaining their history.
 3. Run the compiler from the kit folder with Python 3.10 or newer; no extra packages are required:
 
 ```bash
 python scripts/build_packet.py examples/occlusion.proposed.json --out review-packet
 ```
 
-It writes `osf_packet.md`, `readiness.json`, and `protocol.snapshot.json`. Exit code 2 means unresolved decisions; exit code 0 means its mechanical checks pass. The example intentionally fails readiness. The compiler checks declarations, required fields, seed overlap, and review digests. It cannot verify the scientific validity, actual code contents, or honesty of human review.
+It writes `osf_packet.md`, `readiness.json`, `protocol.snapshot.json`, `decision_ledger.csv`, and `artifact_handoff.csv`. Exit code 2 means unresolved decisions; exit code 0 means its mechanical checks pass. The example intentionally fails readiness. V2 checks structured scientific records, declared artifact pins, result-access boundaries, per-field agreement/value digests, seed overlap, and review digests. It does not verify scientific validity, remote artifact bytes, identities, or authenticated human agreement. Field counts are not a scientific readiness score.
 
-4. Resolve blockers. Record science, implementation, and analysis reviews against the `review_digest` printed in `readiness.json`. One researcher can cover several roles, but an additional reader is useful. Any substantive protocol edit changes that digest and requires renewed review.
+4. Resolve blockers. To create missing field-record slots without adopting any values, run `python scripts/scaffold_provenance.py protocol.json --out protocol.capture.json`. Edit the new copy using the evidence and actual decisions. `decision_ledger.csv` supplies the current value digest for each tracked field; writing that digest does not itself document agreement. Each required field needs its origin, source/locator, decision owner, and decision record. Analyst proposals also need explicit human-adoption evidence. Record science, implementation, and analysis reviews against the completed protocol's `review_digest`. One researcher can cover several roles. Any scientific edit invalidates the corresponding field decision and changes the overall review digest. Use the selected completed file in the freeze command below.
 5. Set `status` to `approved_for_freeze`, then create a new local freeze directory:
 
 ```bash
-python scripts/build_packet.py protocol.json --out frozen-v1 --freeze
+python scripts/build_packet.py protocol.capture.json --out frozen-v2 --freeze
 ```
 
 The freeze contains the copied plan, rendered packet, hashes, and local freeze metadata. It is an archival convention, not an OSF timestamp or an access control. Protect the directory and version it. No network requests or simulations run through this script.
@@ -139,6 +141,20 @@ For your next coworking session, complete these work items in order:
 
 The MVP is complete when a researcher can trace one claim from the meeting into an executable design and a complete OSF registration packet. Full API submission and a dashboard can be added later. They are not prerequisites for a useful first study.
 
+## 10. Structured study records in v2
+
+The video-based pipeline test identified five additions that are now part of the template, prompt, packet, and freeze checks:
+
+| Record | What it captures | Freeze behavior |
+| --- | --- | --- |
+| `claim_measure_map` | Construct, operational definition, metric/estimand, mechanism, control, rival explanations, expected result patterns, and conclusion limits. | Every confirmatory hypothesis needs a linked map. A directly encoded effect requires an explicit interpretation limit. |
+| `components` | Separate implementation and evidence states, inclusion in this study, artifact IDs, and source IDs. | Selected components must be implemented. Demonstrated behavior is distinct from verification; excluded future components can remain planned. |
+| `learning` | Offline calibration, within-run state dynamics, and online parameter updates, including the objective and teaching/error/reward signal when applicable. | Each phase is explicitly enabled or disabled. A named learning rule without its signal/objective is incomplete. |
+| `provenance` | Field path, source/locator, agreement status, original speaker attribution, actual decision owner, and value digest. | Proposals are not treated as decisions. Unknown speakers remain unresolved. Changed values require renewed field decisions and review. |
+| `artifact_handoff` and `results_access` | Versioned artifacts; prior results, who saw them and when, influence on design, reserved runs, and the prospective scope. | Missing core artifacts, incomplete exposure declarations, and already-inspected confirmatory targets block freeze. |
+
+The [schema reference](SCHEMA.md) explains the record shapes, conditional requirements, provenance workflow, and migration. The [changelog](CHANGELOG.md) describes the v2 compatibility change. Ordinary study outputs continue to use the same run manifest and deviation log.
+
 ## Sources
 
 Checked 11 November 2026. The workflow and example above are original recommendations; linked sources establish the OSF options and underlying methodological guidance.
@@ -152,3 +168,4 @@ Checked 11 November 2026. The workflow and example above are original recommenda
 7. OSF-linked public planning form (consulted to align section headings): https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit
 
 Context used: `paper outline 20261106.docx` and the available opening sections of `Draft Position Paper 20261104.docx`, plus your current occlusion-task direction. These motivate the example; they do not establish finalized numerical design decisions or completed implementations.
+

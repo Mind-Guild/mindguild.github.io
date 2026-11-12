@@ -22,6 +22,12 @@ Meaningful-effect threshold and justification:
 Evidence supporting / challenging / leaving the hypothesis unresolved:  
 Scope of conclusion:
 
+Directly encoded effect, or a prediction that could discriminate mechanisms?  
+Alternative/control/result entries for `claim_measure_map`:  
+Components included now, future components excluded, and implementation/evidence status:  
+Offline calibration / within-run state dynamics / online parameter updates:  
+For each active learning phase: parameters, rule, objective, teaching signal, timing, evaluation policy:
+
 ## Generator, models, and execution
 
 Generator equations and parameter distributions:  
@@ -36,6 +42,16 @@ Pilot / confirmatory seed namespaces:
 Compute budget and completion/interruption rule:  
 Crashes, retries, nonconvergence, exclusions, and missing outcomes:  
 Code, environment, and scenario manifest versions:
+
+## Artifact and results-access handoff
+
+Captured/requested/unavailable/inapplicable status for code, config, environment, scenario manifest, input traces, equations, slides, and chat:  
+Artifact locations and hashes/immutable versions:  
+Handoff confirmation owner/date:  
+Previous results/demonstrations, who saw them and when, conditions, and influence on design:  
+Reserved unobserved runs/conditions and access controls:  
+Registration scope: new simulation runs / analysis of existing uninspected outputs:  
+Actual results-access declaration owner/date:
 
 ## Expected figures and interpretation
 
@@ -55,6 +71,8 @@ Use `decided`, `proposed`, `deferred`, or `rejected`. Agreement requires explici
 | --- | --- | --- | --- | --- | --- | --- |
 | D001 | | | | | | |
 
+Transfer current decisions into `provenance` using field paths. Capture origin, source ID and locator, original speaker attribution, actual decision owner/record, and the current value digest. Keep unknown speakers unresolved. Do not mark an analyst proposal decided without explicit adoption evidence.
+
 ## Readback before closing
 
 - Primary hypothesis, outcome, contrast, and independent unit read aloud:
@@ -64,3 +82,6 @@ Use `decided`, `proposed`, `deferred`, or `rejected`. Agreement requires explici
 - Draft OSF title, contributors, and public/embargoed preference captured:
 
 The meeting need not produce a submit-ready registration. Its output must make the remaining decisions explicit and actionable.
+
+Use `templates/protocol_close.md` for the final ten-minute readback and artifact handoff.
+

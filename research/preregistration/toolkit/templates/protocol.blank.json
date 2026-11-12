@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "study_id": null,
   "title": null,
   "status": "draft",
@@ -97,5 +97,171 @@
       "review_digest": null,
       "notes": null
     }
+  },
+  "claim_measure_map": [
+    {
+      "hypothesis_id": "H1",
+      "component_ids": [],
+      "construct": null,
+      "operational_definition": null,
+      "metric_definition": null,
+      "estimand": null,
+      "mechanism": null,
+      "manipulation": null,
+      "comparator": null,
+      "conclusion_scope": null,
+      "inference_limits": null,
+      "rival_explanations": [
+        {
+          "explanation": null,
+          "discriminating_control": null,
+          "distinguishing_result": null
+        }
+      ],
+      "expected_result_patterns": {
+        "support": null,
+        "challenge": null,
+        "inconclusive": null
+      },
+      "directly_encoded_effect": null,
+      "encoded_effect_implications": null
+    }
+  ],
+  "components": [
+    {
+      "id": "M1",
+      "name": null,
+      "role": null,
+      "mechanism": null,
+      "implementation_status": "not_recorded",
+      "evidence_status": "not_recorded",
+      "included_in_study": null,
+      "artifact_ids": [],
+      "source_record_ids": []
+    }
+  ],
+  "learning": {
+    "offline_calibration": {
+      "enabled": null,
+      "parameters": [],
+      "method": null,
+      "data_and_selection": null,
+      "freeze_point": null
+    },
+    "within_run_state": {
+      "enabled": null,
+      "state_variables": [],
+      "update_rule": null,
+      "memory_role": null
+    },
+    "online_updates": {
+      "enabled": null,
+      "parameters": [],
+      "rule": null,
+      "signal_type": null,
+      "signal_definition": null,
+      "objective": null,
+      "schedule": null,
+      "evaluation_update_policy": null
+    }
+  },
+  "provenance": [],
+  "artifact_handoff": {
+    "items": [
+      {
+        "id": "A_code",
+        "kind": "code",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_config",
+        "kind": "config",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_environment",
+        "kind": "environment",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_scenario_manifest",
+        "kind": "scenario_manifest",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_input_traces",
+        "kind": "input_traces",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_equations",
+        "kind": "equations",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_slides",
+        "kind": "slides",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      },
+      {
+        "id": "A_chat",
+        "kind": "chat",
+        "status": "requested",
+        "location": null,
+        "sha256": null,
+        "immutable_version": null,
+        "owner": null,
+        "reason": null
+      }
+    ],
+    "confirmed_by": null,
+    "confirmed_at_utc": null
+  },
+  "results_access": {
+    "declaration_status": "incomplete",
+    "declared_by": null,
+    "declared_at_utc": null,
+    "prior_results": [],
+    "no_prior_results_reason": null,
+    "registration_scope": null,
+    "confirmatory_status": null,
+    "prospective_scope": null,
+    "reserved_runs_or_conditions": null,
+    "access_controls": null
   }
 }

@@ -13,5 +13,8 @@
   "verified_by": null,
   "verified_at_utc": null,
   "first_confirmatory_run_started_at_utc": null,
-  "outcomes_seen_before_registration": null
+  "outcomes_seen_before_registration": null,
+  "protocol_schema_version": 2,
+  "review_digest": null,
+  "registration_scope": null
 }
