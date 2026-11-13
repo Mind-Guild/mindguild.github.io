@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fdf6ef">
+  <meta name="description" content="Explore Mind Guild's implementation codebase: agent benchmarks, the S3Q Layer 1 runtime, scientific verification, and meeting operations. An interactive source-linked architecture atlas.">
+  <title>Codebase Atlas — Mind Guild</title>
+  <link rel="canonical" href="https://mind-guild.com/research/codebase/">
+  <link rel="icon" href="/branding/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/branding/brand.css?v=20261012">
+  <link rel="stylesheet" href="atlas.css">
+  <script src="map-data.js" defer></script>
+  <script src="atlas.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to code map</a>
+  <header class="site-header">
+    <a class="mg-brand" href="/" aria-label="Mind Guild home"><img class="mg-mark" src="/branding/mind-guild-mark-black.svg" alt="" width="154" height="154"><img class="mg-wordmark" src="/branding/mind-guild-wordmark-black.svg" alt="" width="480" height="81"></a>
+    <nav aria-label="Site navigation"><a href="/implementation.html">Implementation</a><a href="/products.html">Research tools</a><a href="https://github.com/Mind-Guild/Mind_Guild" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-main"><div class="eyebrow">Research tools / Implementation atlas</div><h1 id="page-title">Inside the <span>Mind Guild.</span></h1><p>Explore the code behind our experiments. Follow an architecture, trace the perception pipeline, or find the file where an idea becomes an implementation.</p></div>
+      <a id="snapshot" class="snapshot" href="https://github.com/Mind-Guild/Mind_Guild" target="_blank" rel="noopener"><span class="snapshot-label"><i></i> Source snapshot</span><strong id="snapshot-date">13 Nov 2026</strong><code id="revision">a3bd514</code><span>Mind-Guild / Mind_Guild <span aria-hidden="true">↗</span></span></a>
+    </section>
+    <div class="stats" id="stats" aria-label="Snapshot inventory"></div>
+    <section class="atlas" aria-label="Interactive codebase atlas">
+      <div class="atlas-toolbar"><div class="tabs" role="tablist" aria-label="Explore the codebase"><button id="tab-architecture" role="tab" aria-controls="panel-architecture" aria-selected="true" data-tab="architecture"><span class="tab-number">01</span> Architecture</button><button id="tab-pipeline" role="tab" aria-controls="panel-pipeline" aria-selected="false" tabindex="-1" data-tab="pipeline"><span class="tab-number">02</span> Layer 1 flow</button><button id="tab-files" role="tab" aria-controls="panel-files" aria-selected="false" tabindex="-1" data-tab="files"><span class="tab-number">03</span> Files &amp; imports</button></div><span class="atlas-label">A map of the implementation</span></div>
+      <div id="panel-architecture" class="tabpanel" role="tabpanel" aria-labelledby="tab-architecture">
+        <div class="view-intro"><div><h2>One repository. Distinct research tracks.</h2><p>Select a module to see its purpose and source files.</p></div><div class="legend"><span><i class="dot benchmark"></i>Benchmarks</span><span><i class="dot layer1"></i>S3Q Layer 1</span><span><i class="dot support"></i>Supporting tools</span></div></div>
+        <div class="map-layout"><div class="graph-surface"><div class="graph-caption"><span>MODULE DEPENDENCIES</span><span>arrow = imports → dependency</span></div><svg id="architecture-graph" viewBox="0 0 1080 790" aria-label="Module dependency map. Select any module to inspect it." role="group"></svg><div class="graph-footnote">Solid edges aggregate static Python imports. Dashed edges include explicit file loaders. Test edges appear when selected.</div></div><aside id="module-detail" class="inspector" aria-label="Selected module" aria-live="polite"></aside></div>
+        <div class="supporting-modules"><span>Also in the repository</span><button data-open-group="planning">Planning &amp; CI <span aria-hidden="true">→</span></button><button data-open-group="docs">Documentation &amp; recipes <span aria-hidden="true">→</span></button><button data-open-group="archive">Scratch experiments <span aria-hidden="true">→</span></button></div>
+      </div>
+      <div id="panel-pipeline" class="tabpanel" role="tabpanel" aria-labelledby="tab-pipeline" hidden>
+        <div class="view-intro"><div><h2>How Layer 1 turns observations into state.</h2><p>A source-reviewed execution diagram, including recurrence and slower outputs.</p></div><button class="button trace-button" id="trace-step">Follow the flow <span aria-hidden="true">→</span></button></div>
+        <div class="map-layout"><div class="graph-surface"><div class="graph-caption"><span>REFERENCE RUNTIME / DATA FLOW</span><span>20 ms perception · 40 / 60 ms slow periods</span></div><svg id="pipeline-graph" viewBox="0 0 1080 790" aria-label="Layer 1 sensor, perception, state and held-output flow. Select any stage." role="group"></svg><div class="graph-footnote">Arrows describe data flow, rather than Python imports. The scheduler releases components at their configured periods; sensors arrive asynchronously.</div></div><aside id="pipeline-detail" class="inspector" aria-label="Selected pipeline stage" aria-live="polite"></aside></div>
+      </div>
+      <div id="panel-files" class="tabpanel" role="tabpanel" aria-labelledby="tab-files" hidden>
+        <div class="view-intro"><div><h2>Find an entry point. Follow its dependencies.</h2><p>Search paths and top-level symbols in the pinned source snapshot.</p></div><button class="button" id="clear-filters">Reset filters</button></div>
+        <div class="file-layout"><div class="file-browser"><label for="file-search">Search the codebase</label><div class="search-wrap"><span aria-hidden="true">⌕</span><input id="file-search" type="search" placeholder="Try runtime, occlusion, SlotPredictor…" autocomplete="off" spellcheck="false"></div><label class="sr-only" for="group-filter">Filter by module</label><select id="group-filter"><option value="all">All modules</option></select><p class="file-count" id="file-count" aria-live="polite"></p><div id="file-list" class="file-list" aria-label="Matching files"></div></div><article id="file-detail" class="file-detail" aria-live="polite"></article></div>
+      </div>
+    </section>
+    <section class="reading-notes" aria-label="Map scope and evidence">
+      <article><div class="eyebrow">01 / Separate execution paths</div><h3>Benchmarks and reference runtime</h3><p>The classic agent/environment experiments and the packaged Layer 1 runtime coexist in this repository. Their shared research goals do not imply an end-to-end integration.</p><a href="/implementation.html">Explore the implementation framework <span aria-hidden="true">→</span></a></article>
+      <article><div class="eyebrow">02 / Scientific status</div><h3>Implemented is a starting point</h3><p>The recorded recipe has reproducibility evidence; full Layer 1 acceptance remains false. Allocation requirements and authoritative source verification remain open in the inspected snapshot.</p><a id="verification-link" href="https://github.com/Mind-Guild/Mind_Guild">Read the verification record <span aria-hidden="true">↗</span></a></article>
+      <article><div class="eyebrow">03 / Scope and method</div><h3>A source-linked snapshot</h3><p>Counts come from tracked files, excluding bytecode and editor metadata. Import links are static dependencies, including optional branches. The diagram maps code organization, not evidence of consciousness.</p><a href="/research/preregistration/">From a hypothesis to a protocol <span aria-hidden="true">→</span></a></article>
+    </section>
+    <details class="method"><summary>About this map and its source links</summary><p id="method-text"></p><p>The architecture and flow annotations were reviewed against the source at the displayed commit. Higher S3Q layers are outside this implementation map. GitHub source links require permission to the implementation repository. This page is a static snapshot; it does not poll GitHub or execute experiments.</p><p>Test-file counts describe inventory and do not report a test run. The file explorer includes tracked scratch experiments and retained evidence, labeled by module.</p></details>
+    <noscript><p class="no-script">Enable JavaScript to explore the interactive atlas. You can also <a href="https://github.com/Mind-Guild/Mind_Guild">browse the implementation repository on GitHub</a>.</p></noscript>
+  </main>
+  <footer><a href="/">Mind Guild</a><span>Explanation as simulation.</span><a href="/implementation.html">Back to Implementation <span aria-hidden="true">↗</span></a></footer>
+</body>
+</html>
