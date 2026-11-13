@@ -211,6 +211,8 @@ def assurance_basis_digest(protocol, hypothesis_id):
     basis = {k: protocol.get(k) for k in ("sections", "execution", "hypotheses", "claim_measure_map", "components", "learning", "artifacts")}
     basis.update(inference=contract.get("inference"), accounts=contract.get("accounts"),
                  contrasts=contract.get("contrasts"), assurance_plan=plan)
+    work = contract.get("execution", {})
+    basis["replication_plan"] = work.get("replication") if isinstance(work, dict) else None
     return capture.value_digest(basis)
 
 

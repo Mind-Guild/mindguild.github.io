@@ -146,6 +146,11 @@ class ContractTests(unittest.TestCase):
         attest_fixture(p)
         self.assertTrue(any("calibration is missing or stale" in x for x in compiler.validate(p)))
 
+    def test_replication_partition_changes_invalidate_calibration_basis(self):
+        p=theory_fixture(); basis=theory.assurance_basis_digest(p,"H1")
+        p["test_contract"]["execution"]["replication"]["reserved_seed_blocks"]=[103,104]
+        self.assertNotEqual(theory.assurance_basis_digest(p,"H1"),basis)
+
     def test_malformed_contract_diagnoses_without_crashing(self):
         p=synthetic_declaration()
         for key in theory.CONTRACT_GROUPS: p["test_contract"][key]=None

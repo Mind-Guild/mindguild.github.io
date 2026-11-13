@@ -58,7 +58,7 @@ Each confirmatory hypothesis has one `design_assurance` entry:
 - `assumptions_and_range`: generators, nuisance ranges, weakest effects, and circumstances in which the comparison is diagnostic. Assess a range rather than an easy single example.
 - `calibration_sampling`: independent calibration replications, RNG/seed derivation, treatment of invalid runs, and uncertainty assumptions. Calibration replications are repetitions of the entire proposed experiment, not extra frames within one run.
 - `evidence_artifact_id`: captured SHA-256-pinned analysis report containing the code/input links and condition-level results.
-- `calibration_basis_sha256`: digest emitted by the calibration helper for this hypothesis. It binds scientific choices, prediction rules, criterion thresholds, and the planned experiment size. Editing these requires new calibration/review. Counts and report pins are excluded to avoid a hash cycle.
+- `calibration_basis_sha256`: digest emitted by the calibration helper for this hypothesis. It binds scientific choices, prediction rules, criterion thresholds, the planned experiment size, and the replication partition/analysis plan. Editing these requires new calibration/review. Counts and report pins are excluded to avoid a hash cycle.
 - `maximum_interval_width`: a positive width on the estimand scale when strategy is precision; otherwise null.
 - `criteria`: scenario-level rate checks, described below.
 
