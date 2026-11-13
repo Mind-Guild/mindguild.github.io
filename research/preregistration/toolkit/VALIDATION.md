@@ -1,22 +1,25 @@
-# V2 validation
+# V3 validation
 
-Checked 12 November 2026.
+Checked 13 November 2026.
 
-- **46 standard-library tests passed.** The cases cover valid completed declarations, incomplete drafts, claim/rival/scope records, component readiness, learning-phase distinctions, provenance paths and stale decisions, explicit analyst-proposal adoption, artifact pins, prospective results access, safe migration/scaffolding, and freeze/output behavior.
-- **The previous Bogdan Fly draft was migrated and scaffolded.** Its hypotheses, OSF narratives, and 12 source records were preserved. New learning/access choices remained unknown, active approvals were absent, and the freeze remained blocked without creating a freeze directory.
-- **The occlusion example remains a proposal.** Its structured additions are labeled as analyst proposals. Unknown quantities, capture items, adoption, and reviews remain open. The generated packet includes the decision and artifact CSV exports.
-- **The website and ZIP are generated from the same toolkit source.** JSON parsing, relative links, section anchors, and archive integrity are checked before publication.
+- **81 standard-library tests passed.** They cover the existing capture/provenance/freeze boundaries plus claim-level restrictions, account versions and bridges, quantitative prediction regions, all six adjudication outcomes, sensitivity criteria and Wilson uncertainty, invalid-run accounting and denominator consistency, stale calibration, critical perspective acceptance, masking, replication, reporting, safe migration, and CLI output preservation.
+- **The actual previous Bogdan Fly v2 capture was migrated to v3.** Its hypotheses, OSF narratives, 12 source records, learning declarations, and results-access records were preserved. Six new contract-group provenance rows remained undecided, active approvals were absent, and freeze was refused without creating a directory.
+- **The occlusion example remains an analyst proposal.** The new scope is a candidate mechanism benchmark, not evidence of consciousness. No numerical region, calibration count, perspective acceptance, passed control, or OSF registration is supplied. Its generated review packet remains blocked.
+- **Calibration tests use synthetic software fixtures.** They do not constitute scientific power calculations for either real candidate. Invalid runs are retained in denominators. Rate checks include calibration uncertainty and a separate invalid-rate criterion under every scenario.
+- **Website/ZIP checks:** JSON parsing, links, section IDs, source-to-archive byte equality, and absence of generated Python caches are checked before publication. Browser QA verifies the updated guide and published download.
 
-Run the software tests from this toolkit folder:
+Run tests from the toolkit folder:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-Compile the intentionally incomplete worked example:
+Build the deliberately incomplete example:
 
 ```bash
 python scripts/build_packet.py examples/occlusion.proposed.json --out review-packet
 ```
 
-Expected exit code: 2. To inspect the freeze boundary, use the same command with a new output directory and `--freeze`; it must refuse the incomplete protocol. The helpers do not perform a simulator run or an OSF submission. Passing tests does not verify a study's scientific claims or authenticate its review attestations.
+Expected exit code: 2. With `--freeze` and a new output directory it must refuse without creating that directory. A mechanically complete synthetic fixture is used to check successful archival, hashes, and non-overwrite behavior; it is not a researcher-approved study.
+
+The helpers do not execute a simulator, retrieve artifact bytes, authenticate reviewers, register with OSF, or establish scientific validity. Reviewers must inspect calibration input/generator/code/report consistency and assess whether the tested assumptions warrant the stated conclusions.

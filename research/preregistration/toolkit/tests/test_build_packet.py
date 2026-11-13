@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("build_packet", ROOT / "scripts/build_packet.py")
 compiler = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(compiler)
+from fixture_v3 import populate_contract
 
 
 def synthetic_declaration():
@@ -62,12 +63,16 @@ def synthetic_declaration():
                                     no_prior_results_reason="Synthetic fixture only; no empirical results exist.",
                                     registration_scope="new_simulation_runs", confirmatory_status="not_generated", prospective_scope="Synthetic fresh runs",
                                     reserved_runs_or_conditions="Synthetic blocks 101, 102, 103", access_controls="Synthetic holdout rule")
+    populate_contract(value)
     decide_fixture(value)
     return attest_fixture(value)
 
 
 def decide_fixture(value):
     """Synthetic per-field attestations only, never evidence of actual agreement."""
+    if value.get("schema_version") == 3:
+        for assurance in compiler.capture.objects(value.get("test_contract", {}).get("design_assurance")):
+            assurance["calibration_basis_sha256"] = compiler.theory.assurance_basis_digest(value, assurance.get("hypothesis_id"))
     value["provenance"] = []
     for path in compiler.capture.required_provenance_paths(value):
         record = compiler.capture.provenance_record(path)
@@ -116,7 +121,7 @@ class BoundaryTests(unittest.TestCase):
     def test_scientific_edit_invalidates_all_reviews(self):
         value = synthetic_declaration()
         value["hypotheses"][0]["contrast"] = "Changed scientific contrast"
-        self.assertEqual(sum("digest does not match" in x for x in compiler.validate(value)), 3)
+        self.assertEqual(sum("digest does not match" in x for x in compiler.validate(value)), 4)
 
     def test_workflow_status_does_not_change_review_digest(self):
         value = synthetic_declaration()

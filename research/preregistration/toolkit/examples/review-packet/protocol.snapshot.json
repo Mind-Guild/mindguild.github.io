@@ -1,8 +1,8 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "study_id": "MG-OCC-001",
   "title": "Persistent object representations and identity-location binding through occlusion",
-  "status": "proposed",
+  "status": "draft",
   "metadata": {
     "description": "Proposed simulation comparing object-centric and global recurrent predictive models on target localization through occlusion, including held-out color-motion combinations. All numerical and implementation commitments require review before registration.",
     "contributors": [
@@ -43,6 +43,11 @@
       "id": "S4",
       "location": "Schema v2 worked example, 12 November 2026; analyst-authored design proposals",
       "what_it_supports": "The structured additions below illustrate capture. They are not meeting agreements or implementation evidence."
+    },
+    {
+      "id": "S5",
+      "location": "Mind Guild toolkit v3 methodological proposal, 13 November 2026",
+      "what_it_supports": "Analyst-proposed test contract; no researcher adoption, theory-proponent endorsement, or result claims."
     }
   ],
   "prior_work_disclosure": null,
@@ -145,6 +150,11 @@
       "id": "V2_CAPTURE",
       "decision": "Complete the v2 structured records and renew the three reviews.",
       "owner": null
+    },
+    {
+      "id": "V3_TEST_CONTRACT",
+      "decision": "Resolve the inference, prediction, assurance, critical-review, and execution contract.",
+      "owner": null
     }
   ],
   "reviews": {
@@ -168,6 +178,14 @@
       "reviewed_at_utc": null,
       "review_digest": null,
       "notes": null
+    },
+    "critical": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null,
+      "perspective_records": []
     }
   },
   "claim_measure_map": [
@@ -1750,6 +1768,126 @@
         "source_record_id": null,
         "adopted_at_utc": null
       }
+    },
+    {
+      "field_path": "/test_contract/inference",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S5"
+      ],
+      "source_locator": "Toolkit v3 proposal; researcher adoption is absent",
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "acab083b1200adcd7367cb0a5ec42f44add2d6ede1264181ce38cec4392c8cf4",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/test_contract/accounts",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S5"
+      ],
+      "source_locator": "Toolkit v3 proposal; researcher adoption is absent",
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "0696a4be7ec9c05c63b7bdba66c8d2f29c45ce8b9a19c1d12c5e01420185e700",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/test_contract/contrasts",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S5"
+      ],
+      "source_locator": "Toolkit v3 proposal; researcher adoption is absent",
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "1713220fa3610c962a668eb1aeccabee716da0f4e6a1ce208360325ab3ed3eb8",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/test_contract/design_assurance",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S5"
+      ],
+      "source_locator": "Toolkit v3 proposal; researcher adoption is absent",
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "2e8a24f9808b288f341de17143e96c6adad8462a0c36566e695bbf40d011860d",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/test_contract/critical_review",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S5"
+      ],
+      "source_locator": "Toolkit v3 proposal; researcher adoption is absent",
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "372929c32c871530d1b686b6c1f3eed969a2a95968e3d60e33f9c77e4223f335",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
+    },
+    {
+      "field_path": "/test_contract/execution",
+      "origin": "analyst_proposal",
+      "decision_status": "proposed",
+      "source_record_ids": [
+        "S5"
+      ],
+      "source_locator": "Toolkit v3 proposal; researcher adoption is absent",
+      "speaker_label": null,
+      "speaker_attribution": "unresolved",
+      "decision_by": null,
+      "decision_record": null,
+      "recorded_at_utc": null,
+      "value_digest": "6ad204981249d1df6985daa1462f92207753993e560499d8fc757b747ad5ba89",
+      "analyst_adoption": {
+        "adopted_by": null,
+        "source_record_id": null,
+        "adopted_at_utc": null
+      }
     }
   ],
   "artifact_handoff": {
@@ -1851,8 +1989,8 @@
     "access_controls": null
   },
   "migration": {
-    "from_schema_version": 1,
-    "original_protocol_sha256": "b262c70cfac8f5af72cd1c18ec9ac52b421031ba05ff112d85db9c70114ee7e2",
+    "from_schema_version": 2,
+    "original_protocol_sha256": "a231fa575f0f388e308b6a4012fc41d6e10b1e228b95de932170cb5fde401cb3",
     "original_hash_basis": "canonical_json",
     "previous_status": "proposed",
     "previous_reviews": {
@@ -1878,6 +2016,223 @@
         "notes": null
       }
     },
-    "note": "Legacy values preserved. New fields are unresolved; old approvals are historical only."
+    "previous_migration": {
+      "from_schema_version": 1,
+      "original_protocol_sha256": "b262c70cfac8f5af72cd1c18ec9ac52b421031ba05ff112d85db9c70114ee7e2",
+      "original_hash_basis": "canonical_json",
+      "previous_status": "proposed",
+      "previous_reviews": {
+        "science": {
+          "reviewer_name": null,
+          "approved": false,
+          "reviewed_at_utc": null,
+          "review_digest": null,
+          "notes": null
+        },
+        "implementation": {
+          "reviewer_name": null,
+          "approved": false,
+          "reviewed_at_utc": null,
+          "review_digest": null,
+          "notes": null
+        },
+        "analysis": {
+          "reviewer_name": null,
+          "approved": false,
+          "reviewed_at_utc": null,
+          "review_digest": null,
+          "notes": null
+        }
+      },
+      "note": "Legacy values preserved. New fields are unresolved; old approvals are historical only."
+    },
+    "note": "Original study records preserved. New test contract unresolved; all active reviews require renewal."
+  },
+  "test_contract": {
+    "inference": {
+      "study_type": "mechanism_benchmark",
+      "target_level": "computational_mechanism",
+      "phenomenon": "PROPOSED: Identity-preserving color-object-location binding through occlusion.",
+      "allowed_conclusion": "PROPOSED: A prespecified advantage would support the tested implementation of persistent object binding under this generator.",
+      "excluded_conclusions": [
+        "PROPOSED: This benchmark cannot establish phenomenal consciousness or adjudicate IIT versus GNWT."
+      ],
+      "theory_core_vs_implementation": "PROPOSED: Compare operational accounts of binding; neither architecture is asserted to instantiate an entire consciousness theory.",
+      "consciousness_inference": "not_assessed"
+    },
+    "accounts": [
+      {
+        "id": "T1",
+        "name": "PROPOSED: Persistent object-binding benefit",
+        "version": "PROPOSED: Occlusion benchmark candidate v1",
+        "kind": "mechanistic_account",
+        "source_record_ids": [
+          "S5"
+        ],
+        "component_ids": [
+          "M1"
+        ],
+        "commitment": "PROPOSED: Persistent object identity provides an advantage at the chosen occlusion contrast.",
+        "implementation_assumptions": "PROPOSED: Match observations, training/tuning budgets, and capacity; document residual differences.",
+        "bridge_assumptions": [
+          {
+            "assumption": "PROPOSED: The chosen identity-sensitive outcome isolates binding rather than a color, motion, or scoring shortcut.",
+            "test_or_justification": "PROPOSED: Audit hidden-state leakage and include identity-swap and visible-control cases.",
+            "violation_implication": "PROPOSED: A failed control invalidates the operational interpretation and does not refute a consciousness theory."
+          }
+        ]
+      },
+      {
+        "id": "T2",
+        "name": "PROPOSED: Resource-matched generic prediction",
+        "version": "PROPOSED: Occlusion benchmark candidate v1",
+        "kind": "mechanistic_account",
+        "source_record_ids": [
+          "S5"
+        ],
+        "component_ids": [
+          "M2"
+        ],
+        "commitment": "PROPOSED: Generic prediction and the matched resource budget explain the observed performance without a special binding advantage.",
+        "implementation_assumptions": "PROPOSED: Match observations, training/tuning budgets, and capacity; document residual differences.",
+        "bridge_assumptions": [
+          {
+            "assumption": "PROPOSED: The chosen identity-sensitive outcome isolates binding rather than a color, motion, or scoring shortcut.",
+            "test_or_justification": "PROPOSED: Audit hidden-state leakage and include identity-swap and visible-control cases.",
+            "violation_implication": "PROPOSED: A failed control invalidates the operational interpretation and does not refute a consciousness theory."
+          }
+        ]
+      }
+    ],
+    "contrasts": [
+      {
+        "hypothesis_id": "H1",
+        "target_account_id": "T1",
+        "rival_account_id": "T2",
+        "estimand": "Proposed full-minus-global-baseline mean accuracy difference in the occluded held-out condition across independent blocks.",
+        "interval_method": null,
+        "multiplicity_rule": null,
+        "diagnosticity_reason": "PROPOSED: Quantitative regions, uncertainty procedure, and all six interpretations require explicit researcher decisions.",
+        "resource_matching": null,
+        "prediction_regions": [
+          {
+            "account_id": "T1",
+            "specified": null,
+            "lower": null,
+            "upper": null,
+            "derivation": null
+          },
+          {
+            "account_id": "T2",
+            "specified": null,
+            "lower": null,
+            "upper": null,
+            "derivation": null
+          }
+        ],
+        "interpretations": {
+          "target_only": null,
+          "rival_only": null,
+          "both": null,
+          "neither": null,
+          "inconclusive": null,
+          "invalid": null
+        },
+        "validity_checks": [
+          {
+            "kind": "measurement",
+            "pass_rule": null,
+            "passed": null,
+            "evidence_artifact_id": null,
+            "failure_action": null
+          },
+          {
+            "kind": "implementation",
+            "pass_rule": null,
+            "passed": null,
+            "evidence_artifact_id": null,
+            "failure_action": null
+          },
+          {
+            "kind": "negative_control",
+            "pass_rule": null,
+            "passed": null,
+            "evidence_artifact_id": null,
+            "failure_action": null
+          }
+        ]
+      }
+    ],
+    "design_assurance": [
+      {
+        "hypothesis_id": "H1",
+        "strategy": null,
+        "independent_unit": null,
+        "planned_repetitions": null,
+        "minimum_effect_magnitude": null,
+        "effect_scale_and_justification": null,
+        "assumptions_and_range": null,
+        "calibration_sampling": null,
+        "evidence_artifact_id": null,
+        "maximum_interval_width": null,
+        "criteria": [],
+        "calibration_basis_sha256": null
+      }
+    ],
+    "critical_review": {
+      "coordinator": null,
+      "coordinator_conflicts": null,
+      "roles_overlap": null,
+      "overlap_reason": null,
+      "disagreement_resolution": null,
+      "unresolved_disputes": [],
+      "perspectives": [
+        {
+          "account_id": "T1",
+          "reviewer_name": null,
+          "relationship": null,
+          "conflicts": null,
+          "endorsement_source_id": null
+        },
+        {
+          "account_id": "T2",
+          "reviewer_name": null,
+          "relationship": null,
+          "conflicts": null,
+          "endorsement_source_id": null
+        }
+      ]
+    },
+    "execution": {
+      "masking": {
+        "mode": null,
+        "method_or_limitation": null,
+        "custodian": null,
+        "analyst": null,
+        "analysis_lock_artifact_id": null,
+        "unblinding_gate": null,
+        "access_log_location": null
+      },
+      "replication": {
+        "mode": null,
+        "reserved_seed_blocks": [],
+        "independent_code_artifact_id": null,
+        "independence_basis_or_limitation": null,
+        "release_trigger": null,
+        "analysis_and_pooling_rule": null,
+        "failure_interpretation": null
+      },
+      "reporting": {
+        "all_registered_hypotheses": null,
+        "all_attempts": null,
+        "full_outcome_matrix": null,
+        "deviations_with_exposure": null,
+        "outcome_independent_release": null,
+        "release_location": null,
+        "release_deadline_rule": null,
+        "amendment_rule": null,
+        "interpretation_revision_rule": null
+      }
+    }
   }
 }

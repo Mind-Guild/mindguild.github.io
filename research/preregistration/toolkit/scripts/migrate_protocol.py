@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copy a v1 protocol to v2, keeping new decisions unresolved and resetting reviews."""
+"""Copy a v1/v2 protocol to v3, preserving content and clearing active reviews."""
 import argparse
 import hashlib
 import json
@@ -9,7 +9,7 @@ from pathlib import Path
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
 if str(SCRIPT_DIRECTORY) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIRECTORY))
-from protocol_v2 import migrate_v1
+from protocol_v3 import migrate_to_v3
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     try:
         raw = args.protocol.read_bytes()
         protocol = json.loads(raw)
-        result = migrate_v1(protocol, hashlib.sha256(raw).hexdigest())
+        result = migrate_to_v3(protocol, hashlib.sha256(raw).hexdigest())
         encoded = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with args.out.open("x", encoding="utf-8") as destination:

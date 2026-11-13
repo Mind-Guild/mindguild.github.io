@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.0 — 13 November 2026
+
+- Added the inference and interpretation contract, versioned competing accounts, bridge assumptions, quantitative prediction matrix, and six-outcome adjudication.
+- Added conditional design assurance with null/target/rival calibration, 95% Wilson uncertainty gates, scientific-basis digests, pinned evidence, and an optional synthetic-calibration summarizer. No simulator outputs or scientific decisions are fabricated.
+- Added critical-perspective review, explicit proponent/proxy/internal-critic labels, conflicts/overlap disclosure, and design/interpretation acceptance tied to the current review digest.
+- Added analysis masking/unblinding plans, proportionate replication requirements, and outcome-independent reporting/amendment commitments.
+- Added the methodological critique, detailed contract reference, review worksheet, calibration input template, and prediction/assurance CSV exports.
+- Migration now copies v1 or v2 to v3 with unresolved new records and cleared active approvals; existing decisions and historical reviews are preserved. V1/v2 remain draft-readable but cannot create new freezes with this compiler. Existing archives are unchanged.
+- Updated website, prompt, example, and download. The proposed occlusion study remains unapproved and is scoped as a candidate mechanism benchmark.
+
+These are original Mind Guild workflow choices informed by public work, not a review or endorsement by Lucia Melloni or COGITATE. The interval-based engine is a restricted two-account scalar design; scientific adequacy and real review remain human responsibilities.
+
 ## 2.0 — 12 November 2026
 
 - Added structured construct/claim-to-measure maps, competing explanations, expected result patterns, directly encoded-effect interpretation, and conclusion limits.

@@ -1,6 +1,6 @@
 # Prompt: convert a research meeting into a traceable preregistration draft
 
-Use with the transcript/notes, the v2 blank JSON protocol, `SCHEMA.md`, and any specifically authorized supporting materials. Keep original sources immutable and identify their versions. Do not infer that slides, code, or chat were captured merely because someone referred to them.
+Use with the transcript/notes, the v3 blank JSON protocol, `SCHEMA.md`, `TEST_CONTRACT.md`, and any specifically authorized supporting materials. Keep original sources immutable and identify their versions. Do not infer that slides, code, or chat were captured merely because someone referred to them.
 
 ---
 
@@ -21,11 +21,17 @@ You are the methodological recorder for a simulation study. Produce a draft for 
 13. In `artifact_handoff`, record a disposition for code, config, environment, scenario manifest, input traces, equations, slides, and chat. Capture locations and real hashes/immutable versions only when supplied; otherwise use requested/unavailable/inapplicable with truthful reasons and owners when known. Never invent a pin.
 14. In `results_access`, inventory previous demonstrations/pilots, who saw them, when, conditions, use, and design influence. State the exact unobserved target and access controls only if established. Use `new_simulation_runs` for outputs not generated yet; use `analysis_of_uninspected_outputs` only when existing outputs really remain uninspected. An already-seen target cannot become prospective by writing a later plan. Leave the declaration incomplete unless a real named declaration was supplied.
 
+15. Populate `test_contract` only from actual decisions. Separate a mechanism benchmark from a theory-discrimination claim; identify versioned accounts, implementation and bridge assumptions, and allowed/excluded conclusions. A network label, decoding result, behavioral success, recurrence, or subjective-sounding terminology does not establish phenomenal consciousness.
+16. Derive each account's quantitative prediction region on the same estimand when supplied. Leave unspecified bounds and rule choices unresolved; a missing theory prediction is not a null-effect prediction. Record all six interpretations: target-only, rival-only, both, neither, inconclusive, and invalid. Do not invent theory disagreement or turn nested/shared predictions into false opposites.
+17. Capture actual design-assurance evidence: minimum meaningful effect, independent experimental units, planned repetitions, generator assumptions/ranges, null/target/rival calibration, rate criteria, Monte Carlo uncertainty, and artifact pins. Never fabricate counts, calibration-basis hashes, sensitivity, power, or a passed control. Calibration is development evidence, not confirmatory results.
+18. Identify actual perspective reviewers and coordinator, their relationships/conflicts/overlap, disagreements, and evidence of design/interpretation acceptance. Internal critics and informed proxies are valid labels but must not be presented as theory-proponent endorsement. Leave all absent approvals absent.
+19. Capture masking or its limitations, analysis-lock and unblinding rules, access logs, reserved-run or independent-implementation replication, and outcome-independent reporting/amendment commitments. Do not describe seed repetition as an independent implementation. Preserve original interpretations if a later explanation changes after results are visible.
+
 Return:
 
 A. A short plain-language summary of what was decided and remains open.
 B. A decision ledger with source locators and explicit status.
-C. A syntactically valid schema_version 2 JSON draft with the supplied structure and structured capture records. Keep status `draft` or `proposed`; do not populate `reviews` or analyst-adoption records with invented approvals. If no primary study was selected, label any analyst-selected candidate as proposed and leave that scope choice open.
+C. A syntactically valid schema_version 3 JSON draft with the supplied structure and structured capture records. Keep status `draft` or `proposed`; do not populate `reviews` or analyst-adoption records with invented approvals. If no primary study was selected, label any analyst-selected candidate as proposed and leave that scope choice open.
 D. An ordered list of the smallest implementation/pilot tasks needed to resolve each blocker.
 E. A scientific review list: alternative explanations, falsification/interpretation, leakage, uncertainty, and outcome-access disclosure.
 F. A short protocol-close readback and a list of missing slides/code/config/input/chat artifacts with resolution owners where stated.

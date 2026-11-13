@@ -1,0 +1,3 @@
+hypothesis_id,account_id,estimand,specified,lower_inclusive,upper_inclusive,derivation,both_exclusive_regions_exist
+H1,T1,Proposed full-minus-global-baseline mean accuracy difference in the occluded held-out condition across independent blocks.,,,,,False
+H1,T2,Proposed full-minus-global-baseline mean accuracy difference in the occluded held-out condition across independent blocks.,,,,,False

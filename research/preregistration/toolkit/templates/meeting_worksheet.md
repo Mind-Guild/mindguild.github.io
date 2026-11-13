@@ -85,3 +85,7 @@ The meeting need not produce a submit-ready registration. Its output must make t
 
 Use `templates/protocol_close.md` for the final ten-minute readback and artifact handoff.
 
+
+## V3 test-contract handoff
+
+Record whether the candidate is a mechanism benchmark or a theory-discrimination study. Identify the strongest account alternative, the same-estimand quantitative predictions if actually decided, all six outcome interpretations, bridge assumptions, and the owner of the results-blind review in [severe_test_review.md](severe_test_review.md). Keep numerical decisions, sensitivity evidence, and perspective approvals unresolved when absent from the meeting.

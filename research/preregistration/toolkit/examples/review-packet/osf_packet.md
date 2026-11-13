@@ -4,7 +4,7 @@
 
 Study ID: MG-OCC-001  
 Mechanical readiness: BLOCKED  
-Review digest: `f26a0df206dbb8b668b2e9930ad7ccc4609102cc1c8d65b9696286c2be544abb`
+Review digest: `32d20a9bbffe6720a852944f52ad49faa9837f928ae94e92792bddc6f07f8a0d`
 
 ## Metadata
 
@@ -278,6 +278,83 @@ The full decision ledger includes current value digests in `decision_ledger.csv`
 | /results_access/prospective_scope | proposed / analyst_proposal | ["S4"] / v2 worked-example proposal; no adoption recorded | not_applicable / None | Missing |
 | /results_access/reserved_runs_or_conditions | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
 | /results_access/access_controls | not_recorded / not_recorded | [] / None | unresolved / None | Missing |
+| /test_contract/inference | proposed / analyst_proposal | ["S5"] / Toolkit v3 proposal; researcher adoption is absent | unresolved / None | Missing |
+| /test_contract/accounts | proposed / analyst_proposal | ["S5"] / Toolkit v3 proposal; researcher adoption is absent | unresolved / None | Missing |
+| /test_contract/contrasts | proposed / analyst_proposal | ["S5"] / Toolkit v3 proposal; researcher adoption is absent | unresolved / None | Missing |
+| /test_contract/design_assurance | proposed / analyst_proposal | ["S5"] / Toolkit v3 proposal; researcher adoption is absent | unresolved / None | Missing |
+| /test_contract/critical_review | proposed / analyst_proposal | ["S5"] / Toolkit v3 proposal; researcher adoption is absent | unresolved / None | Missing |
+| /test_contract/execution | proposed / analyst_proposal | ["S5"] / Toolkit v3 proposal; researcher adoption is absent | unresolved / None | Missing |
+
+
+## Test and interpretation contract (schema v3)
+
+This is Mind Guild's methodological adaptation, not a review or endorsement by Lucia Melloni or COGITATE. Compatibility categories test the stated operational predictions; they do not establish consciousness or eliminate an entire theory.
+
+| Inference decision | Commitment |
+| --- | --- |
+| study_type | mechanism_benchmark |
+| target_level | computational_mechanism |
+| phenomenon | PROPOSED: Identity-preserving color-object-location binding through occlusion. |
+| allowed_conclusion | PROPOSED: A prespecified advantage would support the tested implementation of persistent object binding under this generator. |
+| excluded_conclusions | ["PROPOSED: This benchmark cannot establish phenomenal consciousness or adjudicate IIT versus GNWT."] |
+| theory_core_vs_implementation | PROPOSED: Compare operational accounts of binding; neither architecture is asserted to instantiate an entire consciousness theory. |
+| consciousness_inference | not_assessed |
+
+### Competing accounts and bridge assumptions
+
+| Account / version | Commitment | Implementation / bridges |
+| --- | --- | --- |
+| T1 / PROPOSED: Persistent object-binding benefit / PROPOSED: Occlusion benchmark candidate v1 | PROPOSED: Persistent object identity provides an advantage at the chosen occlusion contrast. | {"components": ["M1"], "implementation": "PROPOSED: Match observations, training/tuning budgets, and capacity; document residual differences.", "bridges": [{"assumption": "PROPOSED: The chosen identity-sensitive outcome isolates binding rather than a color, motion, or scoring shortcut.", "test_or_justification": "PROPOSED: Audit hidden-state leakage and include identity-swap and visible-control cases.", "violation_implication": "PROPOSED: A failed control invalidates the operational interpretation and does not refute a consciousness theory."}]} |
+| T2 / PROPOSED: Resource-matched generic prediction / PROPOSED: Occlusion benchmark candidate v1 | PROPOSED: Generic prediction and the matched resource budget explain the observed performance without a special binding advantage. | {"components": ["M2"], "implementation": "PROPOSED: Match observations, training/tuning budgets, and capacity; document residual differences.", "bridges": [{"assumption": "PROPOSED: The chosen identity-sensitive outcome isolates binding rather than a color, motion, or scoring shortcut.", "test_or_justification": "PROPOSED: Audit hidden-state leakage and include identity-swap and visible-control cases.", "violation_implication": "PROPOSED: A failed control invalidates the operational interpretation and does not refute a consciousness theory."}]} |
+
+### Quantitative prediction matrix
+
+Bounds are inclusive; null is unbounded. Apply the declared uncertainty interval, not a significance label. A partial intersection is inconclusive. No prediction is not a prediction of no effect.
+
+| Hypothesis | Account | Specified? | Lower | Upper | Derivation |
+| --- | --- | --- | --- | --- | --- |
+| H1 | T1 | Missing | Missing | Missing | Missing |
+| H1 | T2 | Missing | Missing | Missing | Missing |
+
+### Outcomes and validity: H1
+
+| Result pattern | Agreed interpretation |
+| --- | --- |
+| target_only | Missing |
+| rival_only | Missing |
+| both | Missing |
+| neither | Missing |
+| inconclusive | Missing |
+| invalid | Missing |
+
+Both accounts have an exclusive possible result: False
+
+| Test decision | Specification |
+| --- | --- |
+| estimand | Proposed full-minus-global-baseline mean accuracy difference in the occluded held-out condition across independent blocks. |
+| interval_method | Missing |
+| multiplicity_rule | Missing |
+| diagnosticity_reason | PROPOSED: Quantitative regions, uncertainty procedure, and all six interpretations require explicit researcher decisions. |
+| resource_matching | Missing |
+| validity_checks | [{"kind": "measurement", "pass_rule": null, "passed": null, "evidence_artifact_id": null, "failure_action": null}, {"kind": "implementation", "pass_rule": null, "passed": null, "evidence_artifact_id": null, "failure_action": null}, {"kind": "negative_control", "pass_rule": null, "passed": null, "evidence_artifact_id": null, "failure_action": null}] |
+
+### Design assurance
+
+95% Wilson intervals describe calibration-rate Monte Carlo uncertainty under independent calibration draws. Passing is conditional on the stated synthetic generator and assumptions. These are not confirmatory study results.
+
+| Hypothesis | Scenario / event | Count / total | 95% Wilson interval | Criterion | Met? |
+| --- | --- | --- | --- | --- | --- |
+
+| Hypothesis | Assurance assumptions |
+| --- | --- |
+| H1 | {"hypothesis_id": "H1", "strategy": null, "independent_unit": null, "planned_repetitions": null, "minimum_effect_magnitude": null, "effect_scale_and_justification": null, "assumptions_and_range": null, "calibration_sampling": null, "evidence_artifact_id": null, "maximum_interval_width": null, "criteria": [], "calibration_basis_sha256": null} |
+
+### Critical review and execution safeguards
+
+| Commitment | Specification |
+| --- | --- |
+| critical review | {"coordinator": null, "coordinator_conflicts": null, "roles_overlap": null, "overlap_reason": null, "disagreement_resolution": null, "unresolved_disputes": [], "perspectives": [{"account_id": "T1", "reviewer_name": null, "relationship": null, "conflicts": null, "endorsement_source_id": null}, {"account_id": "T2", "reviewer_name": null, "relationship": null, "conflicts": null, "endorsement_source_id": null}]} |
+| masking / replication / reporting | {"masking": {"mode": null, "method_or_limitation": null, "custodian": null, "analyst": null, "analysis_lock_artifact_id": null, "unblinding_gate": null, "access_log_location": null}, "replication": {"mode": null, "reserved_seed_blocks": [], "independent_code_artifact_id": null, "independence_basis_or_limitation": null, "release_trigger": null, "analysis_and_pooling_rule": null, "failure_interpretation": null}, "reporting": {"all_registered_hypotheses": null, "all_attempts": null, "full_outcome_matrix": null, "deviations_with_exposure": null, "outcome_independent_release": null, "release_location": null, "release_deadline_rule": null, "amendment_rule": null, "interpretation_revision_rule": null}} |
 
 
 ## Execution plan
@@ -346,6 +423,11 @@ The full decision ledger includes current value digests in `decision_ledger.csv`
     "id": "S4",
     "location": "Schema v2 worked example, 12 November 2026; analyst-authored design proposals",
     "what_it_supports": "The structured additions below illustrate capture. They are not meeting agreements or implementation evidence."
+  },
+  {
+    "id": "S5",
+    "location": "Mind Guild toolkit v3 methodological proposal, 13 November 2026",
+    "what_it_supports": "Analyst-proposed test contract; no researcher adoption, theory-proponent endorsement, or result claims."
   }
 ]
 ```
@@ -374,6 +456,14 @@ The full decision ledger includes current value digests in `decision_ledger.csv`
     "reviewed_at_utc": null,
     "review_digest": null,
     "notes": null
+  },
+  "critical": {
+    "reviewer_name": null,
+    "approved": false,
+    "reviewed_at_utc": null,
+    "review_digest": null,
+    "notes": null,
+    "perspective_records": []
   }
 }
 ```
@@ -415,6 +505,11 @@ The full decision ledger includes current value digests in `decision_ledger.csv`
   {
     "id": "V2_CAPTURE",
     "decision": "Complete the v2 structured records and renew the three reviews.",
+    "owner": null
+  },
+  {
+    "id": "V3_TEST_CONTRACT",
+    "decision": "Resolve the inference, prediction, assurance, critical-review, and execution contract.",
     "owner": null
   }
 ]
@@ -595,6 +690,113 @@ The full decision ledger includes current value digests in `decision_ledger.csv`
 - provenance: /results_access/prospective_scope needs an explicit decided record
 - provenance: /results_access/reserved_runs_or_conditions needs an explicit decided record
 - provenance: /results_access/access_controls needs an explicit decided record
+- provenance: /test_contract/inference needs an explicit decided record
+- provenance: /test_contract/accounts needs an explicit decided record
+- provenance: /test_contract/contrasts needs an explicit decided record
+- provenance: /test_contract/design_assurance needs an explicit decided record
+- provenance: /test_contract/critical_review needs an explicit decided record
+- provenance: /test_contract/execution needs an explicit decided record
+- test_contract.inference.phenomenon: supply resolved, specific text
+- test_contract.inference.allowed_conclusion: supply resolved, specific text
+- test_contract.inference.theory_core_vs_implementation: supply resolved, specific text
+- test_contract.inference.excluded_conclusions[0]: supply resolved, specific text
+- test_contract.accounts[0].name: supply resolved, specific text
+- test_contract.accounts[0].version: supply resolved, specific text
+- test_contract.accounts[0].commitment: supply resolved, specific text
+- test_contract.accounts[0].implementation_assumptions: supply resolved, specific text
+- test_contract.accounts[0].bridge_assumptions[0].assumption: supply resolved, specific text
+- test_contract.accounts[0].bridge_assumptions[0].test_or_justification: supply resolved, specific text
+- test_contract.accounts[0].bridge_assumptions[0].violation_implication: supply resolved, specific text
+- test_contract.accounts[1].name: supply resolved, specific text
+- test_contract.accounts[1].version: supply resolved, specific text
+- test_contract.accounts[1].commitment: supply resolved, specific text
+- test_contract.accounts[1].implementation_assumptions: supply resolved, specific text
+- test_contract.accounts[1].bridge_assumptions[0].assumption: supply resolved, specific text
+- test_contract.accounts[1].bridge_assumptions[0].test_or_justification: supply resolved, specific text
+- test_contract.accounts[1].bridge_assumptions[0].violation_implication: supply resolved, specific text
+- test_contract.contrasts[0].interval_method: supply resolved, specific text
+- test_contract.contrasts[0].multiplicity_rule: supply resolved, specific text
+- test_contract.contrasts[0].diagnosticity_reason: supply resolved, specific text
+- test_contract.contrasts[0].resource_matching: supply resolved, specific text
+- test_contract.contrasts[0].prediction_regions[0].specified: explicitly choose true or false
+- test_contract.contrasts[0].prediction_regions[0].derivation: supply resolved, specific text
+- test_contract.contrasts[0].prediction_regions[1].specified: explicitly choose true or false
+- test_contract.contrasts[0].prediction_regions[1].derivation: supply resolved, specific text
+- test_contract.contrasts[0].interpretations.target_only: supply resolved, specific text
+- test_contract.contrasts[0].interpretations.rival_only: supply resolved, specific text
+- test_contract.contrasts[0].interpretations.both: supply resolved, specific text
+- test_contract.contrasts[0].interpretations.neither: supply resolved, specific text
+- test_contract.contrasts[0].interpretations.inconclusive: supply resolved, specific text
+- test_contract.contrasts[0].interpretations.invalid: supply resolved, specific text
+- test_contract.contrasts[0].validity_checks[0].pass_rule: supply resolved, specific text
+- test_contract.contrasts[0].validity_checks[0].failure_action: supply resolved, specific text
+- test_contract.contrasts[0].validity_checks[0].passed: measurement/implementation/control checks must pass before freeze
+- test_contract.contrasts[0].validity_checks[0].evidence_artifact_id: reference a captured SHA-256-pinned analysis report
+- test_contract.contrasts[0].validity_checks[1].pass_rule: supply resolved, specific text
+- test_contract.contrasts[0].validity_checks[1].failure_action: supply resolved, specific text
+- test_contract.contrasts[0].validity_checks[1].passed: measurement/implementation/control checks must pass before freeze
+- test_contract.contrasts[0].validity_checks[1].evidence_artifact_id: reference a captured SHA-256-pinned analysis report
+- test_contract.contrasts[0].validity_checks[2].pass_rule: supply resolved, specific text
+- test_contract.contrasts[0].validity_checks[2].failure_action: supply resolved, specific text
+- test_contract.contrasts[0].validity_checks[2].passed: measurement/implementation/control checks must pass before freeze
+- test_contract.contrasts[0].validity_checks[2].evidence_artifact_id: reference a captured SHA-256-pinned analysis report
+- test_contract.design_assurance[0].strategy: choose decision_errors, precision
+- test_contract.design_assurance[0].independent_unit: supply resolved, specific text
+- test_contract.design_assurance[0].effect_scale_and_justification: supply resolved, specific text
+- test_contract.design_assurance[0].assumptions_and_range: supply resolved, specific text
+- test_contract.design_assurance[0].calibration_sampling: supply resolved, specific text
+- test_contract.design_assurance[0].independent_unit: must match execution.independent_unit
+- test_contract.design_assurance[0].planned_repetitions: must match the planned independent repetition count
+- test_contract.design_assurance[0].minimum_effect_magnitude: justify a positive numeric minimum meaningful effect
+- test_contract.design_assurance[0].evidence_artifact_id: reference a captured SHA-256-pinned analysis report
+- test_contract.design_assurance[0].calibration_basis_sha256: calibration is missing or stale for the current generator, decision contract, or design; rerun/review it
+- test_contract.design_assurance[0].criteria: supply a list with entries
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction null/coverage/at_least
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction null/invalid/at_most
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction null/precision_achieved/at_least
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction rival/coverage/at_least
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction rival/invalid/at_most
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction rival/precision_achieved/at_least
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction target/coverage/at_least
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction target/invalid/at_most
+- test_contract.design_assurance[0].criteria: missing scenario/event/direction target/precision_achieved/at_least
+- test_contract.critical_review.coordinator: supply resolved, specific text
+- test_contract.critical_review.coordinator_conflicts: supply resolved, specific text
+- test_contract.critical_review.disagreement_resolution: supply resolved, specific text
+- test_contract.critical_review.roles_overlap: explicitly choose true or false
+- test_contract.critical_review.perspectives[0].reviewer_name: supply resolved, specific text
+- test_contract.critical_review.perspectives[0].conflicts: supply resolved, specific text
+- test_contract.critical_review.perspectives[0].relationship: choose informed_proxy, internal_critic, proponent
+- test_contract.critical_review.perspectives[1].reviewer_name: supply resolved, specific text
+- test_contract.critical_review.perspectives[1].conflicts: supply resolved, specific text
+- test_contract.critical_review.perspectives[1].relationship: choose informed_proxy, internal_critic, proponent
+- reviews.critical.perspective_records: supply a list with entries
+- reviews.critical: missing design/interpretation acceptance for T1
+- reviews.critical: missing design/interpretation acceptance for T2
+- reviews.critical: approval is not recorded
+- reviews.critical: supply a timezone-aware review time
+- reviews.critical: review digest does not match the current protocol
+- test_contract.execution.masking.mode: choose masked, open_with_justification
+- test_contract.execution.masking.method_or_limitation: supply resolved, specific text
+- test_contract.execution.masking.custodian: supply resolved, specific text
+- test_contract.execution.masking.analyst: supply resolved, specific text
+- test_contract.execution.masking.access_log_location: supply resolved, specific text
+- test_contract.execution.masking.unblinding_gate: require registration_archived_and_analysis_locked
+- test_contract.execution.masking.analysis_lock_artifact_id: reference a captured artifact
+- test_contract.execution.replication.mode: choose independent_implementation, none_with_reason, reserved_runs
+- test_contract.execution.replication.independence_basis_or_limitation: supply resolved, specific text
+- test_contract.execution.replication.release_trigger: supply resolved, specific text
+- test_contract.execution.replication.analysis_and_pooling_rule: supply resolved, specific text
+- test_contract.execution.replication.failure_interpretation: supply resolved, specific text
+- test_contract.execution.reporting.all_registered_hypotheses: commit to reporting regardless of favorable, unfavorable, inconclusive, or invalid outcomes
+- test_contract.execution.reporting.all_attempts: commit to reporting regardless of favorable, unfavorable, inconclusive, or invalid outcomes
+- test_contract.execution.reporting.full_outcome_matrix: commit to reporting regardless of favorable, unfavorable, inconclusive, or invalid outcomes
+- test_contract.execution.reporting.deviations_with_exposure: commit to reporting regardless of favorable, unfavorable, inconclusive, or invalid outcomes
+- test_contract.execution.reporting.outcome_independent_release: commit to reporting regardless of favorable, unfavorable, inconclusive, or invalid outcomes
+- test_contract.execution.reporting.release_location: supply resolved, specific text
+- test_contract.execution.reporting.release_deadline_rule: supply resolved, specific text
+- test_contract.execution.reporting.amendment_rule: supply resolved, specific text
+- test_contract.execution.reporting.interpretation_revision_rule: supply resolved, specific text
 - reviews.science: approval is not recorded
 - reviews.science: supply the actual reviewer name
 - reviews.science: supply a timezone-aware review time not in the future

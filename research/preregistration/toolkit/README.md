@@ -1,6 +1,6 @@
 # Mind Guild: working meeting to OSF simulation preregistration
 
-Prepared for Mind Guild • Updated 12 November 2026 • Toolkit and schema version 2.0
+Prepared for Mind Guild • Updated 13 November 2026 • Toolkit and schema version 3.0
 
 **The meeting produces decisions; a structured protocol carries those decisions into code, analysis, and the OSF form.** AI can extract, organize, and check the plan. Researchers decide the scientific commitments and review the final registration.
 
@@ -11,9 +11,9 @@ Kevin's verified OSF profile: https://osf.io/user/zryq5. This is a contributor p
 | Stage | Work | Concrete output | Completion condition |
 | --- | --- | --- | --- |
 | Capture | Preserve timestamped notes, slides, code/config/input snapshots, and prior-results disclosures. Keep speaker attribution explicit. | Source records, artifact handoff, and decision ledger | Suggestions, agreements, disagreements, and unknowns are distinguishable. |
-| Specify | Connect each construct to a measure, estimand, manipulation, comparator, rival explanation, and conclusion limit. Record component and learning status separately. | Structured v2 `protocol.json` | Each confirmatory hypothesis has a complete claim-to-measure map. |
-| Check feasibility | Implement and inspect generator, baselines, scoring, and analysis using disclosed pilot seeds and synthetic results. | Pilot log and quality evidence | The design can run; failures and information seen are documented. |
-| Review and freeze | Resolve choices; have science, implementation, and analysis reviewed; pin code, dependencies, split manifest, and seed plan. | Local frozen packet and checksums | No unresolved confirmatory decisions; reviews refer to the same protocol digest. |
+| Specify | Connect each construct to a measure, estimand, manipulation, comparator, rival explanation, and conclusion limit. Record component and learning status separately. | Structured v3 `protocol.json` | Each confirmatory hypothesis has a complete claim map, competing prediction contrast, and assurance plan. |
+| Check feasibility | Inspect generator, baselines, scoring, and analysis using disclosed pilot seeds; calibrate null, minimum-meaningful-target, rival, and invalid outcomes. | Pilot log and quality evidence | The design runs, validity checks pass, and sensitivity/precision criteria are met under documented assumptions. |
+| Review and freeze | Resolve choices; critically review both accounts and all interpretations; complete science, implementation, analysis, and critical reviews; pin code, dependencies, split manifest, and seed plan. | Local frozen packet and checksums | No unresolved confirmatory decisions; reviews refer to the same protocol digest. |
 | Register | Complete OSF's Simulation Studies form, attach the frozen protocol and supporting plans, choose access, and submit. | OSF registration URL, timestamp, and status | The registration is completed and archived; the recorded plan precedes confirmatory runs. |
 | Execute | Run the registered design and retain every planned run's status and provenance. | Run manifest, raw outputs, checkpoints, analysis outputs | Planned runs are accounted for, including failures. |
 | Report | Compare each registered prediction with its estimate, uncertainty, and departures from plan. | Hypothesis-by-hypothesis report and deviation log | Planned and exploratory analyses remain identifiable. |
@@ -92,21 +92,21 @@ For planning a mean paired difference, an approximate 95% interval half-width is
 
 ## 6. Use the kit
 
-1. Fill the meeting worksheet and protocol close. Use `prompts/transcript_to_protocol.md` with the transcript, blank protocol, and [v2 record reference](SCHEMA.md) to produce a sourced draft.
-2. Copy `templates/protocol.blank.json` into your study folder as `protocol.json`. The illustrative occlusion version is in `examples/occlusion.proposed.json`. Existing v1 protocols can be copied forward with `python scripts/migrate_protocol.py old-protocol.json --out protocol.json`; the migration preserves old content, adds unresolved v2 records, and clears active approvals while retaining their history.
+1. Fill the meeting worksheet and protocol close. Use `prompts/transcript_to_protocol.md` with the transcript, blank protocol, and [record reference](SCHEMA.md) and [v3 test contract](TEST_CONTRACT.md) to produce a sourced draft.
+2. Copy `templates/protocol.blank.json` into your study folder as `protocol.json`. The illustrative occlusion version is in `examples/occlusion.proposed.json`. Existing v1 or v2 protocols can be copied forward with `python scripts/migrate_protocol.py old-protocol.json --out protocol.json`; the migration preserves old content, adds unresolved v3 records, and clears active approvals while retaining their history.
 3. Run the compiler from the kit folder with Python 3.10 or newer; no extra packages are required:
 
 ```bash
 python scripts/build_packet.py examples/occlusion.proposed.json --out review-packet
 ```
 
-It writes `osf_packet.md`, `readiness.json`, `protocol.snapshot.json`, `decision_ledger.csv`, and `artifact_handoff.csv`. Exit code 2 means unresolved decisions; exit code 0 means its mechanical checks pass. The example intentionally fails readiness. V2 checks structured scientific records, declared artifact pins, result-access boundaries, per-field agreement/value digests, seed overlap, and review digests. It does not verify scientific validity, remote artifact bytes, identities, or authenticated human agreement. Field counts are not a scientific readiness score.
+It writes `osf_packet.md`, `readiness.json`, `protocol.snapshot.json`, `decision_ledger.csv`, `artifact_handoff.csv`, `prediction_matrix.csv`, and `design_assurance.csv`. Exit code 2 means unresolved decisions; exit code 0 means its mechanical checks pass. The example intentionally fails readiness. V3 checks the test contract as well as structured scientific records, declared artifact pins, result-access boundaries, per-field agreement/value digests, seed overlap, and review digests. It does not verify scientific validity, remote artifact bytes, identities, or authenticated human agreement. Field counts are not a scientific readiness score.
 
-4. Resolve blockers. To create missing field-record slots without adopting any values, run `python scripts/scaffold_provenance.py protocol.json --out protocol.capture.json`. Edit the new copy using the evidence and actual decisions. `decision_ledger.csv` supplies the current value digest for each tracked field; writing that digest does not itself document agreement. Each required field needs its origin, source/locator, decision owner, and decision record. Analyst proposals also need explicit human-adoption evidence. Record science, implementation, and analysis reviews against the completed protocol's `review_digest`. One researcher can cover several roles. Any scientific edit invalidates the corresponding field decision and changes the overall review digest. Use the selected completed file in the freeze command below.
+4. Resolve blockers. To create missing field-record slots without adopting any values, run `python scripts/scaffold_provenance.py protocol.json --out protocol.capture.json`. Edit the new copy using the evidence and actual decisions. `decision_ledger.csv` supplies the current value digest for each tracked field; writing that digest does not itself document agreement. Each required field needs its origin, source/locator, decision owner, and decision record. Analyst proposals also need explicit human-adoption evidence. Complete the [results-blind test review](templates/severe_test_review.md), including actual critical-perspective acceptance. Record science, implementation, analysis, and critical reviews against the completed protocol's `review_digest`. One researcher can cover several roles. Any scientific edit invalidates the corresponding field decision and changes the overall review digest. Use the selected completed file in the freeze command below.
 5. Set `status` to `approved_for_freeze`, then create a new local freeze directory:
 
 ```bash
-python scripts/build_packet.py protocol.capture.json --out frozen-v2 --freeze
+python scripts/build_packet.py protocol.capture.json --out frozen-v3 --freeze
 ```
 
 The freeze contains the copied plan, rendered packet, hashes, and local freeze metadata. It is an archival convention, not an OSF timestamp or an access control. Protect the directory and version it. No network requests or simulations run through this script.
@@ -137,7 +137,7 @@ For your next coworking session, complete these work items in order:
 2. Implement two-object occlusion trajectories, a split manifest, and deterministic scoring.
 3. Run a simple motion-prediction sanity baseline and test scoring on known identity swaps.
 4. Implement the two comparable predictive models and run a disclosed feasibility pilot.
-5. Select independent repetition count and exact analysis, resolve remaining fields, review, freeze, and register.
+5. Calibrate the exact analysis and independent repetition count, resolve the test contract in critical review, freeze, and register.
 
 The MVP is complete when a researcher can trace one claim from the meeting into an executable design and a complete OSF registration packet. Full API submission and a dashboard can be added later. They are not prerequisites for a useful first study.
 
@@ -153,11 +153,27 @@ The video-based pipeline test identified five additions that are now part of the
 | `provenance` | Field path, source/locator, agreement status, original speaker attribution, actual decision owner, and value digest. | Proposals are not treated as decisions. Unknown speakers remain unresolved. Changed values require renewed field decisions and review. |
 | `artifact_handoff` and `results_access` | Versioned artifacts; prior results, who saw them and when, influence on design, reserved runs, and the prospective scope. | Missing core artifacts, incomplete exposure declarations, and already-inspected confirmatory targets block freeze. |
 
-The [schema reference](SCHEMA.md) explains the record shapes, conditional requirements, provenance workflow, and migration. The [changelog](CHANGELOG.md) describes the v2 compatibility change. Ordinary study outputs continue to use the same run manifest and deviation log.
+The [schema reference](SCHEMA.md) explains the record shapes, conditional requirements, provenance workflow, and migration. The [changelog](CHANGELOG.md) describes the version compatibility changes. Ordinary study outputs continue to use the same run manifest and deviation log.
+
+## 11. Discriminating tests and fair interpretation in v3
+
+The [methodological critique](CRITIQUE.md), informed by Melloni and colleagues' public COGITATE work, identified a gap between a complete record and a test that can distinguish explanations. This is Mind Guild's adaptation; Melloni and COGITATE have not reviewed or endorsed it.
+
+| Addition | Before freeze |
+| --- | --- |
+| Level of inference | Choose a mechanism benchmark or theory-discrimination study. State the phenomenon, allowed/excluded conclusions, and bridge assumptions. A tracking advantage alone does not establish consciousness. |
+| Competing prediction matrix | Derive versioned accounts' quantitative regions on the same estimand. Prespecify target-only, rival-only, both, neither, inconclusive, and invalid outcomes. A primary theory test needs exclusive possible results for both accounts. |
+| Design assurance | Justify the minimum meaningful effect and run count. Check synthetic null, target, and rival scenarios, including Monte Carlo uncertainty; pin evidence and bind calibration to the scientific plan. |
+| Critical review | Record each perspective's actual acceptance of the design and interpretations. Distinguish proponents, proxies, and internal critics; disclose conflicts, role overlap, and unresolved disputes. |
+| Execution and reporting | Lock analysis before unblinding, plan reserved-run or independent-implementation replication when claiming theory discrimination, and preserve all outcomes, attempts, amendments, and result-access history. |
+
+Use the [v3 contract reference](TEST_CONTRACT.md) and [results-blind review worksheet](templates/severe_test_review.md). Scientific choices remain null until decided. Small teams can disclose internal critical review and open analysis with limitations; a mechanism benchmark can explicitly make no replication claim. The stronger theory-discrimination gates are Mind Guild workflow choices, not OSF-wide requirements.
+
+The optional `scripts/calibrate_decisions.py` helper summarizes genuine synthetic intervals and known estimands using the declared prediction mapping. It does not generate simulator data, choose thresholds, fill the protocol, or approve a study. Preserve its inputs and report, inspect the counts, and record the emitted basis digest. A generator, model, decision-rule, or design change invalidates that calibration basis. The current engine supports two accounts and one scalar uncertainty interval per contrast; richer theory comparisons need an explicitly reviewed extension.
 
 ## Sources
 
-Checked 11 November 2026. The workflow and example above are original recommendations; linked sources establish the OSF options and underlying methodological guidance.
+OSF guidance checked 11 November 2026; COGITATE sources checked 13 November 2026. The workflow and example above are original recommendations; linked sources establish the OSF options and underlying methodological guidance.
 
 1. Center for Open Science. Simulation Studies preregistration template introduction: https://www.cos.io/blog/introducing-the-simulation-studies-preregistration-template
 2. OSF. Registration guide and template list: https://help.osf.io/article/330-welcome-to-registrations
@@ -166,6 +182,9 @@ Checked 11 November 2026. The workflow and example above are original recommenda
 5. Agarwal et al. (2021). Deep Reinforcement Learning at the Edge of the Statistical Precipice. https://arxiv.org/abs/2108.13264
 6. Siepe et al. (2024). Simulation studies for methodological research in psychology. https://doi.org/10.1037/met0000695
 7. OSF-linked public planning form (consulted to align section headings): https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit
+
+8. Melloni et al. (2023). Adversarial collaboration protocol: https://doi.org/10.1371/journal.pone.0268577
+9. COGITATE Consortium et al. (2025). Adversarial theory testing and implementation-level inference: https://doi.org/10.1038/s41586-025-08888-1
 
 Context used: `paper outline 20261106.docx` and the available opening sections of `Draft Position Paper 20261104.docx`, plus your current occlusion-task direction. These motivate the example; they do not establish finalized numerical design decisions or completed implementations.
 

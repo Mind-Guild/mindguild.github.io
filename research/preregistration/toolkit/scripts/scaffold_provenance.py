@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Add missing undecided field records to a new v2 protocol copy."""
+"""Add missing undecided field records to a new v2/v3 protocol copy."""
 import argparse
 import json
 import sys

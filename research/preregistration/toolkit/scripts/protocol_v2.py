@@ -179,6 +179,9 @@ def required_provenance_paths(protocol):
                   "/results_access/registration_scope", "/results_access/confirmatory_status",
                   "/results_access/prospective_scope", "/results_access/reserved_runs_or_conditions",
                   "/results_access/access_controls"))
+    if type(protocol.get("schema_version")) is int and protocol["schema_version"] == 3:
+        paths.extend("/test_contract/" + key for key in
+                     ("inference", "accounts", "contrasts", "design_assurance", "critical_review", "execution"))
     return list(dict.fromkeys(paths))
 
 
@@ -449,8 +452,8 @@ def decision_rows(protocol):
 
 def scaffold_provenance(protocol):
     """Add undecided capture rows; never refresh or adopt an existing decision."""
-    if not isinstance(protocol, dict) or type(protocol.get("schema_version")) is not int or protocol["schema_version"] != 2:
-        raise ValueError("Scaffolding requires a schema_version 2 protocol")
+    if not isinstance(protocol, dict) or type(protocol.get("schema_version")) is not int or protocol["schema_version"] not in {2, 3}:
+        raise ValueError("Scaffolding requires a schema_version 2 or 3 protocol")
     if not isinstance(protocol.get("provenance"), list):
         raise ValueError("Existing provenance must be a list; repair it explicitly")
     result = copy.deepcopy(protocol)

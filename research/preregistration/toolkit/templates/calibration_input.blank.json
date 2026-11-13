@@ -1,0 +1,11 @@
+{
+  "data_role": "synthetic_calibration",
+  "generator_description": null,
+  "assumptions_and_range": null,
+  "sampling_and_seed_derivation": null,
+  "records": [
+    {"hypothesis_id": "H1", "scenario": "null", "run_id": null, "interval": [null, null], "true_estimand": null, "valid": null},
+    {"hypothesis_id": "H1", "scenario": "target", "run_id": null, "interval": [null, null], "true_estimand": null, "valid": null},
+    {"hypothesis_id": "H1", "scenario": "rival", "run_id": null, "interval": [null, null], "true_estimand": null, "valid": null}
+  ]
+}

@@ -20,6 +20,8 @@ def renew_fixture(value):
 
 def legacy_fixture():
     value = synthetic_declaration()
+    value.pop("test_contract", None)
+    value["reviews"].pop("critical", None)
     for key in capture.new_records():
         del value[key]
     value["schema_version"] = 1

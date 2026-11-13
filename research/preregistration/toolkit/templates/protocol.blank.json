@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "study_id": null,
   "title": null,
   "status": "draft",
@@ -96,6 +96,14 @@
       "reviewed_at_utc": null,
       "review_digest": null,
       "notes": null
+    },
+    "critical": {
+      "reviewer_name": null,
+      "approved": false,
+      "reviewed_at_utc": null,
+      "review_digest": null,
+      "notes": null,
+      "perspective_records": []
     }
   },
   "claim_measure_map": [
@@ -263,5 +271,182 @@
     "prospective_scope": null,
     "reserved_runs_or_conditions": null,
     "access_controls": null
+  },
+  "test_contract": {
+    "inference": {
+      "study_type": null,
+      "target_level": null,
+      "phenomenon": null,
+      "allowed_conclusion": null,
+      "excluded_conclusions": [],
+      "theory_core_vs_implementation": null,
+      "consciousness_inference": null
+    },
+    "accounts": [
+      {
+        "id": "T1",
+        "name": null,
+        "version": null,
+        "kind": null,
+        "source_record_ids": [],
+        "component_ids": [],
+        "commitment": null,
+        "implementation_assumptions": null,
+        "bridge_assumptions": [
+          {
+            "assumption": null,
+            "test_or_justification": null,
+            "violation_implication": null
+          }
+        ]
+      },
+      {
+        "id": "T2",
+        "name": null,
+        "version": null,
+        "kind": null,
+        "source_record_ids": [],
+        "component_ids": [],
+        "commitment": null,
+        "implementation_assumptions": null,
+        "bridge_assumptions": [
+          {
+            "assumption": null,
+            "test_or_justification": null,
+            "violation_implication": null
+          }
+        ]
+      }
+    ],
+    "contrasts": [
+      {
+        "hypothesis_id": "H1",
+        "target_account_id": "T1",
+        "rival_account_id": "T2",
+        "estimand": null,
+        "interval_method": null,
+        "multiplicity_rule": null,
+        "diagnosticity_reason": null,
+        "resource_matching": null,
+        "prediction_regions": [
+          {
+            "account_id": "T1",
+            "specified": null,
+            "lower": null,
+            "upper": null,
+            "derivation": null
+          },
+          {
+            "account_id": "T2",
+            "specified": null,
+            "lower": null,
+            "upper": null,
+            "derivation": null
+          }
+        ],
+        "interpretations": {
+          "target_only": null,
+          "rival_only": null,
+          "both": null,
+          "neither": null,
+          "inconclusive": null,
+          "invalid": null
+        },
+        "validity_checks": [
+          {
+            "kind": "measurement",
+            "pass_rule": null,
+            "passed": null,
+            "evidence_artifact_id": null,
+            "failure_action": null
+          },
+          {
+            "kind": "implementation",
+            "pass_rule": null,
+            "passed": null,
+            "evidence_artifact_id": null,
+            "failure_action": null
+          },
+          {
+            "kind": "negative_control",
+            "pass_rule": null,
+            "passed": null,
+            "evidence_artifact_id": null,
+            "failure_action": null
+          }
+        ]
+      }
+    ],
+    "design_assurance": [
+      {
+        "hypothesis_id": "H1",
+        "strategy": null,
+        "independent_unit": null,
+        "planned_repetitions": null,
+        "minimum_effect_magnitude": null,
+        "effect_scale_and_justification": null,
+        "assumptions_and_range": null,
+        "calibration_sampling": null,
+        "evidence_artifact_id": null,
+        "maximum_interval_width": null,
+        "criteria": [],
+        "calibration_basis_sha256": null
+      }
+    ],
+    "critical_review": {
+      "coordinator": null,
+      "coordinator_conflicts": null,
+      "roles_overlap": null,
+      "overlap_reason": null,
+      "disagreement_resolution": null,
+      "unresolved_disputes": [],
+      "perspectives": [
+        {
+          "account_id": "T1",
+          "reviewer_name": null,
+          "relationship": null,
+          "conflicts": null,
+          "endorsement_source_id": null
+        },
+        {
+          "account_id": "T2",
+          "reviewer_name": null,
+          "relationship": null,
+          "conflicts": null,
+          "endorsement_source_id": null
+        }
+      ]
+    },
+    "execution": {
+      "masking": {
+        "mode": null,
+        "method_or_limitation": null,
+        "custodian": null,
+        "analyst": null,
+        "analysis_lock_artifact_id": null,
+        "unblinding_gate": null,
+        "access_log_location": null
+      },
+      "replication": {
+        "mode": null,
+        "reserved_seed_blocks": [],
+        "independent_code_artifact_id": null,
+        "independence_basis_or_limitation": null,
+        "release_trigger": null,
+        "analysis_and_pooling_rule": null,
+        "failure_interpretation": null
+      },
+      "reporting": {
+        "all_registered_hypotheses": null,
+        "all_attempts": null,
+        "full_outcome_matrix": null,
+        "deviations_with_exposure": null,
+        "outcome_independent_release": null,
+        "release_location": null,
+        "release_deadline_rule": null,
+        "amendment_rule": null,
+        "interpretation_revision_rule": null
+      }
+    }
   }
 }

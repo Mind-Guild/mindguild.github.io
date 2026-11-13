@@ -18,6 +18,7 @@ SCRIPT_DIRECTORY = Path(__file__).resolve().parent
 if str(SCRIPT_DIRECTORY) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIRECTORY))
 import protocol_v2 as capture
+import protocol_v3 as theory
 
 
 SECTION_LABELS = {
@@ -97,10 +98,12 @@ def validate(protocol):
         return value
 
     version = protocol.get("schema_version")
-    if type(version) is not int or version not in {1, 2}:
-        blockers.append("schema_version: supported values are legacy 1 (draft only) and 2")
+    if type(version) is not int or version not in {1, 2, 3}:
+        blockers.append("schema_version: supported values are legacy 1/2 (draft only) and 3")
     elif version == 1:
         blockers.append("schema_version: legacy v1 is draft-only; run scripts/migrate_protocol.py before freeze")
+    elif version == 2:
+        blockers.append("schema_version: legacy v2 is draft-only; migrate to v3 and renew reviews before freeze")
     if protocol.get("status") != "approved_for_freeze":
         blockers.append("status: use approved_for_freeze only after resolving and reviewing the plan")
     for field in ("study_id", "title", "metadata.description", "metadata.license",
@@ -204,9 +207,11 @@ def validate(protocol):
     if protocol.get("open_decisions") != []:
         blockers.append("open_decisions: resolve the list before freeze")
 
-    if type(version) is int and version == 2:
+    if type(version) is int and version in {2, 3}:
         blockers.extend(capture.validate_v2(protocol))
     digest = review_digest(protocol)
+    if type(version) is int and version == 3:
+        blockers.extend(theory.validate_v3(protocol, digest))
     for role in ("science", "implementation", "analysis"):
         review = get(protocol, f"reviews.{role}", {})
         if not isinstance(review, dict):
@@ -246,6 +251,8 @@ def packet(protocol, report):
         if key == "aims":
             lines.extend(["### Explicit hypothesis records", "", render(protocol.get("hypotheses")), ""])
     lines.extend([capture.structured_packet(protocol), ""])
+    if protocol.get("schema_version") == 3:
+        lines.extend([theory.structured_packet(protocol), ""])
     for key, title in (("execution", "Execution plan"), ("artifacts", "Pinned artifacts"),
                        ("quality_evidence", "Implementation evidence"), ("source_records", "Source records"),
                        ("reviews", "Review attestations"), ("open_decisions", "Open decisions")):
@@ -277,7 +284,9 @@ def main():
                   "review_digest": review_digest(protocol), "protocol_file_sha256": sha256(raw),
                   "blockers": blockers,
                   "scope": "Declared records and consistency only; no verification of scientific validity, remote artifact bytes, identities, or authenticated human agreement.",
-                  "capture_outputs": ["decision_ledger.csv", "artifact_handoff.csv"],
+                  "capture_outputs": ["decision_ledger.csv", "artifact_handoff.csv", "prediction_matrix.csv", "design_assurance.csv"],
+                  "test_contract": {"prediction_rows": theory.prediction_rows(protocol),
+                                    "assurance_rows": theory.assurance_summary(protocol)},
                   "decision_status_counts": {status: sum(row["decision_status"] == status for row in capture.decision_rows(protocol))
                                              for status in sorted(capture.DECISION_STATES)},
                   "count_interpretation": "Field/status counts are not a scientific readiness score."}
@@ -295,6 +304,10 @@ def main():
         items = capture.objects(handoff.get("items")) if isinstance(handoff, dict) else []
         (args.out / "artifact_handoff.csv").write_text(capture.csv_text(items,
             ["id", "kind", "status", "location", "sha256", "immutable_version", "owner", "reason"]), encoding="utf-8")
+        (args.out / "prediction_matrix.csv").write_text(capture.csv_text(theory.prediction_rows(protocol),
+            ["hypothesis_id", "account_id", "estimand", "specified", "lower_inclusive", "upper_inclusive", "derivation", "both_exclusive_regions_exist"]), encoding="utf-8")
+        (args.out / "design_assurance.csv").write_text(capture.csv_text(theory.assurance_summary(protocol),
+            ["hypothesis_id", "scenario", "event", "count", "total", "wilson95_lower", "wilson95_upper", "direction", "threshold", "criterion_met"]), encoding="utf-8")
         if args.freeze:
             freeze = {"local_frozen_at_utc": datetime.now(timezone.utc).isoformat(),
                       "protocol_file_sha256": sha256(raw), "review_digest": report["review_digest"],

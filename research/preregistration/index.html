@@ -50,7 +50,7 @@
     .facts { display:flex; flex-wrap:wrap; gap:26px; margin-top:35px; font:11px/1.6 'IBM Plex Mono',monospace; color:var(--muted); }
     .facts span { padding-left:12px; border-left:2px solid #bd734a; }
     .document-layout { display:grid; grid-template-columns:225px minmax(0,1fr); gap:60px; padding-top:52px; padding-bottom:70px; align-items:start; }
-    aside.toc { position:sticky; top:25px; font-size:12px; }
+    aside.toc { position:sticky; top:25px; max-height:calc(100vh - 50px); overflow-y:auto; font-size:12px; }
     .toc strong { display:block; margin-bottom:16px; font:600 11px/1.5 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
     .toc a { display:block; margin:0 0 13px; color:var(--ink); text-decoration:none; line-height:1.5; }
     .toc a:hover { color:var(--orange); text-decoration:underline; }
@@ -75,7 +75,7 @@
     .related .wrap { display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; }
     footer { padding:30px 5vw; display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; align-items:center; border-top:1px solid var(--line); font-size:11px; color:var(--muted); }
     @media(max-width:1000px) { .hero-grid { gap:32px; } .document-layout { grid-template-columns:180px minmax(0,1fr); gap:35px; } }
-    @media(max-width:760px) { .nav { align-items:flex-start; } .nav-links { justify-content:flex-end; gap:13px; } .hero { padding:38px 0; } .hero-grid { grid-template-columns:1fr; } .workflow { max-width:none; } .document-layout { grid-template-columns:1fr; gap:20px; padding-top:30px; } aside.toc { position:static; padding:20px; border:1px solid var(--line); border-radius:10px; } .toc a { margin-bottom:10px; } .prose h2 { font-size:25px; } .facts { gap:16px; } }
+    @media(max-width:760px) { .nav { align-items:flex-start; } .nav-links { justify-content:flex-end; gap:13px; } .hero { padding:38px 0; } .hero-grid { grid-template-columns:1fr; } .workflow { max-width:none; } .document-layout { grid-template-columns:1fr; gap:20px; padding-top:30px; } aside.toc { position:static; max-height:none; overflow:visible; padding:20px; border:1px solid var(--line); border-radius:10px; } .toc a { margin-bottom:10px; } .prose h2 { font-size:25px; } .facts { gap:16px; } }
     @media(max-width:480px) { .nav { flex-direction:column; } .nav-links { justify-content:flex-start; } .wrap { width:88%; } h1 { font-size:42px; } .workflow { padding:24px; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
@@ -94,7 +94,7 @@
           <div>
             <div class="eyebrow">A working method · An editable toolkit</div>
             <h1>From discussion<br>to a <em>testable study.</em></h1>
-            <p class="lede">Turn a technical working meeting into an OSF simulation preregistration. Connect claims to measures, distinguish implementation from learning, and preserve evidence, decisions, and the prospective boundary.</p>
+            <p class="lede">Turn a technical working meeting into an OSF simulation preregistration. Connect claims to competing predictions, test sensitivity, and prespecified interpretations. Preserve implementation, learning, evidence, and the prospective boundary.</p>
             <div class="actions"><a class="button primary" href="downloads/Mind_Guild_Preregistration_Pipeline_Kit.zip" download>Download the complete kit ↓</a><a class="button" href="#guide">Read the guide</a></div>
             <a class="small-link" href="toolkit/README.md" download="Mind_Guild_Meeting_to_OSF_Pipeline.md">Download the editable Markdown guide</a>
           </div>
@@ -103,22 +103,22 @@
             <ol>
               <li><span class="num">01</span><div><strong>Capture the claim</strong><small>Decisions, source notes, and open questions</small></div></li>
               <li><span class="num">02</span><div><strong>Specify the test</strong><small>Methods, measures, and expected result patterns</small></div></li>
-              <li><span class="num">03</span><div><strong>Review and freeze</strong><small>Disclosed pilots and a fixed study packet</small></div></li>
+              <li><span class="num">03</span><div><strong>Critically review and freeze</strong><small>Disclosed pilots and a fixed study packet</small></div></li>
               <li><span class="num">04</span><div><strong>Register, run, report</strong><small>OSF record, reproducible runs, and deviations</small></div></li>
             </ol>
             <div class="boundary">Complete registration before confirmatory runs. The worked occlusion study is a proposal with decisions still open.</div>
           </div>
         </div>
-        <div class="facts"><span>45-minute meeting + 10-minute protocol close</span><span>OSF Simulation Studies template</span><span>Toolkit v2.0 · 12 November 2026</span></div>
+        <div class="facts"><span>45-minute meeting + 10-minute protocol close</span><span>OSF Simulation Studies template</span><span>Toolkit v3.0 · 13 November 2026</span></div>
       </div>
     </header>
     <div class="wrap document-layout">
-      <aside class="toc" aria-label="Guide contents"><strong>In the guide</strong><a href="#1-the-pipeline">1. The pipeline</a><a href="#2-a-45-minute-working-meeting">2. A 45-minute working meeting</a><a href="#3-translate-ideas-into-testable-commitments">3. Translate ideas into testable commitments</a><a href="#4-plan-expected-results-before-looking-at-outcomes">4. Plan expected results before looking at outcomes</a><a href="#5-simulation-details-that-must-be-fixed">5. Simulation details that must be fixed</a><a href="#6-use-the-kit">6. Use the kit</a><a href="#7-complete-the-osf-registration">7. Complete the OSF registration</a><a href="#8-carry-the-same-plan-through-execution-and-reporting">8. Carry the same plan through execution and reporting</a><a href="#9-smallest-implementation-package">9. Smallest implementation package</a><a href="#10-structured-study-records-in-v2">10. Structured study records in v2</a><a href="#sources">Sources</a><a class="repo" href="https://github.com/Mind-Guild/mindguild.github.io/tree/main/research/preregistration/toolkit">Browse the editable source ↗</a><a href="toolkit/templates/protocol_close.md" download>Protocol-close worksheet ↓</a><a href="toolkit/SCHEMA.md">V2 record reference</a></aside>
-      <article class="prose" id="guide" aria-label="Full pipeline guide"><p>Prepared for Mind Guild • Updated 12 November 2026 • Toolkit and schema version 2.0</p>
+      <aside class="toc" aria-label="Guide contents"><strong>In the guide</strong><a href="#1-the-pipeline">1. The pipeline</a><a href="#2-a-45-minute-working-meeting">2. A 45-minute working meeting</a><a href="#3-translate-ideas-into-testable-commitments">3. Translate ideas into testable commitments</a><a href="#4-plan-expected-results-before-looking-at-outcomes">4. Plan expected results before looking at outcomes</a><a href="#5-simulation-details-that-must-be-fixed">5. Simulation details that must be fixed</a><a href="#6-use-the-kit">6. Use the kit</a><a href="#7-complete-the-osf-registration">7. Complete the OSF registration</a><a href="#8-carry-the-same-plan-through-execution-and-reporting">8. Carry the same plan through execution and reporting</a><a href="#9-smallest-implementation-package">9. Smallest implementation package</a><a href="#10-structured-study-records-in-v2">10. Structured study records in v2</a><a href="#11-discriminating-tests-and-fair-interpretation-in-v3">11. Discriminating tests and fair interpretation in v3</a><a href="#sources">Sources</a><a class="repo" href="https://github.com/Mind-Guild/mindguild.github.io/tree/main/research/preregistration/toolkit">Browse the editable source ↗</a><a href="toolkit/CRITIQUE.md">Read the methodological critique</a><a href="toolkit/templates/protocol_close.md" download>Protocol-close worksheet ↓</a><a href="toolkit/templates/severe_test_review.md" download>Results-blind review worksheet ↓</a><a href="toolkit/SCHEMA.md">Record reference</a><a href="toolkit/TEST_CONTRACT.md">V3 test contract</a></aside>
+      <article class="prose" id="guide" aria-label="Full pipeline guide"><p>Prepared for Mind Guild • Updated 13 November 2026 • Toolkit and schema version 3.0</p>
 <p><strong>The meeting produces decisions; a structured protocol carries those decisions into code, analysis, and the OSF form.</strong> AI can extract, organize, and check the plan. Researchers decide the scientific commitments and review the final registration.</p>
 <p>Kevin's verified OSF profile: <a href="https://osf.io/user/zryq5">https://osf.io/user/zryq5</a>. This is a contributor profile. A new simulation study needs its own registration. No OSF draft or registration has been created by this kit.</p>
 <h2 id="1-the-pipeline">1. The pipeline</h2>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<div class="table-scroll" role="region" aria-label="Research planning table" tabindex="0"><table>
 <thead>
 <tr class="header">
 <th>Stage</th>
@@ -137,18 +137,18 @@
 <tr class="even">
 <td>Specify</td>
 <td>Connect each construct to a measure, estimand, manipulation, comparator, rival explanation, and conclusion limit. Record component and learning status separately.</td>
-<td>Structured v2 <code>protocol.json</code></td>
-<td>Each confirmatory hypothesis has a complete claim-to-measure map.</td>
+<td>Structured v3 <code>protocol.json</code></td>
+<td>Each confirmatory hypothesis has a complete claim map, competing prediction contrast, and assurance plan.</td>
 </tr>
 <tr class="odd">
 <td>Check feasibility</td>
-<td>Implement and inspect generator, baselines, scoring, and analysis using disclosed pilot seeds and synthetic results.</td>
+<td>Inspect generator, baselines, scoring, and analysis using disclosed pilot seeds; calibrate null, minimum-meaningful-target, rival, and invalid outcomes.</td>
 <td>Pilot log and quality evidence</td>
-<td>The design can run; failures and information seen are documented.</td>
+<td>The design runs, validity checks pass, and sensitivity/precision criteria are met under documented assumptions.</td>
 </tr>
 <tr class="even">
 <td>Review and freeze</td>
-<td>Resolve choices; have science, implementation, and analysis reviewed; pin code, dependencies, split manifest, and seed plan.</td>
+<td>Resolve choices; critically review both accounts and all interpretations; complete science, implementation, analysis, and critical reviews; pin code, dependencies, split manifest, and seed plan.</td>
 <td>Local frozen packet and checksums</td>
 <td>No unresolved confirmatory decisions; reviews refer to the same protocol digest.</td>
 </tr>
@@ -175,7 +175,7 @@
 <p><strong>The key boundary:</strong> disclose exploratory work, then freeze and register before generating new confirmatory runs. V2 also supports a separately labeled analysis-only scope for already-generated outputs that remain uninspected; it does not describe their generation as prospective. Already-inspected confirmatory outputs cannot pass that gate. A local timestamp, uploaded protocol file, or saved OSF draft does not complete an OSF registration. State exactly what was generated and inspected and define the remaining unobserved target.</p>
 <h2 id="2-a-45-minute-working-meeting">2. A 45-minute working meeting</h2>
 <p>Use <code>templates/meeting_worksheet.md</code>. One person facilitates; one person captures decisions. A person can cover multiple roles.</p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<div class="table-scroll" role="region" aria-label="Research planning table" tabindex="0"><table>
 <thead>
 <tr class="header">
 <th>Minutes</th>
@@ -215,7 +215,7 @@
 <p>Use this chain for every hypothesis:</p>
 <p><strong>Claim → mechanism or manipulation → comparator → observable outcome → estimator → decision rule → scope of conclusion.</strong></p>
 <p>For the initial occlusion study, the following is a <strong>proposed design</strong>, not an agreement extracted from a meeting:</p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<div class="table-scroll" role="region" aria-label="Research planning table" tabindex="0"><table>
 <thead>
 <tr class="header">
 <th>Element</th>
@@ -261,7 +261,7 @@
 <p>To prevent shortcut solutions, audit correlations between color, starting position, speed, query time, and label. A single object cannot reveal identity swaps. Keep simulator object IDs and hidden state out of model inputs unless they are an explicit, equally supplied condition. Establish identity before occlusion; do not let per-frame rematching hide swaps.</p>
 <h2 id="4-plan-expected-results-before-looking-at-outcomes">4. Plan expected results before looking at outcomes</h2>
 <p>Sketch a figure with x = condition, y = the primary metric, one series per model, and uncertainty over independent repetitions. Mark it <strong>predicted / schematic</strong>. Record the expected ordering, the minimum meaningful difference, and how each pattern will be interpreted. Predictions are not fabricated observations or guaranteed effects.</p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<div class="table-scroll" role="region" aria-label="Research planning table" tabindex="0"><table>
 <thead>
 <tr class="header">
 <th>Observed pattern</th>
@@ -307,17 +307,17 @@
 <p>For planning a mean paired difference, an approximate 95% interval half-width is <code>h ≈ 1.96 × s_d / sqrt(R)</code>, where <code>s_d</code> is the SD across independent block differences and <code>R</code> is their count. Thus <code>R ≈ (1.96 × s_d / h)^2</code>. For illustration only, <code>s_d = .10</code> and <code>h = .03</code> gives 43 blocks after rounding up. This is a normal-approximation precision calculation, not a final sample size recommendation or a power calculation. Disclosed pilots can inform <code>s_d</code>; check the chosen interval procedure and computational budget before freezing. More episodes do not substitute for independent model runs. [4,5]</p>
 <h2 id="6-use-the-kit">6. Use the kit</h2>
 <ol type="1">
-<li>Fill the meeting worksheet and protocol close. Use <code>prompts/transcript_to_protocol.md</code> with the transcript, blank protocol, and <a href="toolkit/SCHEMA.md">v2 record reference</a> to produce a sourced draft.</li>
-<li>Copy <code>templates/protocol.blank.json</code> into your study folder as <code>protocol.json</code>. The illustrative occlusion version is in <code>examples/occlusion.proposed.json</code>. Existing v1 protocols can be copied forward with <code>python scripts/migrate_protocol.py old-protocol.json --out protocol.json</code>; the migration preserves old content, adds unresolved v2 records, and clears active approvals while retaining their history.</li>
+<li>Fill the meeting worksheet and protocol close. Use <code>prompts/transcript_to_protocol.md</code> with the transcript, blank protocol, and <a href="toolkit/SCHEMA.md">record reference</a> and <a href="toolkit/TEST_CONTRACT.md">v3 test contract</a> to produce a sourced draft.</li>
+<li>Copy <code>templates/protocol.blank.json</code> into your study folder as <code>protocol.json</code>. The illustrative occlusion version is in <code>examples/occlusion.proposed.json</code>. Existing v1 or v2 protocols can be copied forward with <code>python scripts/migrate_protocol.py old-protocol.json --out protocol.json</code>; the migration preserves old content, adds unresolved v3 records, and clears active approvals while retaining their history.</li>
 <li>Run the compiler from the kit folder with Python 3.10 or newer; no extra packages are required:</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/build_packet.py examples/occlusion.proposed.json <span class="at">--out</span> review-packet</span></code></pre></div>
-<p>It writes <code>osf_packet.md</code>, <code>readiness.json</code>, <code>protocol.snapshot.json</code>, <code>decision_ledger.csv</code>, and <code>artifact_handoff.csv</code>. Exit code 2 means unresolved decisions; exit code 0 means its mechanical checks pass. The example intentionally fails readiness. V2 checks structured scientific records, declared artifact pins, result-access boundaries, per-field agreement/value digests, seed overlap, and review digests. It does not verify scientific validity, remote artifact bytes, identities, or authenticated human agreement. Field counts are not a scientific readiness score.</p>
+<p>It writes <code>osf_packet.md</code>, <code>readiness.json</code>, <code>protocol.snapshot.json</code>, <code>decision_ledger.csv</code>, <code>artifact_handoff.csv</code>, <code>prediction_matrix.csv</code>, and <code>design_assurance.csv</code>. Exit code 2 means unresolved decisions; exit code 0 means its mechanical checks pass. The example intentionally fails readiness. V3 checks the test contract as well as structured scientific records, declared artifact pins, result-access boundaries, per-field agreement/value digests, seed overlap, and review digests. It does not verify scientific validity, remote artifact bytes, identities, or authenticated human agreement. Field counts are not a scientific readiness score.</p>
 <ol start="4" type="1">
-<li>Resolve blockers. To create missing field-record slots without adopting any values, run <code>python scripts/scaffold_provenance.py protocol.json --out protocol.capture.json</code>. Edit the new copy using the evidence and actual decisions. <code>decision_ledger.csv</code> supplies the current value digest for each tracked field; writing that digest does not itself document agreement. Each required field needs its origin, source/locator, decision owner, and decision record. Analyst proposals also need explicit human-adoption evidence. Record science, implementation, and analysis reviews against the completed protocol's <code>review_digest</code>. One researcher can cover several roles. Any scientific edit invalidates the corresponding field decision and changes the overall review digest. Use the selected completed file in the freeze command below.</li>
+<li>Resolve blockers. To create missing field-record slots without adopting any values, run <code>python scripts/scaffold_provenance.py protocol.json --out protocol.capture.json</code>. Edit the new copy using the evidence and actual decisions. <code>decision_ledger.csv</code> supplies the current value digest for each tracked field; writing that digest does not itself document agreement. Each required field needs its origin, source/locator, decision owner, and decision record. Analyst proposals also need explicit human-adoption evidence. Complete the <a href="toolkit/templates/severe_test_review.md">results-blind test review</a>, including actual critical-perspective acceptance. Record science, implementation, analysis, and critical reviews against the completed protocol's <code>review_digest</code>. One researcher can cover several roles. Any scientific edit invalidates the corresponding field decision and changes the overall review digest. Use the selected completed file in the freeze command below.</li>
 <li>Set <code>status</code> to <code>approved_for_freeze</code>, then create a new local freeze directory:</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/build_packet.py protocol.capture.json <span class="at">--out</span> frozen-v2 <span class="at">--freeze</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/build_packet.py protocol.capture.json <span class="at">--out</span> frozen-v3 <span class="at">--freeze</span></span></code></pre></div>
 <p>The freeze contains the copied plan, rendered packet, hashes, and local freeze metadata. It is an archival convention, not an OSF timestamp or an access control. Protect the directory and version it. No network requests or simulations run through this script.</p>
 <p>Compiler checks can be run with <code>python -m unittest discover -s tests -v</code>. Test fixtures are synthetic declarations used only to verify software behavior; they are not scientific plans or recorded human approvals.</p>
 <h2 id="7-complete-the-osf-registration">7. Complete the OSF registration</h2>
@@ -335,12 +335,12 @@
 <li>Implement two-object occlusion trajectories, a split manifest, and deterministic scoring.</li>
 <li>Run a simple motion-prediction sanity baseline and test scoring on known identity swaps.</li>
 <li>Implement the two comparable predictive models and run a disclosed feasibility pilot.</li>
-<li>Select independent repetition count and exact analysis, resolve remaining fields, review, freeze, and register.</li>
+<li>Calibrate the exact analysis and independent repetition count, resolve the test contract in critical review, freeze, and register.</li>
 </ol>
 <p>The MVP is complete when a researcher can trace one claim from the meeting into an executable design and a complete OSF registration packet. Full API submission and a dashboard can be added later. They are not prerequisites for a useful first study.</p>
 <h2 id="10-structured-study-records-in-v2">10. Structured study records in v2</h2>
 <p>The video-based pipeline test identified five additions that are now part of the template, prompt, packet, and freeze checks:</p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Research planning table"><table>
+<div class="table-scroll" role="region" aria-label="Research planning table" tabindex="0"><table>
 <thead>
 <tr class="header">
 <th>Record</th>
@@ -376,17 +376,53 @@
 </tr>
 </tbody>
 </table></div>
-<p>The <a href="toolkit/SCHEMA.md">schema reference</a> explains the record shapes, conditional requirements, provenance workflow, and migration. The <a href="toolkit/CHANGELOG.md">changelog</a> describes the v2 compatibility change. Ordinary study outputs continue to use the same run manifest and deviation log.</p>
+<p>The <a href="toolkit/SCHEMA.md">schema reference</a> explains the record shapes, conditional requirements, provenance workflow, and migration. The <a href="toolkit/CHANGELOG.md">changelog</a> describes the version compatibility changes. Ordinary study outputs continue to use the same run manifest and deviation log.</p>
+<h2 id="11-discriminating-tests-and-fair-interpretation-in-v3">11. Discriminating tests and fair interpretation in v3</h2>
+<p>The <a href="toolkit/CRITIQUE.md">methodological critique</a>, informed by Melloni and colleagues' public COGITATE work, identified a gap between a complete record and a test that can distinguish explanations. This is Mind Guild's adaptation; Melloni and COGITATE have not reviewed or endorsed it.</p>
+<div class="table-scroll" role="region" aria-label="Research planning table" tabindex="0"><table>
+<thead>
+<tr class="header">
+<th>Addition</th>
+<th>Before freeze</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Level of inference</td>
+<td>Choose a mechanism benchmark or theory-discrimination study. State the phenomenon, allowed/excluded conclusions, and bridge assumptions. A tracking advantage alone does not establish consciousness.</td>
+</tr>
+<tr class="even">
+<td>Competing prediction matrix</td>
+<td>Derive versioned accounts' quantitative regions on the same estimand. Prespecify target-only, rival-only, both, neither, inconclusive, and invalid outcomes. A primary theory test needs exclusive possible results for both accounts.</td>
+</tr>
+<tr class="odd">
+<td>Design assurance</td>
+<td>Justify the minimum meaningful effect and run count. Check synthetic null, target, and rival scenarios, including Monte Carlo uncertainty; pin evidence and bind calibration to the scientific plan.</td>
+</tr>
+<tr class="even">
+<td>Critical review</td>
+<td>Record each perspective's actual acceptance of the design and interpretations. Distinguish proponents, proxies, and internal critics; disclose conflicts, role overlap, and unresolved disputes.</td>
+</tr>
+<tr class="odd">
+<td>Execution and reporting</td>
+<td>Lock analysis before unblinding, plan reserved-run or independent-implementation replication when claiming theory discrimination, and preserve all outcomes, attempts, amendments, and result-access history.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use the <a href="toolkit/TEST_CONTRACT.md">v3 contract reference</a> and <a href="toolkit/templates/severe_test_review.md">results-blind review worksheet</a>. Scientific choices remain null until decided. Small teams can disclose internal critical review and open analysis with limitations; a mechanism benchmark can explicitly make no replication claim. The stronger theory-discrimination gates are Mind Guild workflow choices, not OSF-wide requirements.</p>
+<p>The optional <code>scripts/calibrate_decisions.py</code> helper summarizes genuine synthetic intervals and known estimands using the declared prediction mapping. It does not generate simulator data, choose thresholds, fill the protocol, or approve a study. Preserve its inputs and report, inspect the counts, and record the emitted basis digest. A generator, model, decision-rule, or design change invalidates that calibration basis. The current engine supports two accounts and one scalar uncertainty interval per contrast; richer theory comparisons need an explicitly reviewed extension.</p>
 <h2 id="sources">Sources</h2>
-<p>Checked 11 November 2026. The workflow and example above are original recommendations; linked sources establish the OSF options and underlying methodological guidance.</p>
+<p>OSF guidance checked 11 November 2026; COGITATE sources checked 13 November 2026. The workflow and example above are original recommendations; linked sources establish the OSF options and underlying methodological guidance.</p>
 <ol type="1">
-<li>Center for Open Science. Simulation Studies preregistration template introduction: <a href="https://www.cos.io/blog/introducing-the-simulation-studies-preregistration-template">https://www.cos.io/blog/introducing-the-simulation-studies-preregistration-template</a></li>
-<li>OSF. Registration guide and template list: <a href="https://help.osf.io/article/330-welcome-to-registrations">https://help.osf.io/article/330-welcome-to-registrations</a></li>
-<li>OSF. Projects transition: registration questions and use cases: <a href="https://help.osf.io/article/768-osf-projects-transition-registration-questions-and-use-cases">https://help.osf.io/article/768-osf-projects-transition-registration-questions-and-use-cases</a> ; transition dates: <a href="https://help.osf.io/article/770-registrations">https://help.osf.io/article/770-registrations</a></li>
-<li>Morris, White &amp; Crowther (2019). Using simulation studies to evaluate statistical methods. <a href="https://doi.org/10.1002/sim.8086">https://doi.org/10.1002/sim.8086</a></li>
-<li>Agarwal et al. (2021). Deep Reinforcement Learning at the Edge of the Statistical Precipice. <a href="https://arxiv.org/abs/2108.13264">https://arxiv.org/abs/2108.13264</a></li>
-<li>Siepe et al. (2024). Simulation studies for methodological research in psychology. <a href="https://doi.org/10.1037/met0000695">https://doi.org/10.1037/met0000695</a></li>
-<li>OSF-linked public planning form (consulted to align section headings): <a href="https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit">https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit</a></li>
+<li><p>Center for Open Science. Simulation Studies preregistration template introduction: <a href="https://www.cos.io/blog/introducing-the-simulation-studies-preregistration-template">https://www.cos.io/blog/introducing-the-simulation-studies-preregistration-template</a></p></li>
+<li><p>OSF. Registration guide and template list: <a href="https://help.osf.io/article/330-welcome-to-registrations">https://help.osf.io/article/330-welcome-to-registrations</a></p></li>
+<li><p>OSF. Projects transition: registration questions and use cases: <a href="https://help.osf.io/article/768-osf-projects-transition-registration-questions-and-use-cases">https://help.osf.io/article/768-osf-projects-transition-registration-questions-and-use-cases</a> ; transition dates: <a href="https://help.osf.io/article/770-registrations">https://help.osf.io/article/770-registrations</a></p></li>
+<li><p>Morris, White &amp; Crowther (2019). Using simulation studies to evaluate statistical methods. <a href="https://doi.org/10.1002/sim.8086">https://doi.org/10.1002/sim.8086</a></p></li>
+<li><p>Agarwal et al. (2021). Deep Reinforcement Learning at the Edge of the Statistical Precipice. <a href="https://arxiv.org/abs/2108.13264">https://arxiv.org/abs/2108.13264</a></p></li>
+<li><p>Siepe et al. (2024). Simulation studies for methodological research in psychology. <a href="https://doi.org/10.1037/met0000695">https://doi.org/10.1037/met0000695</a></p></li>
+<li><p>OSF-linked public planning form (consulted to align section headings): <a href="https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit">https://docs.google.com/document/d/1aA9kdjUS2dGtti45QdgxKUAuQMaOjvHMWyjxTtSpl_8/edit</a></p></li>
+<li><p>Melloni et al. (2023). Adversarial collaboration protocol: <a href="https://doi.org/10.1371/journal.pone.0268577">https://doi.org/10.1371/journal.pone.0268577</a></p></li>
+<li><p>COGITATE Consortium et al. (2025). Adversarial theory testing and implementation-level inference: <a href="https://doi.org/10.1038/s41586-025-08888-1">https://doi.org/10.1038/s41586-025-08888-1</a></p></li>
 </ol>
 <p>Context used: <code>paper outline 20261106.docx</code> and the available opening sections of <code>Draft Position Paper 20261104.docx</code>, plus your current occlusion-task direction. These motivate the example; they do not establish finalized numerical design decisions or completed implementations.</p>
 </article>
